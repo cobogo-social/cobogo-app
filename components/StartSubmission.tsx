@@ -1,18 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Button from './Button';
+import TopBar from './TopBar';
 
 export default function StartSubmission() {
   return (
     <div className="bg-primary w-full h-full p-8">
-      <div className="flex w-full justify-end mb-28">
-        <Link href="/">
-          <a>
-            <p className="text-white font-bold mr-8">back to home</p>
-          </a>
-        </Link>
-        <p className="text-white font-bold">connect to wallet</p>
-      </div>
+      <TopBar />
 
       <div className="flex flex-col justify-center items-center">
         <div className="mb-12">
@@ -35,7 +29,14 @@ export default function StartSubmission() {
 
         <Link href="/submit/connect">
           <a className="mb-28">
-            <Button />
+            <Button
+              text="start submission"
+              color="bg-purple"
+              hoverColor="brightness-90"
+              width="w-48"
+              height="h-12"
+              fontSize="text-xl"
+            />
           </a>
         </Link>
 

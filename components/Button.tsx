@@ -1,7 +1,25 @@
-export default function Button() {
+interface ButtonProps {
+  text: string;
+  color: string;
+  hoverColor: string;
+  width: string;
+  height: string;
+  fontSize: string;
+}
+
+export default function Button({
+  text,
+  color,
+  hoverColor,
+  width,
+  height,
+  fontSize,
+}: ButtonProps) {
   return (
-    <button className="w-48 h-12 bg-purple hover:bg-purplehover font-bold text-xl text-white">
-      start submission
+    <button
+      className={`${width} ${height} ${color} hover:${hoverColor} font-bold ${fontSize} text-white`}
+    >
+      {text}
     </button>
   );
 }

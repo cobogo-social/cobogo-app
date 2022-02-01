@@ -15,14 +15,27 @@ export default function Steps() {
 
       <p className="text-white mb-8 text-2xl">submit a channel</p>
 
-      <StepItem number="1" text="connect" />
-      <StepItem number="2" text="create profile" />
-      <StepItem number="3" text="review" />
-      <StepItem number="4" text="video" />
-      <StepItem number="5" text="connect wallet" />
-      <StepItem number="6" text="network" />
-      <StepItem number="7" text="create pool" />
-      <StepItem number="8" text="ready for staking" last />
+      <StepItem number="1" text="connect" href="/submit/connect" />
+      <StepItem
+        number="2"
+        text="create profile"
+        href="/submit/create-profile"
+      />
+      <StepItem number="3" text="review" href="/submit/review" />
+      <StepItem number="4" text="video" href="/submit/video" />
+      <StepItem
+        number="5"
+        text="connect wallet"
+        href="/submit/connect-wallet"
+      />
+      <StepItem number="6" text="network" href="/submit/network" />
+      <StepItem number="7" text="create pool" href="/submit/create-pool" />
+      <StepItem
+        number="8"
+        text="ready for staking"
+        href="/submit/ready-for-staking"
+        last
+      />
     </div>
   );
 }
