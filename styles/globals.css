@@ -15,6 +15,50 @@ a {
   text-decoration: none;
 }
 
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('/fonts/ProximaNova/ProximaNova-Light.ttf');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('/fonts/ProximaNova/ProximaNova-Regular.ttf');
+  font-style: medium;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('/fonts/ProximaNova/ProximaNova-Semibold.ttf');
+  font-style: medium;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('/fonts/ProximaNova/ProximaNova-Bold.ttf');
+  font-style: medium;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('/fonts/ProximaNova/ProximaNova-Extrabld.ttf');
+  font-style: medium;
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ProximaNova';
+  src: url('/fonts/ProximaNova/ProximaNova-Black.ttf');
+  font-style: medium;
+  font-weight: 900;
+  font-display: swap;
+}
+
 * {
+  font-family: 'ProximaNova';
   box-sizing: border-box;
 }
