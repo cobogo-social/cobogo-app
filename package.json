@@ -1,5 +1,5 @@
 {
-  "name": "cobogo-social.app",
+  "name": "cobogo-app",
   "private": true,
   "scripts": {
     "dev": "next dev",
