@@ -1,28 +1,88 @@
+import { useFormik } from 'formik';
 import Image from 'next/image';
+import { useState } from 'react';
 import Button from './Button';
+import Categories from './Categories';
+import CategoriesInput from './CategoriesInput';
+import SpaceOfficialBanner from './SpaceOfficialBanner';
 import TopBar from './TopBar';
 
+interface RequestBody {
+  description: string;
+  handle: string;
+  categories: string[];
+}
+
 export default function Connect() {
+  const [categoriesList, setCategoriesList] = useState<string[]>([]);
+  const [input, setInput] = useState('');
+  const [requestBody, setRequestBody] = useState<RequestBody>(
+    {} as RequestBody
+  );
+
+  const formik = useFormik({
+    initialValues: {
+      description: '',
+      handle: '',
+    },
+    onSubmit: (values) => {
+      setRequestBody({ ...values, categories: categoriesList });
+    },
+  });
+
+  async function handleChangeCategories(event) {
+    setInput(event.target.value);
+
+    if (event.key === 'Enter') {
+      setCategoriesList([...categoriesList, input]);
+      setInput('');
+    }
+  }
+
+  async function handleRemoveCategory(category: string) {
+    setCategoriesList(categoriesList.filter((c) => c !== category));
+  }
+
+  async function handleRequest(event) {
+    if (event.key === 'Enter') {
+      return;
+    }
+
+    console.log(requestBody);
+  }
+
   return (
     <div className="bg-primary w-full h-full p-8">
       <TopBar />
       <div className="flex flex-row justify-between items-start px-16">
-        <div className="flex flex-col">
+        <form className="flex flex-col" onSubmit={formik.handleSubmit}>
           <p className="text-4xl text-white">create profile</p>
-          <p className="text-lg text-white mb-4">
+
+          <label htmlFor="description" className="text-lg text-white mb-4">
             write a description to be visible on your public profile.
-          </p>
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            className="w-[432px] h-32 bg-black border-[1.5px] border-details mb-8 p-2 outline-none text-white"
+            onChange={formik.handleChange}
+            value={formik.values.description}
+          />
 
-          <textarea className="w-[432px] h-32 bg-black border-[1.5px] border-details mb-8 p-2 outline-none text-white" />
-
-          <p className="text-lg text-white mb-4">choose a handle</p>
+          <label htmlFor="handle" className="text-lg text-white mb-4">
+            choose a handle
+          </label>
           <div className="flex">
             <div className="w-48 h-12 bg-secondary flex justify-center items-center border-[1.5px] border-r-0 border-details">
               <p className="text-white font-bold">https://cobogo-social/</p>
             </div>
             <input
-              className="w-60 h-12 bg-black border-[1.5px] border-l-0 border-details mb-8 p-2 outline-none text-white"
+              id="handle"
+              name="handle"
               type="text"
+              onChange={formik.handleChange}
+              value={formik.values.handle}
+              className="w-60 h-12 bg-black border-[1.5px] border-l-0 border-details mb-8 p-2 outline-none text-white"
             />
           </div>
 
@@ -36,23 +96,16 @@ export default function Connect() {
                 alt="search icon"
               />
             </div>
-            <input
-              className="w-96 h-12 bg-black border-[1.5px] border-l-0 border-details mb-5 text-white p-2 outline-none"
-              type="text"
+            <CategoriesInput
+              input={input}
+              handleChangeCategories={handleChangeCategories}
             />
           </div>
 
-          <div className="mb-12 w-24 h-8">
-            <div className="bg-black border-[1.5px] border-details flex justify-center items-center p-1">
-              <p className="font-bold text-white mr-2">SPACE</p>
-              <Image
-                src="/images/x-icon.svg"
-                width={16}
-                height={16}
-                alt="x icon"
-              />
-            </div>
-          </div>
+          <Categories
+            categories={categoriesList}
+            handleRemoveCategory={handleRemoveCategory}
+          />
 
           <Button
             text="send to review"
@@ -61,24 +114,11 @@ export default function Connect() {
             width="w-40"
             height="h-9"
             fontSize=""
+            onClick={handleRequest}
+            onKeyDown={handleRequest}
           />
-        </div>
-        <div className="w-[275px] h-[296px] bg-black border-[1.5px] border-details">
-          <Image
-            src="/images/space-official.svg"
-            width={275}
-            height={43}
-            alt="space official"
-          />
-
-          <p className="font-bold text-white text-xl px-4">Space Official</p>
-          <p className="text-white text-sm px-4">/spaceofficial</p>
-          <p className="text-white px-4">
-            Follow the latest Rocket launch webcasts, Conferences & more
-            space-related Livestream events. SPACE (Official) provides a
-            Platform for Aerospace companies (...)
-          </p>
-        </div>
+        </form>
+        <SpaceOfficialBanner />
       </div>
     </div>
   );
