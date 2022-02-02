@@ -60,7 +60,7 @@ export default function Connect() {
       <TopBar />
       <div className="flex flex-row justify-between items-start px-16">
         <form className="flex flex-col" onSubmit={formik.handleSubmit}>
-          <p className="text-4xl text-white">create profile</p>
+          <p className="text-4xl text-white mb-4">create profile</p>
 
           <label htmlFor="description" className="text-lg text-white mb-4">
             write a description to be visible on your public profile.

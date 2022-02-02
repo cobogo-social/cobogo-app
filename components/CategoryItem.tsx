@@ -8,7 +8,7 @@ interface CategoryItemProps {
 export default function CategoryItem({ category, onClick }: CategoryItemProps) {
   return (
     <div
-      className="h-8 pbg-black border-[1.5px] border-details flex justify-center items-center p-1 mr-4 mb-4 hover:cursor-pointer"
+      className="h-8 bg-black border-[1.5px] border-details flex justify-center items-center p-1 mr-4 mb-4 hover:cursor-pointer"
       onClick={() => onClick(category)}
     >
       <p className="font-bold text-white mr-2">{category.toUpperCase()}</p>

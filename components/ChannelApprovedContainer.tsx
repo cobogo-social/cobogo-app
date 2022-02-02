@@ -12,14 +12,18 @@ export default function ChannelApprovedContainer() {
       </p>
 
       <div className="mb-7">
-        <Button
-          width="w-28"
-          height="h-9"
-          color="bg-blue"
-          hoverColor="brightness-90"
-          text="next step"
-          fontSize=""
-        />
+        <Link href="/submit/video">
+          <a>
+            <Button
+              width="w-28"
+              height="h-9"
+              color="bg-blue"
+              hoverColor="brightness-90"
+              text="next step"
+              fontSize=""
+            />
+          </a>
+        </Link>
       </div>
 
       <Link href="https://www.youtube.com/">
