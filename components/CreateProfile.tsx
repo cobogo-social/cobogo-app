@@ -1,10 +1,11 @@
 import { useFormik } from 'formik';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Button from './Button';
 import Categories from './Categories';
 import CategoriesInput from './CategoriesInput';
-import SpaceOfficialBanner from './SpaceOfficialBanner';
+import ChannelBanner from './ChannelBanner';
 import TopBar from './TopBar';
 
 interface RequestBody {
@@ -19,6 +20,8 @@ export default function Connect() {
   const [requestBody, setRequestBody] = useState<RequestBody>(
     {} as RequestBody
   );
+
+  const { push } = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -49,6 +52,7 @@ export default function Connect() {
     }
 
     console.log(requestBody);
+    push('/submit/review');
   }
 
   return (
@@ -118,7 +122,7 @@ export default function Connect() {
             onKeyDown={handleRequest}
           />
         </form>
-        <SpaceOfficialBanner />
+        <ChannelBanner />
       </div>
     </div>
   );

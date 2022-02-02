@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function SpaceOfficialBanner() {
+export default function ChannelBanner() {
   return (
     <div className="w-[275px] h-[296px] bg-black border-[1.5px] border-details">
       <Image
