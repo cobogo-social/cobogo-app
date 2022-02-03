@@ -21,20 +21,18 @@ export default function VerifyVideoContainer() {
         <Bullet text="link to" link="https://cobogo.social/space-official" />
       </div>
 
-      <div className="mb-7">
-        <Link href="/submit/video">
-          <a>
-            <Button
-              width="w-32"
-              height="h-9"
-              color="bg-blue"
-              hoverColor="brightness-90"
-              text="verify video"
-              fontSize=""
-            />
-          </a>
-        </Link>
-      </div>
+      <Link href="/submit/video">
+        <a>
+          <Button
+            width="w-32"
+            height="h-9"
+            color="bg-blue"
+            hoverColor="brightness-90"
+            text="verify video"
+            fontSize=""
+          />
+        </a>
+      </Link>
     </div>
   );
 }

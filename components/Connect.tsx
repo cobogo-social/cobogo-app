@@ -11,7 +11,7 @@ export default function Connect() {
         <div className="flex items-start w-full justify-between">
           <div>
             <p className="text-4xl text-white mb-4">connect</p>
-            <p className="text-lg text-white mb-9">
+            <p className="text-lg text-white mb-12">
               connect your YouTube account and channel.
             </p>
 

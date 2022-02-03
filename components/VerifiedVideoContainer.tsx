@@ -10,20 +10,18 @@ export default function VerifiedVideoContainer() {
         there is a video on your channel that meet the rules.
       </p>
 
-      <div className="mb-7">
-        <Link href="/submit/connect-wallet">
-          <a>
-            <Button
-              width="w-28"
-              height="h-9"
-              color="bg-blue"
-              hoverColor="brightness-90"
-              text="next step"
-              fontSize=""
-            />
-          </a>
-        </Link>
-      </div>
+      <Link href="/submit/connect-wallet">
+        <a>
+          <Button
+            width="w-28"
+            height="h-9"
+            color="bg-blue"
+            hoverColor="brightness-90"
+            text="next step"
+            fontSize=""
+          />
+        </a>
+      </Link>
     </div>
   );
 }
