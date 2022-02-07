@@ -1,10 +1,57 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
 import Button from './Button';
-import ChannelBanner from './ChannelBanner';
 import TopBar from './TopBar';
 
 export default function ConnectWallet() {
+  const [currentAccount, setCurrentAccount] = useState('');
+
+  const checkIfWalletIsConnected = useCallback(async () => {
+    const { ethereum } = window as any;
+
+    try {
+      if (!ethereum) {
+        console.log('Make sure you have metamask!');
+      } else {
+        console.log('We have the ethereum object', ethereum);
+      }
+
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+      if (accounts.length !== 0) {
+        const account = accounts[0];
+        console.log('Found an authorized account:', account);
+        setCurrentAccount(account);
+      } else {
+        console.log('No authorized account found');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  async function connectWallet() {
+    const { ethereum } = window as any;
+
+    try {
+      if (!ethereum) {
+        alert('Get MetaMask!');
+        return;
+      }
+
+      const accounts = await ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+      setCurrentAccount(accounts[0]);
+      checkIfWalletIsConnected();
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, [checkIfWalletIsConnected]);
+
   return (
     <div className="bg-primary w-full h-full p-8">
       <TopBar />
@@ -18,18 +65,15 @@ export default function ConnectWallet() {
             exchange—everything you need to manage your digital assets.
           </p>
 
-          <Link href="/submit/video">
-            <a>
-              <Button
-                width="w-52"
-                height="h-9"
-                color="bg-orange"
-                hoverColor="brightness-90"
-                text="connect to MetaMask"
-                fontSize=""
-              />
-            </a>
-          </Link>
+          <Button
+            width="w-52"
+            height="h-9"
+            color="bg-orange"
+            hoverColor="brightness-90"
+            text={currentAccount === '' ? 'connect to MetaMask' : 'connected'}
+            fontSize=""
+            onClick={connectWallet}
+          />
         </div>
 
         <Image

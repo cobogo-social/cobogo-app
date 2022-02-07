@@ -1,9 +1,32 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function TopBar() {
   const [currentAccount, setCurrentAccount] = useState('');
+
+  const checkIfWalletIsConnected = useCallback(async () => {
+    const { ethereum } = window as any;
+
+    try {
+      if (!ethereum) {
+        console.log('Make sure you have metamask!');
+      } else {
+        console.log('We have the ethereum object', ethereum);
+      }
+
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+      if (accounts.length !== 0) {
+        const account = accounts[0];
+        console.log('Found an authorized account:', account);
+        setCurrentAccount(account);
+      } else {
+        console.log('No authorized account found');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   async function connectWallet() {
     const { ethereum } = window as any;
@@ -23,13 +46,17 @@ export default function TopBar() {
     }
   }
 
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, [checkIfWalletIsConnected]);
+
   return (
-    <div className="flex w-full justify-end items-center mb-28">
-      <Link href="/">
+    <div className="flex w-full justify-end items-center mb-[70px]">
+      {/* <Link href="/">
         <a>
           <p className="text-white font-bold mr-8">back to home</p>
         </a>
-      </Link>
+      </Link> */}
       <p
         className="text-white font-bold hover:cursor-pointer"
         onClick={connectWallet}

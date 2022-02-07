@@ -7,6 +7,8 @@ import Categories from './Categories';
 import CategoriesInput from './CategoriesInput';
 import ChannelBanner from './ChannelBanner';
 import TopBar from './TopBar';
+import { GetServerSideProps } from 'next';
+import youtubeApi from '../services/youtubeApi';
 
 interface RequestBody {
   description: string;
@@ -127,3 +129,16 @@ export default function Connect() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  youtubeApi
+    .get('/channels', {
+      params: { managedByMe: true },
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+
+  return {
+    props: {},
+  };
+};

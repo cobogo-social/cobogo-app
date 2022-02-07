@@ -21,9 +21,9 @@ export default function Steps() {
         text="create profile"
         href="/submit/create-profile"
       />
-      <StepItem number="3" text="review" href="/submit/review" />
-      <StepItem number="4" text="video" href="/submit/video" />
-      <StepItem
+      <StepItem number="3" text="video" href="/submit/video" />
+      <StepItem number="4" text="review" href="/submit/review" />
+      {/* <StepItem
         number="5"
         text="connect wallet"
         href="/submit/connect-wallet"
@@ -35,7 +35,7 @@ export default function Steps() {
         text="ready for staking"
         href="/submit/ready-for-staking"
         last
-      />
+      /> */}
     </div>
   );
 }

@@ -6,6 +6,19 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      // authorization: {
+      //   params: {
+      //     scope: 'https://www.googleapis.com/auth/youtube.readonly',
+      //   },
+      // },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user, account, profile, isNewUser }) {
+      if (account?.accessToken) {
+        token.accessToken = account.accessToken;
+      }
+      return token;
+    },
+  },
 });
