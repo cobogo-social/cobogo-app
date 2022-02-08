@@ -1,14 +1,13 @@
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from './Button';
 import Categories from './Categories';
 import CategoriesInput from './CategoriesInput';
 import ChannelBanner from './ChannelBanner';
 import TopBar from './TopBar';
-import { GetServerSideProps } from 'next';
-import youtubeApi from '../services/youtubeApi';
+import { signIn, useSession } from 'next-auth/react';
 
 interface RequestBody {
   description: string;
@@ -16,13 +15,26 @@ interface RequestBody {
   categories: string[];
 }
 
-export default function Connect() {
+interface CreateProfileProps {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  statistics: {
+    viewCount: string;
+    subscriberCount: string;
+    videoCount: string;
+  };
+}
+
+export default function CreateProfile(props) {
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
   const [input, setInput] = useState('');
   const [requestBody, setRequestBody] = useState<RequestBody>(
     {} as RequestBody
   );
 
+  const { data: session } = useSession();
   const { push } = useRouter();
 
   const formik = useFormik({
@@ -31,7 +43,8 @@ export default function Connect() {
       handle: '',
     },
     onSubmit: (values) => {
-      setRequestBody({ ...values, categories: categoriesList });
+      // setRequestBody({ ...values, categories: categoriesList });
+      console.log({ ...values, categories: categoriesList });
     },
   });
 
@@ -39,6 +52,9 @@ export default function Connect() {
     setInput(event.target.value);
 
     if (event.key === 'Enter') {
+      if (categoriesList.length === 5) {
+        return;
+      }
       setCategoriesList([...categoriesList, input]);
       setInput('');
     }
@@ -52,10 +68,13 @@ export default function Connect() {
     if (event.key === 'Enter') {
       return;
     }
-
-    console.log(requestBody);
-    push('/submit/review');
   }
+
+  useEffect(() => {
+    if (session?.error === 'RefreshAccessTokenError') {
+      signIn('google');
+    }
+  }, [session]);
 
   return (
     <div className="bg-primary w-full h-full p-8">
@@ -72,6 +91,9 @@ export default function Connect() {
             name="description"
             className="w-[432px] h-32 bg-black border-[1.5px] border-details mb-8 p-2 outline-none text-white"
             onChange={formik.handleChange}
+            onKeyPress={(e) => {
+              e.key === 'Enter' && e.preventDefault();
+            }}
             value={formik.values.description}
           />
 
@@ -87,6 +109,9 @@ export default function Connect() {
               name="handle"
               type="text"
               onChange={formik.handleChange}
+              onKeyPress={(e) => {
+                e.key === 'Enter' && e.preventDefault();
+              }}
               value={formik.values.handle}
               className="w-60 h-12 bg-black border-[1.5px] border-l-0 border-details mb-8 p-2 outline-none text-white"
             />
@@ -124,21 +149,8 @@ export default function Connect() {
             onKeyDown={handleRequest}
           />
         </form>
-        <ChannelBanner />
+        <ChannelBanner channelData={props} />
       </div>
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  youtubeApi
-    .get('/channels', {
-      params: { managedByMe: true },
-    })
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
-
-  return {
-    props: {},
-  };
-};

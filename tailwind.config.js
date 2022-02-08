@@ -17,6 +17,7 @@ module.exports = {
       green: '#80C660',
       orange: '#F6851B',
       ocean: '#29354F',
+      violet: '#6C63FF',
     },
     extend: {},
   },

@@ -13,6 +13,9 @@ export default function CategoriesInput({
       type="text"
       value={input}
       onChange={handleChangeCategories}
+      onKeyPress={(e) => {
+        e.key === 'Enter' && e.preventDefault();
+      }}
       onKeyDown={handleChangeCategories}
     />
   );
