@@ -8,34 +8,13 @@ import CategoriesInput from './CategoriesInput';
 import ChannelBanner from './ChannelBanner';
 import TopBar from './TopBar';
 import { signIn, useSession } from 'next-auth/react';
-
-interface RequestBody {
-  description: string;
-  handle: string;
-  categories: string[];
-}
-
-interface CreateProfileProps {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  statistics: {
-    viewCount: string;
-    subscriberCount: string;
-    videoCount: string;
-  };
-}
+import cobogoApi from '../services/cobogoApi';
 
 export default function CreateProfile(props) {
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
   const [input, setInput] = useState('');
-  const [requestBody, setRequestBody] = useState<RequestBody>(
-    {} as RequestBody
-  );
 
   const { data: session } = useSession();
-  const { push } = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -43,8 +22,16 @@ export default function CreateProfile(props) {
       handle: '',
     },
     onSubmit: (values) => {
-      // setRequestBody({ ...values, categories: categoriesList });
-      console.log({ ...values, categories: categoriesList });
+      cobogoApi
+        .post('/api/profiles', {
+          data: {
+            ...values,
+            categories: categoriesList.toString(),
+            account_email: session.user.email,
+          },
+        })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
     },
   });
 

@@ -1,22 +1,10 @@
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import { useEffect } from 'react';
 import CreateProfile from '../../components/CreateProfile';
 import Footer from '../../components/Footer';
 import Steps from '../../components/Steps';
 import youtubeApi from '../../services/youtubeApi';
-
-interface CreateProfileProps {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  statistics: {
-    viewCount: string;
-    subscriberCount: string;
-    videoCount: string;
-  };
-}
+import cobogoApi from '../../services/cobogoApi';
 
 export default function Index(props) {
   return (
@@ -38,6 +26,19 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     return {
       redirect: {
         destination: '/submit/connect',
+        permanent: false,
+      },
+    };
+  }
+
+  const createdProfile = await cobogoApi.get(
+    `/api/profiles?filters[account_email][$eq]=${session?.user.email}`
+  );
+
+  if (createdProfile.data.data.length != 0) {
+    return {
+      redirect: {
+        destination: '/submit/video',
         permanent: false,
       },
     };

@@ -1,12 +1,9 @@
-import Link from 'next/link';
-import Bullet from './Bullet';
-import Button from './Button';
 import ChannelBanner from './ChannelBanner';
 import TopBar from './TopBar';
 import VerifiedVideoContainer from './VerifiedVideoContainer';
 import VerifyVideoContainer from './VerifyVideoContainer';
 
-export default function Video() {
+export default function Video(props) {
   const verified = false;
 
   return (
@@ -15,7 +12,7 @@ export default function Video() {
       <div className="flex flex-row justify-between items-start px-16">
         {verified ? <VerifiedVideoContainer /> : <VerifyVideoContainer />}
 
-        <ChannelBanner />
+        <ChannelBanner channelData={props} />
       </div>
     </div>
   );
