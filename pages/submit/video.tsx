@@ -4,10 +4,15 @@ import Steps from '../../components/Steps';
 import { getSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
 import youtubeApi from '../../services/youtubeApi';
+import cobogoApi from '../../services/cobogoApi';
+import Head from 'next/head';
 
 export default function Index(props) {
   return (
     <div className="w-full">
+      <Head>
+        <title>cobogo - submit</title>
+      </Head>
       <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
         <Steps />
         <Video channelData={props} />
@@ -39,6 +44,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   );
 
+  const createdProfile = await cobogoApi.get(
+    `/api/profiles?filters[account_email][$eq]=${session?.user.email}`
+  );
+
   return {
     props: {
       id: response.data.items[0].id,
@@ -50,6 +59,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         subscriberCount: response.data.items[0].statistics.subscriberCount,
         videoCount: response.data.items[0].statistics.videoCount,
       },
+      channelHandle: createdProfile.data.data[0].attributes.handle,
     },
   };
 };

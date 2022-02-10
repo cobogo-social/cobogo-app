@@ -1,14 +1,14 @@
 import Image from 'next/image';
 
-export default function WaitlistContainer() {
+export default function WaitlistContainer(props) {
   return (
     <div className="flex flex-col">
       <p className="text-4xl text-white mb-4">waitlist</p>
       <p className="text-xl text-white w-[408px] mb-12">
         <span className="font-bold">cobogo</span> is a dApp still in
         development, but The channel{' '}
-        <span className="font-bold">Space Official</span> has been added to the
-        waitlist.
+        <span className="font-bold">{props.channelData.channelData.title}</span>{' '}
+        has been added to the waitlist.
       </p>
 
       <div className="flex h-[60px] justify-center items-center">

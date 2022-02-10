@@ -4,10 +4,14 @@ import Steps from '../../components/Steps';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import youtubeApi from '../../services/youtubeApi';
+import Head from 'next/head';
 
 export default function Index(props) {
   return (
     <div className="w-full">
+      <Head>
+        <title>cobogo - submit</title>
+      </Head>
       <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
         <Steps />
         <Review channelData={props} />

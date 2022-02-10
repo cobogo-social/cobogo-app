@@ -1,6 +1,5 @@
 import { useFormik } from 'formik';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Button from './Button';
 import Categories from './Categories';
@@ -9,29 +8,61 @@ import ChannelBanner from './ChannelBanner';
 import TopBar from './TopBar';
 import { signIn, useSession } from 'next-auth/react';
 import cobogoApi from '../services/cobogoApi';
+import { useRouter } from 'next/router';
+import * as yup from 'yup';
+import Loading from './Loading';
 
 export default function CreateProfile(props) {
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
   const [input, setInput] = useState('');
+  const [createdProfile, setCreatedProfile] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { data: session } = useSession();
+  const { push } = useRouter();
+
+  const schema = yup.object().shape({
+    description: yup.string().required('description required'),
+    handle: yup.string().required('handle required'),
+  });
 
   const formik = useFormik({
     initialValues: {
       description: '',
       handle: '',
     },
-    onSubmit: (values) => {
-      cobogoApi
-        .post('/api/profiles', {
-          data: {
-            ...values,
-            categories: categoriesList.toString(),
-            account_email: session.user.email,
-          },
+    onSubmit: async (values) => {
+      setIsLoading(true);
+
+      schema
+        .validate({
+          description: values.description,
+          handle: values.handle,
         })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+        .then((valid) => {
+          if (valid) {
+            cobogoApi
+              .post('/api/profiles', {
+                data: {
+                  ...values,
+                  categories: categoriesList.toString(),
+                  account_email: session.user.email,
+                },
+              })
+              .then(() => {
+                setCreatedProfile(true);
+                setIsLoading(false);
+              })
+              .catch((error) => {
+                console.log(error);
+                setIsLoading(false);
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
     },
   });
 
@@ -63,81 +94,91 @@ export default function CreateProfile(props) {
     }
   }, [session]);
 
+  useEffect(() => {
+    if (createdProfile) {
+      push('/submit/video');
+    }
+  }, [push, createdProfile]);
+
   return (
-    <div className="bg-primary w-full h-full p-8">
-      <TopBar />
-      <div className="flex flex-row justify-between items-start px-16">
-        <form className="flex flex-col" onSubmit={formik.handleSubmit}>
-          <p className="text-4xl text-white mb-4">create profile</p>
+    <>
+      <Loading isLoading={isLoading} />
 
-          <label htmlFor="description" className="text-lg text-white mb-4">
-            write a description to be visible on your public profile.
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            className="w-[432px] h-32 bg-black border-[1.5px] border-details mb-8 p-2 outline-none text-white"
-            onChange={formik.handleChange}
-            onKeyPress={(e) => {
-              e.key === 'Enter' && e.preventDefault();
-            }}
-            value={formik.values.description}
-          />
+      <div className="bg-primary w-full h-full p-8">
+        <TopBar />
+        <div className="flex flex-row justify-between items-start px-16 2xl:px-64">
+          <form className="flex flex-col" onSubmit={formik.handleSubmit}>
+            <p className="text-4xl text-white mb-4">create profile</p>
 
-          <label htmlFor="handle" className="text-lg text-white mb-4">
-            choose a handle
-          </label>
-          <div className="flex">
-            <div className="w-48 h-12 bg-secondary flex justify-center items-center border-[1.5px] border-r-0 border-details">
-              <p className="text-white font-bold">https://cobogo-social/</p>
-            </div>
-            <input
-              id="handle"
-              name="handle"
-              type="text"
+            <label htmlFor="description" className="text-lg text-white mb-4">
+              write a description to be visible on your public profile.
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              className="w-[432px] h-32 bg-black border-[1.5px] border-details mb-8 p-2 outline-none text-white"
               onChange={formik.handleChange}
               onKeyPress={(e) => {
                 e.key === 'Enter' && e.preventDefault();
               }}
-              value={formik.values.handle}
-              className="w-60 h-12 bg-black border-[1.5px] border-l-0 border-details mb-8 p-2 outline-none text-white"
+              value={formik.values.description}
             />
-          </div>
 
-          <p className="text-lg text-white mb-4">choose categories</p>
-          <div className="flex">
-            <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-details flex justify-center items-center">
-              <Image
-                src="/images/search-icon.svg"
-                width={19}
-                height={19}
-                alt="search icon"
+            <label htmlFor="handle" className="text-lg text-white mb-4">
+              choose a handle
+            </label>
+            <div className="flex">
+              <div className="w-48 h-12 bg-secondary flex justify-center items-center border-[1.5px] border-r-0 border-details">
+                <p className="text-white font-bold">https://cobogo-social/</p>
+              </div>
+              <input
+                id="handle"
+                name="handle"
+                type="text"
+                onChange={formik.handleChange}
+                onKeyPress={(e) => {
+                  e.key === 'Enter' && e.preventDefault();
+                }}
+                value={formik.values.handle}
+                className="w-60 h-12 bg-black border-[1.5px] border-l-0 border-details mb-8 p-2 outline-none text-white"
               />
             </div>
-            <CategoriesInput
-              input={input}
-              handleChangeCategories={handleChangeCategories}
+
+            <p className="text-lg text-white mb-4">choose categories</p>
+            <div className="flex">
+              <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-details flex justify-center items-center">
+                <Image
+                  src="/images/search-icon.svg"
+                  width={19}
+                  height={19}
+                  alt="search icon"
+                />
+              </div>
+              <CategoriesInput
+                input={input}
+                handleChangeCategories={handleChangeCategories}
+              />
+            </div>
+
+            <Categories
+              categories={categoriesList}
+              handleRemoveCategory={handleRemoveCategory}
             />
-          </div>
 
-          <Categories
-            categories={categoriesList}
-            handleRemoveCategory={handleRemoveCategory}
-          />
-
-          <Button
-            text="send to review"
-            color="bg-blue"
-            hoverColor="brightness-90"
-            width="w-40"
-            height="h-9"
-            fontSize=""
-            onClick={handleRequest}
-            onKeyDown={handleRequest}
-          />
-        </form>
-        <ChannelBanner channelData={props} />
+            <Button
+              text="send to review"
+              color="bg-blue"
+              hoverColor="brightness-90"
+              width="w-40"
+              height="h-9"
+              fontSize=""
+              onClick={handleRequest}
+              onKeyDown={handleRequest}
+            />
+          </form>
+          <ChannelBanner channelData={props} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

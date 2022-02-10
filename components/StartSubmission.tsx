@@ -44,7 +44,7 @@ export default function StartSubmission() {
           if you have any questions about the onboarding process:
         </p>
         <div className="flex">
-          <Link href="https://docs.cobogo.social/project/introd uction">
+          <Link href="https://docs.cobogo.social/project/introduction">
             <a target="_blank" rel="noopener noreferrer">
               <p className="font-bold text-blue mr-8">our documentation</p>
             </a>

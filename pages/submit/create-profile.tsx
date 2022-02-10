@@ -5,10 +5,14 @@ import Footer from '../../components/Footer';
 import Steps from '../../components/Steps';
 import youtubeApi from '../../services/youtubeApi';
 import cobogoApi from '../../services/cobogoApi';
+import Head from 'next/head';
 
 export default function Index(props) {
   return (
     <div className="w-full">
+      <Head>
+        <title>cobogo - submit</title>
+      </Head>
       <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
         <Steps />
         <CreateProfile channelData={props} />
@@ -52,6 +56,20 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       },
     }
   );
+
+  const createdChannel = await cobogoApi.get(
+    `/api/channels?filters[account_email][$eq]=${session?.user.email}`
+  );
+
+  if (createdChannel.data.data.length === 0) {
+    await cobogoApi.post('/api/channels', {
+      data: {
+        title: response.data.items[0].snippet.title,
+        description: response.data.items[0].snippet.description,
+        account_email: session.user.email,
+      },
+    });
+  }
 
   return {
     props: {

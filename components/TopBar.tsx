@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
 export default function TopBar() {
@@ -72,7 +71,7 @@ export default function TopBar() {
               alt="metamask small icon"
             />
             <p className="ml-2">
-              {currentAccount.slice(0, 5)}...{currentAccount.slice(6, 10)}
+              {currentAccount.slice(0, 5)}...{currentAccount.slice(38)}
             </p>
             <div className="w-[9px] h-[9px] bg-green ml-2 rounded-full"></div>
           </div>

@@ -33,7 +33,7 @@ export default function Network() {
 
   return (
     <div className="bg-primary w-full h-full p-8">
-      <TopBar />
+      {/* <TopBar />
       <div className="flex flex-row justify-between items-start px-16">
         <div className="flex flex-col">
           <p className="text-4xl text-white mb-4">network</p>
@@ -78,7 +78,7 @@ export default function Network() {
         </div>
 
         <ChannelBanner />
-      </div>
+      </div> */}
     </div>
   );
 }
