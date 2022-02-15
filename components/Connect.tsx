@@ -1,8 +1,8 @@
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import api from '../services/cobogoApi';
 import SignInButton from './SignInButton';
 import TopBar from './TopBar';
 
@@ -12,16 +12,18 @@ export default function Connect() {
 
   useEffect(() => {
     if (session?.user) {
-      api
-        .get(`/api/accounts?filters[email][$eq]=${session?.user.email}`)
+      axios
+        .get('/api/cobogo/readAccountByEmail', {
+          params: {
+            email: session?.user.email,
+          },
+        })
         .then(async (response) => {
           if (response.data.data.length === 0) {
-            await api.post('/api/accounts', {
-              data: {
-                name: session?.user.name,
-                email: session?.user.email,
-                image: session?.user.image,
-              },
+            await axios.post('/api/cobogo/createAccount', {
+              name: session?.user.name,
+              email: session?.user.email,
+              image: session?.user.image,
             });
 
             push('/submit/create-profile');

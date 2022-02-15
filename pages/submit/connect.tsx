@@ -1,7 +1,11 @@
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import Connect from '../../components/Connect';
 import Footer from '../../components/Footer';
 import Steps from '../../components/Steps';
+import cobogoApi from '../../services/cobogoApi';
+import youtubeApi from '../../services/youtubeApi';
 
 export default function Index() {
   return (
@@ -18,3 +22,49 @@ export default function Index() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  if (session?.user) {
+    const createdChannel = await cobogoApi.get(
+      `/api/channels?filters[account_email][$eq]=${session.user.email}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+        },
+      }
+    );
+
+    const response = await youtubeApi.get(
+      `/channels?part=snippet%2CbrandingSettings&mine=true`,
+      {
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+      }
+    );
+
+    if (createdChannel.data.data.length === 0) {
+      await cobogoApi.post(
+        '/api/channels',
+        {
+          data: {
+            title: response.data.items[0].snippet.title,
+            description: response.data.items[0].snippet.description,
+            account_email: session.user.email,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+          },
+        }
+      );
+    }
+  }
+
+  return {
+    props: {},
+  };
+};

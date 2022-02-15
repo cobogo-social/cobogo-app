@@ -7,7 +7,19 @@ import youtubeApi from '../../services/youtubeApi';
 import cobogoApi from '../../services/cobogoApi';
 import Head from 'next/head';
 
-export default function Index(props) {
+interface VideoProps {
+  banner: string;
+  title: string;
+  description: string;
+  channelHandle: string;
+}
+
+export default function Index({
+  banner,
+  title,
+  description,
+  channelHandle,
+}: VideoProps) {
   return (
     <div className="w-full">
       <Head>
@@ -15,7 +27,12 @@ export default function Index(props) {
       </Head>
       <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
         <Steps />
-        <Video channelData={props} />
+        <Video
+          banner={banner}
+          title={title}
+          description={description}
+          channelHandle={channelHandle}
+        />
 
         <Footer />
       </div>
@@ -36,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const response = await youtubeApi.get(
-    `/channels?part=snippet%2CcontentDetails%2Cstatistics&mine=true&key=${process.env.YOUTUBE_API_KEY}`,
+    `/channels?part=snippet%2CbrandingSettings&mine=true`,
     {
       headers: {
         Authorization: `Bearer ${session.accessToken}`,
@@ -45,20 +62,19 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   );
 
   const createdProfile = await cobogoApi.get(
-    `/api/profiles?filters[account_email][$eq]=${session?.user.email}`
+    `/api/profiles?filters[account_email][$eq]=${session?.user.email}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+      },
+    }
   );
 
   return {
     props: {
-      id: response.data.items[0].id,
+      banner: response.data.items[0].brandingSettings.image.bannerExternalUrl,
       title: response.data.items[0].snippet.title,
       description: response.data.items[0].snippet.description,
-      image: response.data.items[0].snippet.thumbnails.medium.url,
-      statistics: {
-        viewCount: response.data.items[0].statistics.viewCount,
-        subscriberCount: response.data.items[0].statistics.subscriberCount,
-        videoCount: response.data.items[0].statistics.videoCount,
-      },
       channelHandle: createdProfile.data.data[0].attributes.handle,
     },
   };

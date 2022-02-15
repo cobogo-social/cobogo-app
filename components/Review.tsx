@@ -5,20 +5,24 @@ import TopBar from './TopBar';
 import UnderAnalysisContainer from './UnderAnalysisContainer';
 import WaitlistContainer from './WaitlistContainer';
 
-export default function Review(props) {
-  const channelStatus = 'waitlist';
+interface ReviewProps {
+  banner: string;
+  title: string;
+  description: string;
+}
 
+export default function Review({ banner, title, description }: ReviewProps) {
   return (
     <div className="bg-primary w-full h-full p-8">
       <TopBar />
       <div className="flex flex-row justify-between items-start px-16 2xl:px-64">
-        {channelStatus === 'waitlist' && (
-          <WaitlistContainer channelData={props} />
-        )}
-        {/*channelStatus === 'under analysis' && <UnderAnalysisContainer />*/}
-        {/* {channelStatus === 'channel approved' && <ChannelApprovedContainer />} */}
-        {/* {channelStatus === 'channel denied' && <ChannelDeniedContainer />} */}
-        <ChannelBanner channelData={props} />
+        <WaitlistContainer title={title} />
+
+        <ChannelBanner
+          banner={banner}
+          title={title}
+          description={description}
+        />
       </div>
     </div>
   );

@@ -7,7 +7,17 @@ import youtubeApi from '../../services/youtubeApi';
 import cobogoApi from '../../services/cobogoApi';
 import Head from 'next/head';
 
-export default function Index(props) {
+interface CreateProfileProps {
+  banner: string;
+  title: string;
+  description: string;
+}
+
+export default function Index({
+  banner,
+  title,
+  description,
+}: CreateProfileProps) {
   return (
     <div className="w-full">
       <Head>
@@ -15,7 +25,11 @@ export default function Index(props) {
       </Head>
       <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
         <Steps />
-        <CreateProfile channelData={props} />
+        <CreateProfile
+          banner={banner}
+          title={title}
+          description={description}
+        />
 
         <Footer />
       </div>
@@ -36,7 +50,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const createdProfile = await cobogoApi.get(
-    `/api/profiles?filters[account_email][$eq]=${session?.user.email}`
+    `/api/profiles?filters[account_email][$eq]=${session?.user.email}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+      },
+    }
   );
 
   if (createdProfile.data.data.length != 0) {
@@ -49,39 +68,19 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const response = await youtubeApi.get(
-    `/channels?part=snippet%2CcontentDetails%2Cstatistics&mine=true&key=${process.env.YOUTUBE_API_KEY}`,
+    `/channels?part=snippet%2CbrandingSettings&mine=true`,
     {
       headers: {
-        Authorization: `Bearer ${session.accessToken}`,
+        Authorization: `Bearer ${session?.accessToken}`,
       },
     }
   );
 
-  const createdChannel = await cobogoApi.get(
-    `/api/channels?filters[account_email][$eq]=${session?.user.email}`
-  );
-
-  if (createdChannel.data.data.length === 0) {
-    await cobogoApi.post('/api/channels', {
-      data: {
-        title: response.data.items[0].snippet.title,
-        description: response.data.items[0].snippet.description,
-        account_email: session.user.email,
-      },
-    });
-  }
-
   return {
     props: {
-      id: response.data.items[0].id,
+      banner: response.data.items[0].brandingSettings.image.bannerExternalUrl,
       title: response.data.items[0].snippet.title,
       description: response.data.items[0].snippet.description,
-      image: response.data.items[0].snippet.thumbnails.medium.url,
-      statistics: {
-        viewCount: response.data.items[0].statistics.viewCount,
-        subscriberCount: response.data.items[0].statistics.subscriberCount,
-        videoCount: response.data.items[0].statistics.videoCount,
-      },
     },
   };
 };

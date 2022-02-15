@@ -1,14 +1,18 @@
-import { GetServerSideProps } from 'next';
 import Bullet from './Bullet';
 import Button from './Button';
-import youtubeApi from '../services/youtubeApi';
-import cobogoApi from '../services/cobogoApi';
 import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Loading from './Loading';
+import axios from 'axios';
 
-export default function VerifyVideoContainer(props) {
+interface VerifyVideoContainerProps {
+  channelHandle: string;
+}
+
+export default function VerifyVideoContainer({
+  channelHandle,
+}: VerifyVideoContainerProps) {
   const [verifiedVideo, setVerifiedVideo] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -18,14 +22,11 @@ export default function VerifyVideoContainer(props) {
   async function handleVerifyVideo() {
     setIsLoading(true);
 
-    const response = await youtubeApi.get(
-      `/search?part=snippet&forMine=true&maxResults=1&q=windows&type=video&key=${props.nextPublicYoutubeApiKey}`,
-      {
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
-        },
-      }
-    );
+    const response = await axios.get(`/api/youtube/readVideo`, {
+      params: {
+        accessToken: session.accessToken,
+      },
+    });
 
     if (
       response.data.items[0].snippet.title.includes('WINDOWS') &&
@@ -33,29 +34,39 @@ export default function VerifyVideoContainer(props) {
         'Obrigado por assistir!'
       )
     ) {
-      const createdProfile = await cobogoApi.get(
-        `/api/profiles?filters[account_email][$eq]=${session?.user.email}`
-      );
+      const createdProfile = await axios.get(`/api/cobogo/readProfileByEmail`, {
+        params: {
+          email: session?.user.email,
+        },
+      });
 
-      await cobogoApi
-        .put(`/api/profiles/${createdProfile.data.data[0].id}`, {
-          data: {
+      await axios
+        .put(
+          `/api/cobogo/updateProfile`,
+          {
             waitlist: true,
           },
-        })
+          {
+            params: {
+              id: createdProfile.data.data[0].id,
+            },
+          }
+        )
         .then(() => {
           setVerifiedVideo(true);
           setIsLoading(false);
-        })
-        .catch((err) => console.log(err));
+        });
     }
   }
 
   const verifyWaitlist = useCallback(async () => {
-    await cobogoApi
-      .get(`/api/profiles?filters[account_email][$eq]=${session?.user.email}`)
+    await axios
+      .get('/api/cobogo/readProfileByEmail', {
+        params: {
+          email: session?.user.email,
+        },
+      })
       .then((response) => {
-        console.log(response.data.data[0]?.attributes.waitlist);
         if (response.data.data[0]?.attributes.waitlist) {
           push('/submit/review');
         }
@@ -93,7 +104,7 @@ export default function VerifyVideoContainer(props) {
         <div className="mb-10">
           <Bullet
             text="link to"
-            link={`https://cobogo.social/${props.channelData.channelData.channelHandle}`}
+            link={`https://cobogo.social/${channelHandle}`}
           />
         </div>
 
@@ -110,11 +121,3 @@ export default function VerifyVideoContainer(props) {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {
-      nextPublicYoutubeApiKey: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
-    },
-  };
-};

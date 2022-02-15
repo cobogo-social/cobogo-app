@@ -6,7 +6,13 @@ import { getSession } from 'next-auth/react';
 import youtubeApi from '../../services/youtubeApi';
 import Head from 'next/head';
 
-export default function Index(props) {
+interface ReviewProps {
+  banner: string;
+  title: string;
+  description: string;
+}
+
+export default function Index({ banner, title, description }: ReviewProps) {
   return (
     <div className="w-full">
       <Head>
@@ -14,7 +20,7 @@ export default function Index(props) {
       </Head>
       <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
         <Steps />
-        <Review channelData={props} />
+        <Review banner={banner} title={title} description={description} />
 
         <Footer />
       </div>
@@ -35,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const response = await youtubeApi.get(
-    `/channels?part=snippet%2CcontentDetails%2Cstatistics&mine=true&key=${process.env.YOUTUBE_API_KEY}`,
+    `/channels?part=snippet%2CbrandingSettings&mine=true`,
     {
       headers: {
         Authorization: `Bearer ${session.accessToken}`,
@@ -45,15 +51,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   return {
     props: {
-      id: response.data.items[0].id,
+      banner: response.data.items[0].brandingSettings.image.bannerExternalUrl,
       title: response.data.items[0].snippet.title,
       description: response.data.items[0].snippet.description,
-      image: response.data.items[0].snippet.thumbnails.medium.url,
-      statistics: {
-        viewCount: response.data.items[0].statistics.viewCount,
-        subscriberCount: response.data.items[0].statistics.subscriberCount,
-        videoCount: response.data.items[0].statistics.videoCount,
-      },
     },
   };
 };

@@ -7,12 +7,22 @@ import CategoriesInput from './CategoriesInput';
 import ChannelBanner from './ChannelBanner';
 import TopBar from './TopBar';
 import { signIn, useSession } from 'next-auth/react';
-import cobogoApi from '../services/cobogoApi';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import Loading from './Loading';
+import axios from 'axios';
 
-export default function CreateProfile(props) {
+interface CreateProfileProps {
+  banner: string;
+  title: string;
+  description: string;
+}
+
+export default function CreateProfile({
+  banner,
+  title,
+  description,
+}: CreateProfileProps) {
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
   const [input, setInput] = useState('');
   const [createdProfile, setCreatedProfile] = useState(false);
@@ -41,26 +51,23 @@ export default function CreateProfile(props) {
         })
         .then((valid) => {
           if (valid) {
-            cobogoApi
-              .post('/api/profiles', {
-                data: {
-                  ...values,
-                  categories: categoriesList.toString(),
-                  account_email: session.user.email,
-                },
+            axios
+              .post('/api/cobogo/createProfile', {
+                description: values.description,
+                handle: values.handle,
+                categories: categoriesList.toString(),
+                account_email: session.user.email,
               })
               .then(() => {
                 setCreatedProfile(true);
                 setIsLoading(false);
               })
               .catch((error) => {
-                console.log(error);
                 setIsLoading(false);
               });
           }
         })
         .catch((error) => {
-          console.log(error);
           setIsLoading(false);
         });
     },
@@ -176,7 +183,12 @@ export default function CreateProfile(props) {
               onKeyDown={handleRequest}
             />
           </form>
-          <ChannelBanner channelData={props} />
+
+          <ChannelBanner
+            banner={banner}
+            title={title}
+            description={description}
+          />
         </div>
       </div>
     </>

@@ -70,7 +70,6 @@ export default function Footer() {
                 width={30}
                 height={21}
                 alt="gitbook icon"
-                quality={100}
               />
             </div>
             <a className="text-white font-bold">docs</a>

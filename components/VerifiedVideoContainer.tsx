@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Bullet from './Bullet';
 import Button from './Button';
 
 export default function VerifiedVideoContainer() {
