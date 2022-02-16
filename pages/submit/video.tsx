@@ -1,11 +1,12 @@
 import Video from '../../components/Video';
 import Footer from '../../components/Footer';
 import Steps from '../../components/Steps';
-import { getSession } from 'next-auth/react';
+import { getSession, signIn, useSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
 import youtubeApi from '../../services/youtubeApi';
 import cobogoApi from '../../services/cobogoApi';
 import Head from 'next/head';
+import { useEffect } from 'react';
 
 interface VideoProps {
   banner: string;
@@ -20,6 +21,14 @@ export default function Index({
   description,
   channelHandle,
 }: VideoProps) {
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session?.error === 'RefreshAccessTokenError') {
+      signIn('google');
+    }
+  }, [session]);
+
   return (
     <div className="w-full">
       <Head>
@@ -52,20 +61,47 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const response = await youtubeApi.get(
-    `/channels?part=snippet%2CbrandingSettings&mine=true`,
-    {
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
-      },
-    }
-  );
-
   const createdProfile = await cobogoApi.get(
     `/api/profiles?filters[account_email][$eq]=${session?.user.email}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+      },
+    }
+  );
+
+  if (createdProfile.data.data.length === 0) {
+    return {
+      redirect: {
+        destination: '/submit/create-profile',
+        permanent: false,
+      },
+    };
+  }
+
+  const verifyWaitlist = await cobogoApi.get(
+    `/api/profiles?filters[account_email][$eq]=${session.user.email}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+      },
+    }
+  );
+
+  if (verifyWaitlist.data.data[0]?.attributes.waitlist) {
+    return {
+      redirect: {
+        destination: '/submit/review',
+        permanent: false,
+      },
+    };
+  }
+
+  const response = await youtubeApi.get(
+    `/channels?part=snippet%2CbrandingSettings&mine=true`,
+    {
+      headers: {
+        Authorization: `Bearer ${session.accessToken}`,
       },
     }
   );

@@ -62,6 +62,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         }
       );
     }
+
+    return {
+      redirect: {
+        destination: '/submit/create-profile',
+        permanent: false,
+      },
+    };
   }
 
   return {

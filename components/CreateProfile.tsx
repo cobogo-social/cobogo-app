@@ -6,7 +6,7 @@ import Categories from './Categories';
 import CategoriesInput from './CategoriesInput';
 import ChannelBanner from './ChannelBanner';
 import TopBar from './TopBar';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import Loading from './Loading';
@@ -62,12 +62,12 @@ export default function CreateProfile({
                 setCreatedProfile(true);
                 setIsLoading(false);
               })
-              .catch((error) => {
+              .catch(() => {
                 setIsLoading(false);
               });
           }
         })
-        .catch((error) => {
+        .catch(() => {
           setIsLoading(false);
         });
     },
@@ -94,12 +94,6 @@ export default function CreateProfile({
       return;
     }
   }
-
-  useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      signIn('google');
-    }
-  }, [session]);
 
   useEffect(() => {
     if (createdProfile) {

@@ -1,11 +1,12 @@
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { getSession, signIn, useSession } from 'next-auth/react';
 import CreateProfile from '../../components/CreateProfile';
 import Footer from '../../components/Footer';
 import Steps from '../../components/Steps';
 import youtubeApi from '../../services/youtubeApi';
 import cobogoApi from '../../services/cobogoApi';
 import Head from 'next/head';
+import { useEffect } from 'react';
 
 interface CreateProfileProps {
   banner: string;
@@ -18,6 +19,14 @@ export default function Index({
   title,
   description,
 }: CreateProfileProps) {
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session?.error === 'RefreshAccessTokenError') {
+      signIn('google');
+    }
+  }, [session]);
+
   return (
     <div className="w-full">
       <Head>

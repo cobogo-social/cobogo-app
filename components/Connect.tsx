@@ -25,10 +25,6 @@ export default function Connect() {
               email: session?.user.email,
               image: session?.user.image,
             });
-
-            push('/submit/create-profile');
-          } else {
-            push('/submit/create-profile');
           }
         });
     }

@@ -2,9 +2,11 @@ import Review from '../../components/Review';
 import Footer from '../../components/Footer';
 import Steps from '../../components/Steps';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { getSession, signIn, useSession } from 'next-auth/react';
 import youtubeApi from '../../services/youtubeApi';
+import cobogoApi from '../../services/cobogoApi';
 import Head from 'next/head';
+import { useEffect } from 'react';
 
 interface ReviewProps {
   banner: string;
@@ -13,6 +15,14 @@ interface ReviewProps {
 }
 
 export default function Index({ banner, title, description }: ReviewProps) {
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session?.error === 'RefreshAccessTokenError') {
+      signIn('google');
+    }
+  }, [session]);
+
   return (
     <div className="w-full">
       <Head>
@@ -35,6 +45,24 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     return {
       redirect: {
         destination: '/submit/connect',
+        permanent: false,
+      },
+    };
+  }
+
+  const verifyWaitlist = await cobogoApi.get(
+    `/api/profiles?filters[account_email][$eq]=${session.user.email}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+      },
+    }
+  );
+
+  if (!verifyWaitlist.data.data[0]?.attributes.waitlist) {
+    return {
+      redirect: {
+        destination: '/submit/video',
         permanent: false,
       },
     };

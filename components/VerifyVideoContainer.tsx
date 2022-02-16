@@ -1,6 +1,6 @@
 import Bullet from './Bullet';
 import Button from './Button';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Loading from './Loading';
@@ -58,24 +58,6 @@ export default function VerifyVideoContainer({
         });
     }
   }
-
-  const verifyWaitlist = useCallback(async () => {
-    await axios
-      .get('/api/cobogo/readProfileByEmail', {
-        params: {
-          email: session?.user.email,
-        },
-      })
-      .then((response) => {
-        if (response.data.data[0]?.attributes.waitlist) {
-          push('/submit/review');
-        }
-      });
-  }, [push, session?.user.email]);
-
-  useEffect(() => {
-    verifyWaitlist();
-  }, [session, verifyWaitlist]);
 
   useEffect(() => {
     if (verifiedVideo) {
