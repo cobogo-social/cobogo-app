@@ -12,9 +12,15 @@ interface ReviewProps {
   banner: string;
   title: string;
   description: string;
+  channelHandle: string;
 }
 
-export default function Index({ banner, title, description }: ReviewProps) {
+export default function Index({
+  banner,
+  title,
+  description,
+  channelHandle,
+}: ReviewProps) {
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -30,7 +36,12 @@ export default function Index({ banner, title, description }: ReviewProps) {
       </Head>
       <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
         <Steps />
-        <Review banner={banner} title={title} description={description} />
+        <Review
+          banner={banner}
+          title={title}
+          description={description}
+          channelHandle={channelHandle}
+        />
 
         <Footer />
       </div>
@@ -77,11 +88,21 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   );
 
+  const createdProfile = await cobogoApi.get(
+    `/api/profiles?filters[account_email][$eq]=${session?.user.email}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+      },
+    }
+  );
+
   return {
     props: {
       banner: response.data.items[0].brandingSettings.image.bannerExternalUrl,
       title: response.data.items[0].snippet.title,
       description: response.data.items[0].snippet.description,
+      channelHandle: createdProfile.data.data[0].attributes.handle,
     },
   };
 };

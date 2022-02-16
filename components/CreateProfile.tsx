@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import Loading from './Loading';
 import axios from 'axios';
+import ErrorLabel from './ErrorLabel';
 
 interface CreateProfileProps {
   banner: string;
@@ -114,16 +115,19 @@ export default function CreateProfile({
             <label htmlFor="description" className="text-lg text-white mb-4">
               write a description to be visible on your public profile.
             </label>
-            <textarea
-              id="description"
-              name="description"
-              className="w-[432px] h-32 bg-black border-[1.5px] border-details mb-8 p-2 outline-none text-white"
-              onChange={formik.handleChange}
-              onKeyPress={(e) => {
-                e.key === 'Enter' && e.preventDefault();
-              }}
-              value={formik.values.description}
-            />
+            <div className="relative">
+              <ErrorLabel error="abc" />
+              <textarea
+                id="description"
+                name="description"
+                className="w-[432px] h-32 bg-black border-[1.5px] border-details mb-8 p-2 outline-none text-white"
+                onChange={formik.handleChange}
+                onKeyPress={(e) => {
+                  e.key === 'Enter' && e.preventDefault();
+                }}
+                value={formik.values.description}
+              />
+            </div>
 
             <label htmlFor="handle" className="text-lg text-white mb-4">
               choose a handle

@@ -2,10 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface ReferralContainerProps {
-  handle: string;
+  channelHandle: string;
 }
 
-export default function ReferralContainer({ handle }: ReferralContainerProps) {
+export default function ReferralContainer({
+  channelHandle,
+}: ReferralContainerProps) {
   return (
     <div>
       <div className="w-[431px] h-[222px] bg-secondary flex flex-col justify-between p-8 mb-12">
@@ -18,7 +20,7 @@ export default function ReferralContainer({ handle }: ReferralContainerProps) {
         <div>
           <p className="text-white font-bold">your referral code</p>
           <div className="w-[349px] h-[50px] bg-black flex justify-start items-center px-4">
-            <p className="text-white font-bold">{handle}</p>
+            <p className="text-white font-bold">{channelHandle}</p>
           </div>
         </div>
       </div>
