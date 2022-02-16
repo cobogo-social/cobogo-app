@@ -1,8 +1,8 @@
 import ChannelApprovedContainer from './ChannelApprovedContainer';
 import ChannelBanner from './ChannelBanner';
 import ChannelDeniedContainer from './ChannelDeniedContainer';
+import ReferralContainer from './ReferralContainer';
 import TopBar from './TopBar';
-import UnderAnalysisContainer from './UnderAnalysisContainer';
 import WaitlistContainer from './WaitlistContainer';
 
 interface ReviewProps {
@@ -16,7 +16,10 @@ export default function Review({ banner, title, description }: ReviewProps) {
     <div className="bg-primary w-full h-full p-8">
       <TopBar />
       <div className="flex flex-row justify-between items-start px-16 2xl:px-64">
-        <WaitlistContainer title={title} />
+        <div className="flex flex-col">
+          <WaitlistContainer title={title} />
+          <ReferralContainer handle="teste" />
+        </div>
 
         <ChannelBanner
           banner={banner}

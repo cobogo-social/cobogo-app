@@ -1,35 +1,8 @@
-import axios from 'axios';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import SignInButton from './SignInButton';
 import TopBar from './TopBar';
 
 export default function Connect() {
-  const { data: session } = useSession();
-  const { push } = useRouter();
-
-  useEffect(() => {
-    if (session?.user) {
-      axios
-        .get('/api/cobogo/readAccountByEmail', {
-          params: {
-            email: session?.user.email,
-          },
-        })
-        .then(async (response) => {
-          if (response.data.data.length === 0) {
-            await axios.post('/api/cobogo/createAccount', {
-              name: session?.user.name,
-              email: session?.user.email,
-              image: session?.user.image,
-            });
-          }
-        });
-    }
-  }, [push, session]);
-
   return (
     <div className="bg-primary w-full h-full p-8">
       <TopBar />

@@ -1,7 +1,7 @@
 import Bullet from './Bullet';
 import Button from './Button';
-import { signIn, useSession } from 'next-auth/react';
-import { useCallback, useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Loading from './Loading';
 import axios from 'axios';

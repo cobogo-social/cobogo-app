@@ -27,6 +27,32 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
   if (session?.user) {
+    await cobogoApi
+      .get(`/api/accounts?filters[email][$eq]=${session.user.email}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+        },
+      })
+      .then(async (response) => {
+        if (response.data.data.length === 0) {
+          await cobogoApi.post(
+            '/api/accounts',
+            {
+              data: {
+                name: session?.user.name,
+                email: session?.user.email,
+                image: session?.user.image,
+              },
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+              },
+            }
+          );
+        }
+      });
+
     const createdChannel = await cobogoApi.get(
       `/api/channels?filters[account_email][$eq]=${session.user.email}`,
       {
