@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import Button from './Button';
 import Categories from './Categories';
 import CategoriesInput from './CategoriesInput';
@@ -32,49 +32,49 @@ export default function CreateProfile({
   const { data: session } = useSession();
   const { push } = useRouter();
 
-  const schema = yup.object().shape({
-    description: yup.string().required('description required'),
-    handle: yup.string().required('handle required'),
-  });
-
   const formik = useFormik({
     initialValues: {
       description: '',
       handle: '',
     },
+    validationSchema: yup.object().shape({
+      description: yup.string().required('description required'),
+      handle: yup.string().required('handle required'),
+    }),
     onSubmit: async (values) => {
       setIsLoading(true);
 
-      schema
-        .validate({
-          description: values.description,
+      const response = await axios.get('/api/cobogo/readProfileByHandle', {
+        params: {
           handle: values.handle,
-        })
-        .then((valid) => {
-          if (valid) {
-            axios
-              .post('/api/cobogo/createProfile', {
-                description: values.description,
-                handle: values.handle,
-                categories: categoriesList.toString(),
-                account_email: session.user.email,
-              })
-              .then(() => {
-                setCreatedProfile(true);
-                setIsLoading(false);
-              })
-              .catch(() => {
-                setIsLoading(false);
-              });
-          }
-        })
-        .catch(() => {
-          setIsLoading(false);
-        });
+        },
+      });
+
+      if (response.data.data.length === 0) {
+        await axios
+          .post('/api/cobogo/createProfile', {
+            description: values.description,
+            handle: values.handle,
+            categories: categoriesList.toString(),
+            account_email: session.user.email,
+          })
+          .then(() => {
+            setCreatedProfile(true);
+            setIsLoading(false);
+          });
+      } else {
+        setIsLoading(false);
+        formik.values.handle = '';
+
+        alert('handle already exists');
+      }
     },
   });
 
-  async function handleChangeCategories(event) {
+  async function handleChangeCategories(event: {
+    target: { value: SetStateAction<string> };
+    key: string;
+  }) {
     setInput(event.target.value);
 
     if (event.key === 'Enter') {
@@ -90,7 +90,7 @@ export default function CreateProfile({
     setCategoriesList(categoriesList.filter((c) => c !== category));
   }
 
-  async function handleRequest(event) {
+  async function handleRequest(event: { key: string }) {
     if (event.key === 'Enter') {
       return;
     }
@@ -116,11 +116,17 @@ export default function CreateProfile({
               write a description to be visible on your public profile.
             </label>
             <div className="relative">
-              <ErrorLabel error="abc" />
+              {formik.touched.description && formik.errors.description ? (
+                <ErrorLabel error={formik.errors.description} />
+              ) : null}
               <textarea
                 id="description"
                 name="description"
-                className="w-[432px] h-32 bg-black border-[1.5px] border-details mb-8 p-2 outline-none text-white"
+                className={`w-[432px] h-32 bg-black border-[1.5px] ${
+                  formik.touched.description && formik.errors.description
+                    ? 'border-red'
+                    : 'border-details'
+                } mb-8 p-2 outline-none text-white`}
                 onChange={formik.handleChange}
                 onKeyPress={(e) => {
                   e.key === 'Enter' && e.preventDefault();
@@ -136,17 +142,26 @@ export default function CreateProfile({
               <div className="w-48 h-12 bg-secondary flex justify-center items-center border-[1.5px] border-r-0 border-details">
                 <p className="text-white font-bold">https://cobogo-social/</p>
               </div>
-              <input
-                id="handle"
-                name="handle"
-                type="text"
-                onChange={formik.handleChange}
-                onKeyPress={(e) => {
-                  e.key === 'Enter' && e.preventDefault();
-                }}
-                value={formik.values.handle}
-                className="w-60 h-12 bg-black border-[1.5px] border-l-0 border-details mb-8 p-2 outline-none text-white"
-              />
+              <div className="relative">
+                {formik.touched.handle && formik.errors.handle ? (
+                  <ErrorLabel error={formik.errors.handle} />
+                ) : null}
+                <input
+                  id="handle"
+                  name="handle"
+                  type="text"
+                  onChange={formik.handleChange}
+                  onKeyPress={(e) => {
+                    e.key === 'Enter' && e.preventDefault();
+                  }}
+                  value={formik.values.handle}
+                  className={`w-60 h-12 bg-black border-[1.5px] border-l-0 ${
+                    formik.touched.description && formik.errors.description
+                      ? 'border-red'
+                      : 'border-details'
+                  } mb-8 p-2 outline-none text-white`}
+                />
+              </div>
             </div>
 
             <p className="text-lg text-white mb-4">choose categories</p>
