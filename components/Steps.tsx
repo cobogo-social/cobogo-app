@@ -1,4 +1,5 @@
 import Image from 'next/image';
+
 import StepItem from './StepItem';
 
 export default function Steps() {
@@ -11,12 +12,15 @@ export default function Steps() {
       <p className="text-white mb-8 text-2xl">submit a channel</p>
 
       <StepItem number="1" text="connect" href="/submit/connect" />
+
       <StepItem
         number="2"
         text="create profile"
         href="/submit/create-profile"
       />
+
       <StepItem number="3" text="video" href="/submit/video" />
+
       <StepItem number="4" text="review" href="/submit/review" />
       {/* <StepItem
         number="5"

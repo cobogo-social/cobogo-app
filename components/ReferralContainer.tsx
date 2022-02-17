@@ -13,12 +13,15 @@ export default function ReferralContainer({
       <div className="w-[431px] h-[222px] bg-secondary flex flex-col justify-between p-8 mb-12">
         <div className="flex justify-between items-center">
           <p className="text-2xl text-white">invite</p>
+
           <p className="text-white">
             accepted: <span className="text-blue font-bold">17</span>
           </p>
         </div>
+
         <div>
           <p className="text-white font-bold">your referral code</p>
+
           <div className="w-[349px] h-[50px] bg-black flex justify-start items-center px-4">
             <p className="text-white font-bold">{channelHandle}</p>
           </div>

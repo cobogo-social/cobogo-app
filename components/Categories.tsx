@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import CategoryItem from './CategoryItem';
 
 interface CategoriesProps {

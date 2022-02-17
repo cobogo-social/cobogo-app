@@ -1,12 +1,13 @@
-import Video from '../../components/Video';
-import Footer from '../../components/Footer';
-import Steps from '../../components/Steps';
-import { getSession, signIn, useSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
-import youtubeApi from '../../services/youtubeApi';
-import cobogoApi from '../../services/cobogoApi';
+import { getSession, signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useEffect } from 'react';
+
+import Footer from '../../components/Footer';
+import Steps from '../../components/Steps';
+import Video from '../../components/Video';
+import cobogoApi from '../../services/cobogoApi';
+import youtubeApi from '../../services/youtubeApi';
 
 interface VideoProps {
   banner: string;
@@ -36,8 +37,10 @@ export default function Index({
       <Head>
         <title>cobogo - submit</title>
       </Head>
+
       <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
         <Steps />
+
         <Video
           banner={banner}
           title={title}

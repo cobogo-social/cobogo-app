@@ -12,6 +12,7 @@ export default function CategoryItem({ category, onClick }: CategoryItemProps) {
       onClick={() => onClick(category)}
     >
       <p className="font-bold text-violet mr-2">{category.toLowerCase()}</p>
+
       <Image src="/images/x-icon.svg" width={16} height={16} alt="x icon" />
     </div>
   );

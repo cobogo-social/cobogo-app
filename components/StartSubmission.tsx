@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+
 import Button from './Button';
 import TopBar from './TopBar';
 
@@ -43,12 +44,14 @@ export default function StartSubmission() {
         <p className="text-white">
           if you have any questions about the onboarding process:
         </p>
+
         <div className="flex">
           <Link href="https://docs.cobogo.social/project/introduction">
             <a target="_blank" rel="noopener noreferrer">
               <p className="font-bold text-blue mr-8">our documentation</p>
             </a>
           </Link>
+
           <Link href="https://t.me/cobogosocial">
             <a target="_blank" rel="noopener noreferrer">
               <p className="font-bold text-blue">talk to an expert</p>

@@ -22,6 +22,7 @@ export default function StepItem({ number, text, last, href }: StepItemProps) {
           >
             {number}
           </div>
+
           <p className="font-bold">{text}</p>
         </div>
       </a>
@@ -33,6 +34,7 @@ export default function StepItem({ number, text, last, href }: StepItemProps) {
           <div className="border-8 border-details w-12 h-10 flex items-center justify-center mr-6 text-xl font-bold">
             {number}
           </div>
+
           <p className="font-bold">{text}</p>
         </div>
       </a>

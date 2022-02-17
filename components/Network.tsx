@@ -1,32 +1,23 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import Bullet from './Bullet';
-import Button from './Button';
-import ChannelBanner from './ChannelBanner';
-import TopBar from './TopBar';
-
 export default function Network() {
   async function addArbitrumNetwork() {
     const { ethereum } = window as any;
 
-    ethereum
-      .request({
-        method: 'wallet_addEthereumChain',
-        params: [
-          {
-            chainId: '0xA4B1',
-            chainName: 'Arbitrum',
-            nativeCurrency: {
-              name: 'Ethereum',
-              symbol: 'ETH',
-              decimals: 18,
-            },
-            rpcUrls: ['https://arb1.arbitrum.io/rpc'],
-            blockExplorerUrls: ['https://arbiscan.io/'],
+    ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: [
+        {
+          chainId: '0xA4B1',
+          chainName: 'Arbitrum',
+          nativeCurrency: {
+            name: 'Ethereum',
+            symbol: 'ETH',
+            decimals: 18,
           },
-        ],
-      })
-      .catch();
+          rpcUrls: ['https://arb1.arbitrum.io/rpc'],
+          blockExplorerUrls: ['https://arbiscan.io/'],
+        },
+      ],
+    });
   }
 
   return (

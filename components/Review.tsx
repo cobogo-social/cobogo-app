@@ -1,6 +1,4 @@
-import ChannelApprovedContainer from './ChannelApprovedContainer';
 import ChannelBanner from './ChannelBanner';
-import ChannelDeniedContainer from './ChannelDeniedContainer';
 import ReferralContainer from './ReferralContainer';
 import TopBar from './TopBar';
 import WaitlistContainer from './WaitlistContainer';
@@ -24,6 +22,7 @@ export default function Review({
       <div className="flex flex-row justify-between items-start px-16 2xl:px-64">
         <div className="flex flex-col">
           <WaitlistContainer title={title} />
+
           <ReferralContainer channelHandle={channelHandle} />
         </div>
 

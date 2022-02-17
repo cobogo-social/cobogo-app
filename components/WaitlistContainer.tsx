@@ -8,6 +8,7 @@ export default function WaitlistContainer({ title }: WaitlistContainerProps) {
   return (
     <div className="flex flex-col mb-12">
       <p className="text-4xl text-white mb-4">waitlist</p>
+
       <p className="text-xl text-white w-[408px] mb-12">
         <span className="font-bold">cobogo</span> is a dApp still in
         development, but The channel <span className="font-bold">{title}</span>{' '}
@@ -25,6 +26,7 @@ export default function WaitlistContainer({ title }: WaitlistContainerProps) {
             />
           </div>
         </div>
+
         <p className=" w-[369px] font-bold text-white">
           you will be notified via the email registered on your YouTube account.
         </p>

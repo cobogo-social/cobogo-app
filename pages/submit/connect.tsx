@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
+
 import Connect from '../../components/Connect';
 import Footer from '../../components/Footer';
 import Steps from '../../components/Steps';
@@ -13,8 +14,10 @@ export default function Index() {
       <Head>
         <title>cobogo - submit</title>
       </Head>
+
       <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
         <Steps />
+
         <Connect />
 
         <Footer />

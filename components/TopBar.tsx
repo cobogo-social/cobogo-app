@@ -9,6 +9,7 @@ export default function TopBar() {
 
     try {
       const accounts = await ethereum.request({ method: 'eth_accounts' });
+
       if (accounts.length !== 0) {
         const account = accounts[0];
         setCurrentAccount(account);
@@ -29,6 +30,7 @@ export default function TopBar() {
       const accounts = await ethereum.request({
         method: 'eth_requestAccounts',
       });
+
       setCurrentAccount(accounts[0]);
     } catch (error) {
       alert(error);
@@ -60,9 +62,11 @@ export default function TopBar() {
               height={32}
               alt="metamask small icon"
             />
+
             <p className="ml-2">
               {currentAccount.slice(0, 5)}...{currentAccount.slice(38)}
             </p>
+
             <div className="w-[9px] h-[9px] bg-green ml-2 rounded-full"></div>
           </div>
         )}

@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import { signOut } from 'next-auth/react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 interface ChannelBannerProps {
@@ -26,7 +26,9 @@ export default function ChannelBanner({
       />
 
       <p className="font-bold text-white text-xl px-4 mt-6">{title}</p>
+
       <p className="text-white px-4">{description.slice(0, 210)}(...)</p>
+
       <a
         onClick={() => {
           signOut();

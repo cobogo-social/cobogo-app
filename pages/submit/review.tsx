@@ -1,12 +1,13 @@
-import Review from '../../components/Review';
-import Footer from '../../components/Footer';
-import Steps from '../../components/Steps';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
-import youtubeApi from '../../services/youtubeApi';
-import cobogoApi from '../../services/cobogoApi';
 import Head from 'next/head';
 import { useEffect } from 'react';
+
+import Footer from '../../components/Footer';
+import Review from '../../components/Review';
+import Steps from '../../components/Steps';
+import cobogoApi from '../../services/cobogoApi';
+import youtubeApi from '../../services/youtubeApi';
 
 interface ReviewProps {
   banner: string;
@@ -34,8 +35,10 @@ export default function Index({
       <Head>
         <title>cobogo - submit</title>
       </Head>
+
       <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
         <Steps />
+
         <Review
           banner={banner}
           title={title}

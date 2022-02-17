@@ -8,6 +8,7 @@ export default function ConnectWallet() {
 
     try {
       const accounts = await ethereum.request({ method: 'eth_accounts' });
+
       if (accounts.length !== 0) {
         const account = accounts[0];
         setCurrentAccount(account);
@@ -28,6 +29,7 @@ export default function ConnectWallet() {
       const accounts = await ethereum.request({
         method: 'eth_requestAccounts',
       });
+
       setCurrentAccount(accounts[0]);
       checkIfWalletIsConnected();
     } catch (error) {

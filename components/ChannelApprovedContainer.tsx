@@ -1,11 +1,12 @@
-import Image from 'next/image';
 import Link from 'next/link';
+
 import Button from './Button';
 
 export default function ChannelApprovedContainer() {
   return (
     <div className="flex flex-col">
       <p className="text-4xl text-green mb-4">channel approved</p>
+
       <p className="text-xl text-white w-[408px] mb-12">
         the channel <span className="font-bold">Space Official</span> has been
         approved and is already visible.

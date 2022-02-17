@@ -1,17 +1,18 @@
+import axios from 'axios';
 import { useFormik } from 'formik';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
+import * as yup from 'yup';
+
 import Button from './Button';
 import Categories from './Categories';
 import CategoriesInput from './CategoriesInput';
 import ChannelBanner from './ChannelBanner';
-import TopBar from './TopBar';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import * as yup from 'yup';
-import Loading from './Loading';
-import axios from 'axios';
 import ErrorLabel from './ErrorLabel';
+import Loading from './Loading';
+import TopBar from './TopBar';
 
 interface CreateProfileProps {
   banner: string;
@@ -108,6 +109,7 @@ export default function CreateProfile({
 
       <div className="bg-primary w-full h-full p-8">
         <TopBar />
+
         <div className="flex flex-row justify-between items-start px-16 2xl:px-64">
           <form className="flex flex-col" onSubmit={formik.handleSubmit}>
             <p className="text-4xl text-white mb-4">create profile</p>
@@ -115,6 +117,7 @@ export default function CreateProfile({
             <label htmlFor="description" className="text-lg text-white mb-4">
               write a description to be visible on your public profile.
             </label>
+
             <div className="relative">
               {formik.touched.description && formik.errors.description ? (
                 <ErrorLabel error={formik.errors.description} />
@@ -138,14 +141,17 @@ export default function CreateProfile({
             <label htmlFor="handle" className="text-lg text-white mb-4">
               choose a handle
             </label>
+
             <div className="flex">
               <div className="w-48 h-12 bg-secondary flex justify-center items-center border-[1.5px] border-r-0 border-details">
                 <p className="text-white font-bold">https://cobogo-social/</p>
               </div>
+
               <div className="relative">
                 {formik.touched.handle && formik.errors.handle ? (
                   <ErrorLabel error={formik.errors.handle} />
                 ) : null}
+
                 <input
                   id="handle"
                   name="handle"
@@ -165,6 +171,7 @@ export default function CreateProfile({
             </div>
 
             <p className="text-lg text-white mb-4">choose categories</p>
+
             <div className="flex">
               <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-details flex justify-center items-center">
                 <Image
@@ -174,6 +181,7 @@ export default function CreateProfile({
                   alt="search icon"
                 />
               </div>
+
               <CategoriesInput
                 input={input}
                 handleChangeCategories={handleChangeCategories}

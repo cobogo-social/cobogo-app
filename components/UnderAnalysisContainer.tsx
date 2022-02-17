@@ -4,6 +4,7 @@ export default function UnderAnalysisContainer() {
   return (
     <div className="flex flex-col">
       <p className="text-4xl text-yellow mb-4">under analysis</p>
+
       <p className="text-xl text-white w-[408px] mb-12">
         the channel <span className="font-bold">Space Official</span>{' '}
         {`is already under analysis. In the next 48
@@ -22,6 +23,7 @@ export default function UnderAnalysisContainer() {
             />
           </div>
         </div>
+
         <p className=" w-[369px] font-bold text-white">
           you will be notified via the email registered on your YouTube account.
         </p>
