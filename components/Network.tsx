@@ -26,8 +26,7 @@ export default function Network() {
           },
         ],
       })
-      .catch((error) => {
-      });
+      .catch();
   }
 
   return (
