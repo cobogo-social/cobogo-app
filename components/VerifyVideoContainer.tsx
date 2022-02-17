@@ -5,13 +5,16 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Loading from './Loading';
 import axios from 'axios';
+import moment from 'moment';
 
 interface VerifyVideoContainerProps {
   channelHandle: string;
+  channelId: string;
 }
 
 export default function VerifyVideoContainer({
   channelHandle,
+  channelId,
 }: VerifyVideoContainerProps) {
   const [verifiedVideo, setVerifiedVideo] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,40 +25,67 @@ export default function VerifyVideoContainer({
   async function handleVerifyVideo() {
     setIsLoading(true);
 
-    const response = await axios.get(`/api/youtube/readVideo`, {
+    const response = await axios.get(`/api/youtube/readVideos`, {
       params: {
         accessToken: session.accessToken,
+        channelId: channelId,
+        q: 'windows',
       },
     });
 
-    if (
-      response.data.items[0].snippet.title.includes('WINDOWS') &&
-      response.data.items[0].snippet.description.includes(
-        'Obrigado por assistir!'
-      )
-    ) {
-      const createdProfile = await axios.get(`/api/cobogo/readProfileByEmail`, {
-        params: {
-          email: session?.user.email,
-        },
-      });
-
-      await axios
-        .put(
-          `/api/cobogo/updateProfile`,
-          {
-            waitlist: true,
-          },
-          {
+    if (response.data.items.length) {
+      response.data.items.forEach((item) => {
+        axios
+          .get('/api/youtube/readVideoById', {
             params: {
-              id: createdProfile.data.data[0].id,
+              accessToken: session.accessToken,
+              id: item.id.videoId,
             },
-          }
-        )
-        .then(() => {
-          setVerifiedVideo(true);
-          setIsLoading(false);
-        });
+          })
+          .then(async (response) => {
+            if (
+              moment
+                .duration(response.data.items[0].contentDetails.duration)
+                .asMinutes() > 2 &&
+              response.data.items[0].snippet.description
+                .toLowerCase()
+                .includes('caminho')
+            ) {
+              await axios.post('/api/cobogo/createVideo', {
+                title: response.data.items[0].snippet.title,
+                description: response.data.items[0].snippet.description,
+                video_id: item.id.videoId,
+              });
+
+              const createdProfile = await axios.get(
+                `/api/cobogo/readProfileByEmail`,
+                {
+                  params: {
+                    email: session?.user.email,
+                  },
+                }
+              );
+
+              await axios
+                .put(
+                  `/api/cobogo/updateProfile`,
+                  {
+                    waitlist: true,
+                  },
+                  {
+                    params: {
+                      id: createdProfile.data.data[0].id,
+                    },
+                  }
+                )
+                .then(() => {
+                  setVerifiedVideo(true);
+                  setIsLoading(false);
+                });
+            }
+          });
+      });
+    } else {
     }
   }
 

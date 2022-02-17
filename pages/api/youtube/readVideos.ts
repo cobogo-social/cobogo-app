@@ -1,11 +1,15 @@
 import youtubeApi from '../../../services/youtubeApi';
 
 export default async function handler(req, res) {
-  const { accessToken } = req.query;
+  const { accessToken, channelId, q } = req.query;
 
   const response = await youtubeApi.get(
-    `/search?part=snippet&forMine=true&maxResults=1&q=windows&type=video`,
+    `/search?part=snippet&maxResults=25&type=video&videoDuration=short`,
     {
+      params: {
+        channelId: channelId,
+        q: q,
+      },
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
