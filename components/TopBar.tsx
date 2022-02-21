@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 
 export default function TopBar() {
@@ -48,7 +47,7 @@ export default function TopBar() {
           <p className="text-white font-bold mr-8">back to home</p>
         </a>
       </Link> */}
-      <p
+      {/* <p
         className="text-white font-bold hover:cursor-pointer"
         onClick={connectWallet}
       >
@@ -70,7 +69,7 @@ export default function TopBar() {
             <div className="w-[9px] h-[9px] bg-green ml-2 rounded-full"></div>
           </div>
         )}
-      </p>
+      </p> */}
     </div>
   );
 }

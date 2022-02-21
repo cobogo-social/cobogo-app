@@ -7,14 +7,14 @@ interface ReviewProps {
   banner: string;
   title: string;
   description: string;
-  channelHandle: string;
+  referralCode: string;
 }
 
 export default function Review({
   banner,
   title,
   description,
-  channelHandle,
+  referralCode,
 }: ReviewProps) {
   return (
     <div className="bg-primary w-full h-full p-8">
@@ -23,7 +23,7 @@ export default function Review({
         <div className="flex flex-col">
           <WaitlistContainer title={title} />
 
-          <ReferralContainer channelHandle={channelHandle} />
+          <ReferralContainer referralCode={referralCode} />
         </div>
 
         <ChannelBanner

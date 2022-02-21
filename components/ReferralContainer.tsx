@@ -1,12 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { IoCopySharp } from 'react-icons/io5';
 
 interface ReferralContainerProps {
-  channelHandle: string;
+  referralCode: string;
 }
 
 export default function ReferralContainer({
-  channelHandle,
+  referralCode,
 }: ReferralContainerProps) {
   return (
     <div>
@@ -20,10 +22,16 @@ export default function ReferralContainer({
         </div>
 
         <div>
-          <p className="text-white font-bold">your referral code</p>
+          <p className="text-white font-bold">your referral link</p>
 
-          <div className="w-[349px] h-[50px] bg-black flex justify-start items-center px-4">
-            <p className="text-white font-bold">{channelHandle}</p>
+          <div className="w-[349px] h-[50px] bg-black flex justify-between items-center px-4">
+            <p className="text-white font-bold">{referralCode}</p>
+
+            <CopyToClipboard
+              text={`https://cobogo.social/submit/connect?ref=${referralCode}`}
+            >
+              <IoCopySharp className="hover:cursor-pointer" color="white" />
+            </CopyToClipboard>
           </div>
         </div>
       </div>
