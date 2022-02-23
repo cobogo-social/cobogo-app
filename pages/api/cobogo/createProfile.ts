@@ -1,7 +1,14 @@
 import cobogoApi from '../../../services/cobogoApi';
 
 export default async function handler(req, res) {
-  const { description, handle, categories, account_email } = req.body;
+  const {
+    description,
+    handle,
+    categories,
+    account_email,
+    channel_id,
+    referral_code,
+  } = req.body;
 
   try {
     const response = await cobogoApi.post(
@@ -12,6 +19,8 @@ export default async function handler(req, res) {
           handle,
           categories,
           account_email,
+          channel_id,
+          referral_code,
         },
       },
       {

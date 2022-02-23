@@ -82,6 +82,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
             title: response.data.items[0].snippet.title,
             description: response.data.items[0].snippet.description,
             account_email: session.user.email,
+            channel_id: response.data.items[0].id,
           },
         },
         {

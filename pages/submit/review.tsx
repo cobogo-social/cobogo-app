@@ -2,7 +2,6 @@ import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useEffect } from 'react';
-import referralCodeGenerator from 'referral-code-generator';
 
 import Footer from '../../components/Footer';
 import Review from '../../components/Review';
@@ -100,22 +99,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       },
     }
   );
-
-  if (!createdProfile.data.data[0].attributes.referral_code) {
-    await cobogoApi.put(
-      '/api/profiles/' + createdProfile.data.data[0].id,
-      {
-        data: {
-          referral_code: referralCodeGenerator.alphaNumeric('lowercase', 4, 4),
-        },
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
-      }
-    );
-  }
 
   return {
     props: {

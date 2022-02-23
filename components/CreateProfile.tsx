@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
+import referralCodeGenerator from 'referral-code-generator';
 import * as yup from 'yup';
 
 import Button from './Button';
@@ -18,17 +19,20 @@ interface CreateProfileProps {
   banner: string;
   title: string;
   description: string;
+  channelId: string;
 }
 
 export default function CreateProfile({
   banner,
   title,
   description,
+  channelId,
 }: CreateProfileProps) {
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
   const [input, setInput] = useState('');
   const [createdProfile, setCreatedProfile] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [handleError, setHandleError] = useState('');
 
   const { data: session } = useSession();
   const { push } = useRouter();
@@ -43,8 +47,6 @@ export default function CreateProfile({
       handle: yup.string().required('handle required'),
     }),
     onSubmit: async (values) => {
-      setIsLoading(true);
-
       const response = await axios.get('/api/cobogo/readProfileByHandle', {
         params: {
           handle: values.handle,
@@ -52,12 +54,20 @@ export default function CreateProfile({
       });
 
       if (response.data.data.length === 0) {
+        setIsLoading(true);
+
         await axios
           .post('/api/cobogo/createProfile', {
             description: values.description,
             handle: values.handle,
             categories: categoriesList.toString(),
             account_email: session.user.email,
+            channel_id: channelId,
+            referral_code: referralCodeGenerator.alphaNumeric(
+              'lowercase',
+              4,
+              4
+            ),
           })
           .then(() => {
             setCreatedProfile(true);
@@ -65,9 +75,7 @@ export default function CreateProfile({
           });
       } else {
         setIsLoading(false);
-        formik.values.handle = '';
-
-        alert('handle already exists');
+        setHandleError('handle already exists');
       }
     },
   });
@@ -148,8 +156,9 @@ export default function CreateProfile({
               </div>
 
               <div className="relative">
-                {formik.touched.handle && formik.errors.handle ? (
-                  <ErrorLabel error={formik.errors.handle} />
+                {(formik.touched.handle && formik.errors.handle) ||
+                handleError ? (
+                  <ErrorLabel error={formik.errors.handle || handleError} />
                 ) : null}
 
                 <input

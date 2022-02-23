@@ -13,12 +13,14 @@ interface CreateProfileProps {
   banner: string;
   title: string;
   description: string;
+  channelId: string;
 }
 
 export default function Index({
   banner,
   title,
   description,
+  channelId,
 }: CreateProfileProps) {
   const { data: session } = useSession();
 
@@ -41,6 +43,7 @@ export default function Index({
           banner={banner}
           title={title}
           description={description}
+          channelId={channelId}
         />
 
         <Footer />
@@ -70,14 +73,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   );
 
-  if (createdProfile.data.data.length != 0) {
-    return {
-      redirect: {
-        destination: '/submit/video',
-        permanent: false,
-      },
-    };
-  }
+  // if (createdProfile.data.data.length != 0) {
+  //   return {
+  //     redirect: {
+  //       destination: '/submit/video',
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   const response = await youtubeApi.get(
     `/channels?part=snippet%2CbrandingSettings&mine=true`,
@@ -93,6 +96,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       banner: response.data.items[0].brandingSettings.image.bannerExternalUrl,
       title: response.data.items[0].snippet.title,
       description: response.data.items[0].snippet.description,
+      channelId: response.data.items[0].id,
     },
   };
 };
