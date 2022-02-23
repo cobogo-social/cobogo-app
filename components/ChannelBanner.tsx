@@ -16,14 +16,24 @@ export default function ChannelBanner({
   const { push } = useRouter();
 
   return (
-    <div className="w-[275px] max-h-[296px] bg-black border-[1.5px] border-details pb-6">
-      <Image
-        src={banner}
-        width={275}
-        height={43}
-        objectFit="cover"
-        alt={title}
-      />
+    <div
+      className={`w-[275px] max-h-[296px] bg-black border-[1.5px] border-details ${
+        banner ? 'pb-6' : 'py-6'
+      }`}
+    >
+      {banner ? (
+        <Image
+          src={banner}
+          width={275}
+          height={43}
+          objectFit="cover"
+          alt={title}
+        />
+      ) : (
+        <p className="text-blue font-bold px-4">
+          {`you don't have a youtube channel`}
+        </p>
+      )}
 
       <p className="font-bold text-white text-xl px-4 mt-6">{title}</p>
 

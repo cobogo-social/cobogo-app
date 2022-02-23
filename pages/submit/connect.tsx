@@ -26,7 +26,10 @@ export default function Index() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  query,
+}) => {
   const session = await getSession({ req });
 
   if (session?.user) {
@@ -74,28 +77,30 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       }
     );
 
-    if (createdChannel.data.data.length === 0) {
-      await cobogoApi.post(
-        '/api/channels',
-        {
-          data: {
-            title: response.data.items[0].snippet.title,
-            description: response.data.items[0].snippet.description,
-            account_email: session.user.email,
-            channel_id: response.data.items[0].id,
+    if (response.data.items) {
+      if (createdChannel.data.data.length === 0) {
+        await cobogoApi.post(
+          '/api/channels',
+          {
+            data: {
+              title: response.data.items[0].snippet.title,
+              description: response.data.items[0].snippet.description,
+              account_email: session.user.email,
+              channel_id: response.data.items[0].id,
+            },
           },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-          },
-        }
-      );
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+            },
+          }
+        );
+      }
     }
 
     return {
       redirect: {
-        destination: '/submit/create-profile',
+        destination: `/submit/create-profile?ref=${query.ref}`,
         permanent: false,
       },
     };

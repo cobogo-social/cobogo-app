@@ -1,5 +1,7 @@
+import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { IoCopySharp } from 'react-icons/io5';
 
@@ -10,6 +12,18 @@ interface ReferralContainerProps {
 export default function ReferralContainer({
   referralCode,
 }: ReferralContainerProps) {
+  const [acceptedLength, setAcceptedLength] = useState();
+
+  useEffect(() => {
+    axios
+      .get('/api/cobogo/readProfileByReferralCodeUsed', {
+        params: {
+          referral_code_used: 'undefined',
+        },
+      })
+      .then((response) => setAcceptedLength(response.data.data.length));
+  }, []);
+
   return (
     <div>
       <div className="w-[431px] h-[222px] bg-secondary flex flex-col justify-between p-8 mb-12">
@@ -17,7 +31,8 @@ export default function ReferralContainer({
           <p className="text-2xl text-white">invite</p>
 
           <p className="text-white">
-            accepted: <span className="text-blue font-bold">17</span>
+            accepted:{' '}
+            <span className="text-blue font-bold">{acceptedLength}</span>
           </p>
         </div>
 
@@ -28,7 +43,7 @@ export default function ReferralContainer({
             <p className="text-white font-bold">{referralCode}</p>
 
             <CopyToClipboard
-              text={`https://cobogo.social/submit/connect?ref=${referralCode}`}
+              text={`http://localhost:3000/submit/connect?ref=${referralCode}`}
             >
               <IoCopySharp className="hover:cursor-pointer" color="white" />
             </CopyToClipboard>

@@ -73,14 +73,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   );
 
-  // if (createdProfile.data.data.length != 0) {
-  //   return {
-  //     redirect: {
-  //       destination: '/submit/video',
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (createdProfile.data.data.length != 0) {
+    return {
+      redirect: {
+        destination: '/submit/video',
+        permanent: false,
+      },
+    };
+  }
 
   const response = await youtubeApi.get(
     `/channels?part=snippet%2CbrandingSettings&mine=true`,
@@ -93,10 +93,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   return {
     props: {
-      banner: response.data.items[0].brandingSettings.image.bannerExternalUrl,
-      title: response.data.items[0].snippet.title,
-      description: response.data.items[0].snippet.description,
-      channelId: response.data.items[0].id,
+      banner: response.data.items
+        ? response.data.items[0].brandingSettings.image.bannerExternalUrl
+        : '',
+      title: response.data.items ? response.data.items[0].snippet.title : '',
+      description: response.data.items
+        ? response.data.items[0].snippet.description
+        : '',
+      channelId: response.data.items ? response.data.items[0].id : '',
     },
   };
 };

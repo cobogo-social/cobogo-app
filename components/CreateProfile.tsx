@@ -35,7 +35,7 @@ export default function CreateProfile({
   const [handleError, setHandleError] = useState('');
 
   const { data: session } = useSession();
-  const { push } = useRouter();
+  const { push, query } = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -68,6 +68,7 @@ export default function CreateProfile({
               4,
               4
             ),
+            referral_code_used: query.ref,
           })
           .then(() => {
             setCreatedProfile(true);
@@ -203,6 +204,7 @@ export default function CreateProfile({
             />
 
             <Button
+              disabled={banner ? false : true}
               text="send to review"
               color="bg-blue"
               hoverColor="brightness-90"
