@@ -18,7 +18,7 @@ export default function ReferralContainer({
     axios
       .get('/api/cobogo/readProfileByReferralCodeUsed', {
         params: {
-          referral_code_used: 'undefined',
+          referral_code_used: referralCode,
         },
       })
       .then((response) => setAcceptedLength(response.data.data.length));
@@ -26,20 +26,33 @@ export default function ReferralContainer({
 
   return (
     <div>
-      <div className="w-[431px] h-[222px] bg-secondary flex flex-col justify-between p-8 mb-12">
-        <div className="flex justify-between items-center">
-          <p className="text-2xl text-white">invite</p>
+      <div className="w-[431px] h-[390px] bg-secondary flex flex-col justify-between mb-12">
+        <div className="flex justify-between items-center px-8 pt-8">
+          <div>
+            <p className="text-xl text-white">invite your friends</p>
 
-          <p className="text-white">
-            accepted:{' '}
-            <span className="text-blue font-bold">{acceptedLength}</span>
-          </p>
+            <p className="text-xl text-white mb-4">
+              and <span className="font-bold">get valuable rewards!</span>
+            </p>
+
+            <p className="text-white">
+              complete the process and earn more for each Creator that joins the
+              waitlist.
+            </p>
+          </div>
         </div>
 
-        <div>
-          <p className="text-white font-bold">your referral link</p>
+        <div className="px-8">
+          <div className="flex justify-between mb-2">
+            <p className="text-white font-bold">your referral link</p>
 
-          <div className="w-[349px] h-[50px] bg-black flex justify-between items-center px-4">
+            <div className="flex">
+              <p className="text-white mr-2">accepted: </p>
+              <span className="text-blue font-bold">{acceptedLength}</span>
+            </div>
+          </div>
+
+          <div className="w-[365px] h-[50px] bg-black flex justify-between items-center px-4">
             <p className="text-white font-bold">{referralCode}</p>
 
             <CopyToClipboard
@@ -48,6 +61,13 @@ export default function ReferralContainer({
               <IoCopySharp className="hover:cursor-pointer" color="white" />
             </CopyToClipboard>
           </div>
+        </div>
+
+        <div className="w-full h-[73px] bg-details flex px-8 justify-start items-center">
+          <p className="text-white">
+            read <span className="font-bold text-blue">our docs</span> to learn
+            more.
+          </p>
         </div>
       </div>
 
