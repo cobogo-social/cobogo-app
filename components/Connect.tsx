@@ -5,11 +5,20 @@ import TopBar from './TopBar';
 
 export default function Connect() {
   return (
-    <div className="bg-primary w-full h-full p-8">
+    <div className="bg-primary w-full h-screen sm:h-full p-8">
       <TopBar />
 
       <div className="flex flex-col justify-center items-start px-16 2xl:px-64">
-        <div className="flex items-start w-full justify-between">
+        <div className="flex flex-col sm:flex-row items-start w-full justify-between">
+          <div className="block sm:hidden">
+            <Image
+              src="/images/cobogo-blocks.svg"
+              width={92}
+              height={64}
+              alt="cobogo blocks"
+            />
+          </div>
+
           <div>
             <p className="text-4xl text-white mb-4">connect</p>
 
@@ -22,12 +31,14 @@ export default function Connect() {
             </div>
           </div>
 
-          <Image
-            src="/images/cobogo-blocks.svg"
-            width={281}
-            height={195}
-            alt="cobogo blocks"
-          />
+          <div className="hidden sm:block">
+            <Image
+              src="/images/cobogo-blocks.svg"
+              width={281}
+              height={195}
+              alt="cobogo blocks"
+            />
+          </div>
         </div>
       </div>
     </div>

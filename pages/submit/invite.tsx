@@ -3,25 +3,25 @@ import { getSession, signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useEffect } from 'react';
 
-import CreateProfile from '../../components/CreateProfile';
 import Footer from '../../components/Footer';
+import Invite from '../../components/Invite';
 import Steps from '../../components/Steps';
 import cobogoApi from '../../services/cobogoApi';
 import youtubeApi from '../../services/youtubeApi';
 
-interface CreateProfileProps {
+interface InviteProps {
   banner: string;
   title: string;
   description: string;
-  channelId: string;
+  referralCode: string;
 }
 
 export default function Index({
   banner,
   title,
   description,
-  channelId,
-}: CreateProfileProps) {
+  referralCode,
+}: InviteProps) {
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -36,14 +36,14 @@ export default function Index({
         <title>cobogo - submit</title>
       </Head>
 
-      <div className="grid grid-rows-1 sm:grid-rows-[870px_70px] grid-cols-1 sm:grid-cols-[332px_1fr]">
+      <div className="grid grid-rows-[870px_70px] grid-cols-[332px_1fr]">
         <Steps />
 
-        <CreateProfile
+        <Invite
           banner={banner}
           title={title}
           description={description}
-          channelId={channelId}
+          referralCode={referralCode}
         />
 
         <Footer />
@@ -64,8 +64,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const createdProfile = await cobogoApi.get(
-    `/api/profiles?filters[account_email][$eq]=${session?.user.email}`,
+  const verifyWaitlist = await cobogoApi.get(
+    `/api/profiles?filters[account_email][$eq]=${session.user.email}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
@@ -73,7 +73,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   );
 
-  if (createdProfile.data.data.length != 0) {
+  if (!verifyWaitlist.data.data[0]?.attributes.waitlist) {
     return {
       redirect: {
         destination: '/submit/video',
@@ -86,21 +86,26 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     `/channels?part=snippet%2CbrandingSettings&mine=true`,
     {
       headers: {
-        Authorization: `Bearer ${session?.accessToken}`,
+        Authorization: `Bearer ${session.accessToken}`,
+      },
+    }
+  );
+
+  const createdProfile = await cobogoApi.get(
+    `/api/profiles?filters[account_email][$eq]=${session?.user.email}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
       },
     }
   );
 
   return {
     props: {
-      banner: response.data.items
-        ? response.data.items[0].brandingSettings.image.bannerExternalUrl
-        : '',
-      title: response.data.items ? response.data.items[0].snippet.title : '',
-      description: response.data.items
-        ? response.data.items[0].snippet.description
-        : '',
-      channelId: response.data.items ? response.data.items[0].id : '',
+      banner: response.data.items[0].brandingSettings.image.bannerExternalUrl,
+      title: response.data.items[0].snippet.title,
+      description: response.data.items[0].snippet.description,
+      referralCode: createdProfile.data.data[0].attributes.referral_code,
     },
   };
 };

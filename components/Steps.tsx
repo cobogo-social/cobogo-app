@@ -4,7 +4,7 @@ import StepItem from './StepItem';
 
 export default function Steps() {
   return (
-    <div className="bg-secondary p-8 w-full h-full">
+    <div className="bg-secondary p-8 w-full h-full hidden sm:block">
       <div className="mb-16">
         <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
       </div>
@@ -21,20 +21,9 @@ export default function Steps() {
 
       <StepItem number="3" text="video" href="/submit/video" />
 
-      <StepItem number="4" text="review" href="/submit/review" />
-      {/* <StepItem
-        number="5"
-        text="connect wallet"
-        href="/submit/connect-wallet"
-      />
-      <StepItem number="6" text="network" href="/submit/network" />
-      <StepItem number="7" text="create pool" href="/submit/create-pool" />
-      <StepItem
-        number="8"
-        text="ready for staking"
-        href="/submit/ready-for-staking"
-        last
-      /> */}
+      <StepItem number="4" text="invite" href="/submit/invite" />
+
+      <StepItem number="5" text="success" href="/submit/success" />
     </div>
   );
 }

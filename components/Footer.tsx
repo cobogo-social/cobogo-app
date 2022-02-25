@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <div className="w-full h-[70px] bg-primary flex justify-between items-center pl-8 col-span-2">
+    <div className="w-full h-[70px] bg-primary justify-between items-center pl-8 col-span-2 hidden sm:flex">
       <div className="flex justify-center items-center">
         <Link href="mailto:hi@cobogo.social">
           <a className="mr-8" target="_blank" rel="noopener noreferrer">

@@ -38,7 +38,7 @@ export default function Index({
         <title>cobogo - submit</title>
       </Head>
 
-      <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
+      <div className="grid grid-rows-[870px_70px] grid-cols-[332px_1fr]">
         <Steps />
 
         <Video
@@ -97,7 +97,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   if (verifyWaitlist.data.data[0]?.attributes.waitlist) {
     return {
       redirect: {
-        destination: '/submit/review',
+        destination: '/submit/invite',
         permanent: false,
       },
     };

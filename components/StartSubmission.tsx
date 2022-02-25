@@ -6,7 +6,7 @@ import TopBar from './TopBar';
 
 export default function StartSubmission() {
   return (
-    <div className="bg-primary w-full h-full p-8">
+    <div className="bg-primary w-full h-screen sm:h-full p-8">
       <TopBar />
 
       <div className="flex flex-col justify-center items-center">
@@ -19,7 +19,7 @@ export default function StartSubmission() {
           />
         </div>
 
-        <p className="text-white text-xl w-[618px] text-center mb-12">
+        <p className="text-white sm:text-xl sm:w-[618px] text-center mb-12">
           to offer the best experience in{' '}
           <span className="font-bold">Web3 YouTube monetization</span>, we are
           growing our community of Creators.{' '}
@@ -41,14 +41,14 @@ export default function StartSubmission() {
           </a>
         </Link>
 
-        <p className="text-white">
+        <p className="text-white text-center mb-2">
           if you have any questions about the onboarding process:
         </p>
 
-        <div className="flex">
+        <div className="flex flex-col sm:flex-row justify-center items-center">
           <Link href="https://docs.cobogo.social/project/introduction">
             <a target="_blank" rel="noopener noreferrer">
-              <p className="font-bold text-blue mr-8">our documentation</p>
+              <p className="font-bold text-blue sm:mr-8">our documentation</p>
             </a>
           </Link>
 

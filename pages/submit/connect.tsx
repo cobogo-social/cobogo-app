@@ -15,7 +15,7 @@ export default function Index() {
         <title>cobogo - submit</title>
       </Head>
 
-      <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
+      <div className="grid grid-rows-1 sm:grid-rows-[870px_70px] grid-cols-1 sm:grid-cols-[332px_1fr]">
         <Steps />
 
         <Connect />
@@ -100,7 +100,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     return {
       redirect: {
-        destination: `/submit/create-profile?ref=${query.ref}`,
+        destination: `/submit/create-profile${
+          query.ref ? '?ref=' + query.ref : ''
+        }`,
         permanent: false,
       },
     };

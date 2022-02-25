@@ -92,7 +92,7 @@ export default function VerifyVideoContainer({
 
   useEffect(() => {
     if (verifiedVideo) {
-      push('/submit/review');
+      push('/submit/success');
     }
   }, [push, verifiedVideo]);
 
@@ -130,7 +130,6 @@ export default function VerifyVideoContainer({
           color="bg-blue"
           hoverColor="brightness-90"
           text="verify video"
-          fontSize=""
           onClick={handleVerifyVideo}
         />
       </div>

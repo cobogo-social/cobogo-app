@@ -19,7 +19,6 @@ export default function VerifiedVideoContainer() {
             color="bg-blue"
             hoverColor="brightness-90"
             text="next step"
-            fontSize=""
           />
         </a>
       </Link>

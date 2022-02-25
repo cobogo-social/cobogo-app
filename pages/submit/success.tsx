@@ -4,12 +4,12 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 
 import Footer from '../../components/Footer';
-import Review from '../../components/Review';
+import Success from '../../components/Success';
 import Steps from '../../components/Steps';
 import cobogoApi from '../../services/cobogoApi';
 import youtubeApi from '../../services/youtubeApi';
 
-interface ReviewProps {
+interface SuccessProps {
   banner: string;
   title: string;
   description: string;
@@ -21,7 +21,7 @@ export default function Index({
   title,
   description,
   referralCode,
-}: ReviewProps) {
+}: SuccessProps) {
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -36,10 +36,10 @@ export default function Index({
         <title>cobogo - submit</title>
       </Head>
 
-      <div className="grid grid-rows-[945px_70px] grid-cols-[332px_1fr]">
+      <div className="grid grid-rows-[870px_70px] grid-cols-[332px_1fr]">
         <Steps />
 
-        <Review
+        <Success
           banner={banner}
           title={title}
           description={description}

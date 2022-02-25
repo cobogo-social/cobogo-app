@@ -61,7 +61,6 @@ export default function Network() {
             color="bg-ocean"
             hoverColor="brightness-90"
             text="add Arbitrum to MetaMask"
-            fontSize=""
             onClick={addArbitrumNetwork}
           />
         </div>

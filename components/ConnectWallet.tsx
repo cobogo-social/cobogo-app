@@ -60,7 +60,6 @@ export default function ConnectWallet() {
             color="bg-orange"
             hoverColor="brightness-90"
             text={currentAccount === '' ? 'connect to MetaMask' : 'connected'}
-            fontSize=""
             onClick={connectWallet}
           />
         </div>

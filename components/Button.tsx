@@ -4,10 +4,10 @@ interface ButtonProps {
   hoverColor: string;
   width: string;
   height: string;
-  fontSize: string;
+  fontSize?: string;
   onClick?: (event: any) => void;
   onKeyDown?: (event: any) => void;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export default function Button({

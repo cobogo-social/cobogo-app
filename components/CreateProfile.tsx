@@ -65,8 +65,8 @@ export default function CreateProfile({
             channel_id: channelId,
             referral_code: referralCodeGenerator.alphaNumeric(
               'lowercase',
-              4,
-              4
+              2,
+              2
             ),
             referral_code_used: query.ref,
           })
@@ -116,14 +116,17 @@ export default function CreateProfile({
     <>
       <Loading isLoading={isLoading} />
 
-      <div className="bg-primary w-full h-full p-8">
+      <div className="bg-primary w-full h-screen sm:h-full p-8">
         <TopBar />
 
         <div className="flex flex-row justify-between items-start px-16 2xl:px-64">
           <form className="flex flex-col" onSubmit={formik.handleSubmit}>
             <p className="text-4xl text-white mb-4">create profile</p>
 
-            <label htmlFor="description" className="text-lg text-white mb-4">
+            <label
+              htmlFor="description"
+              className="text-base sm:text-lg text-white mb-4"
+            >
               write a description to be visible on your public profile.
             </label>
 
@@ -134,7 +137,7 @@ export default function CreateProfile({
               <textarea
                 id="description"
                 name="description"
-                className={`w-[432px] h-32 bg-black border-[1.5px] ${
+                className={`w-[260px] sm:w-[432px] h-32 bg-black border-[1.5px] ${
                   formik.touched.description && formik.errors.description
                     ? 'border-red'
                     : 'border-details'
@@ -152,7 +155,7 @@ export default function CreateProfile({
             </label>
 
             <div className="flex">
-              <div className="w-48 h-12 bg-secondary flex justify-center items-center border-[1.5px] border-r-0 border-details">
+              <div className="w-48 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
                 <p className="text-white font-bold">https://cobogo-social/</p>
               </div>
 
@@ -171,7 +174,7 @@ export default function CreateProfile({
                     e.key === 'Enter' && e.preventDefault();
                   }}
                   value={formik.values.handle}
-                  className={`w-60 h-12 bg-black border-[1.5px] border-l-0 ${
+                  className={`w-[260px] sm:w-60 h-12 bg-black border-[1.5px] sm:border-l-0 ${
                     formik.touched.description && formik.errors.description
                       ? 'border-red'
                       : 'border-details'
@@ -210,7 +213,6 @@ export default function CreateProfile({
               hoverColor="brightness-90"
               width="w-40"
               height="h-9"
-              fontSize=""
               onClick={handleRequest}
               onKeyDown={handleRequest}
             />

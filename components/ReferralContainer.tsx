@@ -25,7 +25,7 @@ export default function ReferralContainer({
   }, []);
 
   return (
-    <div>
+    <div className="mb-8">
       <div className="w-[431px] h-[390px] bg-secondary flex flex-col justify-between mb-12">
         <div className="flex justify-between items-center px-8 pt-8">
           <div>
@@ -36,8 +36,7 @@ export default function ReferralContainer({
             </p>
 
             <p className="text-white">
-              complete the process and earn more for each Creator that joins the
-              waitlist.
+              earn more CBG for each Creator that joins the waitlist.
             </p>
           </div>
         </div>
@@ -52,11 +51,11 @@ export default function ReferralContainer({
             </div>
           </div>
 
-          <div className="w-[365px] h-[50px] bg-black flex justify-between items-center px-4">
-            <p className="text-white font-bold">{referralCode}</p>
+          <div className="w-[366px] h-[50px] bg-black flex justify-between items-center px-4">
+            <p className="text-white font-bold">{`localhost:3000/submit/connect?ref=${referralCode}`}</p>
 
             <CopyToClipboard
-              text={`http://localhost:3000/submit/connect?ref=${referralCode}`}
+              text={`localhost:3000/submit/connect?ref=${referralCode}`}
             >
               <IoCopySharp className="hover:cursor-pointer" color="white" />
             </CopyToClipboard>
@@ -65,8 +64,17 @@ export default function ReferralContainer({
 
         <div className="w-full h-[73px] bg-details flex px-8 justify-start items-center">
           <p className="text-white">
-            read <span className="font-bold text-blue">our docs</span> to learn
-            more.
+            read{' '}
+            <Link href="https://docs.cobogo.social/overview/getting-started/referral-program">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-blue"
+              >
+                our docs
+              </a>
+            </Link>{' '}
+            to learn more.
           </p>
         </div>
       </div>
