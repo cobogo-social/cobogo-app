@@ -61,16 +61,8 @@ export default function Invite({
             <div className="flex">
               <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
                 <p className="text-white font-bold">
-                  https://cobogo-social/connect?ref=
+                  https://cobogo-social/connect?ref={referralCode}
                 </p>
-              </div>
-
-              <div className="relative">
-                <div
-                  className={`px-4 h-12 bg-black border-[1.5px] border-l-0 border-r-0 border-details mb-8 outline-none text-white font-bold flex justify-center items-center`}
-                >
-                  {referralCode}
-                </div>
               </div>
 
               <div className="relative">
