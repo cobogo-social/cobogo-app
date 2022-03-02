@@ -138,7 +138,8 @@ export default function CreateProfile({
                 id="description"
                 name="description"
                 className={`w-[260px] sm:w-[432px] h-32 bg-black border-[1.5px] ${
-                  formik.touched.description && formik.errors.description
+                  (formik.touched.description && formik.errors.description) ||
+                  handleError
                     ? 'border-red'
                     : 'border-details'
                 } mb-8 p-2 outline-none text-white`}
@@ -155,8 +156,10 @@ export default function CreateProfile({
             </label>
 
             <div className="flex">
-              <div className="w-48 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
-                <p className="text-white font-bold">https://cobogo-social/</p>
+              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
+                <p className="text-white font-bold">
+                  https://app.cobogo.social/
+                </p>
               </div>
 
               <div className="relative">
@@ -174,8 +177,9 @@ export default function CreateProfile({
                     e.key === 'Enter' && e.preventDefault();
                   }}
                   value={formik.values.handle}
-                  className={`w-[260px] sm:w-60 h-12 bg-black border-[1.5px] sm:border-l-0 ${
-                    formik.touched.description && formik.errors.description
+                  className={`w-[260px] sm:w-[210px] h-12 bg-black border-[1.5px] sm:border-l-0 ${
+                    (formik.touched.handle && formik.errors.handle) ||
+                    handleError
                       ? 'border-red'
                       : 'border-details'
                   } mb-8 p-2 outline-none text-white`}

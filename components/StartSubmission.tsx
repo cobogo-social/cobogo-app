@@ -1,10 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Button from './Button';
 import TopBar from './TopBar';
 
 export default function StartSubmission() {
+  const { query } = useRouter();
+
   return (
     <div className="bg-primary w-full h-screen sm:h-full p-8">
       <TopBar />
@@ -28,7 +31,7 @@ export default function StartSubmission() {
           YouTube channel
         </p>
 
-        <Link href="/submit/connect">
+        <Link href={`/submit/connect?${query.ref}`}>
           <a className="mb-28">
             <Button
               text="start submission"

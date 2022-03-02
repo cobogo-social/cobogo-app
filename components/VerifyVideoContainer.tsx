@@ -92,7 +92,7 @@ export default function VerifyVideoContainer({
 
   useEffect(() => {
     if (verifiedVideo) {
-      push('/submit/success');
+      push('/submit/invite');
     }
   }, [push, verifiedVideo]);
 
@@ -120,7 +120,7 @@ export default function VerifyVideoContainer({
         <div className="mb-10">
           <Bullet
             text="link to"
-            link={`https://cobogo.social/${channelHandle}`}
+            link={`https://app.cobogo.social/${channelHandle}`}
           />
         </div>
 

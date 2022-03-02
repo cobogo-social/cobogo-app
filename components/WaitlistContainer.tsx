@@ -1,4 +1,7 @@
 import Image from 'next/image';
+import Link from 'next/link';
+
+import Button from './Button';
 
 interface WaitlistContainerProps {
   title: string;
@@ -20,7 +23,7 @@ export default function WaitlistContainer({ title }: WaitlistContainerProps) {
         has been added to the waitlist.
       </p>
 
-      <div className="flex h-[60px] justify-center items-center">
+      <div className="flex h-[60px] justify-center items-center mb-8">
         <div className="w-[60px] h-[60px] border-l-4 border-details flex justify-center items-center">
           <div className="">
             <Image
@@ -36,6 +39,16 @@ export default function WaitlistContainer({ title }: WaitlistContainerProps) {
           you will be notified via the email registered on your YouTube account.
         </p>
       </div>
+
+      <Link href="/submit/invite">
+        <Button
+          width="w-32"
+          height="h-9"
+          color="bg-blue"
+          hoverColor="brightness-90"
+          text="back to invite"
+        />
+      </Link>
     </div>
   );
 }

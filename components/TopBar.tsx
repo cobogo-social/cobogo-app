@@ -42,11 +42,11 @@ export default function TopBar() {
 
   return (
     <div className="flex w-full justify-end items-center mb-[70px]">
-      {/* <Link href="/">
-        <a>
-          <p className="text-white font-bold mr-8">back to home</p>
-        </a>
-      </Link> */}
+      {/* <Link href="/"> */}
+      <a>
+        <p className="text-primary font-bold mr-8">back to home</p>
+      </a>
+      {/* </Link> */}
       {/* <p
         className="text-white font-bold hover:cursor-pointer"
         onClick={connectWallet}

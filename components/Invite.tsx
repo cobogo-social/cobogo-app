@@ -58,10 +58,10 @@ export default function Invite({
               </div>
             </div>
 
-            <div className="flex">
+            <div className="flex justify-center">
               <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
                 <p className="text-white font-bold">
-                  https://cobogo-social/connect?ref={referralCode}
+                  https://app.cobogo.social/submit?ref={referralCode}
                 </p>
               </div>
 
@@ -70,7 +70,8 @@ export default function Invite({
                   className={`px-4 h-12 bg-black border-[1.5px] border-l-0 border-details mb-8 outline-none flex justify-center items-center`}
                 >
                   <CopyToClipboard
-                    text={`localhost:3000/submit/connect?ref=${referralCode}`}
+                    text={`Hi! cobogo is a dapp that helps us fund ourselves sustainably using blockchain. Use my referral link when you sign up for free for the waitlist, and we both get rewards!
+                    localhost:3000/submit?ref=${referralCode}`}
                   >
                     <IoCopySharp
                       className="hover:cursor-pointer"
@@ -95,7 +96,7 @@ export default function Invite({
               to learn more.
             </p>
 
-            <div className="w-full flex justify-between items-center  mb-8">
+            <div className="w-full flex justify-between items-center mb-8">
               <div className="flex justify-center items-center">
                 <div className="mr-4 flex">
                   <Image
@@ -106,7 +107,9 @@ export default function Invite({
                   />
                 </div>
 
-                <Link href="https://www.telegram.com/">
+                <Link
+                  href={`https://t.me/share/url?url=localhost:3000/submit?ref=${referralCode}&text=Hi! cobogo is a dapp that helps us fund ourselves sustainably using blockchain. Use my referral link when you sign up for free for the waitlist, and we both get rewards!`}
+                >
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -127,7 +130,9 @@ export default function Invite({
                   />
                 </div>
 
-                <Link href="https://www.twitter.com/">
+                <Link
+                  href={`https://twitter.com/intent/tweet?text=Hi!%20cobogo%20is%20a%20dapp%20that%20helps%20us%20fund%20ourselves%20sustainably%20using%20blockchain.%20Use%20my%20referral%20link%20when%20you%20sign%20up%20for%20free%20for%20the%20waitlist,%20and%20we%20both%20get%20rewards!%0Alocalhost%3A3000/submit?ref=${referralCode}`}
+                >
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
