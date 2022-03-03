@@ -1,4 +1,5 @@
 import ChannelBanner from './ChannelBanner';
+import StepWrapper from './StepWrapper';
 import TopBar from './TopBar';
 import WaitlistContainer from './WaitlistContainer';
 
@@ -14,7 +15,7 @@ export default function Success({ banner, title, description }: SuccessProps) {
     <div className="bg-primary w-full h-screen sm:h-full p-8">
       <TopBar />
 
-      <div className="flex flex-row justify-between items-start pl-16 sm:px-16 2xl:px-64 mt-32 sm:mt-0">
+      <StepWrapper>
         <div className="flex flex-col">
           <WaitlistContainer title={title} />
         </div>
@@ -24,7 +25,7 @@ export default function Success({ banner, title, description }: SuccessProps) {
           title={title}
           description={description}
         />
-      </div>
+      </StepWrapper>
     </div>
   );
 }

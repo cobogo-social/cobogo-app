@@ -7,6 +7,7 @@ import Connect from '../../components/Connect';
 import Footer from '../../components/Footer';
 import MobileSteps from '../../components/MobileSteps';
 import MobileTopBar from '../../components/MobileTopBar';
+import PageWrapper from '../../components/PageWrapper';
 import Steps from '../../components/Steps';
 import cobogoApi from '../../services/cobogoApi';
 import youtubeApi from '../../services/youtubeApi';
@@ -24,7 +25,7 @@ export default function Index() {
         <title>cobogo - submit</title>
       </Head>
 
-      <div className="grid grid-rows-1 sm:grid-rows-[870px_70px] grid-cols-1 sm:grid-cols-[332px_1fr]">
+      <PageWrapper>
         <MobileTopBar setOpen={handleSetOpen} />
 
         <Steps />
@@ -34,7 +35,7 @@ export default function Index() {
         <Connect />
 
         <Footer />
-      </div>
+      </PageWrapper>
     </div>
   );
 }

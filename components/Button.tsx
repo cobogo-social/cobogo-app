@@ -5,8 +5,8 @@ interface ButtonProps {
   width: string;
   height: string;
   fontSize?: string;
-  onClick?: (event: any) => void;
-  onKeyDown?: (event: any) => void;
+  onClick?: (event: unknown) => void;
+  onKeyDown?: (event: unknown) => void;
   disabled?: boolean;
 }
 

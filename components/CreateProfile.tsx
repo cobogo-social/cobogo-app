@@ -13,6 +13,7 @@ import CategoriesInput from './CategoriesInput';
 import ChannelBanner from './ChannelBanner';
 import ErrorLabel from './ErrorLabel';
 import Loading from './Loading';
+import StepWrapper from './StepWrapper';
 import TopBar from './TopBar';
 
 interface CreateProfileProps {
@@ -148,7 +149,7 @@ export default function CreateProfile({
       <div className="bg-primary w-full h-screen sm:h-full p-8">
         <TopBar />
 
-        <div className="flex flex-row justify-between items-start pl-16 sm:px-16 2xl:px-64 mt-32 sm:mt-0">
+        <StepWrapper>
           <form className="flex flex-col" onSubmit={formik.handleSubmit}>
             <p className="text-4xl text-white mb-4">create profile</p>
 
@@ -255,7 +256,7 @@ export default function CreateProfile({
             title={title}
             description={description}
           />
-        </div>
+        </StepWrapp>
       </div>
     </>
   );

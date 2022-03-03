@@ -1,6 +1,6 @@
 interface CategoriesInputProps {
   input: string;
-  handleChangeCategories: (event: any) => void;
+  handleChangeCategories: (event: unknown) => void;
 }
 
 export default function CategoriesInput({

@@ -1,4 +1,5 @@
 import ChannelBanner from './ChannelBanner';
+import StepWrapper from './StepWrapper';
 import TopBar from './TopBar';
 import VerifyVideoContainer from './VerifyVideoContainer';
 
@@ -21,7 +22,7 @@ export default function Video({
     <div className="bg-primary w-full h-screen sm:h-full p-8">
       <TopBar />
 
-      <div className="flex flex-row justify-between items-start pl-16 sm:px-16 2xl:px-64 mt-32 sm:mt-0">
+      <StepWrapper>
         <VerifyVideoContainer
           channelHandle={channelHandle}
           channelId={channelId}
@@ -32,7 +33,7 @@ export default function Video({
           title={title}
           description={description}
         />
-      </div>
+      </StepWrapper>
     </div>
   );
 }

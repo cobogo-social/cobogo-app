@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -8,6 +7,7 @@ import { IoCopySharp } from 'react-icons/io5';
 
 import Button from './Button';
 import ChannelBanner from './ChannelBanner';
+import StepWrapper from './StepWrapper';
 import TopBar from './TopBar';
 
 interface InviteProps {
@@ -48,7 +48,7 @@ export default function Invite({
       <div className="bg-primary w-full h-screen sm:h-full p-8">
         <TopBar />
 
-        <div className="flex flex-row justify-between items-start pl-16 sm:px-16 2xl:px-64 mt-32 sm:mt-0">
+        <StepWrapper>
           <div className="flex flex-col">
             <p className="text-4xl text-white">invite your friends</p>
             <p className="text-4xl text-white mb-4">
@@ -69,7 +69,7 @@ export default function Invite({
 
             <div className="flex justify-center">
               <div className="px-4 h-12 bg-secondary flex justify-center items-center border-[1.5px] border-r-0 border-details">
-                <p className="text-white font-bold">
+                <p className="text-white font-bold text-xs sm:text-base">
                   https://app.cobogo.social/submit?ref={referralCode}
                 </p>
               </div>
@@ -169,7 +169,7 @@ export default function Invite({
             title={title}
             description={description}
           />
-        </div>
+        </StepWrapper>
       </div>
     </>
   );
