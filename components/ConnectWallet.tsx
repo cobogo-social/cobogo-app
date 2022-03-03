@@ -12,9 +12,10 @@ export default function ConnectWallet() {
       if (accounts.length !== 0) {
         const account = accounts[0];
         setCurrentAccount(account);
-      } else {
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   async function connectWallet() {
