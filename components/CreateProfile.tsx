@@ -159,7 +159,7 @@ export default function CreateProfile({
               write a description to be visible on your public profile.
             </label>
 
-            <div>
+            <div className="relative">
               {formik.touched.description && formik.errors.description ? (
                 <ErrorLabel error={formik.errors.description} />
               ) : null}
@@ -190,7 +190,7 @@ export default function CreateProfile({
                 </p>
               </div>
 
-              <div>
+              <div className="relative">
                 {(formik.touched.handle && formik.errors.handle) ||
                 handleError ? (
                   <ErrorLabel error={formik.errors.handle || handleError} />
