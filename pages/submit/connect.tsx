@@ -43,7 +43,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   query,
 }) => {
-  console.log(query);
   const session = await getSession({ req });
 
   if (session?.user) {

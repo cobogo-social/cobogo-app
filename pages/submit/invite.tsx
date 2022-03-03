@@ -16,6 +16,7 @@ interface InviteProps {
   title: string;
   description: string;
   referralCode: string;
+  email: string;
 }
 
 export default function Index({
@@ -23,6 +24,7 @@ export default function Index({
   title,
   description,
   referralCode,
+  email,
 }: InviteProps) {
   const [open, setOpen] = useState(false);
   const { data: session } = useSession();
@@ -55,6 +57,7 @@ export default function Index({
           title={title}
           description={description}
           referralCode={referralCode}
+          email={email}
         />
 
         <Footer />
@@ -117,6 +120,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       title: response.data.items[0].snippet.title,
       description: response.data.items[0].snippet.description,
       referralCode: createdProfile.data.data[0].attributes.referral_code,
+      email: session?.user.email,
     },
   };
 };

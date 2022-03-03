@@ -56,24 +56,53 @@ export default function CreateProfile({
       if (response.data.data.length === 0) {
         setIsLoading(true);
 
-        await axios
-          .post('/api/cobogo/createProfile', {
-            description: values.description,
-            handle: values.handle,
-            categories: categoriesList.toString(),
-            account_email: session.user.email,
-            channel_id: channelId,
-            referral_code: referralCodeGenerator.alphaNumeric(
-              'lowercase',
-              2,
-              2
-            ),
-            referral_code_used: query.ref,
-          })
-          .then(() => {
-            setCreatedProfile(true);
-            setIsLoading(false);
-          });
+        const response = await axios.get(
+          '/api/cobogo/readProfileByReferralCode',
+          {
+            params: {
+              referral_code: query.ref,
+            },
+          }
+        );
+
+        if (response.data.data.length !== 0) {
+          await axios
+            .post('/api/cobogo/createProfile', {
+              description: values.description,
+              handle: values.handle,
+              categories: categoriesList.toString(),
+              account_email: session.user.email,
+              channel_id: channelId,
+              referral_code: referralCodeGenerator.alphaNumeric(
+                'lowercase',
+                2,
+                2
+              ),
+              referral_profile_id: response.data.data[0].id,
+            })
+            .then(() => {
+              setCreatedProfile(true);
+              setIsLoading(false);
+            });
+        } else {
+          await axios
+            .post('/api/cobogo/createProfile', {
+              description: values.description,
+              handle: values.handle,
+              categories: categoriesList.toString(),
+              account_email: session.user.email,
+              channel_id: channelId,
+              referral_code: referralCodeGenerator.alphaNumeric(
+                'lowercase',
+                2,
+                2
+              ),
+            })
+            .then(() => {
+              setCreatedProfile(true);
+              setIsLoading(false);
+            });
+        }
       } else {
         setIsLoading(false);
         setHandleError('handle already exists');
@@ -138,8 +167,7 @@ export default function CreateProfile({
                 id="description"
                 name="description"
                 className={`w-[260px] sm:w-[432px] h-32 bg-black border-[1.5px] ${
-                  (formik.touched.description && formik.errors.description) ||
-                  handleError
+                  formik.touched.description && formik.errors.description
                     ? 'border-red'
                     : 'border-details'
                 } mb-8 p-2 outline-none text-white`}

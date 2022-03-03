@@ -31,7 +31,11 @@ export default function StartSubmission() {
           YouTube channel
         </p>
 
-        <Link href={`/submit/connect?ref=${query.ref}`}>
+        <Link
+          href={
+            query.ref ? `/submit/connect?ref=${query.ref}` : `/submit/connect`
+          }
+        >
           <a className="mb-28">
             <Button
               text="start submission"

@@ -1,11 +1,11 @@
 import cobogoApi from '../../../services/cobogoApi';
 
 export default async function handler(req, res) {
-  const { referral_code_used } = req.query;
+  const { referral_profile_id } = req.query;
 
   try {
     const response = await cobogoApi.get(
-      `/api/profiles?filters[referral_code_used][$eq]=${referral_code_used}`,
+      `/api/profiles?filters[referral_profile_id][$eq]=${referral_profile_id}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -14,6 +15,7 @@ interface InviteProps {
   title: string;
   description: string;
   referralCode: string;
+  email: string;
 }
 
 export default function Invite({
@@ -21,17 +23,24 @@ export default function Invite({
   title,
   description,
   referralCode,
+  email,
 }: InviteProps) {
   const [acceptedLength, setAcceptedLength] = useState();
 
   useEffect(() => {
     axios
-      .get('/api/cobogo/readProfileByReferralCodeUsed', {
-        params: {
-          referral_code_used: referralCode,
-        },
+      .get('/api/cobogo/readProfileByEmail', {
+        params: { email: email },
       })
-      .then((response) => setAcceptedLength(response.data.data.length));
+      .then((response) => {
+        axios
+          .get('/api/cobogo/readProfileByReferralProfileId', {
+            params: {
+              referral_profile_id: response.data.data[0].id,
+            },
+          })
+          .then((response) => setAcceptedLength(response.data.data.length));
+      });
   }, []);
 
   return (
