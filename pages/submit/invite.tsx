@@ -47,7 +47,7 @@ export default function Index({
       </Head>
 
       <PageWrapper>
-        <MobileTopBar setOpen={handleSetOpen} />
+        <MobileTopBar haveSteps setOpen={handleSetOpen} />
 
         <Steps />
 

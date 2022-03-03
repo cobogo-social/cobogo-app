@@ -14,7 +14,7 @@ export default function Index() {
       </Head>
 
       <PageWrapper>
-        <MobileTopBar />
+        <MobileTopBar haveSteps={false} />
 
         <Steps />
 
