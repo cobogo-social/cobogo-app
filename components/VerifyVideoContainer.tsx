@@ -103,7 +103,7 @@ export default function VerifyVideoContainer({
       <div className="flex flex-col">
         <p className="text-4xl text-white mb-4">video</p>
 
-        <p className="text-xl text-white w-[408px] mb-12">
+        <p className="text-base sm:text-xl text-white sm:w-[408px] mb-12">
           almost there! To unlock the stake function on your channel, you need
           to record and post a video to your YouTube channel following these
           rules:

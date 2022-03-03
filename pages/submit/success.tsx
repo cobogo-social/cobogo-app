@@ -1,11 +1,13 @@
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Footer from '../../components/Footer';
-import Success from '../../components/Success';
+import MobileSteps from '../../components/MobileSteps';
+import MobileTopBar from '../../components/MobileTopBar';
 import Steps from '../../components/Steps';
+import Success from '../../components/Success';
 import cobogoApi from '../../services/cobogoApi';
 import youtubeApi from '../../services/youtubeApi';
 
@@ -22,7 +24,12 @@ export default function Index({
   description,
   referralCode,
 }: SuccessProps) {
+  const [open, setOpen] = useState(false);
   const { data: session } = useSession();
+
+  function handleSetOpen() {
+    setOpen(!open);
+  }
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
@@ -36,8 +43,12 @@ export default function Index({
         <title>cobogo - submit</title>
       </Head>
 
-      <div className="grid grid-rows-[870px_70px] grid-cols-[332px_1fr]">
+      <div className="grid grid-rows-1 sm:grid-rows-[870px_70px] grid-cols-1 sm:grid-cols-[332px_1fr]">
+        <MobileTopBar setOpen={handleSetOpen} />
+
         <Steps />
+
+        <MobileSteps open={open} />
 
         <Success
           banner={banner}

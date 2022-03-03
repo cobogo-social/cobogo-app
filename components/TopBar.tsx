@@ -41,7 +41,7 @@ export default function TopBar() {
   }, [checkIfWalletIsConnected]);
 
   return (
-    <div className="flex w-full justify-end items-center mb-[70px]">
+    <div className="hidden sm:flex w-full justify-end items-center mb-[70px]">
       {/* <Link href="/"> */}
       <a>
         <p className="text-primary font-bold mr-8">back to home</p>

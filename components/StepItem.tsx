@@ -3,32 +3,23 @@ import { useRouter } from 'next/router';
 interface StepItemProps {
   number: string;
   text: string;
-  last?: boolean;
   href: string;
 }
 
-export default function StepItem({ number, text, last, href }: StepItemProps) {
+export default function StepItem({ number, text, href }: StepItemProps) {
   const { asPath } = useRouter();
 
   const selected = asPath === href ? 'border-blue' : 'border-details';
 
-  return !last ? (
+  return (
     <div className="flex items-center text-white mb-6">
       <div
-        className={`border-8 ${selected} w-12 h-10 flex items-center justify-center mr-6 text-xl font-bold`}
+        className={`border-4 sm:border-8 ${selected} w-8 sm:w-12 h-6 sm:h-10 flex items-center justify-center mr-4 sm:mr-6 text-xs sm:text-xl font-bold`}
       >
         {number}
       </div>
 
-      <p className="font-bold">{text}</p>
-    </div>
-  ) : (
-    <div className="flex items-center text-white">
-      <div className="border-8 border-details w-12 h-10 flex items-center justify-center mr-6 text-xl font-bold">
-        {number}
-      </div>
-
-      <p className="font-bold">{text}</p>
+      <p className="font-bold text-xs sm:text-base">{text}</p>
     </div>
   );
 }

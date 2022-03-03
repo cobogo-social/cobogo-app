@@ -8,7 +8,7 @@ export default function Bullet({ text, link }: BulletProps) {
     <div className="flex items-center">
       <div className="w-[27px] h-[27px] rounded-full border-[2.5px] border-white mr-2"></div>
 
-      <p className="font-bold text-white">
+      <p className="font-bold text-white text-xs sm:text-base">
         {text} <span className="text-blue">{link}</span>
       </p>
     </div>

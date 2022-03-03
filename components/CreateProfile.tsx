@@ -119,7 +119,7 @@ export default function CreateProfile({
       <div className="bg-primary w-full h-screen sm:h-full p-8">
         <TopBar />
 
-        <div className="flex flex-row justify-between items-start px-16 2xl:px-64">
+        <div className="flex flex-row justify-between items-start pl-16 sm:px-16 2xl:px-64 mt-32 sm:mt-0">
           <form className="flex flex-col" onSubmit={formik.handleSubmit}>
             <p className="text-4xl text-white mb-4">create profile</p>
 
@@ -130,7 +130,7 @@ export default function CreateProfile({
               write a description to be visible on your public profile.
             </label>
 
-            <div className="relative">
+            <div>
               {formik.touched.description && formik.errors.description ? (
                 <ErrorLabel error={formik.errors.description} />
               ) : null}
@@ -162,7 +162,7 @@ export default function CreateProfile({
                 </p>
               </div>
 
-              <div className="relative">
+              <div>
                 {(formik.touched.handle && formik.errors.handle) ||
                 handleError ? (
                   <ErrorLabel error={formik.errors.handle || handleError} />

@@ -39,7 +39,7 @@ export default function Invite({
       <div className="bg-primary w-full h-screen sm:h-full p-8">
         <TopBar />
 
-        <div className="flex flex-row justify-between items-start px-16 2xl:px-64">
+        <div className="flex flex-row justify-between items-start pl-16 sm:px-16 2xl:px-64 mt-32 sm:mt-0">
           <div className="flex flex-col">
             <p className="text-4xl text-white">invite your friends</p>
             <p className="text-4xl text-white mb-4">
@@ -59,7 +59,7 @@ export default function Invite({
             </div>
 
             <div className="flex justify-center">
-              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
+              <div className="px-4 h-12 bg-secondary flex justify-center items-center border-[1.5px] border-r-0 border-details">
                 <p className="text-white font-bold">
                   https://app.cobogo.social/submit?ref={referralCode}
                 </p>

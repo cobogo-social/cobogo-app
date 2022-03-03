@@ -1,14 +1,23 @@
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
+import { useState } from 'react';
 
 import Connect from '../../components/Connect';
 import Footer from '../../components/Footer';
+import MobileSteps from '../../components/MobileSteps';
+import MobileTopBar from '../../components/MobileTopBar';
 import Steps from '../../components/Steps';
 import cobogoApi from '../../services/cobogoApi';
 import youtubeApi from '../../services/youtubeApi';
 
 export default function Index() {
+  const [open, setOpen] = useState(false);
+
+  function handleSetOpen() {
+    setOpen(!open);
+  }
+
   return (
     <div className="w-full">
       <Head>
@@ -16,7 +25,11 @@ export default function Index() {
       </Head>
 
       <div className="grid grid-rows-1 sm:grid-rows-[870px_70px] grid-cols-1 sm:grid-cols-[332px_1fr]">
+        <MobileTopBar setOpen={handleSetOpen} />
+
         <Steps />
+
+        <MobileSteps open={open} />
 
         <Connect />
 
@@ -30,6 +43,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   query,
 }) => {
+  console.log(query);
   const session = await getSession({ req });
 
   if (session?.user) {

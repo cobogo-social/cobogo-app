@@ -1,10 +1,12 @@
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import CreateProfile from '../../components/CreateProfile';
 import Footer from '../../components/Footer';
+import MobileSteps from '../../components/MobileSteps';
+import MobileTopBar from '../../components/MobileTopBar';
 import Steps from '../../components/Steps';
 import cobogoApi from '../../services/cobogoApi';
 import youtubeApi from '../../services/youtubeApi';
@@ -22,7 +24,12 @@ export default function Index({
   description,
   channelId,
 }: CreateProfileProps) {
+  const [open, setOpen] = useState(false);
   const { data: session } = useSession();
+
+  function handleSetOpen() {
+    setOpen(!open);
+  }
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
@@ -37,7 +44,11 @@ export default function Index({
       </Head>
 
       <div className="grid grid-rows-1 sm:grid-rows-[870px_70px] grid-cols-1 sm:grid-cols-[332px_1fr]">
+        <MobileTopBar setOpen={handleSetOpen} />
+
         <Steps />
+
+        <MobileSteps open={open} />
 
         <CreateProfile
           banner={banner}

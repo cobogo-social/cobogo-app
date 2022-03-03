@@ -12,7 +12,7 @@ export default function StartSubmission() {
     <div className="bg-primary w-full h-screen sm:h-full p-8">
       <TopBar />
 
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center mt-32 sm:mt-0">
         <div className="mb-12">
           <Image
             src="/images/cobogo-block.svg"
@@ -31,7 +31,7 @@ export default function StartSubmission() {
           YouTube channel
         </p>
 
-        <Link href={`/submit/connect?${query.ref}`}>
+        <Link href={`/submit/connect?ref=${query.ref}`}>
           <a className="mb-28">
             <Button
               text="start submission"
