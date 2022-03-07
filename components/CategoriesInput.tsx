@@ -8,16 +8,30 @@ export default function CategoriesInput({
   handleChangeCategories,
 }: CategoriesInputProps) {
   return (
-    <input
-      className="w-[212px] sm:w-96 h-12 bg-black border-[1.5px] border-l-0 border-details mb-5 text-white p-2 outline-none"
-      type="text"
-      placeholder="search for a category and press enter"
-      value={input}
-      onChange={handleChangeCategories}
-      onKeyPress={(e) => {
-        e.key === 'Enter' && e.preventDefault();
-      }}
-      onKeyDown={handleChangeCategories}
-    />
+    <>
+      <input
+        className="w-[212px] sm:w-96 h-12 bg-black border-[1.5px] border-l-0 border-details mb-4 text-white p-2 outline-none hidden sm:block"
+        type="text"
+        placeholder="search for a category and press enter"
+        value={input}
+        onChange={handleChangeCategories}
+        onKeyPress={(e) => {
+          e.key === 'Enter' && e.preventDefault();
+        }}
+        onKeyDown={handleChangeCategories}
+      />
+
+      <input
+        className="w-[212px] sm:w-96 h-12 bg-black border-[1.5px] border-l-0 border-details mb-4 text-white p-2 outline-none block sm:hidden"
+        type="text"
+        placeholder="search for a category"
+        value={input}
+        onChange={handleChangeCategories}
+        onKeyPress={(e) => {
+          e.key === 'Enter' && e.preventDefault();
+        }}
+        onKeyDown={handleChangeCategories}
+      />
+    </>
   );
 }

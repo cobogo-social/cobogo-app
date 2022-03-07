@@ -1,7 +1,14 @@
+import axios from 'axios';
+import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 
-export default function TopBar() {
+interface TopBarProps {
+  email?: string;
+}
+
+export default function TopBar({ email }: TopBarProps) {
   const [currentAccount, setCurrentAccount] = useState('');
+  const [acceptedLength, setAcceptedLength] = useState(0);
 
   const checkIfWalletIsConnected = useCallback(async () => {
     const { ethereum } = window as any;
@@ -38,6 +45,24 @@ export default function TopBar() {
   }
 
   useEffect(() => {
+    if (email) {
+      axios
+        .get('/api/cobogo/readProfileByEmail', {
+          params: { email: email },
+        })
+        .then((response) => {
+          axios
+            .get('/api/cobogo/readProfileByReferralProfileId', {
+              params: {
+                referral_profile_id: response.data.data[0].id,
+              },
+            })
+            .then((response) => setAcceptedLength(response.data.data.length));
+        });
+    }
+  }, []);
+
+  useEffect(() => {
     checkIfWalletIsConnected();
   }, [checkIfWalletIsConnected]);
 
@@ -45,8 +70,16 @@ export default function TopBar() {
     <div className="hidden sm:flex w-full justify-end items-center mb-[70px]">
       {/* <Link href="/"> */}
       <a>
-        <p className="text-primary font-bold mr-8">back to home</p>
+        <p className="text-white mr-8">accepted invites: {acceptedLength}</p>
       </a>
+
+      <div className="flex">
+        <div className="flex mr-2">
+          <Image src="/images/cbg-icon.svg" width={24} height={21} />
+        </div>
+
+        <p className="text-white font-bold">850 CBG</p>
+      </div>
       {/* </Link> */}
       {/* <p
         className="text-white font-bold hover:cursor-pointer"

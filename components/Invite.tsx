@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -25,28 +24,10 @@ export default function Invite({
   referralCode,
   email,
 }: InviteProps) {
-  const [acceptedLength, setAcceptedLength] = useState();
-
-  useEffect(() => {
-    axios
-      .get('/api/cobogo/readProfileByEmail', {
-        params: { email: email },
-      })
-      .then((response) => {
-        axios
-          .get('/api/cobogo/readProfileByReferralProfileId', {
-            params: {
-              referral_profile_id: response.data.data[0].id,
-            },
-          })
-          .then((response) => setAcceptedLength(response.data.data.length));
-      });
-  }, []);
-
   return (
     <>
       <div className="bg-primary w-full h-screen sm:h-full p-8">
-        <TopBar />
+        <TopBar email={email} />
 
         <StepWrapper>
           <div className="flex flex-col">
@@ -59,11 +40,11 @@ export default function Invite({
               earn more CBG for each Creator that joins the waitlist.
             </p>
 
-            <div className="flex justify-between items-center mb-2">
+            <div className="flex justify-between items-center mb-4">
               <p className="text-lg text-white font-bold">your referral link</p>
               <div className="flex justify-center items-center">
                 <p className="text-white mr-2">accepted: </p>
-                <span className="text-blue font-bold">{acceptedLength}</span>
+                <span className="text-blue font-bold">11</span>
               </div>
             </div>
 
@@ -76,7 +57,7 @@ export default function Invite({
 
               <div className="relative">
                 <div
-                  className={`px-4 h-12 bg-black border-[1.5px] border-l-0 border-details mb-8 outline-none flex justify-center items-center`}
+                  className={`px-4 h-12 bg-black border-[1.5px] border-l-0 border-details mb-4 outline-none flex justify-center items-center`}
                 >
                   <CopyToClipboard
                     text={`Hi! cobogo is a dapp that helps us fund ourselves sustainably using blockchain. Use my referral link when you sign up for free for the waitlist, and we both get rewards!
@@ -155,11 +136,11 @@ export default function Invite({
 
             <Link href="/submit/success">
               <Button
-                width="w-32"
+                width="w-40"
                 height="h-9"
                 color="bg-blue"
                 hoverColor="brightness-90"
-                text="next step"
+                text="skip"
               />
             </Link>
           </div>

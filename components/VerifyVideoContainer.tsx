@@ -52,10 +52,12 @@ export default function VerifyVideoContainer({
                 .toLowerCase()
                 .includes('caminho')
             ) {
+              console.log(response.data);
               await axios.post('/api/cobogo/createVideo', {
                 title: response.data.items[0].snippet.title,
                 description: response.data.items[0].snippet.description,
                 video_id: item.id.videoId,
+                channel_id: response.data.items[0].snippet.channelId,
               });
 
               const createdProfile = await axios.get(
@@ -102,21 +104,21 @@ export default function VerifyVideoContainer({
       <div className="flex flex-col">
         <p className="text-4xl text-white mb-4">video</p>
 
-        <p className="text-base sm:text-xl text-white sm:w-[408px] mb-12">
+        <p className="text-base sm:text-xl text-white sm:w-[408px] mb-8">
           almost there! To unlock the stake function on your channel, you need
           to record and post a video to your YouTube channel following these
           rules:
         </p>
 
-        <div className="mb-5">
+        <div className="mb-4">
           <Bullet text="longer than 2 minutes" />
         </div>
 
-        <div className="mb-5">
+        <div className="mb-4">
           <Bullet text='have the name "cobogo" in the title' />
         </div>
 
-        <div className="mb-10">
+        <div className="mb-8">
           <Bullet
             text="link to"
             link={`https://app.cobogo.social/${channelHandle}`}
@@ -124,7 +126,7 @@ export default function VerifyVideoContainer({
         </div>
 
         <Button
-          width="w-32"
+          width="w-40"
           height="h-9"
           color="bg-blue"
           hoverColor="brightness-90"

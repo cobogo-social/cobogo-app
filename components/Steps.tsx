@@ -23,7 +23,7 @@ export default function Steps() {
 
       <StepItem number="4" text="invite" href="/submit/invite" />
 
-      <StepItem number="5" text="success" href="/submit/success" />
+      <StepItem number="5" text="success" href="/submit/success" last />
     </div>
   );
 }

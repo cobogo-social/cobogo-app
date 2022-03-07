@@ -10,7 +10,7 @@ export default function Categories({
   handleRemoveCategory,
 }: CategoriesProps) {
   return (
-    <div className="mb-12 flex flex-wrap w-[260px] sm:w-[432px]">
+    <div className="mb-8 flex flex-wrap w-[260px] sm:w-[432px]">
       {categories.map((category) => (
         <CategoryItem
           key={category}

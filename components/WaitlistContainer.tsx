@@ -40,7 +40,7 @@ export default function WaitlistContainer({ title }: WaitlistContainerProps) {
 
       <Link href="/submit/invite">
         <Button
-          width="w-32"
+          width="w-40"
           height="h-9"
           color="bg-blue"
           hoverColor="brightness-90"
