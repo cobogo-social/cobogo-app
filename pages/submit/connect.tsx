@@ -12,7 +12,11 @@ import Steps from '../../components/Steps';
 import cobogoApi from '../../services/cobogoApi';
 import youtubeApi from '../../services/youtubeApi';
 
-export default function Index() {
+interface ConnectProps {
+  haveChannel: boolean;
+}
+
+export default function Index({ haveChannel }: ConnectProps) {
   const [open, setOpen] = useState(false);
 
   function handleSetOpen() {
@@ -32,7 +36,7 @@ export default function Index() {
 
         <MobileSteps open={open} />
 
-        <Connect />
+        <Connect haveChannel={haveChannel} />
 
         <Footer />
       </PageWrapper>
@@ -112,12 +116,33 @@ export const getServerSideProps: GetServerSideProps = async ({
       }
     }
 
+    if (response.data.items.length === 0) {
+      return;
+    } else {
+      return {
+        redirect: {
+          destination: `/submit/create-profile${
+            query.ref ? '?ref=' + query.ref : ''
+          }`,
+          permanent: false,
+        },
+      };
+    }
+  }
+
+  if (session?.user) {
+    const response = await youtubeApi.get(
+      `/channels?part=snippet%2CbrandingSettings&mine=true`,
+      {
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+      }
+    );
+
     return {
-      redirect: {
-        destination: `/submit/create-profile${
-          query.ref ? '?ref=' + query.ref : ''
-        }`,
-        permanent: false,
+      props: {
+        haveChannel: response.data.items.length === 0 ? false : true,
       },
     };
   }

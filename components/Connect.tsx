@@ -1,9 +1,17 @@
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import SignInButton from './SignInButton';
 import TopBar from './TopBar';
 
-export default function Connect() {
+interface ConnectProps {
+  haveChannel: boolean;
+}
+
+export default function Connect({ haveChannel }: ConnectProps) {
+  const { push } = useRouter();
+
   return (
     <div className="bg-primary w-full h-screen sm:h-full p-8">
       <TopBar />
@@ -20,15 +28,44 @@ export default function Connect() {
           </div>
 
           <div>
-            <p className="text-4xl text-white mb-4">connect</p>
+            {haveChannel ? (
+              <>
+                <p className="text-4xl text-white mb-4">connect</p>
 
-            <p className="text-lg text-white mb-12">
-              connect your YouTube account and channel.
-            </p>
+                <p className="text-lg text-white mb-8">
+                  connect your YouTube account and channel.
+                </p>
 
-            <div className="mb-40">
-              <SignInButton />
-            </div>
+                <SignInButton />
+              </>
+            ) : (
+              <>
+                <p className="text-4xl text-white mb-4 flex">
+                  connect{' '}
+                  <div className="flex ml-4">
+                    <Image
+                      src="/images/warning-icon.svg"
+                      width={34}
+                      height={34}
+                    />
+                  </div>
+                </p>
+
+                <p className="text-lg text-white mb-8">
+                  there is no channel associated with this account.
+                </p>
+
+                <a
+                  onClick={() => {
+                    signOut();
+                    push('/submit/connect');
+                  }}
+                  className="text-blue font-bold hover:cursor-pointer"
+                >
+                  try another account
+                </a>
+              </>
+            )}
           </div>
 
           <div className="hidden sm:block">
