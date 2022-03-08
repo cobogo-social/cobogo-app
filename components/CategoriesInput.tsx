@@ -10,7 +10,7 @@ export default function CategoriesInput({
   return (
     <>
       <input
-        className="w-[212px] sm:w-96 h-12 bg-black border-[1.5px] border-l-0 border-details mb-4 text-white p-2 outline-none hidden sm:block"
+        className="w-full sm:w-96 h-12 bg-black border-[1.5px] border-l-0 border-details mb-4 text-white p-2 outline-none hidden sm:block"
         type="text"
         placeholder="search for a category and press enter"
         value={input}
@@ -22,7 +22,7 @@ export default function CategoriesInput({
       />
 
       <input
-        className="w-[212px] sm:w-96 h-12 bg-black border-[1.5px] border-l-0 border-details mb-4 text-white p-2 outline-none block sm:hidden"
+        className="w-full sm:w-96 h-12 bg-black border-[1.5px] border-l-0 border-details mb-4 text-white p-2 outline-none block sm:hidden"
         type="text"
         placeholder="search for a category"
         value={input}

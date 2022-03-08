@@ -50,7 +50,7 @@ export default function Invite({
                 <p className="font-bold text-white mr-2">your referral link</p>
 
                 <div className="px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] border-r-0 border-details">
-                  <p className="text-white font-bold text-xs sm:text-sm">
+                  <p className="text-blue font-bold text-xs sm:text-sm">
                     https://app.cobogo.social/submit?ref={referralCode}
                   </p>
                 </div>

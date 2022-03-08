@@ -167,7 +167,7 @@ export default function CreateProfile({
               <textarea
                 id="description"
                 name="description"
-                className={`w-[260px] sm:w-[432px] h-32 bg-black border-[1.5px] ${
+                className={`w-full sm:w-[432px] h-32 bg-black border-[1.5px] ${
                   formik.touched.description && formik.errors.description
                     ? 'border-red'
                     : 'border-details'
@@ -180,9 +180,13 @@ export default function CreateProfile({
               />
             </div>
 
-            <label htmlFor="handle" className="text-lg text-white mb-4">
+            <label htmlFor="handle" className="text-lg text-white sm:mb-4">
               choose a handle
             </label>
+
+            <p className="text-white mb-4 text-graylight sm:hidden">
+              https://app.cobogo.social/submit?ref={formik.values.handle}
+            </p>
 
             <div className="flex">
               <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
@@ -191,7 +195,7 @@ export default function CreateProfile({
                 </p>
               </div>
 
-              <div className="relative">
+              <div className="relative w-full">
                 {(formik.touched.handle && formik.errors.handle) ||
                 handleError ? (
                   <ErrorLabel error={formik.errors.handle || handleError} />
@@ -206,7 +210,7 @@ export default function CreateProfile({
                     e.key === 'Enter' && e.preventDefault();
                   }}
                   value={formik.values.handle}
-                  className={`w-[260px] sm:w-[210px] h-12 bg-black border-[1.5px] sm:border-l-0 ${
+                  className={`w-full sm:w-[210px] h-12 bg-black border-[1.5px] sm:border-l-0 ${
                     (formik.touched.handle && formik.errors.handle) ||
                     handleError
                       ? 'border-red'
