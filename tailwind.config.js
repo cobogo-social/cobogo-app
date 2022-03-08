@@ -19,6 +19,7 @@ module.exports = {
       ocean: '#29354F',
       violet: '#6C63FF',
       redlight: '#FADFDF',
+      graylight: '#CCCCCC',
     },
     extend: {},
   },

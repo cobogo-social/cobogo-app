@@ -31,33 +31,32 @@ export default function Invite({
 
         <StepWrapper>
           <div className="flex flex-col">
-            <p className="text-4xl text-white">invite your friends</p>
-            <p className="text-4xl text-white mb-4">
-              and <span className="font-bold">get valuable rewards!</span>
+            <p className="text-4xl text-white mb-4">congrats!</p>
+
+            <p className="text-base sm:text-lg text-white mb-8 sm:w-[408px]">
+              you are now on the waitlist and eligible to earn{' '}
+              <span className="font-bold">100 CBG</span> tokens, which is equal
+              to <span className="font-bold">$60</span> in the public sale!
             </p>
 
-            <p className="text-base sm:text-lg text-white mb-8">
-              earn more CBG for each Creator that joins the waitlist.
+            <p className="text-xs sm:text-sm text-white mb-8 sm:w-[408px]">
+              you can earn more <span className="font-bold">50 CBG</span> for
+              each Creator that joins the waitlist using your referral link, an
+              they will earn rewards too.
             </p>
 
-            <div className="flex justify-between items-center mb-4">
-              <p className="text-lg text-white font-bold">your referral link</p>
-              <div className="flex justify-center items-center">
-                <p className="text-white mr-2">accepted: </p>
-                <span className="text-blue font-bold">11</span>
-              </div>
-            </div>
+            <div className="flex justify-center mb-8">
+              <div className="px-4 h-[90px] bg-secondary flex justify-center items-center border-[1.5px] border-details">
+                <p className="font-bold text-white mr-2">your referral link</p>
 
-            <div className="flex justify-center">
-              <div className="px-4 h-12 bg-secondary flex justify-center items-center border-[1.5px] border-r-0 border-details">
-                <p className="text-white font-bold text-xs sm:text-base">
-                  https://app.cobogo.social/submit?ref={referralCode}
-                </p>
-              </div>
+                <div className="px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] border-r-0 border-details">
+                  <p className="text-white font-bold text-xs sm:text-sm">
+                    https://app.cobogo.social/submit?ref={referralCode}
+                  </p>
+                </div>
 
-              <div className="relative">
                 <div
-                  className={`px-4 h-12 bg-black border-[1.5px] border-l-0 border-details mb-4 outline-none flex justify-center items-center`}
+                  className={`px-4 h-[50px] bg-black border-[1.5px] border-l-0 border-details outline-none flex justify-center items-center`}
                 >
                   <CopyToClipboard
                     text={`Hi! cobogo is a dapp that helps us fund ourselves sustainably using blockchain. Use my referral link when you sign up for free for the waitlist, and we both get rewards!
@@ -71,20 +70,6 @@ export default function Invite({
                 </div>
               </div>
             </div>
-
-            <p className="text-white mb-8 text-lg">
-              read{' '}
-              <Link href="https://docs.cobogo.social/overview/getting-started/referral-program">
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-bold text-blue"
-                >
-                  our docs
-                </a>
-              </Link>{' '}
-              to learn more.
-            </p>
 
             <div className="w-full flex justify-between items-center mb-8">
               <div className="flex justify-center items-center">
@@ -133,6 +118,19 @@ export default function Invite({
                 </Link>
               </div>
             </div>
+
+            <p className="text-white mb-8 text-lg">
+              <Link href="https://docs.cobogo.social/overview/getting-started/referral-program">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-blue"
+                >
+                  learn more
+                </a>
+              </Link>{' '}
+              about our <span className="font-bold">Referral Program.</span>
+            </p>
 
             <Link href="/submit/success">
               <Button

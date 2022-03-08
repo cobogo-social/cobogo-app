@@ -52,7 +52,6 @@ export default function VerifyVideoContainer({
                 .toLowerCase()
                 .includes('caminho')
             ) {
-              console.log(response.data);
               await axios.post('/api/cobogo/createVideo', {
                 title: response.data.items[0].snippet.title,
                 description: response.data.items[0].snippet.description,
@@ -105,17 +104,28 @@ export default function VerifyVideoContainer({
         <p className="text-4xl text-white mb-4">video</p>
 
         <p className="text-base sm:text-xl text-white sm:w-[408px] mb-8">
-          almost there! To unlock the stake function on your channel, you need
-          to record and post a video to your YouTube channel following these
-          rules:
+          {`to join the waitlist and earn CBG, you'll have to make a video
+          presenting cobogo to your community, so they'll be ready to support
+          you when the time comes!`}
         </p>
 
         <div className="mb-4">
           <Bullet text="longer than 2 minutes" />
+
+          <p className="text-graylight sm:w-[408px] pl-9">
+            {`we believe that in order to explain what cobogo is about, that is, a
+          platform to monetize your work, and to let your community know how
+          they'll be able to support you, a video of at least 2 minutes is
+          necessary.`}
+          </p>
         </div>
 
         <div className="mb-4">
           <Bullet text='have the name "cobogo" in the title' />
+
+          <p className="text-graylight sm:w-[408px] pl-9">
+            {`to make it easier to find and identify your video, we require you to put the name "cobogo" in the title.`}
+          </p>
         </div>
 
         <div className="mb-8">
@@ -123,6 +133,10 @@ export default function VerifyVideoContainer({
             text="link to"
             link={`https://app.cobogo.social/${channelHandle}`}
           />
+
+          <p className="text-graylight sm:w-[408px] pl-9">
+            {`lastly, you will need to put the link to your staking page in the video description box so that your community can find you on cobogo, and support you!`}
+          </p>
         </div>
 
         <Button
