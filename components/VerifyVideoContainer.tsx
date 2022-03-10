@@ -1,12 +1,14 @@
 import axios from 'axios';
 import moment from 'moment';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useState } from 'react';
 
 import Bullet from './Bullet';
 import Button from './Button';
 import Loading from './Loading';
+import SuccessBullet from './SuccessBullet';
+import WarningBullet from './WarningBullet';
 
 interface VerifyVideoContainerProps {
   channelHandle: string;
@@ -17,11 +19,11 @@ export default function VerifyVideoContainer({
   channelHandle,
   channelId,
 }: VerifyVideoContainerProps) {
-  const [verifiedVideo, setVerifiedVideo] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [twoMinutesOk, setTwoMinutesOk] = useState(1);
+  const [cobogoTitleOk, setCobogoTitleOk] = useState(1);
+  const [descriptionLinkOk, setDescriptionLinkOk] = useState(1);
   const { data: session } = useSession();
-  const { push } = useRouter();
 
   async function handleVerifyVideo() {
     setIsLoading(true);
@@ -44,14 +46,29 @@ export default function VerifyVideoContainer({
             },
           })
           .then(async (response) => {
+            setCobogoTitleOk(3);
+
             if (
-              moment
+              !moment
                 .duration(response.data.items[0].contentDetails.duration)
-                .asMinutes() > 2 &&
-              response.data.items[0].snippet.description
+                .asMinutes()
+            ) {
+              setTwoMinutesOk(3);
+            } else {
+              setTwoMinutesOk(2);
+            }
+
+            if (
+              !response.data.items[0].snippet.description
                 .toLowerCase()
                 .includes('caminho')
             ) {
+              setDescriptionLinkOk(3);
+            } else {
+              setDescriptionLinkOk(2);
+            }
+
+            if (twoMinutesOk === 3 && descriptionLinkOk === 3) {
               await axios.post('/api/cobogo/createVideo', {
                 title: response.data.items[0].snippet.title,
                 description: response.data.items[0].snippet.description,
@@ -81,20 +98,19 @@ export default function VerifyVideoContainer({
                   }
                 )
                 .then(() => {
-                  setVerifiedVideo(true);
                   setIsLoading(false);
                 });
+            } else {
+              setIsLoading(false);
             }
           });
       });
+    } else {
+      setTwoMinutesOk(2);
+      setCobogoTitleOk(2);
+      setDescriptionLinkOk(2);
     }
   }
-
-  useEffect(() => {
-    if (verifiedVideo) {
-      push('/submit/invite');
-    }
-  }, [push, verifiedVideo]);
 
   return (
     <>
@@ -110,7 +126,11 @@ export default function VerifyVideoContainer({
         </p>
 
         <div className="mb-4">
-          <Bullet text="longer than 2 minutes" />
+          {twoMinutesOk === 1 && <Bullet text="longer than 2 minutes" />}
+
+          {twoMinutesOk === 2 && <WarningBullet text="longer than 2 minutes" />}
+
+          {twoMinutesOk === 3 && <SuccessBullet text="longer than 2 minutes" />}
 
           <p className="text-graylight sm:w-[408px] pl-9">
             {`we believe that in order to explain what cobogo is about, that is, a
@@ -121,7 +141,17 @@ export default function VerifyVideoContainer({
         </div>
 
         <div className="mb-4">
-          <Bullet text='have the name "cobogo" in the title' />
+          {cobogoTitleOk === 1 && (
+            <Bullet text='have the name "cobogo" in the title' />
+          )}
+
+          {cobogoTitleOk === 2 && (
+            <WarningBullet text='have the name "cobogo" in the title' />
+          )}
+
+          {cobogoTitleOk === 3 && (
+            <SuccessBullet text='have the name "cobogo" in the title' />
+          )}
 
           <p className="text-graylight sm:w-[408px] pl-9">
             {`to make it easier to find and identify your video, we require you to put the name "cobogo" in the title.`}
@@ -129,24 +159,64 @@ export default function VerifyVideoContainer({
         </div>
 
         <div className="mb-8">
-          <Bullet
-            text="link to"
-            link={`https://app.cobogo.social/${channelHandle}`}
-          />
+          {descriptionLinkOk === 1 && (
+            <Bullet
+              text="link to"
+              link={`https://app.cobogo.social/${channelHandle}`}
+            />
+          )}
+
+          {descriptionLinkOk === 2 && (
+            <WarningBullet
+              text="link to"
+              link={`https://app.cobogo.social/${channelHandle}`}
+            />
+          )}
+
+          {descriptionLinkOk === 3 && (
+            <SuccessBullet
+              text="link to"
+              link={`https://app.cobogo.social/${channelHandle}`}
+            />
+          )}
 
           <p className="text-graylight sm:w-[408px] pl-9">
             {`lastly, you will need to put the link to your staking page in the video description box so that your community can find you on cobogo, and support you!`}
           </p>
         </div>
+        {twoMinutesOk === 1 && descriptionLinkOk === 1 && (
+          <Button
+            width="w-40"
+            height="h-9"
+            color="bg-blue"
+            hoverColor="brightness-90"
+            text="verify video"
+            onClick={handleVerifyVideo}
+          />
+        )}
 
-        <Button
-          width="w-40"
-          height="h-9"
-          color="bg-blue"
-          hoverColor="brightness-90"
-          text="verify video"
-          onClick={handleVerifyVideo}
-        />
+        {twoMinutesOk === 2 && descriptionLinkOk === 2 && (
+          <Button
+            width="w-40"
+            height="h-9"
+            color="bg-blue"
+            hoverColor="brightness-90"
+            text="verify again"
+            onClick={handleVerifyVideo}
+          />
+        )}
+
+        {twoMinutesOk === 3 && descriptionLinkOk === 3 && (
+          <Link href="/submit/invite">
+            <Button
+              width="w-40"
+              height="h-9"
+              color="bg-blue"
+              hoverColor="brightness-90"
+              text="next step"
+            />
+          </Link>
+        )}
       </div>
     </>
   );
