@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import { useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import Bullet from './Bullet';
@@ -24,6 +24,7 @@ export default function VerifyVideoContainer({
   const [cobogoTitleOk, setCobogoTitleOk] = useState(1);
   const [descriptionLinkOk, setDescriptionLinkOk] = useState(1);
   const { data: session } = useSession();
+  const { push } = useRouter();
 
   async function handleVerifyVideo() {
     setIsLoading(true);
@@ -68,7 +69,14 @@ export default function VerifyVideoContainer({
               setDescriptionLinkOk(2);
             }
 
-            if (twoMinutesOk === 3 && descriptionLinkOk === 3) {
+            if (
+              moment
+                .duration(response.data.items[0].contentDetails.duration)
+                .asMinutes() &&
+              response.data.items[0].snippet.description
+                .toLowerCase()
+                .includes('caminho')
+            ) {
               await axios.post('/api/cobogo/createVideo', {
                 title: response.data.items[0].snippet.title,
                 description: response.data.items[0].snippet.description,
@@ -110,6 +118,10 @@ export default function VerifyVideoContainer({
       setCobogoTitleOk(2);
       setDescriptionLinkOk(2);
     }
+  }
+
+  function handlePushToNextStep() {
+    push('/submit/invite');
   }
 
   return (
@@ -207,15 +219,14 @@ export default function VerifyVideoContainer({
         )}
 
         {twoMinutesOk === 3 && descriptionLinkOk === 3 && (
-          <Link href="/submit/invite">
-            <Button
-              width="w-40"
-              height="h-9"
-              color="bg-blue"
-              hoverColor="brightness-90"
-              text="next step"
-            />
-          </Link>
+          <Button
+            width="w-40"
+            height="h-9"
+            color="bg-blue"
+            hoverColor="brightness-90"
+            text="next step"
+            onClick={handlePushToNextStep}
+          />
         )}
       </div>
     </>
