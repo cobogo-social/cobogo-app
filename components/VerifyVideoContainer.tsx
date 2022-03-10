@@ -49,7 +49,7 @@ export default function VerifyVideoContainer({
             setCobogoTitleOk(3);
 
             if (
-              !moment
+              moment
                 .duration(response.data.items[0].contentDetails.duration)
                 .asMinutes()
             ) {
@@ -59,7 +59,7 @@ export default function VerifyVideoContainer({
             }
 
             if (
-              !response.data.items[0].snippet.description
+              response.data.items[0].snippet.description
                 .toLowerCase()
                 .includes('caminho')
             ) {
