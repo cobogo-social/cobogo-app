@@ -76,8 +76,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
+  const channel = await youtubeApi.get(
+    `/channels?part=snippet%2CbrandingSettings&mine=true`,
+    {
+      headers: {
+        Authorization: `Bearer ${session.accessToken}`,
+      },
+    }
+  );
+
   const createdProfile = await cobogoApi.get(
-    `/api/profiles?filters[account_email][$eq]=${session?.user.email}`,
+    `/api/profiles?filters[channel_id][$eq]=${channel.data.items[0].id}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,

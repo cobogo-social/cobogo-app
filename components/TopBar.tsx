@@ -1,14 +1,9 @@
-import axios from 'axios';
-import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
 
-interface TopBarProps {
-  email?: string;
-}
-
-export default function TopBar({ email }: TopBarProps) {
+export default function TopBar() {
   const [currentAccount, setCurrentAccount] = useState('');
-  const [acceptedLength, setAcceptedLength] = useState(0);
+  const { data: session } = useSession();
 
   const checkIfWalletIsConnected = useCallback(async () => {
     const { ethereum } = window as any;
@@ -45,42 +40,15 @@ export default function TopBar({ email }: TopBarProps) {
   }
 
   useEffect(() => {
-    if (email) {
-      axios
-        .get('/api/cobogo/readProfileByEmail', {
-          params: { email: email },
-        })
-        .then((response) => {
-          axios
-            .get('/api/cobogo/readProfileByReferralProfileId', {
-              params: {
-                referral_profile_id: response.data.data[0].id,
-              },
-            })
-            .then((response) => setAcceptedLength(response.data.data.length));
-        });
-    }
-  }, []);
-
-  useEffect(() => {
     checkIfWalletIsConnected();
   }, [checkIfWalletIsConnected]);
 
   return (
     <div className="hidden sm:flex w-full justify-end items-center mb-[70px]">
-      {/* <Link href="/"> */}
       <a>
-        <p className="text-white mr-8">accepted invites: {acceptedLength}</p>
+        <p className="text-primary">.</p>
       </a>
 
-      <div className="flex">
-        <div className="flex mr-2">
-          <Image src="/images/cbg-icon.svg" width={24} height={21} />
-        </div>
-
-        <p className="text-white font-bold">850 CBG</p>
-      </div>
-      {/* </Link> */}
       {/* <p
         className="text-white font-bold hover:cursor-pointer"
         onClick={connectWallet}

@@ -34,7 +34,6 @@ export default function CreateProfile({
   const [createdProfile, setCreatedProfile] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [handleError, setHandleError] = useState('');
-
   const { data: session } = useSession();
   const { push, query } = useRouter();
 
@@ -66,13 +65,22 @@ export default function CreateProfile({
           }
         );
 
+        const createdAccount = await axios.get(
+          '/api/cobogo/readAccountByEmail',
+          {
+            params: {
+              email: session?.user.email,
+            },
+          }
+        );
+
         if (response.data.data.length !== 0) {
           await axios
             .post('/api/cobogo/createProfile', {
               description: values.description,
               handle: values.handle,
               categories: categoriesList.toString(),
-              account_email: session.user.email,
+              account: createdAccount.data.data[0].id,
               channel_id: channelId,
               referral_code: referralCodeGenerator.alphaNumeric(
                 'lowercase',
@@ -91,7 +99,7 @@ export default function CreateProfile({
               description: values.description,
               handle: values.handle,
               categories: categoriesList.toString(),
-              account_email: session.user.email,
+              account: createdAccount.data.data[0].id,
               channel_id: channelId,
               referral_code: referralCodeGenerator.alphaNumeric(
                 'lowercase',
@@ -184,8 +192,8 @@ export default function CreateProfile({
               choose a handle
             </label>
 
-            <p className="text-white mb-4 text-graylight sm:hidden">
-              https://app.cobogo.social/submit?ref={formik.values.handle}
+            <p className="mb-4 text-graylight sm:hidden">
+              https://app.cobogo.social/{formik.values.handle}
             </p>
 
             <div className="flex">

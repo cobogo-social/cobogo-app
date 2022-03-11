@@ -1,10 +1,12 @@
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-import SignInButton from './SignInButton';
 import TopBar from './TopBar';
 
-export default function Connect() {
+export default function ChannelNotFound() {
+  const { push } = useRouter();
+
   return (
     <div className="bg-primary w-full h-screen sm:h-full p-8">
       <TopBar />
@@ -21,13 +23,26 @@ export default function Connect() {
           </div>
 
           <div>
-            <p className="text-4xl text-white mb-4">connect</p>
-
-            <p className="text-lg text-white mb-8">
-              connect your YouTube account and channel.
+            <p className="text-4xl text-white mb-4 flex">
+              channel not found{' '}
+              <div className="flex ml-4">
+                <Image src="/images/warning-icon.svg" width={34} height={34} />
+              </div>
             </p>
 
-            <SignInButton />
+            <p className="text-lg text-white mb-8">
+              there is no channel associated with this account.
+            </p>
+
+            <a
+              onClick={() => {
+                signOut();
+                push('/submit/connect');
+              }}
+              className="text-blue font-bold hover:cursor-pointer"
+            >
+              try another account
+            </a>
           </div>
 
           <div className="hidden sm:block">

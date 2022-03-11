@@ -12,11 +12,7 @@ import Steps from '../../components/Steps';
 import cobogoApi from '../../services/cobogoApi';
 import youtubeApi from '../../services/youtubeApi';
 
-interface ConnectProps {
-  haveChannel: boolean;
-}
-
-export default function Index({ haveChannel }: ConnectProps) {
+export default function Index() {
   const [open, setOpen] = useState(false);
 
   function handleSetOpen() {
@@ -36,7 +32,7 @@ export default function Index({ haveChannel }: ConnectProps) {
 
         <MobileSteps open={open} />
 
-        <Connect haveChannel={haveChannel} />
+        <Connect />
 
         <Footer />
       </PageWrapper>
@@ -77,15 +73,6 @@ export const getServerSideProps: GetServerSideProps = async ({
         }
       });
 
-    const createdChannel = await cobogoApi.get(
-      `/api/channels?filters[account_email][$eq]=${session.user.email}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
-      }
-    );
-
     const response = await youtubeApi.get(
       `/channels?part=snippet%2CbrandingSettings&mine=true`,
       {
@@ -96,14 +83,32 @@ export const getServerSideProps: GetServerSideProps = async ({
     );
 
     if (response.data.items) {
+      const createdChannel = await cobogoApi.get(
+        `/api/channels?filters[channel_id][$eq]=${response.data.items[0].id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+          },
+        }
+      );
+
       if (createdChannel.data.data.length === 0) {
+        const createdAccount = await cobogoApi.get(
+          `/api/accounts?filters[email][$eq]=${session.user.email}`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+            },
+          }
+        );
+
         await cobogoApi.post(
           '/api/channels',
           {
             data: {
               title: response.data.items[0].snippet.title,
               description: response.data.items[0].snippet.description,
-              account_email: session.user.email,
+              account: createdAccount.data.data[0].id,
               channel_id: response.data.items[0].id,
             },
           },
@@ -116,8 +121,13 @@ export const getServerSideProps: GetServerSideProps = async ({
       }
     }
 
-    if (response.data.items.length === 0) {
-      return;
+    if (!response.data.items) {
+      return {
+        redirect: {
+          destination: '/submit/channel-not-found',
+          permanent: false,
+        },
+      };
     } else {
       return {
         redirect: {
@@ -128,23 +138,6 @@ export const getServerSideProps: GetServerSideProps = async ({
         },
       };
     }
-  }
-
-  if (session?.user) {
-    const response = await youtubeApi.get(
-      `/channels?part=snippet%2CbrandingSettings&mine=true`,
-      {
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
-        },
-      }
-    );
-
-    return {
-      props: {
-        haveChannel: response.data.items.length === 0 ? false : true,
-      },
-    };
   }
 
   return {

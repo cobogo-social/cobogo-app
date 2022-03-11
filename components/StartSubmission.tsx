@@ -25,10 +25,9 @@ export default function StartSubmission() {
         <p className="text-white sm:text-xl sm:w-[618px] text-center mb-12">
           to offer the best experience in{' '}
           <span className="font-bold">Web3 YouTube monetization</span>, we are
-          growing our community of Creators.{' '}
-          <span className="font-bold text-blue">Learn more</span> about{' '}
-          <span className="font-bold">cobogo social</span> and apply your
-          YouTube channel
+          growing our community of Creators. Join our waitlist to be the first
+          in this revolutionary economy, and to earn{' '}
+          <span className="font-bold">100 CBG</span> tokens.
         </p>
 
         <Link

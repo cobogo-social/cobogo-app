@@ -1,11 +1,11 @@
 import cobogoApi from '../../../services/cobogoApi';
 
 export default async function handler(req, res) {
-  const { email } = req.query;
+  const { channel_id } = req.query;
 
   try {
     const response = await cobogoApi.get(
-      `/api/profiles?filters[account_email][$eq]=${email}`,
+      `/api/profiles?filters[channel_id][$eq]=${channel_id}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,

@@ -8,6 +8,7 @@ import PageWrapper from '../components/PageWrapper';
 import StartSubmission from '../components/StartSubmission';
 import Steps from '../components/Steps';
 import cobogoApi from '../services/cobogoApi';
+import youtubeApi from '../services/youtubeApi';
 
 export default function Index() {
   return (
@@ -33,22 +34,33 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
   if (session?.user) {
-    const createdProfile = await cobogoApi.get(
-      `/api/profiles?filters[account_email][$eq]=${session?.user.email}`,
+    const channel = await youtubeApi.get(
+      `/channels?part=snippet%2CbrandingSettings&mine=true`,
       {
         headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+          Authorization: `Bearer ${session.accessToken}`,
         },
       }
     );
 
-    if (createdProfile.data.data.length != 0) {
-      return {
-        redirect: {
-          destination: '/submit/video',
-          permanent: false,
-        },
-      };
+    if (channel.data.items) {
+      const createdProfile = await cobogoApi.get(
+        `/api/profiles?filters[channel_id][$eq]=${channel.data.items[0].id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+          },
+        }
+      );
+
+      if (createdProfile.data.data.length != 0) {
+        return {
+          redirect: {
+            destination: '/submit/video',
+            permanent: false,
+          },
+        };
+      }
     }
   }
 

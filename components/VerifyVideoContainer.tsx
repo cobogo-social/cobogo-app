@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import youtubeApi from '../services/youtubeApi';
 import Bullet from './Bullet';
 import Button from './Button';
 import Loading from './Loading';
@@ -84,11 +85,20 @@ export default function VerifyVideoContainer({
                 channel_id: response.data.items[0].snippet.channelId,
               });
 
+              const channel = await youtubeApi.get(
+                `/channels?part=snippet%2CbrandingSettings&mine=true`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${session.accessToken}`,
+                  },
+                }
+              );
+
               const createdProfile = await axios.get(
-                `/api/cobogo/readProfileByEmail`,
+                `/api/cobogo/readProfileByChannelId`,
                 {
                   params: {
-                    email: session?.user.email,
+                    channel_id: channel.data.items[0].id,
                   },
                 }
               );
