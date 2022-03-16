@@ -1,11 +1,13 @@
+import { getSession } from 'next-auth/react';
+
 import cobogoApi from '../../../services/cobogoApi';
 
 export default async function handler(req, res) {
-  const { id } = req.query;
+  const session = getSession({ req });
 
   try {
     const response = await cobogoApi.put(
-      `/api/profiles/${id}`,
+      `/api/profiles/${(await session).profiles[0].id}`,
       {
         data: {
           waitlist: true,

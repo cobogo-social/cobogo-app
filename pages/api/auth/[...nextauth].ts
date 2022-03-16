@@ -1,6 +1,9 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
+import cobogoApi from '../../../services/cobogoApi';
+import youtubeApi from '../../../services/youtubeApi';
+
 async function refreshAccessToken(token) {
   try {
     const url =
@@ -77,6 +80,49 @@ export default NextAuth({
       session.user = token.user;
       session.accessToken = token.accessToken;
       session.error = token.error;
+
+      const readChannel = await youtubeApi.get(
+        `/channels?part=snippet%2CbrandingSettings&mine=true`,
+        {
+          headers: {
+            Authorization: `Bearer ${session.accessToken}`,
+          },
+        }
+      );
+
+      const readProfileByChannelId = await cobogoApi.get(
+        `/api/profiles?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+          },
+        }
+      );
+
+      const readAccountByEmail = await cobogoApi.get(
+        `/api/accounts?filters[email][$eq]=${session.user.email}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+          },
+        }
+      );
+
+      const readChannelByChannelId = await cobogoApi.get(
+        `/api/channels?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+          },
+        }
+      );
+
+      session.youtubeChannels = readChannel.data.items;
+      session.profiles = readProfileByChannelId.data.data;
+      session.accounts = readAccountByEmail.data.data;
+      session.channels = readChannelByChannelId.data.data;
+
+      console.log(session);
 
       return session;
     },

@@ -1,7 +1,10 @@
+import { getSession } from 'next-auth/react';
+
 import cobogoApi from '../../../services/cobogoApi';
 
 export default async function handler(req, res) {
-  const { title, description, video_id, channel_id } = req.body;
+  const { title, description, video_id } = req.body;
+  const session = getSession({ req });
 
   try {
     const response = await cobogoApi.post(
@@ -11,7 +14,9 @@ export default async function handler(req, res) {
           title,
           description,
           video_id,
-          channel_id,
+          account: (await session).account[0].id,
+          channel: (await session).channels[0].id,
+          profile: (await session).profiles[0].id,
         },
       },
       {

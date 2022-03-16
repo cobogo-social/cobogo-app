@@ -9,6 +9,7 @@ export default async function handler(req, res) {
     channel_id,
     referral_code,
     referral_profile_id,
+    channel,
   } = req.body;
 
   try {
@@ -23,6 +24,7 @@ export default async function handler(req, res) {
           channel_id,
           referral_code,
           referral_profile_id,
+          channel,
         },
       },
       {

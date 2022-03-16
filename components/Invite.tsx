@@ -1,13 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { IoCopySharp } from 'react-icons/io5';
 
 import Button from './Button';
 import ChannelBanner from './ChannelBanner';
-import StepWrapper from './StepWrapper';
 import StatsTopBar from './StatsTopBar';
+import StepWrapper from './StepWrapper';
 
 interface InviteProps {
   banner: string;
@@ -56,7 +55,7 @@ export default function Invite({
                 </div>
 
                 <div
-                  className={`px-4 h-[50px] bg-black border-[1.5px] border-l-0 border-details outline-none flex justify-center items-center`}
+                  className={`pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-details outline-none flex justify-center items-center`}
                 >
                   <CopyToClipboard
                     text={`Hi! cobogo is a dapp that helps us fund ourselves sustainably using blockchain. Use my referral link when you sign up for free for the waitlist, and we both get rewards!

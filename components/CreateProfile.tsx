@@ -47,16 +47,19 @@ export default function CreateProfile({
       handle: yup.string().required('handle required'),
     }),
     onSubmit: async (values) => {
-      const response = await axios.get('/api/cobogo/readProfileByHandle', {
-        params: {
-          handle: values.handle,
-        },
-      });
+      const readProfileByHandle = await axios.get(
+        '/api/cobogo/readProfileByHandle',
+        {
+          params: {
+            handle: values.handle,
+          },
+        }
+      );
 
-      if (response.data.data.length === 0) {
+      if (readProfileByHandle.data.data.length === 0) {
         setIsLoading(true);
 
-        const response = await axios.get(
+        const readProfileByReferralCode = await axios.get(
           '/api/cobogo/readProfileByReferralCode',
           {
             params: {
@@ -65,29 +68,21 @@ export default function CreateProfile({
           }
         );
 
-        const createdAccount = await axios.get(
-          '/api/cobogo/readAccountByEmail',
-          {
-            params: {
-              email: session?.user.email,
-            },
-          }
-        );
-
-        if (response.data.data.length !== 0) {
+        if (readProfileByReferralCode.data.data.length !== 0) {
           await axios
             .post('/api/cobogo/createProfile', {
               description: values.description,
               handle: values.handle,
               categories: categoriesList.toString(),
-              account: createdAccount.data.data[0].id,
               channel_id: channelId,
               referral_code: referralCodeGenerator.alphaNumeric(
                 'lowercase',
                 2,
                 2
               ),
-              referral_profile_id: response.data.data[0].id,
+              referral_profile_id: readProfileByReferralCode.data.data[0].id,
+              account: session.accounts[0].id,
+              channel: session.channels[0].id,
             })
             .then(() => {
               setCreatedProfile(true);
@@ -99,13 +94,14 @@ export default function CreateProfile({
               description: values.description,
               handle: values.handle,
               categories: categoriesList.toString(),
-              account: createdAccount.data.data[0].id,
               channel_id: channelId,
               referral_code: referralCodeGenerator.alphaNumeric(
                 'lowercase',
                 2,
                 2
               ),
+              account: session.accounts[0].id,
+              channel: session.channels[0].id,
             })
             .then(() => {
               setCreatedProfile(true);

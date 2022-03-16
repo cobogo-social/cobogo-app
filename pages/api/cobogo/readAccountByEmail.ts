@@ -1,11 +1,13 @@
+import { getSession } from 'next-auth/react';
+
 import cobogoApi from '../../../services/cobogoApi';
 
 export default async function handler(req, res) {
-  const { email } = req.query;
+  const session = getSession({ req });
 
   try {
     const response = await cobogoApi.get(
-      `/api/accounts?filters[email][$eq]=${email}`,
+      `/api/accounts?filters[email][$eq]=${(await session).user.email}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,

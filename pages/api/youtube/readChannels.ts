@@ -1,4 +1,5 @@
 import { getSession } from 'next-auth/react';
+
 import youtubeApi from '../../../services/youtubeApi';
 
 export default async function handler(req, res) {

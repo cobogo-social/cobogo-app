@@ -9,8 +9,6 @@ import MobileSteps from '../../components/MobileSteps';
 import MobileTopBar from '../../components/MobileTopBar';
 import PageWrapper from '../../components/PageWrapper';
 import Steps from '../../components/Steps';
-import cobogoApi from '../../services/cobogoApi';
-import youtubeApi from '../../services/youtubeApi';
 
 interface CreateProfileProps {
   banner: string;
@@ -76,52 +74,29 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const channel = await youtubeApi.get(
-    `/channels?part=snippet%2CbrandingSettings&mine=true`,
-    {
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
-      },
+  if (session.youtubeChannels) {
+    if (session.profiles[0]) {
+      return {
+        redirect: {
+          destination: '/submit/video',
+          permanent: false,
+        },
+      };
     }
-  );
-
-  const createdProfile = await cobogoApi.get(
-    `/api/profiles?filters[channel_id][$eq]=${channel.data.items[0].id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-      },
-    }
-  );
-
-  if (createdProfile.data.data.length != 0) {
-    return {
-      redirect: {
-        destination: '/submit/video',
-        permanent: false,
-      },
-    };
   }
-
-  const response = await youtubeApi.get(
-    `/channels?part=snippet%2CbrandingSettings&mine=true`,
-    {
-      headers: {
-        Authorization: `Bearer ${session?.accessToken}`,
-      },
-    }
-  );
 
   return {
     props: {
-      banner: response.data.items
-        ? response.data.items[0].brandingSettings.image.bannerExternalUrl
+      banner: session.youtubeChannels
+        ? session.youtubeChannels[0].brandingSettings.image.bannerExternalUrl
         : '',
-      title: response.data.items ? response.data.items[0].snippet.title : '',
-      description: response.data.items
-        ? response.data.items[0].snippet.description
+      title: session.youtubeChannels
+        ? session.youtubeChannels[0].snippet.title
         : '',
-      channelId: response.data.items ? response.data.items[0].id : '',
+      description: session.youtubeChannels
+        ? session.youtubeChannels[0].snippet.description
+        : '',
+      channelId: session.youtubeChannels ? session.youtubeChannels[0].id : '',
     },
   };
 };

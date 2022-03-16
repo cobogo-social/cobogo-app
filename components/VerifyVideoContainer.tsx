@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import youtubeApi from '../services/youtubeApi';
 import Bullet from './Bullet';
 import Button from './Button';
 import Loading from './Loading';
@@ -30,7 +29,7 @@ export default function VerifyVideoContainer({
   async function handleVerifyVideo() {
     setIsLoading(true);
 
-    const response = await axios.get(`/api/youtube/readVideos`, {
+    const readVideos = await axios.get(`/api/youtube/readVideos`, {
       params: {
         accessToken: session.accessToken,
         channelId: channelId,
@@ -38,8 +37,8 @@ export default function VerifyVideoContainer({
       },
     });
 
-    if (response.data.items.length) {
-      response.data.items.forEach((item) => {
+    if (readVideos.data.items.length) {
+      readVideos.data.items.forEach((item) => {
         axios
           .get('/api/youtube/readVideoById', {
             params: {
@@ -82,39 +81,12 @@ export default function VerifyVideoContainer({
                 title: response.data.items[0].snippet.title,
                 description: response.data.items[0].snippet.description,
                 video_id: item.id.videoId,
-                channel_id: response.data.items[0].snippet.channelId,
               });
 
-              const channel = await youtubeApi.get(
-                `/channels?part=snippet%2CbrandingSettings&mine=true`,
-                {
-                  headers: {
-                    Authorization: `Bearer ${session.accessToken}`,
-                  },
-                }
-              );
-
-              const createdProfile = await axios.get(
-                `/api/cobogo/readProfileByChannelId`,
-                {
-                  params: {
-                    channel_id: channel.data.items[0].id,
-                  },
-                }
-              );
-
               await axios
-                .put(
-                  `/api/cobogo/updateProfile`,
-                  {
-                    waitlist: true,
-                  },
-                  {
-                    params: {
-                      id: createdProfile.data.data[0].id,
-                    },
-                  }
-                )
+                .put(`/api/cobogo/updateProfile`, {
+                  waitlist: true,
+                })
                 .then(() => {
                   setIsLoading(false);
                 });

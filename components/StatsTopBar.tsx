@@ -49,7 +49,7 @@ export default function StatsTopBar({ email }: TopBarProps) {
           <Image src="/images/cbg-icon.svg" width={24} height={21} />
         </div>
 
-        <p className="text-white font-bold">850 CBG</p>
+        <p className="text-white font-bold">100 CBG</p>
       </div>
     </div>
   );
