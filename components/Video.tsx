@@ -1,14 +1,13 @@
 import ChannelBanner from './ChannelBanner';
 import StepWrapper from './StepWrapper';
 import TopBar from './TopBar';
-import VerifyVideoContainer from './VerifyVideoContainer';
+import VerifyVideo from './VerifyVideo';
 
 interface VideoProps {
   banner: string;
   title: string;
   description: string;
   channelHandle: string;
-  channelId: string;
 }
 
 export default function Video({
@@ -16,17 +15,13 @@ export default function Video({
   title,
   description,
   channelHandle,
-  channelId,
 }: VideoProps) {
   return (
     <div className="bg-primary w-full h-screen sm:h-full p-8">
       <TopBar />
 
       <StepWrapper>
-        <VerifyVideoContainer
-          channelHandle={channelHandle}
-          channelId={channelId}
-        />
+        <VerifyVideo channelHandle={channelHandle} />
 
         <ChannelBanner
           banner={banner}

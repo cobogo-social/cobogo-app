@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import Button from './Button';
 
-export default function VerifiedVideoContainer() {
+export default function VerifiedVideo() {
   return (
     <div className="flex flex-col">
       <p className="text-4xl text-green mb-4">verified!</p>

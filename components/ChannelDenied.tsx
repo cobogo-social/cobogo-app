@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function ChannelDeniedContainer() {
+export default function ChannelDenied() {
   return (
     <div className="flex flex-col">
       <p className="text-4xl text-red mb-4">channel denied</p>

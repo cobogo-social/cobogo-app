@@ -1,6 +1,5 @@
 import axios from 'axios';
 import moment from 'moment';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -10,39 +9,27 @@ import Loading from './Loading';
 import SuccessBullet from './SuccessBullet';
 import WarningBullet from './WarningBullet';
 
-interface VerifyVideoContainerProps {
+interface VerifyVideoProps {
   channelHandle: string;
-  channelId: string;
 }
 
-export default function VerifyVideoContainer({
-  channelHandle,
-  channelId,
-}: VerifyVideoContainerProps) {
+export default function VerifyVideo({ channelHandle }: VerifyVideoProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [twoMinutesOk, setTwoMinutesOk] = useState(1);
   const [cobogoTitleOk, setCobogoTitleOk] = useState(1);
   const [descriptionLinkOk, setDescriptionLinkOk] = useState(1);
-  const { data: session } = useSession();
   const { push } = useRouter();
 
   async function handleVerifyVideo() {
     setIsLoading(true);
 
-    const readVideos = await axios.get(`/api/youtube/readVideos`, {
-      params: {
-        accessToken: session.accessToken,
-        channelId: channelId,
-        q: 'windows',
-      },
-    });
+    const readVideos = await axios.get(`/api/youtube/readVideos`);
 
     if (readVideos.data.items.length) {
       readVideos.data.items.forEach((item) => {
         axios
           .get('/api/youtube/readVideoById', {
             params: {
-              accessToken: session.accessToken,
               id: item.id.videoId,
             },
           })

@@ -70,8 +70,6 @@ export default function Footer() {
 
         <a className="text-white font-bold mr-8">terms of use</a>
 
-        <a className="text-white font-bold mr-8">whitepaper</a>
-
         <Link href="https://docs.cobogo.social/overview/what-is-cobogo">
           <a className="flex justify-center items-center h-full bg-secondary w-[148px]">
             <div className="mr-3 flex justify-center items-center">

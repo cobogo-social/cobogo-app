@@ -15,7 +15,6 @@ interface VideoProps {
   title: string;
   description: string;
   channelHandle: string;
-  channelId: string;
 }
 
 export default function Index({
@@ -23,7 +22,6 @@ export default function Index({
   title,
   description,
   channelHandle,
-  channelId,
 }: VideoProps) {
   const [open, setOpen] = useState(false);
   const { data: session } = useSession();
@@ -56,7 +54,6 @@ export default function Index({
           title={title}
           description={description}
           channelHandle={channelHandle}
-          channelId={channelId}
         />
 
         <Footer />
@@ -102,7 +99,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       title: session.youtubeChannels[0].snippet.title,
       description: session.youtubeChannels[0].snippet.description,
       channelHandle: session.profiles[0].attributes.handle,
-      channelId: session.youtubeChannels[0].id,
     },
   };
 };

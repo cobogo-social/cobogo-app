@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function UnderAnalysisContainer() {
+export default function UnderAnalysis() {
   return (
     <div className="flex flex-col">
       <p className="text-4xl text-yellow mb-4">under analysis</p>

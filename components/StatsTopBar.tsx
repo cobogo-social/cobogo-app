@@ -1,40 +1,17 @@
+import axios from 'axios';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-interface TopBarProps {
-  email?: string;
-}
+export default function StatsTopBar() {
+  const [acceptedLength, setAcceptedLength] = useState('-');
+  const { data: session } = useSession();
 
-export default function StatsTopBar({ email }: TopBarProps) {
-  const [acceptedLength, setAcceptedLength] = useState('');
-
-  // useEffect(() => {
-  //   if (email) {
-  //     youtubeApi
-  //       .get(`/channels?part=snippet%2CbrandingSettings&mine=true`, {
-  //         headers: {
-  //           Authorization: `Bearer ${session?.accessToken}`,
-  //         },
-  //       })
-  //       .then((channel) => {
-  //         axios
-  //           .get('/api/cobogo/readProfileByChannelId', {
-  //             params: { channel_id: channel.data.items[0].id },
-  //           })
-  //           .then((response) => {
-  //             axios
-  //               .get('/api/cobogo/readProfileByReferralProfileId', {
-  //                 params: {
-  //                   referral_profile_id: response.data.data[0].id,
-  //                 },
-  //               })
-  //               .then((response) =>
-  //                 setAcceptedLength(response.data.data.length)
-  //               );
-  //           });
-  //       });
-  //   }
-  // }, []);
+  useEffect(() => {
+    axios
+      .get('/api/cobogo/readProfileByReferralProfileId')
+      .then((response) => setAcceptedLength(response.data.data.length));
+  }, [session]);
 
   return (
     <div className="hidden sm:flex w-full justify-end items-center mb-[70px]">

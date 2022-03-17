@@ -3,11 +3,11 @@ import Link from 'next/link';
 
 import Button from './Button';
 
-interface WaitlistContainerProps {
+interface WaitlistProps {
   title: string;
 }
 
-export default function WaitlistContainer({ title }: WaitlistContainerProps) {
+export default function Waitlist({ title }: WaitlistProps) {
   return (
     <div className="flex flex-col mb-8">
       <p className="text-4xl text-white mb-4 flex">

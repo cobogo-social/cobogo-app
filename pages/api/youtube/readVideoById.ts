@@ -1,7 +1,10 @@
+import { getSession } from 'next-auth/react';
+
 import youtubeApi from '../../../services/youtubeApi';
 
 export default async function handler(req, res) {
-  const { accessToken, id } = req.query;
+  const { id } = req.query;
+  const session = await getSession({ req });
 
   try {
     const response = await youtubeApi.get(
@@ -11,7 +14,7 @@ export default async function handler(req, res) {
           id: id,
         },
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${session.accessToken}`,
         },
       }
     );

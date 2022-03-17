@@ -1,18 +1,20 @@
+import { getSession } from 'next-auth/react';
+
 import youtubeApi from '../../../services/youtubeApi';
 
 export default async function handler(req, res) {
-  const { accessToken, channelId, q } = req.query;
+  const session = await getSession({ req });
 
   try {
     const response = await youtubeApi.get(
       `/search?part=snippet&maxResults=25&type=video&videoDuration=short`,
       {
         params: {
-          channelId: channelId,
-          q: q,
+          channelId: session.youtubeChannels[0].id,
+          q: 'windows',
         },
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${session.accessToken}`,
         },
       }
     );

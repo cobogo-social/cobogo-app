@@ -1,11 +1,19 @@
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 import TopBar from './TopBar';
 
-export default function ChannelNotFound() {
-  const { push } = useRouter();
+interface ChannelNotFoundProps {
+  setHaveChannel?: () => void;
+}
+
+export default function ChannelNotFound({
+  setHaveChannel,
+}: ChannelNotFoundProps) {
+  async function handleTryAnotherAccount() {
+    await signOut();
+    setHaveChannel();
+  }
 
   return (
     <div className="bg-primary w-full h-screen sm:h-full p-8">
@@ -35,10 +43,7 @@ export default function ChannelNotFound() {
             </p>
 
             <a
-              onClick={() => {
-                signOut();
-                push('/submit/connect');
-              }}
+              onClick={handleTryAnotherAccount}
               className="text-blue font-bold hover:cursor-pointer"
             >
               try another account

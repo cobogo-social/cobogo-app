@@ -1,7 +1,7 @@
 import ChannelBanner from './ChannelBanner';
-import StepWrapper from './StepWrapper';
 import StatsTopBar from './StatsTopBar';
-import WaitlistContainer from './WaitlistContainer';
+import StepWrapper from './StepWrapper';
+import Waitlist from './Waitlist';
 
 interface SuccessProps {
   banner: string;
@@ -17,7 +17,7 @@ export default function Success({ banner, title, description }: SuccessProps) {
 
       <StepWrapper>
         <div className="flex flex-col">
-          <WaitlistContainer title={title} />
+          <Waitlist title={title} />
         </div>
 
         <ChannelBanner

@@ -13,7 +13,6 @@ interface InviteProps {
   title: string;
   description: string;
   referralCode: string;
-  email: string;
 }
 
 export default function Invite({
@@ -21,12 +20,11 @@ export default function Invite({
   title,
   description,
   referralCode,
-  email,
 }: InviteProps) {
   return (
     <>
       <div className="bg-primary w-full h-screen sm:h-full p-8">
-        <StatsTopBar email={email} />
+        <StatsTopBar />
 
         <StepWrapper>
           <div className="flex flex-col">

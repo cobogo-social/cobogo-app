@@ -1,9 +1,9 @@
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import ChannelNotFound from '../../components/ChannelNotFound';
 import Connect from '../../components/Connect';
 import Footer from '../../components/Footer';
 import MobileSteps from '../../components/MobileSteps';
@@ -14,15 +14,28 @@ import cobogoApi from '../../services/cobogoApi';
 
 export default function Index() {
   const [open, setOpen] = useState(false);
-  const { query } = useRouter();
+  const [haveChannel, setHaveChannel] = useState<boolean>();
+  const { data: session } = useSession();
 
   function handleSetOpen() {
     setOpen(!open);
   }
 
+  function handleSetHaveChannel() {
+    setHaveChannel(true);
+  }
+
   useEffect(() => {
-    sessionStorage.setItem('queryRef', query.ref as string);
-  }, []);
+    if (session?.user) {
+      if (!session.youtubeChannels) {
+        setHaveChannel(false);
+      } else {
+        setHaveChannel(true);
+      }
+    } else {
+      setHaveChannel(true);
+    }
+  }, [session]);
 
   return (
     <div className="w-full">
@@ -37,7 +50,11 @@ export default function Index() {
 
         <MobileSteps open={open} />
 
-        <Connect />
+        {!haveChannel ? (
+          <ChannelNotFound setHaveChannel={handleSetHaveChannel} />
+        ) : (
+          <Connect />
+        )}
 
         <Footer />
       </PageWrapper>
@@ -97,14 +114,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       }
     }
 
-    if (!session.youtubeChannels[0]) {
-      return {
-        redirect: {
-          destination: '/submit/channel-not-found',
-          permanent: false,
-        },
-      };
-    } else {
+    if (session.youtubeChannels) {
       return {
         redirect: {
           destination: '/submit/create-profile',

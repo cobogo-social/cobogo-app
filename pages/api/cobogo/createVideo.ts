@@ -14,7 +14,7 @@ export default async function handler(req, res) {
           title,
           description,
           video_id,
-          account: (await session).account[0].id,
+          account: (await session).accounts[0].id,
           channel: (await session).channels[0].id,
           profile: (await session).profiles[0].id,
         },

@@ -90,15 +90,6 @@ export default NextAuth({
         }
       );
 
-      const readProfileByChannelId = await cobogoApi.get(
-        `/api/profiles?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-          },
-        }
-      );
-
       const readAccountByEmail = await cobogoApi.get(
         `/api/accounts?filters[email][$eq]=${session.user.email}`,
         {
@@ -108,19 +99,31 @@ export default NextAuth({
         }
       );
 
-      const readChannelByChannelId = await cobogoApi.get(
-        `/api/channels?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-          },
-        }
-      );
-
       session.youtubeChannels = readChannel.data.items;
-      session.profiles = readProfileByChannelId.data.data;
       session.accounts = readAccountByEmail.data.data;
-      session.channels = readChannelByChannelId.data.data;
+
+      if (readChannel.data.items) {
+        const readProfileByChannelId = await cobogoApi.get(
+          `/api/profiles?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+            },
+          }
+        );
+
+        const readChannelByChannelId = await cobogoApi.get(
+          `/api/channels?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+            },
+          }
+        );
+
+        session.profiles = readProfileByChannelId.data.data;
+        session.channels = readChannelByChannelId.data.data;
+      }
 
       return session;
     },
