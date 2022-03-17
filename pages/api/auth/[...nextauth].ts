@@ -122,8 +122,6 @@ export default NextAuth({
       session.accounts = readAccountByEmail.data.data;
       session.channels = readChannelByChannelId.data.data;
 
-      console.log(session);
-
       return session;
     },
   },

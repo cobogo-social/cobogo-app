@@ -1,7 +1,8 @@
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import Connect from '../../components/Connect';
 import Footer from '../../components/Footer';
@@ -13,10 +14,15 @@ import cobogoApi from '../../services/cobogoApi';
 
 export default function Index() {
   const [open, setOpen] = useState(false);
+  const { query } = useRouter();
 
   function handleSetOpen() {
     setOpen(!open);
   }
+
+  useEffect(() => {
+    sessionStorage.setItem('queryRef', query.ref as string);
+  }, []);
 
   return (
     <div className="w-full">
@@ -39,10 +45,7 @@ export default function Index() {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  query,
-}) => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
   if (session?.user) {
@@ -104,9 +107,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     } else {
       return {
         redirect: {
-          destination: `/submit/create-profile${
-            query.ref ? '?ref=' + query.ref : ''
-          }`,
+          destination: '/submit/create-profile',
           permanent: false,
         },
       };

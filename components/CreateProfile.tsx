@@ -35,7 +35,7 @@ export default function CreateProfile({
   const [isLoading, setIsLoading] = useState(false);
   const [handleError, setHandleError] = useState('');
   const { data: session } = useSession();
-  const { push, query } = useRouter();
+  const { push } = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -63,7 +63,7 @@ export default function CreateProfile({
           '/api/cobogo/readProfileByReferralCode',
           {
             params: {
-              referral_code: query.ref,
+              referral_code: sessionStorage.queryRef,
             },
           }
         );
@@ -125,8 +125,11 @@ export default function CreateProfile({
       if (categoriesList.length === 5) {
         return;
       }
-      setCategoriesList([...categoriesList, input]);
-      setInput('');
+
+      if (input) {
+        setCategoriesList([...categoriesList, input]);
+        setInput('');
+      }
     }
   }
 
