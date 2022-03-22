@@ -74,6 +74,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
+  if (!session.youtubeChannels) {
+    return {
+      redirect: {
+        destination: '/submit/connect',
+        permanent: false,
+      },
+    };
+  }
+
   if (!session.profiles[0]?.attributes.waitlist) {
     return {
       redirect: {

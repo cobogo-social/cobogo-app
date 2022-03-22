@@ -35,7 +35,7 @@ export default function StartSubmission() {
             query.ref ? `/submit/connect?ref=${query.ref}` : `/submit/connect`
           }
         >
-          <a className="mb-12">
+          <a className="mb-8">
             <Button
               text="start submission"
               color="bg-purple"
