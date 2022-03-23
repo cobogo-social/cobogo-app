@@ -17,7 +17,7 @@ export default function Video({
   channelHandle,
 }: VideoProps) {
   return (
-    <div className="bg-primary w-full h-screen sm:h-full p-8">
+    <div className="w-full h-full p-8">
       <TopBar />
 
       <StepWrapper>

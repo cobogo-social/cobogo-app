@@ -13,7 +13,7 @@ export default function ReferralLink({ referralCode }: ReferralLinkProps) {
 
         <div className="px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] border-r-0 border-details">
           <p className="text-blue font-bold text-xs sm:text-sm">
-            https://app.cobogo.social/submit?ref={referralCode}
+            app.cobogo.social/submit?ref={referralCode}
           </p>
         </div>
 

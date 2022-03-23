@@ -21,7 +21,7 @@ export default function Network() {
   }
 
   return (
-    <div className="bg-primary w-full h-full p-8">
+    <div className="w-full h-full p-8">
       {/* <TopBar />
       <div className="flex flex-row justify-between items-start px-16">
         <div className="flex flex-col">

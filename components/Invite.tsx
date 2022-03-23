@@ -22,7 +22,7 @@ export default function Invite({
 }: InviteProps) {
   return (
     <>
-      <div className="bg-primary w-full h-screen sm:h-full p-8">
+      <div className="w-full h-full p-8">
         <StatsTopBar />
 
         <StepWrapper>
@@ -43,8 +43,8 @@ export default function Invite({
 
             <ReferralLink referralCode={referralCode} />
 
-            <div className="w-full flex justify-between items-center mb-8">
-              <div className="flex justify-center items-center">
+            <div className="w-full flex flex-col sm:flex-row justify-between items-center mb-8">
+              <div className="flex justify-center items-center mb-4 sm:mb-0">
                 <div className="mr-4 flex">
                   <Image
                     src="/images/telegram-icon.svg"

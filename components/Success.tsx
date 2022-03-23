@@ -12,7 +12,7 @@ interface SuccessProps {
 
 export default function Success({ banner, title, description }: SuccessProps) {
   return (
-    <div className="bg-primary w-full h-screen sm:h-full p-8">
+    <div className="w-full h-full p-8">
       <StatsTopBar />
 
       <StepWrapper>

@@ -153,7 +153,7 @@ export default function CreateProfile({
     <>
       <Loading isLoading={isLoading} />
 
-      <div className="bg-primary w-full h-screen sm:h-full p-8">
+      <div className="w-full h-full p-8">
         <TopBar />
 
         <StepWrapper>
@@ -191,15 +191,13 @@ export default function CreateProfile({
               choose a handle
             </label>
 
-            <p className="mb-4 text-graylight sm:hidden">
-              https://app.cobogo.social/{formik.values.handle}
+            <p className="text-sm mb-4 break-words text-graylight sm:hidden">
+              app.cobogo.social/{formik.values.handle}
             </p>
 
             <div className="flex">
               <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
-                <p className="text-white font-bold">
-                  https://app.cobogo.social/
-                </p>
+                <p className="text-white font-bold">app.cobogo.social/</p>
               </div>
 
               <div className="relative w-full">
