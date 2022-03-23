@@ -65,6 +65,18 @@ export default function Index({
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
+  const readProfileByChannelId = async () => {
+    const response = await cobogoApi.get(
+      `/api/profiles?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+        },
+      }
+    );
+    return response.data.data;
+  }
+
   if (!session?.user) {
     return {
       redirect: {

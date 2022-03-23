@@ -1,9 +1,6 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
-import cobogoApi from '../../../services/cobogoApi';
-import youtubeApi from '../../../services/youtubeApi';
-
 async function refreshAccessToken(token) {
   try {
     const url =
@@ -80,35 +77,6 @@ export default NextAuth({
       session.user = token.user;
       session.accessToken = token.accessToken;
       session.error = token.error;
-
-      const readChannel = await youtubeApi.get(
-        `/channels?part=snippet%2CbrandingSettings&mine=true`,
-        {
-          headers: {
-            Authorization: `Bearer ${session.accessToken}`,
-          },
-        }
-      );
-
-      const readAccountByEmail = await cobogoApi.get(
-        `/api/accounts?filters[email][$eq]=${session.user.email}`
-      );
-
-      session.youtubeChannels = readChannel.data.items;
-      session.accounts = readAccountByEmail.data.data;
-
-      if (readChannel.data.items) {
-        const readProfileByChannelId = await cobogoApi.get(
-          `/api/profiles?filters[channel_id][$eq]=${readChannel.data.items[0].id}`
-        );
-
-        const readChannelByChannelId = await cobogoApi.get(
-          `/api/channels?filters[channel_id][$eq]=${readChannel.data.items[0].id}`
-        );
-
-        session.profiles = readProfileByChannelId.data.data;
-        session.channels = readChannelByChannelId.data.data;
-      }
 
       return session;
     },
