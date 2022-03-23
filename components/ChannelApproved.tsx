@@ -13,28 +13,25 @@ export default function ChannelApproved() {
       </p>
 
       <div className="mb-7">
-        <Link href="/submit/video">
-          <a>
-            <Button
-              width="w-28"
-              height="h-9"
-              color="bg-blue"
-              hoverColor="brightness-90"
-              text="next step"
-            />
-          </a>
-        </Link>
+        <a href="/submit/video">
+          <Button
+            width="w-28"
+            height="h-9"
+            color="bg-blue"
+            hoverColor="brightness-90"
+            text="next step"
+          />
+        </a>
       </div>
 
-      <Link href="https://www.youtube.com/">
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-bold text-blue"
-        >
-          see my channel
-        </a>
-      </Link>
+      <a
+        href="https://www.youtube.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-bold text-blue"
+      >
+        see my channel
+      </a>
     </div>
   );
 }

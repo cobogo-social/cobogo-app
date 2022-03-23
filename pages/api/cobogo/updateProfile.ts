@@ -12,11 +12,6 @@ export default async function handler(req, res) {
         data: {
           waitlist: true,
         },
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
       }
     );
 

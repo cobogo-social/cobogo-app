@@ -13,26 +13,18 @@ export default async function handler(req, res) {
   } = req.body;
 
   try {
-    const response = await cobogoApi.post(
-      '/api/profiles',
-      {
-        data: {
-          description,
-          handle,
-          categories,
-          account,
-          channel_id,
-          referral_code,
-          referral_profile_id,
-          channel,
-        },
+    const response = await cobogoApi.post('/api/profiles', {
+      data: {
+        description,
+        handle,
+        categories,
+        account,
+        channel_id,
+        referral_code,
+        referral_profile_id,
+        channel,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
-      }
-    );
+    });
 
     res.status(201).json(response.data);
   } catch (error) {

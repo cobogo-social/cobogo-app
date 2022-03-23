@@ -11,12 +11,7 @@ export default async function handler(req, res) {
         (
           await session
         ).profiles[0].id
-      }`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
-      }
+      }`
     );
 
     res.status(200).json(response.data);

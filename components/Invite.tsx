@@ -54,17 +54,14 @@ export default function Invite({
                   />
                 </div>
 
-                <Link
+                <a
                   href={`https://t.me/share/url?url=localhost:3000/submit?ref=${referralCode}&text=Hi! cobogo is a dapp that helps us fund ourselves sustainably using blockchain. Use my referral link when you sign up for free for the waitlist, and we both get rewards!`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white font-bold"
                 >
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white font-bold"
-                  >
-                    share on Telegram
-                  </a>
-                </Link>
+                  share on Telegram
+                </a>
               </div>
 
               <div className="flex justify-center items-center">
@@ -77,30 +74,26 @@ export default function Invite({
                   />
                 </div>
 
-                <Link
+                <a
                   href={`https://twitter.com/intent/tweet?text=Hi!%20cobogo%20is%20a%20dapp%20that%20helps%20us%20fund%20ourselves%20sustainably%20using%20blockchain.%20Use%20my%20referral%20link%20when%20you%20sign%20up%20for%20free%20for%20the%20waitlist,%20and%20we%20both%20get%20rewards!%0Alocalhost%3A3000/submit?ref=${referralCode}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white font-bold"
                 >
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white font-bold"
-                  >
-                    share on Twitter
-                  </a>
-                </Link>
+                  share on Twitter
+                </a>
               </div>
             </div>
 
             <p className="text-white mb-8 text-lg">
-              <Link href="https://docs.cobogo.social/overview/getting-started/referral-program">
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-bold text-blue"
-                >
-                  learn more
-                </a>
-              </Link>{' '}
+              <a
+                href="https://docs.cobogo.social/overview/getting-started/referral-program"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-blue"
+              >
+                learn more
+              </a>{' '}
               about our <span className="font-bold">Referral Program.</span>
             </p>
 

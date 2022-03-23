@@ -9,19 +9,18 @@ export default function ChannelDenied() {
         unfortunately the channel has been denied...
       </p>
 
-      <Link href="/submit/connect">
-        <a className="font-bold text-blue mb-2">try another account</a>
-      </Link>
+      <a href="/submit/connect" className="font-bold text-blue mb-2">
+        try another account
+      </a>
 
-      <Link href="">
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-bold text-blue"
-        >
-          visite our FAQ
-        </a>
-      </Link>
+      <a
+        href="https://cobogo.social/faq"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-bold text-blue"
+      >
+        visite our FAQ
+      </a>
     </div>
   );
 }

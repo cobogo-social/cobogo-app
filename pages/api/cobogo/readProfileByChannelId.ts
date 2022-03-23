@@ -5,12 +5,7 @@ export default async function handler(req, res) {
 
   try {
     const response = await cobogoApi.get(
-      `/api/profiles?filters[channel_id][$eq]=${channel_id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
-      }
+      `/api/profiles?filters[channel_id][$eq]=${channel_id}`
     );
 
     res.status(200).json(response.data);

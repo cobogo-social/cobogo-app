@@ -67,50 +67,29 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   if (session?.user) {
     if (!session.accounts[0]) {
-      await cobogoApi.post(
-        '/api/accounts',
-        {
-          data: {
-            name: session.user.name,
-            email: session.user.email,
-            image: session.user.image,
-          },
+      await cobogoApi.post('/api/accounts', {
+        data: {
+          name: session.user.name,
+          email: session.user.email,
+          image: session.user.image,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-          },
-        }
-      );
+      });
     }
 
     if (session.youtubeChannels) {
       if (!session.accounts[0]) {
         const createdAccount = await cobogoApi.get(
-          `/api/accounts?filters[email][$eq]=${session.user.email}`,
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-            },
-          }
+          `/api/accounts?filters[email][$eq]=${session.user.email}`
         );
 
-        await cobogoApi.post(
-          '/api/channels',
-          {
-            data: {
-              title: session.youtubeChannels[0].snippet.title,
-              description: session.youtubeChannels[0].snippet.description,
-              channel_id: session.youtubeChannels[0].id,
-              account: createdAccount.data.data[0].id,
-            },
+        await cobogoApi.post('/api/channels', {
+          data: {
+            title: session.youtubeChannels[0].snippet.title,
+            description: session.youtubeChannels[0].snippet.description,
+            channel_id: session.youtubeChannels[0].id,
+            account: createdAccount.data.data[0].id,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-            },
-          }
-        );
+        });
       }
     }
 

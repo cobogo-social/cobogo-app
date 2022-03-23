@@ -58,7 +58,7 @@ export default NextAuth({
       },
     }),
   ],
-  secret: 'secret',
+  secret: process.env.SECRET,
   callbacks: {
     async jwt({ token, user, account }) {
       if (account && user) {
@@ -91,12 +91,7 @@ export default NextAuth({
       );
 
       const readAccountByEmail = await cobogoApi.get(
-        `/api/accounts?filters[email][$eq]=${session.user.email}`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-          },
-        }
+        `/api/accounts?filters[email][$eq]=${session.user.email}`
       );
 
       session.youtubeChannels = readChannel.data.items;
@@ -104,21 +99,11 @@ export default NextAuth({
 
       if (readChannel.data.items) {
         const readProfileByChannelId = await cobogoApi.get(
-          `/api/profiles?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-            },
-          }
+          `/api/profiles?filters[channel_id][$eq]=${readChannel.data.items[0].id}`
         );
 
         const readChannelByChannelId = await cobogoApi.get(
-          `/api/channels?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-            },
-          }
+          `/api/channels?filters[channel_id][$eq]=${readChannel.data.items[0].id}`
         );
 
         session.profiles = readProfileByChannelId.data.data;

@@ -215,7 +215,7 @@ export default function CreateProfile({
                     e.key === 'Enter' && e.preventDefault();
                   }}
                   value={formik.values.handle}
-                  className={`w-full sm:w-[210px] h-12 bg-black border-[1.5px] sm:border-l-0 ${
+                  className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0 ${
                     (formik.touched.handle && formik.errors.handle) ||
                     handleError
                       ? 'border-red'

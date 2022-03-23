@@ -21,39 +21,42 @@ export default function StartSubmission() {
 
         <JoinOurWaitlist />
 
-        <Link
+        <a
           href={
             query.ref ? `/submit/connect?ref=${query.ref}` : `/submit/connect`
           }
+          className="mb-8"
         >
-          <a className="mb-8">
-            <Button
-              text="start submission"
-              color="bg-purple"
-              hoverColor="brightness-90"
-              width="w-48"
-              height="h-12"
-              fontSize="text-xl"
-            />
-          </a>
-        </Link>
+          <Button
+            text="start submission"
+            color="bg-purple"
+            hoverColor="brightness-90"
+            width="w-48"
+            height="h-12"
+            fontSize="text-xl"
+          />
+        </a>
 
         <p className="text-white text-center mb-2">
           if you have any questions about the onboarding process:
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center items-center">
-          <Link href="https://docs.cobogo.social/project/introduction">
-            <a target="_blank" rel="noopener noreferrer">
-              <p className="font-bold text-blue sm:mr-8">our documentation</p>
-            </a>
-          </Link>
+          <a
+            href="https://docs.cobogo.social"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <p className="font-bold text-blue sm:mr-8">our documentation</p>
+          </a>
 
-          <Link href="https://t.me/cobogosocial">
-            <a target="_blank" rel="noopener noreferrer">
-              <p className="font-bold text-blue">talk to an expert</p>
-            </a>
-          </Link>
+          <a
+            href="https://t.me/cobogosocial"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <p className="font-bold text-blue">talk to an expert</p>
+          </a>
         </div>
       </div>
     </div>

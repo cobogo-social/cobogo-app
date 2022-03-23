@@ -7,12 +7,7 @@ export default async function handler(req, res) {
 
   try {
     const response = await cobogoApi.get(
-      `/api/accounts?filters[email][$eq]=${(await session).user.email}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
-      }
+      `/api/accounts?filters[email][$eq]=${(await session).user.email}`
     );
 
     res.status(200).json(response.data);

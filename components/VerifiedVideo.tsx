@@ -11,17 +11,15 @@ export default function VerifiedVideo() {
         there is a video on your channel that meet the rules.
       </p>
 
-      <Link href="/submit/connect-wallet">
-        <a>
-          <Button
-            width="w-28"
-            height="h-9"
-            color="bg-blue"
-            hoverColor="brightness-90"
-            text="next step"
-          />
-        </a>
-      </Link>
+      <a href="/submit/connect-wallet">
+        <Button
+          width="w-28"
+          height="h-9"
+          color="bg-blue"
+          hoverColor="brightness-90"
+          text="next step"
+        />
+      </a>
     </div>
   );
 }
