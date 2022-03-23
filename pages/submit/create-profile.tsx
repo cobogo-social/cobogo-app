@@ -65,57 +65,60 @@ export default function Index({
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
-  const readProfileByChannelId = async () => {
-    const response = await cobogoApi.get(
-      `/api/profiles?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
-      }
-    );
-    return response.data.data;
-  }
+  session.teste = 'testando persistência';
+  console.log(session)
 
-  if (!session?.user) {
-    return {
-      redirect: {
-        destination: '/submit/connect',
-        permanent: false,
-      },
-    };
-  }
+  // const readProfileByChannelId = async () => {
+  //   const response = await cobogoApi.get(
+  //     `/api/profiles?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+  //       },
+  //     }
+  //   );
+  //   return response.data.data;
+  // }
 
-  if (!session.youtubeChannels) {
-    return {
-      redirect: {
-        destination: '/submit/connect',
-        permanent: false,
-      },
-    };
-  }
+  // if (!session?.user) {
+  //   return {
+  //     redirect: {
+  //       destination: '/submit/connect',
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
-  if (session.profiles[0]) {
-    return {
-      redirect: {
-        destination: '/submit/video',
-        permanent: false,
-      },
-    };
-  }
+  // if (!session.youtubeChannels) {
+  //   return {
+  //     redirect: {
+  //       destination: '/submit/connect',
+  //       permanent: false,
+  //     },
+  //   };
+  // }
+
+  // if (session.profiles[0]) {
+  //   return {
+  //     redirect: {
+  //       destination: '/submit/video',
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   return {
     props: {
-      banner: session.youtubeChannels
-        ? session.youtubeChannels[0].brandingSettings.image.bannerExternalUrl
-        : '',
-      title: session.youtubeChannels
-        ? session.youtubeChannels[0].snippet.title
-        : '',
-      description: session.youtubeChannels
-        ? session.youtubeChannels[0].snippet.description
-        : '',
-      channelId: session.youtubeChannels ? session.youtubeChannels[0].id : '',
+      // banner: session.youtubeChannels
+      //   ? session.youtubeChannels[0].brandingSettings.image.bannerExternalUrl
+      //   : '',
+      // title: session.youtubeChannels
+      //   ? session.youtubeChannels[0].snippet.title
+      //   : '',
+      // description: session.youtubeChannels
+      //   ? session.youtubeChannels[0].snippet.description
+      //   : '',
+      // channelId: session.youtubeChannels ? session.youtubeChannels[0].id : '',
     },
   };
 };

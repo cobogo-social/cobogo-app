@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
-import { responseSymbol } from 'next/dist/server/web/spec-compliant/fetch-event';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
@@ -66,105 +65,112 @@ export default function Index() {
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
+  
+  session.teste = 'testando persistência';
+  console.log(session)
 
-  const readUserChannels = async () => {
-    const response = await youtubeApi.get(
-      `/channels?part=snippet%2CbrandingSettings&mine=true`,
-      {
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
-        },
-      }
-    );
-    return response.data.items;
-  }
+  // const readUserChannels = async () => {
+  //   const response = await youtubeApi.get(
+  //     `/channels?part=snippet%2CbrandingSettings&mine=true`,
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${session.accessToken}`,
+  //       },
+  //     }
+  //   );
 
-  const readAccountByEmail = async () => {
-    const response = await cobogoApi.get(
-      `/api/accounts?filters[email][$eq]=${session.user.email}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
-      }
-    );
-    return response.data.data;
-  }
+  //   return response.data.items;
+  // };
 
-  const readChannelByChannelId = async () => {
-    const response = await cobogoApi.get(
-      `/api/channels?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
-      }
-    );
-    return response.data.data;
-  }
+  // const readAccountByEmail = async () => {
+  //   const response = await cobogoApi.get(
+  //     `/api/accounts?filters[email][$eq]=${session.user.email}`,
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+  //       },
+  //     }
+  //   );
 
-  const createAccount = async () => {
-    const response = await cobogoApi.post(
-      '/api/accounts',
-      {
-        data: {
-          name: session.user.name,
-          email: session.user.email,
-          image: session.user.image,
-        },
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
-      }
-    );
-    return response.data.data;
-  }
+  //   return response.data.data;
+  // };
 
-  const createChannel = async () => {
-    await cobogoApi.post(
-      '/api/channels',
-      {
-        data: {
-          title: session.youtubeChannels[0].snippet.title,
-          description: session.youtubeChannels[0].snippet.description,
-          channel_id: session.youtubeChannels[0].id,
-          account: readAccountByEmail[0].id,
-        },
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-        },
-      }
-    );
-  }
+  // const userChannels = await readUserChannels();
 
-  if (session?.user) {
+  // const readChannelByChannelId = async () => {
+  //   const response = await cobogoApi.get(
+  //     `/api/channels?filters[channel_id][$eq]=${userChannels[0].id}`,
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+  //       },
+  //     }
+  //   );
+  //   return response.data.data;
+  // };
 
-    // Checar se a conta está criada no DB, se não estiver criar a conta.
-    // Checar se o canal está criado no BD, se não estiver criar o canal.
-    // Jogar para a sessão as informações da conta e do canal.
+  // const createAccount = async () => {
+  //   const response = await cobogoApi.post(
+  //     '/api/accounts',
+  //     {
+  //       data: {
+  //         name: session.user.name,
+  //         email: session.user.email,
+  //         image: session.user.image,
+  //       },
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+  //       },
+  //     }
+  //   );
+  //   return response.data.data;
+  // };
 
-    // FIXME: Buscar a conta pelo ID do usuário e não pelo email.
-    const account = await readAccountByEmail() || await createAccount();
-    session.account = account
+  // const createChannel = async () => {
+  //   await cobogoApi.post(
+  //     '/api/channels',
+  //     {
+  //       data: {
+  //         title: session.youtubeChannels[0].snippet.title,
+  //         description: session.youtubeChannels[0].snippet.description,
+  //         channel_id: session.youtubeChannels[0].id,
+  //         account: readAccountByEmail[0].id,
+  //       },
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
+  //       },
+  //     }
+  //   );
+  // };
 
-    session.youtubeChannels = await readUserChannels();
+  // if (session?.user) {
+  //   // Checar se a conta está criada no DB, se não estiver criar a conta.
+  //   // Checar se o canal está criado no BD, se não estiver criar o canal.
+  //   // Jogar para a sessão as informações da conta e do canal.
 
-    if (session.youtubeChannels) {
-      const channel = await readChannelByChannelId() || await createChannel();
-      session.channel = channel
+  //   // FIXME: Buscar a conta pelo ID do usuário e não pelo email.
+  //   const account = (await readAccountByEmail()) || (await createAccount());
+  //   session.account = account;
 
-      return {
-        redirect: {
-          destination: '/submit/create-profile',
-          permanent: false,
-        },
-      };
-    }
-  }
+  //   session.youtubeChannels = await readUserChannels();
+
+  //   if (session.youtubeChannels) {
+  //     const channel =
+  //       (await readChannelByChannelId()) || (await createChannel());
+  //     session.channel = channel;
+
+  //     return {
+  //       redirect: {
+  //         destination: '/submit/create-profile',
+  //         permanent: false,
+  //       },
+  //     };
+  //   }
+  // }
 
   return {
     props: {},
