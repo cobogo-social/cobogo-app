@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -128,6 +127,6 @@ export default function Footer() {
           <span className="text-white font-bold">docs</span>
         </a>
       </div>
-    </div>
+    </div >
   );
 }
