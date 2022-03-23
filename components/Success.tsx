@@ -16,9 +16,7 @@ export default function Success({ banner, title, description }: SuccessProps) {
       <StatsTopBar />
 
       <StepWrapper>
-        <div className="flex flex-col">
-          <Waitlist title={title} />
-        </div>
+        <Waitlist title={title} />
 
         <ChannelBanner
           banner={banner}
