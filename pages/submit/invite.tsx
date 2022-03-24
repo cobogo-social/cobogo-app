@@ -88,6 +88,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   const profile = await readProfileByChannel(channel);
 
+  if (!profile) {
+    return {
+      redirect: {
+        destination: '/submit/create-profile',
+        permanent: false,
+      },
+    };
+  }
+
   if (!profile.attributes.waitlist) {
     return {
       redirect: {
