@@ -1,10 +1,14 @@
 import moment from 'moment';
 import { getSession } from 'next-auth/react';
-import { readAccountByEmail, readProfileByChannel, readChannelByAccount } from '../../../services/cobogoApi';
-import { readChannel as readChannelFromYoutube } from '../../../services/youtubeApi';
-import youtubeApi from '../../../services/youtubeApi';
-import cobogoApi from '../../../services/cobogoApi';
-import next from 'next';
+
+import cobogoApi, {
+  readAccountByEmail,
+  readChannelByAccount,
+  readProfileByChannel,
+} from '../../../services/cobogoApi';
+import youtubeApi, {
+  readChannel as readChannelFromYoutube,
+} from '../../../services/youtubeApi';
 
 export default async function handler(req, res) {
   const session = await getSession({ req });
@@ -24,6 +28,7 @@ export default async function handler(req, res) {
         },
       }
     );
+
     const videos = response.data.items;
     let validVideo = null;
 
@@ -33,7 +38,7 @@ export default async function handler(req, res) {
       const profile = await readProfileByChannel(channel);
 
       videos.forEach(async (video) => {
-        if(!validVideo) {
+        if (!validVideo) {
           const response = await youtubeApi.get(
             `/videos?part=snippet%2CcontentDetails`,
             {
@@ -46,48 +51,42 @@ export default async function handler(req, res) {
             }
           );
 
-          const item = response.data;
+          const item = response.data.items[0];
+
           if (
-            moment
-              .duration(item.contentDetails.duration)
-              .asMinutes() >= 2.0 &&
-            item.snippet.title
-              .toLowerCase()
-              .includes('cobogo') &&
+            moment.duration(item.contentDetails.duration).asMinutes() >= 2 &&
+            item.snippet.title.toLowerCase().includes('cobogo') &&
             item.snippet.description
               .toLowerCase()
               .includes(`app.cobogo.social/${profile.attributes.handle}`)
           ) {
-            validVideo = item
+            validVideo = item;
+
+            if (validVideo !== null) {
+              await cobogoApi.post('/api/videos', {
+                data: {
+                  title: validVideo.snippet.title,
+                  description: validVideo.snippet.description,
+                  video_id: validVideo.id,
+                  account: account.id,
+                  channel: channel.id,
+                  profile: profile.id,
+                },
+              });
+
+              await cobogoApi.put(`/api/profiles/${profile.id}`, {
+                data: {
+                  waitlist: true,
+                },
+              });
+
+              res.status(200).json({ validVideo: 1 });
+            } else {
+              res.status(200).json({ validVideo: 0 });
+            }
           }
         }
       });
-
-      if(validVideo) {
-        await cobogoApi.post('/api/videos', {
-          data: {
-            title: validVideo.snippet.title,
-            description: validVideo.snippet.description,
-            video_id: validVideo.id.videoId,
-            account: account.id,
-            channel: channel.id,
-            profile: profile.id,
-          },
-        });
-
-        await cobogoApi.put(
-          `/api/profiles/${profile.id}`,
-          {
-            data: {
-              waitlist: true,
-            },
-          }
-        );
-
-        res.status(200).json({ validVideo: 1 });
-      } else {
-        res.status(200).json({ validVideo: 0 });
-      }
     } else {
       res.status(200).json({ validVideo: 0 });
     }
