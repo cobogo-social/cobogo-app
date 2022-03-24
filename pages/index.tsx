@@ -1,11 +1,10 @@
+import Footer from '@components/Footer';
+import PageWrapper from '@components/PageWrapper';
+import StartSubmission from '@components/StartSubmission';
+import Steps from '@components/Steps';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-
-import Footer from '../components/Footer';
-import PageWrapper from '../components/PageWrapper';
-import StartSubmission from '../components/StartSubmission';
-import Steps from '../components/Steps';
 
 export default function Index() {
   const { query } = useRouter();

@@ -20,7 +20,7 @@ export default function Invite({
   title,
   description,
   referralCode,
-  profileId
+  profileId,
 }: InviteProps) {
   return (
     <>

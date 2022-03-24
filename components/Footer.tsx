@@ -127,6 +127,6 @@ export default function Footer() {
           <span className="text-white font-bold">docs</span>
         </a>
       </div>
-    </div >
+    </div>
   );
 }

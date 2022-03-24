@@ -8,11 +8,15 @@ const api = axios.create({
 });
 
 export const readProfileByChannel = async (channel) => {
-  const response = await api.get(
-    `/api/profiles?filters[channel][id][$eq]=${channel.id}`
-  );
+  try {
+    const response = await api.get(
+      `/api/profiles?filters[channel][id][$eq]=${channel.id}`
+    );
 
-  return response.data.data[0];
+    return response.data.data[0];
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const readProfileByReferralCode = async (referralCode) => {
@@ -23,34 +27,56 @@ export const readProfileByReferralCode = async (referralCode) => {
 
     return response.data.data;
   } catch (error) {
-    return null;
+    console.log(error);
   }
 };
 
-export const readProfileByReferralId = async (referralId) => {
-  console.log('oi')
+export const readProfilesByReferral = async (referralId) => {
   try {
-    await api
-      .get(`/api/profiles?filters[referral][id][$eq]=${referralId}`)
-      .then((response) => response.data)
-      .catch((e) => e.response.data);
-  } catch (e) {
-    console.error(e);
+    const response = await api.get(
+      `/api/profiles?filters[referral][id][$eq]=${referralId}`
+    );
+
+    return response.data.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const readProfileByHandle = async (handle) => {
+  try {
+    const response = await api.get(
+      `/api/profiles?filters[handle][$eq]=${handle}`
+    );
+
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
 export const readAccountByEmail = async (email) => {
-  const response = await api.get(`/api/accounts?filters[email][$eq]=${email}`);
+  try {
+    const response = await api.get(
+      `/api/accounts?filters[email][$eq]=${email}`
+    );
 
-  return response.data.data[0];
+    return response.data.data[0];
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const readChannelByYoutubeId = async (youtubeChannelId) => {
-  const response = await api.get(
-    `/api/channels?filters[channel_id][$eq]=${youtubeChannelId}`
-  );
+  try {
+    const response = await api.get(
+      `/api/channels?filters[channel_id][$eq]=${youtubeChannelId}`
+    );
 
-  return response.data.data[0];
+    return response.data.data[0];
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const readChannelByAccount = async (account) => {
@@ -60,32 +86,66 @@ export const readChannelByAccount = async (account) => {
     );
 
     return response.data.data[0];
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
   }
 };
 
 export const createAccount = async (user) => {
-  const response = await api.post('/api/accounts', {
-    data: {
-      name: user.name,
-      email: user.email,
-      image: user.image,
-    },
-  });
+  try {
+    const response = await api.post('/api/accounts', {
+      data: {
+        name: user.name,
+        email: user.email,
+        image: user.image,
+      },
+    });
 
-  return response.data.data;
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const createChannel = async (account, youtubeChannel) => {
-  await api.post('/api/channels', {
-    data: {
-      title: youtubeChannel.snippet.title,
-      description: youtubeChannel.snippet.description,
-      channel_id: youtubeChannel.id,
-      account: account.id,
-    },
-  });
+  try {
+    await api.post('/api/channels', {
+      data: {
+        title: youtubeChannel.snippet.title,
+        description: youtubeChannel.snippet.description,
+        channel_id: youtubeChannel.id,
+        account: account.id,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createProfile = async (
+  description,
+  handle,
+  categories,
+  account,
+  channel,
+  referral,
+  referral_code
+) => {
+  try {
+    await api.post('/api/profiles', {
+      data: {
+        description,
+        handle,
+        categories,
+        account,
+        channel,
+        referral,
+        referral_code,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default api;

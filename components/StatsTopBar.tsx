@@ -1,8 +1,6 @@
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { readProfileByReferralId } from '../services/cobogoApi';
 
 interface StatsTopBarProps {
   profileId: number;
@@ -12,7 +10,13 @@ export default function StatsTopBar({ profileId }: StatsTopBarProps) {
   const [acceptedLength, setAcceptedLength] = useState('-');
 
   useEffect(() => {
-    readProfileByReferralId(profileId);
+    axios
+      .get('/api/cobogo/readOnboardedFriends', {
+        params: {
+          referral: profileId,
+        },
+      })
+      .then((response) => setAcceptedLength(response.data.data.length));
   }, []);
 
   return (

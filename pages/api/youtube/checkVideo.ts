@@ -1,14 +1,13 @@
-import moment from 'moment';
-import { getSession } from 'next-auth/react';
-
 import cobogoApi, {
   readAccountByEmail,
   readChannelByAccount,
   readProfileByChannel,
-} from '../../../services/cobogoApi';
+} from '@services/cobogoApi';
 import youtubeApi, {
   readChannel as readChannelFromYoutube,
-} from '../../../services/youtubeApi';
+} from '@services/youtubeApi';
+import moment from 'moment';
+import { getSession } from 'next-auth/react';
 
 export default async function handler(req, res) {
   const session = await getSession({ req });

@@ -22,11 +22,13 @@ export default function VerifyVideo({ channelHandle }: VerifyVideoProps) {
     setVideoStatus(1);
 
     const result = await axios.get(`/api/youtube/checkVideo`);
+
     if (result.data.validVideo) {
       setVideoStatus(3);
     } else {
       setVideoStatus(2);
     }
+
     setIsLoading(false);
   }
 

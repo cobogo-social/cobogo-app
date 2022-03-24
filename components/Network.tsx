@@ -1,24 +1,24 @@
 export default function Network() {
-  async function addArbitrumNetwork() {
-    const { ethereum } = window as any;
+  // async function addArbitrumNetwork() {
+  //   const { ethereum } = window as any;
 
-    ethereum.request({
-      method: 'wallet_addEthereumChain',
-      params: [
-        {
-          chainId: '0xA4B1',
-          chainName: 'Arbitrum',
-          nativeCurrency: {
-            name: 'Ethereum',
-            symbol: 'ETH',
-            decimals: 18,
-          },
-          rpcUrls: ['https://arb1.arbitrum.io/rpc'],
-          blockExplorerUrls: ['https://arbiscan.io/'],
-        },
-      ],
-    });
-  }
+  //   ethereum.request({
+  //     method: 'wallet_addEthereumChain',
+  //     params: [
+  //       {
+  //         chainId: '0xA4B1',
+  //         chainName: 'Arbitrum',
+  //         nativeCurrency: {
+  //           name: 'Ethereum',
+  //           symbol: 'ETH',
+  //           decimals: 18,
+  //         },
+  //         rpcUrls: ['https://arb1.arbitrum.io/rpc'],
+  //         blockExplorerUrls: ['https://arbiscan.io/'],
+  //       },
+  //     ],
+  //   });
+  // }
 
   return (
     <div className="w-full h-full p-8">

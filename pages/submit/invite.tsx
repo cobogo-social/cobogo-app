@@ -1,19 +1,18 @@
-import { GetServerSideProps } from 'next';
-import { getSession, signIn, useSession } from 'next-auth/react';
-import Head from 'next/head';
-import { useEffect, useState } from 'react';
-
-import Footer from '../../components/Footer';
-import Invite from '../../components/Invite';
-import MobileTopBar from '../../components/MobileTopBar';
-import PageWrapper from '../../components/PageWrapper';
-import Steps from '../../components/Steps';
+import Footer from '@components/Footer';
+import Invite from '@components/Invite';
+import MobileTopBar from '@components/MobileTopBar';
+import PageWrapper from '@components/PageWrapper';
+import Steps from '@components/Steps';
 import {
   readAccountByEmail,
   readChannelByAccount,
   readProfileByChannel,
-} from '../../services/cobogoApi';
-import { readChannel as readChannelFromYoutube } from '../../services/youtubeApi';
+} from '@services/cobogoApi';
+import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
+import { GetServerSideProps } from 'next';
+import { getSession, signIn, useSession } from 'next-auth/react';
+import Head from 'next/head';
+import { useEffect } from 'react';
 
 interface InviteProps {
   banner: string;

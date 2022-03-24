@@ -1,21 +1,20 @@
-import { GetServerSideProps } from 'next';
-import { getSession, useSession } from 'next-auth/react';
-import Head from 'next/head';
-import { useEffect, useState } from 'react';
-
-import ChannelNotFound from '../../components/ChannelNotFound';
-import Connect from '../../components/Connect';
-import Footer from '../../components/Footer';
-import MobileTopBar from '../../components/MobileTopBar';
-import PageWrapper from '../../components/PageWrapper';
-import Steps from '../../components/Steps';
+import ChannelNotFound from '@components/ChannelNotFound';
+import Connect from '@components/Connect';
+import Footer from '@components/Footer';
+import MobileTopBar from '@components/MobileTopBar';
+import PageWrapper from '@components/PageWrapper';
+import Steps from '@components/Steps';
 import {
   createAccount,
   createChannel,
   readAccountByEmail,
   readChannelByYoutubeId,
-} from '../../services/cobogoApi';
-import { readChannel as readChannelFromYoutube } from '../../services/youtubeApi';
+} from '@services/cobogoApi';
+import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
+import { GetServerSideProps } from 'next';
+import { getSession, useSession } from 'next-auth/react';
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
 
 export default function Index() {
   const [haveChannel, setHaveChannel] = useState<boolean>();

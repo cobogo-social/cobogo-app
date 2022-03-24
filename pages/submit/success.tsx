@@ -1,19 +1,25 @@
+import Footer from '@components/Footer';
+import MobileTopBar from '@components/MobileTopBar';
+import PageWrapper from '@components/PageWrapper';
+import Steps from '@components/Steps';
+import Success from '@components/Success';
+import {
+  readAccountByEmail,
+  readChannelByAccount,
+  readProfileByChannel,
+} from '@services/cobogoApi';
+import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
-
-import Footer from '../../components/Footer';
-import MobileTopBar from '../../components/MobileTopBar';
-import PageWrapper from '../../components/PageWrapper';
-import Steps from '../../components/Steps';
-import Success from '../../components/Success';
+import { useEffect } from 'react';
 
 interface SuccessProps {
   banner: string;
   title: string;
   description: string;
   referralCode: string;
+  profileId: number;
 }
 
 export default function Index({
@@ -21,6 +27,7 @@ export default function Index({
   title,
   description,
   referralCode,
+  profileId,
 }: SuccessProps) {
   const { data: session } = useSession();
 
@@ -46,6 +53,7 @@ export default function Index({
           title={title}
           description={description}
           referralCode={referralCode}
+          profileId={profileId}
         />
 
         <Footer />
@@ -66,7 +74,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  if (!session.youtubeChannels) {
+  const account = await readAccountByEmail(session.user.email);
+  const channel = await readChannelByAccount(account);
+
+  if (!channel) {
     return {
       redirect: {
         destination: '/submit/connect',
@@ -75,7 +86,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  if (!session.profiles[0]?.attributes.waitlist) {
+  const profile = await readProfileByChannel(channel);
+
+  if (!profile.attributes.waitlist) {
     return {
       redirect: {
         destination: '/submit/video',
@@ -84,13 +97,18 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
+  const youtubeChannel = await readChannelFromYoutube(session);
+
   return {
     props: {
       banner:
-        session.youtubeChannels[0].brandingSettings.image.bannerExternalUrl,
-      title: session.youtubeChannels[0].snippet.title,
-      description: session.youtubeChannels[0].snippet.description,
-      referralCode: session.profiles[0].attributes.referral_code,
+        youtubeChannel && youtubeChannel.brandingSettings.image
+          ? youtubeChannel.brandingSettings.image.bannerExternalUrl
+          : '',
+      title: youtubeChannel ? youtubeChannel.snippet.title : '',
+      description: youtubeChannel ? youtubeChannel.snippet.description : '',
+      referralCode: profile.attributes.referral_code,
+      profileId: profile.id,
     },
   };
 };

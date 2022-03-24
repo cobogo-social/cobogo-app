@@ -169,12 +169,7 @@ export default function CreateProfile({
                   id="handle"
                   name="handle"
                   type="text"
-                  pattern="[A-Za-z]{3}"
-                  onChange={(event) => {
-                    formik.handleChange(event);
-
-                    if()
-                  }}
+                  onChange={formik.handleChange}
                   onKeyPress={(e) => {
                     e.key === 'Enter' && e.preventDefault();
                   }}

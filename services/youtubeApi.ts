@@ -5,16 +5,20 @@ const api = axios.create({
 });
 
 export const readChannel = async (session) => {
-  const response = await api.get(
-    `/channels?part=snippet%2CbrandingSettings&mine=true`,
-    {
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
-      },
-    }
-  );
+  try {
+    const response = await api.get(
+      `/channels?part=snippet%2CbrandingSettings&mine=true`,
+      {
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+      }
+    );
 
-  return response.data.items ? response.data.items[0] : null;
+    return response.data.items ? response.data.items[0] : null;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default api;

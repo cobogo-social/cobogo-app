@@ -19,7 +19,6 @@ export default function ChannelBanner({
     <div
       className={`w-[275px] max-h-[296px] bg-black border-[1.5px] border-details pb-6 hidden sm:block`}
     >
-
       {banner ? (
         <Image
           src={banner}

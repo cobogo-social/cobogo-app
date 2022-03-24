@@ -8,12 +8,18 @@ interface SuccessProps {
   title: string;
   description: string;
   referralCode: string;
+  profileId: number;
 }
 
-export default function Success({ banner, title, description }: SuccessProps) {
+export default function Success({
+  banner,
+  title,
+  description,
+  profileId,
+}: SuccessProps) {
   return (
     <div className="w-full h-full p-8">
-      <StatsTopBar />
+      <StatsTopBar profileId={profileId} />
 
       <StepWrapper>
         <Waitlist title={title} />

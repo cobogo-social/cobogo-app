@@ -1,46 +1,44 @@
-import { useCallback, useEffect, useState } from 'react';
-
 export default function ConnectWallet() {
-  const [currentAccount, setCurrentAccount] = useState('');
+  // const [currentAccount, setCurrentAccount] = useState('');
 
-  const checkIfWalletIsConnected = useCallback(async () => {
-    const { ethereum } = window as any;
+  // const checkIfWalletIsConnected = useCallback(async () => {
+  //   const { ethereum } = window as any;
 
-    try {
-      const accounts = await ethereum.request({ method: 'eth_accounts' });
+  //   try {
+  //     const accounts = await ethereum.request({ method: 'eth_accounts' });
 
-      if (accounts.length !== 0) {
-        const account = accounts[0];
-        setCurrentAccount(account);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  //     if (accounts.length !== 0) {
+  //       const account = accounts[0];
+  //       setCurrentAccount(account);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
 
-  async function connectWallet() {
-    const { ethereum } = window as any;
+  // async function connectWallet() {
+  //   const { ethereum } = window as any;
 
-    try {
-      if (!ethereum) {
-        alert('Get MetaMask!');
-        return;
-      }
+  //   try {
+  //     if (!ethereum) {
+  //       alert('Get MetaMask!');
+  //       return;
+  //     }
 
-      const accounts = await ethereum.request({
-        method: 'eth_requestAccounts',
-      });
+  //     const accounts = await ethereum.request({
+  //       method: 'eth_requestAccounts',
+  //     });
 
-      setCurrentAccount(accounts[0]);
-      checkIfWalletIsConnected();
-    } catch (error) {
-      alert(error);
-    }
-  }
+  //     setCurrentAccount(accounts[0]);
+  //     checkIfWalletIsConnected();
+  //   } catch (error) {
+  //     alert(error);
+  //   }
+  // }
 
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, [checkIfWalletIsConnected]);
+  // useEffect(() => {
+  //   checkIfWalletIsConnected();
+  // }, [checkIfWalletIsConnected]);
 
   return (
     <div className="w-full h-full p-8">
