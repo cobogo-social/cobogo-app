@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
-import referralCodeGenerator from 'referral-code-generator';
 import * as yup from 'yup';
 
 import Button from './Button';
@@ -20,21 +18,18 @@ interface CreateProfileProps {
   banner: string;
   title: string;
   description: string;
-  channelId: string;
 }
 
 export default function CreateProfile({
   banner,
   title,
   description,
-  channelId,
 }: CreateProfileProps) {
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
   const [input, setInput] = useState('');
   const [createdProfile, setCreatedProfile] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [handleError, setHandleError] = useState('');
-  const { data: session } = useSession();
   const { push } = useRouter();
 
   const formik = useFormik({
@@ -59,55 +54,19 @@ export default function CreateProfile({
       if (readProfileByHandle.data.data.length === 0) {
         setIsLoading(true);
 
-        const readProfileByReferralCode = await axios.get(
-          '/api/cobogo/readProfileByReferralCode',
-          {
-            params: {
-              referral_code: sessionStorage.queryRef,
-            },
-          }
-        );
+        const ref = sessionStorage.getItem('queryRef')
 
-        if (readProfileByReferralCode.data.data.length !== 0) {
-          await axios
-            .post('/api/cobogo/createProfile', {
-              description: values.description,
-              handle: values.handle,
-              categories: categoriesList.toString(),
-              channel_id: channelId,
-              referral_code: referralCodeGenerator.alphaNumeric(
-                'lowercase',
-                2,
-                2
-              ),
-              referral_profile_id: readProfileByReferralCode.data.data[0].id,
-              account: session.accounts[0].id,
-              channel: session.channels[0].id,
-            })
-            .then(() => {
-              setCreatedProfile(true);
-              setIsLoading(false);
-            });
-        } else {
-          await axios
-            .post('/api/cobogo/createProfile', {
-              description: values.description,
-              handle: values.handle,
-              categories: categoriesList.toString(),
-              channel_id: channelId,
-              referral_code: referralCodeGenerator.alphaNumeric(
-                'lowercase',
-                2,
-                2
-              ),
-              account: session.accounts[0].id,
-              channel: session.channels[0].id,
-            })
-            .then(() => {
-              setCreatedProfile(true);
-              setIsLoading(false);
-            });
-        }
+        await axios
+          .post('/api/cobogo/createProfile', {
+            description: values.description,
+            handle: values.handle,
+            categories: categoriesList.toString(),
+            ref: ref ? ref : null
+          })
+          .then(() => {
+            setCreatedProfile(true);
+            setIsLoading(false);
+          });
       } else {
         setIsLoading(false);
         setHandleError('handle already exists');
@@ -174,11 +133,10 @@ export default function CreateProfile({
               <textarea
                 id="description"
                 name="description"
-                className={`w-full sm:w-[432px] h-32 bg-black border-[1.5px] ${
-                  formik.touched.description && formik.errors.description
-                    ? 'border-red'
-                    : 'border-details'
-                } mb-8 p-2 outline-none text-white`}
+                className={`w-full sm:w-[432px] h-32 bg-black border-[1.5px] ${formik.touched.description && formik.errors.description
+                  ? 'border-red'
+                  : 'border-details'
+                  } mb-8 p-2 outline-none text-white`}
                 onChange={formik.handleChange}
                 onKeyPress={(e) => {
                   e.key === 'Enter' && e.preventDefault();
@@ -202,7 +160,7 @@ export default function CreateProfile({
 
               <div className="relative w-full">
                 {(formik.touched.handle && formik.errors.handle) ||
-                handleError ? (
+                  handleError ? (
                   <ErrorLabel error={formik.errors.handle || handleError} />
                 ) : null}
 
@@ -215,12 +173,11 @@ export default function CreateProfile({
                     e.key === 'Enter' && e.preventDefault();
                   }}
                   value={formik.values.handle}
-                  className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0 ${
-                    (formik.touched.handle && formik.errors.handle) ||
+                  className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0 ${(formik.touched.handle && formik.errors.handle) ||
                     handleError
-                      ? 'border-red'
-                      : 'border-details'
-                  } mb-8 p-2 outline-none text-white`}
+                    ? 'border-red'
+                    : 'border-details'
+                    } mb-8 p-2 outline-none text-white`}
                 />
               </div>
             </div>
@@ -249,7 +206,6 @@ export default function CreateProfile({
             />
 
             <Button
-              disabled={banner ? false : true}
               text="send to review"
               color="bg-blue"
               hoverColor="brightness-90"

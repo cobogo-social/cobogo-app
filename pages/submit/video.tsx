@@ -2,6 +2,8 @@ import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { readAccountByEmail, readProfileByChannel, readChannelByAccount } from '../../services/cobogoApi';
+import { readChannel as readChannelFromYoutube } from '../../services/youtubeApi';
 
 import Footer from '../../components/Footer';
 import MobileSteps from '../../components/MobileSteps';
@@ -74,7 +76,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  if (!session.youtubeChannels) {
+  const account = await readAccountByEmail(session.user.email);
+  const channel = await readChannelByAccount(account);
+  if (!channel) {
     return {
       redirect: {
         destination: '/submit/connect',
@@ -83,7 +87,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  if (!session.profiles[0]) {
+  const profile = await readProfileByChannel(channel);
+  if (!profile) {
     return {
       redirect: {
         destination: '/submit/create-profile',
@@ -92,7 +97,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  if (session.profiles[0].attributes.waitlist) {
+  if (profile.attributes.waitlist) {
     return {
       redirect: {
         destination: '/submit/invite',
@@ -101,13 +106,19 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
+  const youtubeChannel = await readChannelFromYoutube(session);
   return {
     props: {
-      banner:
-        session.youtubeChannels[0].brandingSettings.image.bannerExternalUrl,
-      title: session.youtubeChannels[0].snippet.title,
-      description: session.youtubeChannels[0].snippet.description,
-      channelHandle: session.profiles[0].attributes.handle,
+      banner: (youtubeChannel && youtubeChannel.brandingSettings.image)
+        ? youtubeChannel.brandingSettings.image.bannerExternalUrl
+        : '',
+      title: youtubeChannel
+        ? youtubeChannel.snippet.title
+        : '',
+      description: youtubeChannel
+        ? youtubeChannel.snippet.description
+        : '',
+      channelHandle: profile.attributes.handle,
     },
   };
 };

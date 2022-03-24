@@ -19,13 +19,16 @@ export default function ChannelBanner({
     <div
       className={`w-[275px] max-h-[296px] bg-black border-[1.5px] border-details pb-6 hidden sm:block`}
     >
-      <Image
-        src={banner}
-        width={275}
-        height={43}
-        objectFit="cover"
-        alt={title}
-      />
+
+      {banner ? (
+        <Image
+          src={banner}
+          width={275}
+          height={43}
+          objectFit="cover"
+          alt={title}
+        />
+      ) : null}
 
       <p className="font-bold text-white text-xl px-4 mt-6">{title}</p>
 

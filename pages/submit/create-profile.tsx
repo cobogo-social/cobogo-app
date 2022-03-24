@@ -2,6 +2,8 @@ import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { readAccountByEmail, readProfileByChannel, readChannelByAccount } from '../../services/cobogoApi';
+import { readChannel as readChannelFromYoutube } from '../../services/youtubeApi';
 
 import CreateProfile from '../../components/CreateProfile';
 import Footer from '../../components/Footer';
@@ -9,19 +11,16 @@ import MobileSteps from '../../components/MobileSteps';
 import MobileTopBar from '../../components/MobileTopBar';
 import PageWrapper from '../../components/PageWrapper';
 import Steps from '../../components/Steps';
-
 interface CreateProfileProps {
   banner: string;
   title: string;
   description: string;
-  channelId: string;
 }
 
 export default function Index({
   banner,
   title,
   description,
-  channelId,
 }: CreateProfileProps) {
   const [open, setOpen] = useState(false);
   const { data: session } = useSession();
@@ -53,7 +52,6 @@ export default function Index({
           banner={banner}
           title={title}
           description={description}
-          channelId={channelId}
         />
 
         <Footer />
@@ -65,60 +63,48 @@ export default function Index({
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
-  session.teste = 'testando persistência';
-  console.log(session)
+  if (!session?.user) {
+    return {
+      redirect: {
+        destination: '/submit/connect',
+        permanent: false,
+      },
+    };
+  }
 
-  // const readProfileByChannelId = async () => {
-  //   const response = await cobogoApi.get(
-  //     `/api/profiles?filters[channel_id][$eq]=${readChannel.data.items[0].id}`,
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${process.env.COBOGO_API_TOKEN}`,
-  //       },
-  //     }
-  //   );
-  //   return response.data.data;
-  // }
+  const account = await readAccountByEmail(session.user.email);
+  const channel = await readChannelByAccount(account);
+  if (!channel) {
+    return {
+      redirect: {
+        destination: '/submit/connect',
+        permanent: false,
+      },
+    };
+  }
 
-  // if (!session?.user) {
-  //   return {
-  //     redirect: {
-  //       destination: '/submit/connect',
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  const profile = await readProfileByChannel(channel);
+  if (profile) {
+    return {
+      redirect: {
+        destination: '/submit/video',
+        permanent: false,
+      },
+    };
+  }
 
-  // if (!session.youtubeChannels) {
-  //   return {
-  //     redirect: {
-  //       destination: '/submit/connect',
-  //       permanent: false,
-  //     },
-  //   };
-  // }
-
-  // if (session.profiles[0]) {
-  //   return {
-  //     redirect: {
-  //       destination: '/submit/video',
-  //       permanent: false,
-  //     },
-  //   };
-  // }
-
+  const youtubeChannel = await readChannelFromYoutube(session);
   return {
     props: {
-      // banner: session.youtubeChannels
-      //   ? session.youtubeChannels[0].brandingSettings.image.bannerExternalUrl
-      //   : '',
-      // title: session.youtubeChannels
-      //   ? session.youtubeChannels[0].snippet.title
-      //   : '',
-      // description: session.youtubeChannels
-      //   ? session.youtubeChannels[0].snippet.description
-      //   : '',
-      // channelId: session.youtubeChannels ? session.youtubeChannels[0].id : '',
+      banner: (youtubeChannel && youtubeChannel.brandingSettings.image)
+        ? youtubeChannel.brandingSettings.image.bannerExternalUrl
+        : '',
+      title: youtubeChannel
+        ? youtubeChannel.snippet.title
+        : '',
+      description: youtubeChannel
+        ? youtubeChannel.snippet.description
+        : ''
     },
   };
 };
