@@ -5,16 +5,22 @@ import { useEffect, useState } from 'react';
 
 import Footer from '../../components/Footer';
 import Invite from '../../components/Invite';
-import MobileSteps from '../../components/MobileSteps';
 import MobileTopBar from '../../components/MobileTopBar';
 import PageWrapper from '../../components/PageWrapper';
 import Steps from '../../components/Steps';
+import {
+  readAccountByEmail,
+  readChannelByAccount,
+  readProfileByChannel,
+} from '../../services/cobogoApi';
+import { readChannel as readChannelFromYoutube } from '../../services/youtubeApi';
 
 interface InviteProps {
   banner: string;
   title: string;
   description: string;
   referralCode: string;
+  profileId: number;
 }
 
 export default function Index({
@@ -22,13 +28,9 @@ export default function Index({
   title,
   description,
   referralCode,
+  profileId,
 }: InviteProps) {
-  const [open, setOpen] = useState(false);
   const { data: session } = useSession();
-
-  function handleSetOpen() {
-    setOpen(!open);
-  }
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
@@ -43,17 +45,16 @@ export default function Index({
       </Head>
 
       <PageWrapper>
-        <MobileTopBar haveSteps setOpen={handleSetOpen} />
-
         <Steps />
 
-        <MobileSteps open={open} />
+        <MobileTopBar />
 
         <Invite
           banner={banner}
           title={title}
           description={description}
           referralCode={referralCode}
+          profileId={profileId}
         />
 
         <Footer />
@@ -74,7 +75,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  if (!session.youtubeChannels) {
+  const account = await readAccountByEmail(session.user.email);
+  const channel = await readChannelByAccount(account);
+
+  if (!channel) {
     return {
       redirect: {
         destination: '/submit/connect',
@@ -83,7 +87,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  if (!session.profiles[0]?.attributes.waitlist) {
+  const profile = await readProfileByChannel(channel);
+
+  if (!profile.attributes.waitlist) {
     return {
       redirect: {
         destination: '/submit/video',
@@ -92,13 +98,18 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
+  const youtubeChannel = await readChannelFromYoutube(session);
+
   return {
     props: {
       banner:
-        session.youtubeChannels[0].brandingSettings.image.bannerExternalUrl,
-      title: session.youtubeChannels[0].snippet.title,
-      description: session.youtubeChannels[0].snippet.description,
-      referralCode: session.profiles[0].attributes.referral_code,
+        youtubeChannel && youtubeChannel.brandingSettings.image
+          ? youtubeChannel.brandingSettings.image.bannerExternalUrl
+          : '',
+      title: youtubeChannel ? youtubeChannel.snippet.title : '',
+      description: youtubeChannel ? youtubeChannel.snippet.description : '',
+      referralCode: profile.attributes.referral_code,
+      profileId: profile.id,
     },
   };
 };

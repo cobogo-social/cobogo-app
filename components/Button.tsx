@@ -7,7 +7,6 @@ interface ButtonProps {
   fontSize?: string;
   onClick?: (event: unknown) => void;
   onKeyDown?: (event: unknown) => void;
-  disabled?: boolean;
 }
 
 export default function Button({
@@ -19,14 +18,10 @@ export default function Button({
   fontSize,
   onClick,
   onKeyDown,
-  disabled,
 }: ButtonProps) {
   return (
     <button
-      className={`${width} ${height} ${disabled ? 'bg-details' : color} hover:${
-        disabled ? '' : hoverColor
-      } font-bold ${fontSize} ${disabled ? 'text-secondary' : 'text-white'}`}
-      disabled={disabled}
+      className={`${width} ${height} ${color} hover:${hoverColor} font-bold ${fontSize} text-white`}
       onClick={onClick}
       onKeyDown={onKeyDown}
     >

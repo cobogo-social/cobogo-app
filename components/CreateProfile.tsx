@@ -54,14 +54,14 @@ export default function CreateProfile({
       if (readProfileByHandle.data.data.length === 0) {
         setIsLoading(true);
 
-        const ref = sessionStorage.getItem('queryRef')
+        const ref = sessionStorage.getItem('queryRef');
 
         await axios
           .post('/api/cobogo/createProfile', {
             description: values.description,
             handle: values.handle,
             categories: categoriesList.toString(),
-            ref: ref ? ref : null
+            ref: ref ? ref : null,
           })
           .then(() => {
             setCreatedProfile(true);
@@ -133,10 +133,11 @@ export default function CreateProfile({
               <textarea
                 id="description"
                 name="description"
-                className={`w-full sm:w-[432px] h-32 bg-black border-[1.5px] ${formik.touched.description && formik.errors.description
-                  ? 'border-red'
-                  : 'border-details'
-                  } mb-8 p-2 outline-none text-white`}
+                className={`w-full sm:w-[432px] h-32 bg-black border-[1.5px] ${
+                  formik.touched.description && formik.errors.description
+                    ? 'border-red'
+                    : 'border-details'
+                } mb-8 p-2 outline-none text-white`}
                 onChange={formik.handleChange}
                 onKeyPress={(e) => {
                   e.key === 'Enter' && e.preventDefault();
@@ -160,7 +161,7 @@ export default function CreateProfile({
 
               <div className="relative w-full">
                 {(formik.touched.handle && formik.errors.handle) ||
-                  handleError ? (
+                handleError ? (
                   <ErrorLabel error={formik.errors.handle || handleError} />
                 ) : null}
 
@@ -168,16 +169,22 @@ export default function CreateProfile({
                   id="handle"
                   name="handle"
                   type="text"
-                  onChange={formik.handleChange}
+                  pattern="[A-Za-z]{3}"
+                  onChange={(event) => {
+                    formik.handleChange(event);
+
+                    if()
+                  }}
                   onKeyPress={(e) => {
                     e.key === 'Enter' && e.preventDefault();
                   }}
                   value={formik.values.handle}
-                  className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0 ${(formik.touched.handle && formik.errors.handle) ||
+                  className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0 ${
+                    (formik.touched.handle && formik.errors.handle) ||
                     handleError
-                    ? 'border-red'
-                    : 'border-details'
-                    } mb-8 p-2 outline-none text-white`}
+                      ? 'border-red'
+                      : 'border-details'
+                  } mb-8 p-2 outline-none text-white`}
                 />
               </div>
             </div>

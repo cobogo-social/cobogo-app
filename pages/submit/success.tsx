@@ -4,7 +4,6 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 import Footer from '../../components/Footer';
-import MobileSteps from '../../components/MobileSteps';
 import MobileTopBar from '../../components/MobileTopBar';
 import PageWrapper from '../../components/PageWrapper';
 import Steps from '../../components/Steps';
@@ -23,12 +22,7 @@ export default function Index({
   description,
   referralCode,
 }: SuccessProps) {
-  const [open, setOpen] = useState(false);
   const { data: session } = useSession();
-
-  function handleSetOpen() {
-    setOpen(!open);
-  }
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
@@ -43,11 +37,9 @@ export default function Index({
       </Head>
 
       <PageWrapper>
-        <MobileTopBar haveSteps setOpen={handleSetOpen} />
-
         <Steps />
 
-        <MobileSteps open={open} />
+        <MobileTopBar />
 
         <Success
           banner={banner}

@@ -14,7 +14,7 @@ export const readChannel = async (session) => {
     }
   );
 
-  return response.data.items[0];
+  return response.data.items ? response.data.items[0] : null;
 };
 
 export default api;

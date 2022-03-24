@@ -12,7 +12,7 @@ export default function StartSubmission() {
       <TopBar />
 
       <div className="flex flex-col justify-center items-center mt-32 sm:mt-0">
-        <p className="text-white sm:text-2xl sm:w-[618px] text-center mb-8">
+        <p className="text-white sm:text-2xl sm:w-[618px] text-center mb-16">
           to offer the best experience in{' '}
           <span className="font-bold">Web3 YouTube monetization</span>, we are
           growing our community of Creators.

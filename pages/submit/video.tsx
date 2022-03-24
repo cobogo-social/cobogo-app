@@ -2,11 +2,14 @@ import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { readAccountByEmail, readProfileByChannel, readChannelByAccount } from '../../services/cobogoApi';
+import {
+  readAccountByEmail,
+  readProfileByChannel,
+  readChannelByAccount,
+} from '../../services/cobogoApi';
 import { readChannel as readChannelFromYoutube } from '../../services/youtubeApi';
 
 import Footer from '../../components/Footer';
-import MobileSteps from '../../components/MobileSteps';
 import MobileTopBar from '../../components/MobileTopBar';
 import PageWrapper from '../../components/PageWrapper';
 import Steps from '../../components/Steps';
@@ -25,12 +28,7 @@ export default function Index({
   description,
   channelHandle,
 }: VideoProps) {
-  const [open, setOpen] = useState(false);
   const { data: session } = useSession();
-
-  function handleSetOpen() {
-    setOpen(!open);
-  }
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
@@ -45,11 +43,9 @@ export default function Index({
       </Head>
 
       <PageWrapper>
-        <MobileTopBar haveSteps setOpen={handleSetOpen} />
-
         <Steps />
 
-        <MobileSteps open={open} />
+        <MobileTopBar />
 
         <Video
           banner={banner}
@@ -78,6 +74,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   const account = await readAccountByEmail(session.user.email);
   const channel = await readChannelByAccount(account);
+
   if (!channel) {
     return {
       redirect: {
@@ -88,6 +85,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const profile = await readProfileByChannel(channel);
+
   if (!profile) {
     return {
       redirect: {
@@ -107,17 +105,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const youtubeChannel = await readChannelFromYoutube(session);
+
   return {
     props: {
-      banner: (youtubeChannel && youtubeChannel.brandingSettings.image)
-        ? youtubeChannel.brandingSettings.image.bannerExternalUrl
-        : '',
-      title: youtubeChannel
-        ? youtubeChannel.snippet.title
-        : '',
-      description: youtubeChannel
-        ? youtubeChannel.snippet.description
-        : '',
+      banner:
+        youtubeChannel && youtubeChannel.brandingSettings.image
+          ? youtubeChannel.brandingSettings.image.bannerExternalUrl
+          : '',
+      title: youtubeChannel ? youtubeChannel.snippet.title : '',
+      description: youtubeChannel ? youtubeChannel.snippet.description : '',
       channelHandle: profile.attributes.handle,
     },
   };
