@@ -1,10 +1,14 @@
-import cobogoApi, {
+import {
+  createVideo,
   readAccountByEmail,
   readChannelByAccount,
   readProfileByChannel,
+  updateWaitlistProfile,
 } from '@services/cobogoApi';
-import youtubeApi, {
+import {
   readChannel as readChannelFromYoutube,
+  readVideoById,
+  readVideos,
 } from '@services/youtubeApi';
 import moment from 'moment';
 import { getSession } from 'next-auth/react';
@@ -15,20 +19,7 @@ export default async function handler(req, res) {
   const youtubeChannel = await readChannelFromYoutube(session);
 
   try {
-    const response = await youtubeApi.get(
-      `/search?part=snippet&maxResults=25&type=video&videoDuration=short`,
-      {
-        params: {
-          channelId: youtubeChannel.id,
-          q: 'cobogo',
-        },
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
-        },
-      }
-    );
-
-    const videos = response.data.items;
+    const videos = await readVideos(session, youtubeChannel);
     let validVideo = null;
 
     if (videos.length) {
@@ -38,19 +29,7 @@ export default async function handler(req, res) {
 
       videos.forEach(async (video) => {
         if (!validVideo) {
-          const response = await youtubeApi.get(
-            `/videos?part=snippet%2CcontentDetails`,
-            {
-              params: {
-                id: video.id.videoId,
-              },
-              headers: {
-                Authorization: `Bearer ${session.accessToken}`,
-              },
-            }
-          );
-
-          const item = response.data.items[0];
+          const item = await readVideoById(session, video);
 
           if (
             moment.duration(item.contentDetails.duration).asMinutes() >= 2 &&
@@ -62,22 +41,9 @@ export default async function handler(req, res) {
             validVideo = item;
 
             if (validVideo !== null) {
-              await cobogoApi.post('/api/videos', {
-                data: {
-                  title: validVideo.snippet.title,
-                  description: validVideo.snippet.description,
-                  video_id: validVideo.id,
-                  account: account.id,
-                  channel: channel.id,
-                  profile: profile.id,
-                },
-              });
+              await createVideo(validVideo, account, channel, profile);
 
-              await cobogoApi.put(`/api/profiles/${profile.id}`, {
-                data: {
-                  waitlist: true,
-                },
-              });
+              await updateWaitlistProfile(profile);
 
               res.status(200).json({ validVideo: 1 });
             } else {

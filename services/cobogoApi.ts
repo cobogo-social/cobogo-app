@@ -148,4 +148,33 @@ export const createProfile = async (
   }
 };
 
+export const createVideo = async (validVideo, account, channel, profile) => {
+  try {
+    await api.post('/api/videos', {
+      data: {
+        title: validVideo.snippet.title,
+        description: validVideo.snippet.description,
+        video_id: validVideo.id,
+        account: account.id,
+        channel: channel.id,
+        profile: profile.id,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateWaitlistProfile = async (profile) => {
+  try {
+    await api.put(`/api/profiles/${profile.id}`, {
+      data: {
+        waitlist: true,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default api;
