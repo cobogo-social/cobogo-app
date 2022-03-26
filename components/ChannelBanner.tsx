@@ -15,6 +15,11 @@ export default function ChannelBanner({
 }: ChannelBannerProps) {
   const { push } = useRouter();
 
+  function tryAnotherChannel() {
+    signOut();
+    push('/submit/connect');
+  }
+
   return (
     <div
       className={`w-[275px] max-h-[296px] bg-black border-[1.5px] border-details pb-6 hidden sm:block`}
@@ -34,10 +39,7 @@ export default function ChannelBanner({
       <p className="text-white px-4">{description.slice(0, 210)}(...)</p>
 
       <a
-        onClick={() => {
-          signOut();
-          push('/submit/connect');
-        }}
+        onClick={tryAnotherChannel}
         className="text-blue font-bold px-4 hover:cursor-pointer"
       >
         try another account

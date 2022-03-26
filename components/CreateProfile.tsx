@@ -74,7 +74,7 @@ export default function CreateProfile({
     },
   });
 
-  async function handleChangeCategories(event: {
+  function handleChangeCategories(event: {
     target: { value: SetStateAction<string> };
     key: string;
   }) {
@@ -92,13 +92,26 @@ export default function CreateProfile({
     }
   }
 
-  async function handleRemoveCategory(category: string) {
+  function handleRemoveCategory(category: string) {
     setCategoriesList(categoriesList.filter((c) => c !== category));
   }
 
-  async function handleRequest(event: { key: string }) {
+  function handleRequest(event: { key: string }) {
     if (event.key === 'Enter') {
       return;
+    }
+  }
+
+  function validateKeyPressed(event) {
+    const keyPressed = event.key;
+
+    if (
+      '1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-'.indexOf(
+        keyPressed
+      ) < 0 ||
+      keyPressed === 'Enter'
+    ) {
+      event.preventDefault();
     }
   }
 
@@ -139,9 +152,7 @@ export default function CreateProfile({
                     : 'border-details'
                 } mb-8 p-2 outline-none text-white`}
                 onChange={formik.handleChange}
-                onKeyPress={(e) => {
-                  e.key === 'Enter' && e.preventDefault();
-                }}
+                onKeyPress={validateKeyPressed}
                 value={formik.values.description}
               />
             </div>
@@ -170,9 +181,7 @@ export default function CreateProfile({
                   name="handle"
                   type="text"
                   onChange={formik.handleChange}
-                  onKeyPress={(e) => {
-                    e.key === 'Enter' && e.preventDefault();
-                  }}
+                  onKeyPress={validateKeyPressed}
                   value={formik.values.handle}
                   className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0 ${
                     (formik.touched.handle && formik.errors.handle) ||
@@ -204,7 +213,7 @@ export default function CreateProfile({
 
             <Categories
               categories={categoriesList}
-              handleRemoveCategory={handleRemoveCategory}
+              removeCategory={handleRemoveCategory}
             />
 
             <Button

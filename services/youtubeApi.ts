@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL: 'https://www.googleapis.com/youtube/v3',
 });
 
-export const readChannel = async (session) => {
+export async function readChannel(session) {
   try {
     const response = await api.get(
       `/channels?part=snippet%2CbrandingSettings&mine=true`,
@@ -19,9 +19,9 @@ export const readChannel = async (session) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const readVideos = async (session, youtubeChannel) => {
+export async function readVideos(session, youtubeChannel) {
   try {
     const response = await api.get(
       `/search?part=snippet&maxResults=25&type=video&videoDuration=short`,
@@ -40,9 +40,9 @@ export const readVideos = async (session, youtubeChannel) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const readVideoById = async (session, video) => {
+export async function readVideoById(session, video) {
   try {
     const response = await api.get(`/videos?part=snippet%2CcontentDetails`, {
       params: {
@@ -57,6 +57,6 @@ export const readVideoById = async (session, video) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 export default api;

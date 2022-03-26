@@ -7,6 +7,10 @@ export default function CategoriesInput({
   input,
   handleChangeCategories,
 }: CategoriesInputProps) {
+  function validateKeyPressed(event) {
+    event.key === 'Enter' && event.preventDefault();
+  }
+
   return (
     <>
       <input
@@ -15,9 +19,7 @@ export default function CategoriesInput({
         placeholder="search for a category and press enter"
         value={input}
         onChange={handleChangeCategories}
-        onKeyPress={(e) => {
-          e.key === 'Enter' && e.preventDefault();
-        }}
+        onKeyPress={validateKeyPressed}
         onKeyDown={handleChangeCategories}
       />
 
@@ -27,9 +29,7 @@ export default function CategoriesInput({
         placeholder="search for a category"
         value={input}
         onChange={handleChangeCategories}
-        onKeyPress={(e) => {
-          e.key === 'Enter' && e.preventDefault();
-        }}
+        onKeyPress={validateKeyPressed}
         onKeyDown={handleChangeCategories}
       />
     </>

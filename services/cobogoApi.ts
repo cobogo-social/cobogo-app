@@ -7,7 +7,7 @@ const api = axios.create({
   },
 });
 
-export const readProfileByChannel = async (channel) => {
+export async function readProfileByChannel(channel) {
   try {
     const response = await api.get(
       `/api/profiles?filters[channel][id][$eq]=${channel.id}`
@@ -17,9 +17,9 @@ export const readProfileByChannel = async (channel) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const readProfileByReferralCode = async (referralCode) => {
+export async function readProfileByReferralCode(referralCode) {
   try {
     const response = await api.get(
       `/api/profiles?filters[referral_code][$eq]=${referralCode}`
@@ -29,9 +29,9 @@ export const readProfileByReferralCode = async (referralCode) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const readProfilesByReferral = async (referralId) => {
+export async function readProfilesByReferral(referralId) {
   try {
     const response = await api.get(
       `/api/profiles?filters[referral][id][$eq]=${referralId}`
@@ -41,9 +41,9 @@ export const readProfilesByReferral = async (referralId) => {
   } catch (error) {
     console.error(error);
   }
-};
+}
 
-export const readProfileByHandle = async (handle) => {
+export async function readProfileByHandle(handle) {
   try {
     const response = await api.get(
       `/api/profiles?filters[handle][$eq]=${handle}`
@@ -53,9 +53,9 @@ export const readProfileByHandle = async (handle) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const readAccountByEmail = async (email) => {
+export async function readAccountByEmail(email) {
   try {
     const response = await api.get(
       `/api/accounts?filters[email][$eq]=${email}`
@@ -65,9 +65,9 @@ export const readAccountByEmail = async (email) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const readChannelByYoutubeId = async (youtubeChannelId) => {
+export async function readChannelByYoutubeId(youtubeChannelId) {
   try {
     const response = await api.get(
       `/api/channels?filters[channel_id][$eq]=${youtubeChannelId}`
@@ -77,9 +77,9 @@ export const readChannelByYoutubeId = async (youtubeChannelId) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const readChannelByAccount = async (account) => {
+export async function readChannelByAccount(account) {
   try {
     const response = await api.get(
       `/api/channels?filters[account][id][$eq]=${account.id}`
@@ -89,9 +89,9 @@ export const readChannelByAccount = async (account) => {
   } catch (error) {
     console.error(error);
   }
-};
+}
 
-export const createAccount = async (user) => {
+export async function createAccount(user) {
   try {
     const response = await api.post('/api/accounts', {
       data: {
@@ -105,9 +105,9 @@ export const createAccount = async (user) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const createChannel = async (account, youtubeChannel) => {
+export async function createChannel(account, youtubeChannel) {
   try {
     await api.post('/api/channels', {
       data: {
@@ -120,9 +120,9 @@ export const createChannel = async (account, youtubeChannel) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const createProfile = async (
+export async function createProfile(
   description,
   handle,
   categories,
@@ -130,7 +130,7 @@ export const createProfile = async (
   channel,
   referral,
   referral_code
-) => {
+) {
   try {
     await api.post('/api/profiles', {
       data: {
@@ -146,9 +146,9 @@ export const createProfile = async (
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const createVideo = async (validVideo, account, channel, profile) => {
+export async function createVideo(validVideo, account, channel, profile) {
   try {
     await api.post('/api/videos', {
       data: {
@@ -163,9 +163,9 @@ export const createVideo = async (validVideo, account, channel, profile) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-export const updateWaitlistProfile = async (profile) => {
+export async function updateWaitlistProfile(profile) {
   try {
     await api.put(`/api/profiles/${profile.id}`, {
       data: {
@@ -175,6 +175,6 @@ export const updateWaitlistProfile = async (profile) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 export default api;

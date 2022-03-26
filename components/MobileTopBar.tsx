@@ -7,17 +7,16 @@ export default function MobileTopBar() {
   const [back, setBack] = useState(false);
   const [open, setOpen] = useState(false);
 
+  function setBackAndSetOpen() {
+    setBack(!back);
+    setOpen(!open);
+  }
+
   return (
     <>
       <div className="bg-secondary z-20 p-4 w-screen h-[52px] flex justify-between items-center fixed sm:hidden shadow-[0_0px_10px_15px_rgba(0,0,0,0.3)]">
         <div className="flex">
-          <div
-            className="flex mr-4"
-            onClick={() => {
-              setBack(!back);
-              setOpen(!open);
-            }}
-          >
+          <div className="flex mr-4" onClick={setBackAndSetOpen}>
             <Image
               src={back ? '/images/back-icon.svg' : '/images/next-icon.svg'}
               width={28}

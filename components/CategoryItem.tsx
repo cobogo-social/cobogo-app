@@ -2,14 +2,21 @@ import Image from 'next/image';
 
 interface CategoryItemProps {
   category: string;
-  onClick: (category: string) => void;
+  removeCategory: (category: string) => void;
 }
 
-export default function CategoryItem({ category, onClick }: CategoryItemProps) {
+export default function CategoryItem({
+  category,
+  removeCategory,
+}: CategoryItemProps) {
+  function handleRemoveCategory() {
+    removeCategory(category);
+  }
+
   return (
     <div
       className="h-8 bg-black border-[1.5px] border-details flex justify-center items-center p-2 mr-2 mb-2 hover:cursor-pointer"
-      onClick={() => onClick(category)}
+      onClick={handleRemoveCategory}
     >
       <p className="font-bold text-violet mr-2">{category.toLowerCase()}</p>
 

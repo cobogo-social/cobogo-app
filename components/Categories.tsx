@@ -2,12 +2,12 @@ import CategoryItem from './CategoryItem';
 
 interface CategoriesProps {
   categories: string[];
-  handleRemoveCategory: (category: string) => void;
+  removeCategory: (category: string) => void;
 }
 
 export default function Categories({
   categories,
-  handleRemoveCategory,
+  removeCategory,
 }: CategoriesProps) {
   return (
     <div className="mb-8 flex flex-wrap w-full sm:w-[432px]">
@@ -15,7 +15,7 @@ export default function Categories({
         <CategoryItem
           key={category}
           category={category}
-          onClick={handleRemoveCategory}
+          removeCategory={removeCategory}
         />
       ))}
     </div>
