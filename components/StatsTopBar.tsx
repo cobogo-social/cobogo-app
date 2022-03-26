@@ -1,29 +1,16 @@
-import axios from 'axios';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 
 interface StatsTopBarProps {
-  profileId: number;
+  onboardedFriends: number;
 }
 
-export default function StatsTopBar({ profileId }: StatsTopBarProps) {
-  const [acceptedLength, setAcceptedLength] = useState('-');
-
-  useEffect(() => {
-    axios
-      .get('/api/cobogo/readOnboardedFriends', {
-        params: {
-          referral: profileId,
-        },
-      })
-      .then((response) => setAcceptedLength(response.data.data.length));
-  }, []);
-
+export default function StatsTopBar({ onboardedFriends }: StatsTopBarProps) {
   return (
     <div className="hidden sm:flex w-full justify-end items-center mb-[70px]">
       <a>
         <p className="text-white mr-8">
-          onboarded friends: <span className="font-bold">{acceptedLength}</span>
+          onboarded friends:{' '}
+          <span className="font-bold">{onboardedFriends}</span>
         </p>
       </a>
 
