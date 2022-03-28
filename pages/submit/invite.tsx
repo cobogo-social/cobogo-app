@@ -4,7 +4,7 @@ import MobileTopBar from '@components/MobileTopBar';
 import PageWrapper from '@components/PageWrapper';
 import Steps from '@components/Steps';
 import {
-  readAccountByEmail,
+  readAccountByAccountId,
   readChannelByAccount,
   readProfileByChannel,
   readProfilesByReferral,
@@ -75,7 +75,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const account = await readAccountByEmail(session.user.email);
+  const account = await readAccountByAccountId(session.user.id);
   const channel = await readChannelByAccount(account);
 
   if (!channel) {

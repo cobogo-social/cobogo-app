@@ -31,10 +31,10 @@ export async function readProfileByReferralCode(referralCode) {
   }
 }
 
-export async function readProfilesByReferral(referralId) {
+export async function readProfilesByReferral(referral) {
   try {
     const response = await api.get(
-      `/api/profiles?filters[referral][id][$eq]=${referralId}`
+      `/api/profiles?filters[referral][id][$eq]=${referral}`
     );
 
     return response.data.data;
@@ -55,10 +55,10 @@ export async function readProfileByHandle(handle) {
   }
 }
 
-export async function readAccountByEmail(email) {
+export async function readAccountByAccountId(accountId) {
   try {
     const response = await api.get(
-      `/api/accounts?filters[email][$eq]=${email}`
+      `/api/accounts?filters[account_id][$eq]=${accountId}`
     );
 
     return response.data.data[0];
@@ -67,10 +67,10 @@ export async function readAccountByEmail(email) {
   }
 }
 
-export async function readChannelByYoutubeId(youtubeChannelId) {
+export async function readChannelByChannelId(channelId) {
   try {
     const response = await api.get(
-      `/api/channels?filters[channel_id][$eq]=${youtubeChannelId}`
+      `/api/channels?filters[channel_id][$eq]=${channelId}`
     );
 
     return response.data.data[0];
@@ -98,6 +98,7 @@ export async function createAccount(user) {
         name: user.name,
         email: user.email,
         image: user.image,
+        account_id: user.id,
       },
     });
 

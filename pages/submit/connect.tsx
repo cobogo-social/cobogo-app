@@ -7,8 +7,8 @@ import Steps from '@components/Steps';
 import {
   createAccount,
   createChannel,
-  readAccountByEmail,
-  readChannelByYoutubeId,
+  readAccountByAccountId,
+  readChannelByChannelId,
 } from '@services/cobogoApi';
 import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
@@ -61,13 +61,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   if (session?.user) {
     // FIXME: Buscar a conta pelo ID do usuário e não pelo email.
     const account =
-      (await readAccountByEmail(session.user.email)) ||
+      (await readAccountByAccountId(session.user.id)) ||
       (await createAccount(session.user));
 
     const youtubeChannel = await readChannelFromYoutube(session);
 
     if (youtubeChannel) {
-      (await readChannelByYoutubeId(youtubeChannel.id)) ||
+      (await readChannelByChannelId(youtubeChannel.id)) ||
         (await createChannel(account, youtubeChannel));
 
       return {

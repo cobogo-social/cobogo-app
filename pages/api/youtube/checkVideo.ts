@@ -1,6 +1,6 @@
 import {
   createVideo,
-  readAccountByEmail,
+  readAccountByAccountId,
   readChannelByAccount,
   readProfileByChannel,
   updateWaitlistProfile,
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     let validVideo = null;
 
     if (videos.length) {
-      const account = await readAccountByEmail(session.user.email);
+      const account = await readAccountByAccountId(session.user.id);
       const channel = await readChannelByAccount(account);
       const profile = await readProfileByChannel(channel);
 

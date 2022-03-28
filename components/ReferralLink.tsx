@@ -22,7 +22,7 @@ export default function ReferralLink({ referralCode }: ReferralLinkProps) {
         >
           <CopyToClipboard
             text={`Hi! cobogo is a dapp that helps us fund ourselves sustainably using blockchain. Use my referral link when you sign up for free for the waitlist, and we both get rewards!
-                    localhost:3000/submit?ref=${referralCode}`}
+                    app.cobogo.social/submit?ref=${referralCode}`}
           >
             <IoCopySharp className="hover:cursor-pointer" color="white" />
           </CopyToClipboard>

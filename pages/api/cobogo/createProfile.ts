@@ -1,6 +1,6 @@
 import {
   createProfile,
-  readAccountByEmail,
+  readAccountByAccountId,
   readChannelByAccount,
   readProfileByReferralCode,
 } from '@services/cobogoApi';
@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   try {
     const referralCode = referralCodeGenerator.alphaNumeric('lowercase', 2, 2);
 
-    const account = await readAccountByEmail(session.user.email);
+    const account = await readAccountByAccountId(session.user.id);
     const channel = await readChannelByAccount(account);
     const referral = await readProfileByReferralCode(ref);
 
