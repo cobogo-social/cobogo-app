@@ -26,11 +26,7 @@ export default function Index() {
 
   useEffect(() => {
     if (session?.user) {
-      if (!session.youtubeChannels) {
-        setHaveChannel(false);
-      } else {
-        setHaveChannel(true);
-      }
+      setHaveChannel(false);
     } else {
       setHaveChannel(true);
     }

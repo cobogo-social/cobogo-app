@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import Button from './Button';
 import ChannelBanner from './ChannelBanner';
@@ -99,7 +98,7 @@ export default function Invite({
               about our <span className="font-bold">Referral Program.</span>
             </p>
 
-            <Link href="/submit/success">
+            <a href="/submit/success">
               <Button
                 width="w-40"
                 height="h-9"
@@ -107,7 +106,7 @@ export default function Invite({
                 hoverColor="brightness-90"
                 text="skip"
               />
-            </Link>
+            </a>
           </div>
 
           <ChannelBanner

@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import Button from './Button';
 import YouWillBeNotified from './YouWillBeNotified';
@@ -13,9 +12,9 @@ export default function Waitlist({ title }: WaitlistProps) {
     <div className="flex flex-col mb-8">
       <p className="text-4xl text-white mb-4 flex">
         waitlist{' '}
-        <div className="flex ml-4">
+        <span className="flex ml-4">
           <Image src="/images/success-icon.svg" width={34} height={34} />
-        </div>
+        </span>
       </p>
 
       <p className="sm:text-xl text-white sm:w-[408px] mb-8">
@@ -26,7 +25,7 @@ export default function Waitlist({ title }: WaitlistProps) {
 
       <YouWillBeNotified />
 
-      <Link href="/submit/invite">
+      <a href="/submit/invite">
         <Button
           width="w-40"
           height="h-9"
@@ -34,7 +33,7 @@ export default function Waitlist({ title }: WaitlistProps) {
           hoverColor="brightness-90"
           text="back to invite"
         />
-      </Link>
+      </a>
     </div>
   );
 }
