@@ -59,7 +59,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
   if (session?.user) {
-    // FIXME: Buscar a conta pelo ID do usuário e não pelo email.
     const account =
       (await readAccountByAccountId(session.user.id)) ||
       (await createAccount(session.user));
