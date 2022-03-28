@@ -25,7 +25,7 @@ export async function readProfileByReferralCode(referralCode) {
       `/api/profiles?filters[referral_code][$eq]=${referralCode}`
     );
 
-    return response.data.data;
+    return response.data.data[0];
   } catch (error) {
     console.log(error);
   }
@@ -49,7 +49,7 @@ export async function readProfileByHandle(handle) {
       `/api/profiles?filters[handle][$eq]=${handle}`
     );
 
-    return response.data.data;
+    return response.data.data[0];
   } catch (error) {
     console.log(error);
   }

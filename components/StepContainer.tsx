@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
-export default function PageWrapper({ children }) {
+export default function StepContainer({ children }) {
   return (
-    <div className="grid grid-rows-1 sm:grid-rows-[92.5vh_70px] grid-cols-1 sm:grid-cols-[332px_1fr]">
+    <div className="w-full h-full p-8">
       {children}
     </div>
   );
 }
-PageWrapper.propTypes = {
+StepContainer.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.element),
     PropTypes.element.isRequired,

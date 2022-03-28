@@ -1,5 +1,6 @@
 import ChannelBanner from './ChannelBanner';
 import StatsTopBar from './StatsTopBar';
+import StepContainer from './StepContainer';
 import StepWrapper from './StepWrapper';
 import Waitlist from './Waitlist';
 
@@ -18,7 +19,7 @@ export default function Success({
   onboardedFriends,
 }: SuccessProps) {
   return (
-    <div className="w-full h-full p-8">
+    <StepContainer>
       <StatsTopBar onboardedFriends={onboardedFriends} />
 
       <StepWrapper>
@@ -30,6 +31,6 @@ export default function Success({
           description={description}
         />
       </StepWrapper>
-    </div>
+    </StepContain>
   );
 }

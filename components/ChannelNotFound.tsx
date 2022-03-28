@@ -1,6 +1,7 @@
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 
+import StepContainer from './StepContainer';
 import TopBar from './TopBar';
 
 interface ChannelNotFoundProps {
@@ -16,7 +17,7 @@ export default function ChannelNotFound({
   }
 
   return (
-    <div className="w-full h-full p-8">
+    <StepContainer>
       <TopBar />
 
       <div className="flex flex-col justify-center items-start pl-16 sm:px-16 2xl:px-64 mt-32 sm:mt-0">
@@ -60,6 +61,6 @@ export default function ChannelNotFound({
           </div>
         </div>
       </div>
-    </div>
+    </StepContainer>
   );
 }

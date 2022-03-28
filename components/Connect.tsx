@@ -1,11 +1,12 @@
 import Image from 'next/image';
 
 import SignInButton from './SignInButton';
+import StepContainer from './StepContainer';
 import TopBar from './TopBar';
 
 export default function Connect() {
   return (
-    <div className="w-full h-full p-8">
+    <StepContainer>
       <TopBar />
 
       <div className="flex flex-col justify-center items-start pl-16 sm:px-16 2xl:px-64 mt-16 sm:mt-0">
@@ -39,6 +40,6 @@ export default function Connect() {
           </div>
         </div>
       </div>
-    </div>
+    </StepContainer>
   );
 }

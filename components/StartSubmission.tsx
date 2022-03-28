@@ -1,14 +1,11 @@
-import { useRouter } from 'next/router';
-
 import Button from './Button';
 import JoinOurWaitlist from './JoinOurWaitlist';
+import StepContainer from './StepContainer';
 import TopBar from './TopBar';
 
 export default function StartSubmission() {
-  const { query } = useRouter();
-
   return (
-    <div className="w-full h-full p-8">
+    <StepContainer>
       <TopBar />
 
       <div className="flex flex-col justify-center items-center mt-32 sm:mt-0">
@@ -20,12 +17,7 @@ export default function StartSubmission() {
 
         <JoinOurWaitlist />
 
-        <a
-          href={
-            query.ref ? `/submit/connect?ref=${query.ref}` : `/submit/connect`
-          }
-          className="mb-8"
-        >
+        <a href="/submit/connect" className="mb-8">
           <Button
             text="start submission"
             color="bg-purple"
@@ -58,6 +50,6 @@ export default function StartSubmission() {
           </a>
         </div>
       </div>
-    </div>
+    </StepContainer>
   );
 }

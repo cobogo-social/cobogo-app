@@ -10,14 +10,14 @@ import referralCodeGenerator from 'referral-code-generator';
 export default async function handler(req, res) {
   const session = await getSession({ req });
 
-  const { description, handle, categories, ref } = req.body;
+  const { description, handle, categories, queryRef } = req.body;
 
   try {
     const referralCode = referralCodeGenerator.alphaNumeric('lowercase', 2, 2);
 
     const account = await readAccountByAccountId(session.user.id);
     const channel = await readChannelByAccount(account);
-    const referral = await readProfileByReferralCode(ref);
+    const referral = await readProfileByReferralCode(queryRef);
 
     const response = await createProfile(
       description,

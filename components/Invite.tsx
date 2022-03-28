@@ -4,6 +4,7 @@ import Button from './Button';
 import ChannelBanner from './ChannelBanner';
 import ReferralLink from './ReferralLink';
 import StatsTopBar from './StatsTopBar';
+import StepContainer from './StepContainer';
 import StepWrapper from './StepWrapper';
 
 interface InviteProps {
@@ -23,7 +24,7 @@ export default function Invite({
 }: InviteProps) {
   return (
     <>
-      <div className="w-full h-full p-8">
+      <StepContainer>
         <StatsTopBar onboardedFriends={onboardedFriends} />
 
         <StepWrapper>
@@ -115,7 +116,7 @@ export default function Invite({
             description={description}
           />
         </StepWrapper>
-      </div>
+      </StepContainer>
     </>
   );
 }

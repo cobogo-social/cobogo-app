@@ -11,6 +11,7 @@ import CategoriesInput from './CategoriesInput';
 import ChannelBanner from './ChannelBanner';
 import ErrorLabel from './ErrorLabel';
 import Loading from './Loading';
+import StepContainer from './StepContainer';
 import StepWrapper from './StepWrapper';
 import TopBar from './TopBar';
 
@@ -51,17 +52,17 @@ export default function CreateProfile({
         }
       );
 
-      if (readProfileByHandle.data.data.length === 0) {
+      if (!readProfileByHandle.data.data) {
         setIsLoading(true);
 
-        const ref = sessionStorage.getItem('queryRef');
+        const queryRef = sessionStorage.getItem('queryRef');
 
         await axios
           .post('/api/cobogo/createProfile', {
             description: values.description,
             handle: values.handle,
             categories: categoriesList.toString(),
-            ref: ref ? ref : null,
+            queryRef: queryRef ? queryRef : null,
           })
           .then(() => {
             setCreatedProfile(true);
@@ -125,7 +126,7 @@ export default function CreateProfile({
     <>
       <Loading isLoading={isLoading} />
 
-      <div className="w-full h-full p-8">
+      <StepContainer>
         <TopBar />
 
         <StepWrapper>
@@ -233,7 +234,7 @@ export default function CreateProfile({
             description={description}
           />
         </StepWrapper>
-      </div>
+      </StepContainer>
     </>
   );
 }

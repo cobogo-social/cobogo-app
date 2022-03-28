@@ -1,4 +1,5 @@
 import ChannelBanner from './ChannelBanner';
+import StepContainer from './StepContainer';
 import StepWrapper from './StepWrapper';
 import TopBar from './TopBar';
 import VerifyVideo from './VerifyVideo';
@@ -17,7 +18,7 @@ export default function Video({
   channelHandle,
 }: VideoProps) {
   return (
-    <div className="w-full h-full p-8">
+    <StepContainer>
       <TopBar />
 
       <StepWrapper>
@@ -29,6 +30,6 @@ export default function Video({
           description={description}
         />
       </StepWrapper>
-    </div>
+    </StepContainer>
   );
 }

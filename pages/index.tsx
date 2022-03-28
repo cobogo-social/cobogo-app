@@ -13,7 +13,7 @@ export default function Index() {
     if (query.ref) {
       sessionStorage.setItem('queryRef', query.ref as string);
     }
-  }, []);
+  }, [query]);
 
   return (
     <div className="w-full">
