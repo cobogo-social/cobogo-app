@@ -8,18 +8,18 @@ interface SuccessProps {
   title: string;
   description: string;
   referralCode: string;
-  profileId: number;
+  onboardedFriends: number;
 }
 
 export default function Success({
   banner,
   title,
   description,
-  profileId,
+  onboardedFriends,
 }: SuccessProps) {
   return (
     <div className="w-full h-full p-8">
-      <StatsTopBar profileId={profileId} />
+      <StatsTopBar onboardedFriends={onboardedFriends} />
 
       <StepWrapper>
         <Waitlist title={title} />

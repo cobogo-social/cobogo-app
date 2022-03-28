@@ -7,6 +7,7 @@ import {
   readAccountByEmail,
   readChannelByAccount,
   readProfileByChannel,
+  readProfilesByReferral,
 } from '@services/cobogoApi';
 import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
@@ -19,7 +20,7 @@ interface SuccessProps {
   title: string;
   description: string;
   referralCode: string;
-  profileId: number;
+  onboardedFriends: number;
 }
 
 export default function Index({
@@ -27,7 +28,7 @@ export default function Index({
   title,
   description,
   referralCode,
-  profileId,
+  onboardedFriends,
 }: SuccessProps) {
   const { data: session } = useSession();
 
@@ -53,7 +54,7 @@ export default function Index({
           title={title}
           description={description}
           referralCode={referralCode}
-          profileId={profileId}
+          onboardedFriends={onboardedFriends}
         />
 
         <Footer />
@@ -108,6 +109,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   const youtubeChannel = await readChannelFromYoutube(session);
 
+  const onboardedFriends = await readProfilesByReferral(profile.id);
+
   return {
     props: {
       banner:
@@ -117,7 +120,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       title: youtubeChannel ? youtubeChannel.snippet.title : '',
       description: youtubeChannel ? youtubeChannel.snippet.description : '',
       referralCode: profile.attributes.referral_code,
-      profileId: profile.id,
+      onboardedFriends: onboardedFriends.length,
     },
   };
 };
