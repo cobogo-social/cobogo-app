@@ -31,6 +31,6 @@ export default function Success({
           description={description}
         />
       </StepWrapper>
-    </StepContain>
+    </StepContainer>
   );
 }

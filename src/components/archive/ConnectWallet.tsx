@@ -41,9 +41,8 @@ export default function ConnectWallet() {
   // }, [checkIfWalletIsConnected]);
 
   return (
-    // <div className="w-full h-full p-8">
-    {
-      /* <TopBar />
+    <div className="w-full h-full p-8">
+      {/* <TopBar />
       <div className="flex flex-row justify-between items-start px-16">
         <div className="flex flex-col">
           <p className="text-4xl text-white mb-4">connect wallet</p>
@@ -70,8 +69,7 @@ export default function ConnectWallet() {
           height={420}
           alt="metamask icon"
         />
-      </div> */
-    }
-    // </div>
+      </div> */}
+    </div>
   );
 }

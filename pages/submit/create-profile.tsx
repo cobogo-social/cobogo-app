@@ -1,6 +1,6 @@
 import CreateProfile from '@components/CreateProfile';
 import Footer from '@components/Footer';
-import MobileTopBar from '@components/MobileTopBar';
+import MobileMenu from '@components/MobileMenu';
 import PageWrapper from '@components/PageWrapper';
 import Steps from '@components/Steps';
 import {
@@ -42,7 +42,7 @@ export default function Index({
       <PageWrapper>
         <Steps />
 
-        <MobileTopBar />
+        <MobileMenu />
 
         <CreateProfile
           banner={banner}

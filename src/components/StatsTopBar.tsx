@@ -7,12 +7,9 @@ interface StatsTopBarProps {
 export default function StatsTopBar({ onboardedFriends }: StatsTopBarProps) {
   return (
     <div className="hidden sm:flex w-full justify-end items-center mb-[70px]">
-      <a>
-        <p className="text-white mr-8">
-          onboarded friends:{' '}
-          <span className="font-bold">{onboardedFriends}</span>
-        </p>
-      </a>
+      <p className="text-white mr-8">
+        onboarded friends: <span className="font-bold">{onboardedFriends}</span>
+      </p>
 
       <div className="flex">
         <div className="flex mr-2">

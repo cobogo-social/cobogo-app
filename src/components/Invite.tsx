@@ -2,6 +2,7 @@ import Image from 'next/image';
 
 import Button from './Button';
 import ChannelBanner from './ChannelBanner';
+import Link from './Link';
 import ReferralLink from './ReferralLink';
 import StatsTopBar from './StatsTopBar';
 import StepContainer from './StepContainer';
@@ -58,9 +59,9 @@ export default function Invite({
 
                 <a
                   href={`https://t.me/share/url?url=app.cobogo.social/submit?ref=${referralCode}&text=Hi! cobogo is a dapp that helps us fund ourselves sustainably using blockchain. Use my referral link when you sign up for free for the waitlist, and we both get rewards!`}
+                  className="text-white font-bold"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white font-bold"
                 >
                   share on Telegram
                 </a>
@@ -78,9 +79,9 @@ export default function Invite({
 
                 <a
                   href={`https://twitter.com/intent/tweet?text=Hi!%20cobogo%20is%20a%20dapp%20that%20helps%20us%20fund%20ourselves%20sustainably%20using%20blockchain.%20Use%20my%20referral%20link%20when%20you%20sign%20up%20for%20free%20for%20the%20waitlist,%20and%20we%20both%20get%20rewards!%0Aapp.cobogo.social/submit?ref=${referralCode}`}
+                  className="text-white font-bold"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white font-bold"
                 >
                   share on Twitter
                 </a>
@@ -90,16 +91,16 @@ export default function Invite({
             <p className="text-white mb-8 text-lg">
               <a
                 href="https://docs.cobogo.social/overview/getting-started/referral-program"
+                className="font-bold text-blue"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-bold text-blue"
               >
                 learn more
               </a>{' '}
               about our <span className="font-bold">Referral Program.</span>
             </p>
 
-            <a href="/submit/success">
+            <Link href="/submit/success">
               <Button
                 width="w-40"
                 height="h-9"
@@ -107,7 +108,7 @@ export default function Invite({
                 hoverColor="brightness-90"
                 text="skip"
               />
-            </a>
+            </Link>
           </div>
 
           <ChannelBanner

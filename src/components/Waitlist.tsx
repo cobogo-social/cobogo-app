@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import Button from './Button';
+import Link from './Link';
 import YouWillBeNotified from './YouWillBeNotified';
 
 interface WaitlistProps {
@@ -25,7 +26,7 @@ export default function Waitlist({ title }: WaitlistProps) {
 
       <YouWillBeNotified />
 
-      <a href="/submit/invite">
+      <Link href="/submit/invite">
         <Button
           width="w-40"
           height="h-9"
@@ -33,7 +34,7 @@ export default function Waitlist({ title }: WaitlistProps) {
           hoverColor="brightness-90"
           text="back to invite"
         />
-      </a>
+      </Link>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import MobileStepItem from './MobileStepItem';
 
-export default function MobileTopBar() {
+export default function MobileMenu() {
   const [back, setBack] = useState(false);
   const [open, setOpen] = useState(false);
 

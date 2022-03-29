@@ -1,9 +1,7 @@
-import Button from './Button';
-
 export default function ChannelApproved() {
   return (
     <div className="flex flex-col">
-      <p className="text-4xl text-green mb-4">channel approved</p>
+      {/* <p className="text-4xl text-green mb-4">channel approved</p>
 
       <p className="text-xl text-white w-[408px] mb-12">
         the channel <span className="font-bold">Space Official</span> has been
@@ -11,7 +9,7 @@ export default function ChannelApproved() {
       </p>
 
       <div className="mb-7">
-        <a href="/submit/video">
+        <Link href="/submit/video">
           <Button
             width="w-28"
             height="h-9"
@@ -19,7 +17,7 @@ export default function ChannelApproved() {
             hoverColor="brightness-90"
             text="next step"
           />
-        </a>
+        </Link>
       </div>
 
       <a
@@ -29,7 +27,7 @@ export default function ChannelApproved() {
         className="font-bold text-blue"
       >
         see my channel
-      </a>
+      </a> */}
     </div>
   );
 }

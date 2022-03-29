@@ -1,9 +1,7 @@
-import Image from 'next/image';
-
 export default function UnderAnalysis() {
   return (
     <div className="flex flex-col">
-      <p className="text-4xl text-yellow mb-4">under analysis</p>
+      {/* <p className="text-4xl text-yellow mb-4">under analysis</p>
 
       <p className="text-xl text-white w-[408px] mb-12">
         the channel <span className="font-bold">Space Official</span>{' '}
@@ -27,7 +25,7 @@ export default function UnderAnalysis() {
         <p className=" w-[369px] font-bold text-white">
           you will be notified via the email registered on your YouTube account.
         </p>
-      </div>
+      </div> */}
     </div>
   );
 }

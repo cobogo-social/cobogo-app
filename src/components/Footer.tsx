@@ -77,36 +77,36 @@ export default function Footer() {
       <div className="flex justify-center items-center h-full">
         <a
           href="https://cobogo.social/faq"
+          className="text-white font-bold mr-8"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white font-bold mr-8"
         >
           FAQ
         </a>
 
         <a
           href="https://cobogo.social/code"
+          className="text-white font-bold mr-8"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white font-bold mr-8"
         >
           code of conduct
         </a>
 
         <a
           href="https://cobogo.social/privacy"
+          className="text-white font-bold mr-8"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white font-bold mr-8"
         >
           privacy policy
         </a>
 
         <a
           href="https://cobogo.social/terms"
+          className="text-white font-bold mr-8"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white font-bold mr-8"
         >
           terms of use
         </a>
@@ -114,6 +114,8 @@ export default function Footer() {
         <a
           href="https://docs.cobogo.social/overview/what-is-cobogo"
           className="flex justify-center items-center h-full bg-secondary w-[148px]"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <div className="mr-3 flex justify-center items-center">
             <Image

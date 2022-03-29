@@ -1,5 +1,5 @@
 import Footer from '@components/Footer';
-import MobileTopBar from '@components/MobileTopBar';
+import MobileMenu from '@components/MobileMenu';
 import PageWrapper from '@components/PageWrapper';
 import Steps from '@components/Steps';
 import Video from '@components/Video';
@@ -44,7 +44,7 @@ export default function Index({
       <PageWrapper>
         <Steps />
 
-        <MobileTopBar />
+        <MobileMenu />
 
         <Video
           banner={banner}
