@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <div className="bg-black w-full h-[70px] justify-between items-center pl-8 col-span-2 hidden sm:flex">
+    <div className="bg-black w-full h-full justify-between items-center pl-8 col-span-2 hidden sm:flex">
       <div className="flex justify-center items-center">
         <a
           href="mailto:hi@cobogo.social"
