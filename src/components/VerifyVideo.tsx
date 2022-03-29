@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import Bullet from './Bullet';
 import Button from './Button';
+import ErrorModal from './ErrorModal';
 import Loading from './Loading';
 import SuccessBullet from './SuccessBullet';
 import WarningBullet from './WarningBullet';
@@ -14,6 +15,7 @@ interface VerifyVideoProps {
 
 export default function VerifyVideo({ channelHandle }: VerifyVideoProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [videoStatus, setVideoStatus] = useState(1);
   const { push } = useRouter();
 
@@ -22,6 +24,10 @@ export default function VerifyVideo({ channelHandle }: VerifyVideoProps) {
     setVideoStatus(1);
 
     const result = await axios.get(`/api/youtube/checkVideo`);
+
+    if (result.data.error) {
+      setIsOpen(true);
+    }
 
     if (result.data.validVideo) {
       setVideoStatus(3);
@@ -39,6 +45,7 @@ export default function VerifyVideo({ channelHandle }: VerifyVideoProps) {
   return (
     <>
       <Loading isLoading={isLoading} />
+      <ErrorModal isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <div className="flex flex-col">
         <p className="text-4xl text-white mb-4">video</p>

@@ -10,6 +10,7 @@ import Categories from './Categories';
 import CategoriesInput from './CategoriesInput';
 import ChannelBanner from './ChannelBanner';
 import ErrorLabel from './ErrorLabel';
+import ErrorModal from './ErrorModal';
 import Loading from './Loading';
 import StepContainer from './StepContainer';
 import StepWrapper from './StepWrapper';
@@ -29,6 +30,7 @@ export default function CreateProfile({
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
   const [input, setInput] = useState('');
   const [createdProfile, setCreatedProfile] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [handleError, setHandleError] = useState('');
   const { push } = useRouter();
@@ -52,6 +54,10 @@ export default function CreateProfile({
         }
       );
 
+      if (readProfileByHandle.data.error) {
+        setIsOpen(true);
+      }
+
       if (!readProfileByHandle.data.data) {
         setIsLoading(true);
 
@@ -64,7 +70,11 @@ export default function CreateProfile({
             categories: categoriesList.toString(),
             queryRef: queryRef ? queryRef : null,
           })
-          .then(() => {
+          .then((response) => {
+            if (response.data.error) {
+              setIsOpen(true);
+            }
+
             setCreatedProfile(true);
             setIsLoading(false);
           });
@@ -125,6 +135,7 @@ export default function CreateProfile({
   return (
     <>
       <Loading isLoading={isLoading} />
+      <ErrorModal isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <StepContainer>
         <TopBar />
