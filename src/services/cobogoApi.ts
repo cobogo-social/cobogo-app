@@ -155,14 +155,16 @@ export async function createVideo(validVideo, account, channel, profile) {
       data: {
         title: validVideo.snippet.title,
         description: validVideo.snippet.description,
-        video_id: validVideo.id,
+        video_id: validVideo.id.videoId,
         account: account.id,
         channel: channel.id,
         profile: profile.id,
       },
     });
+    return true;
   } catch (error) {
     console.log(error);
+    return false;
   }
 }
 

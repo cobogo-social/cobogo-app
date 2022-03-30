@@ -24,7 +24,7 @@ export async function readChannel(session) {
 export async function readVideos(session, youtubeChannel) {
   try {
     const response = await api.get(
-      `/search?part=snippet&maxResults=25&type=video&videoDuration=short`,
+      `/search?part=snippet&maxResults=25&type=video`,
       {
         params: {
           channelId: youtubeChannel.id,
