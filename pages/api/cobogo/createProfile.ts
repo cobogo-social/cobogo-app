@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   try {
     const referralCode = referralCodeGenerator.alphaNumeric('lowercase', 2, 2);
 
-    const account = await readAccountByAccountId(session.user.id);
+    const account = await readAccountByAccountId(session.user['id']);
     const channel = await readChannelByAccount(account);
     const referral = await readProfileByReferralCode(queryRef);
 

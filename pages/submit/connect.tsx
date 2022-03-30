@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   if (session?.user) {
     const account =
-      (await readAccountByAccountId(session.user.id)) ||
+      (await readAccountByAccountId(session.user['id'])) ||
       (await createAccount(session.user));
 
 

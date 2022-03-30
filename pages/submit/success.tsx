@@ -75,7 +75,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const account = await readAccountByAccountId(session.user.id);
+  const account = await readAccountByAccountId(session.user['id']);
   const channel = await readChannelByAccount(account);
 
   if (!channel) {
