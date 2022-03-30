@@ -117,14 +117,14 @@ export default function Footer() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <div className="mr-3 flex justify-center items-center">
+          <span className="mr-3 flex justify-center items-center">
             <Image
               src="/images/gitbook-icon.svg"
               width={30}
               height={21}
               alt="gitbook icon"
             />
-          </div>
+          </span>
 
           <span className="text-white font-bold">docs</span>
         </a>
