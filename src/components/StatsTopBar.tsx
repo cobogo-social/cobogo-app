@@ -16,7 +16,9 @@ export default function StatsTopBar({ onboardedFriends }: StatsTopBarProps) {
           <Image src="/images/cbg-icon.svg" width={24} height={21} />
         </div>
 
-        <p className="text-white font-bold">{100 + onboardedFriends * 50} CBG</p>
+        <p className="text-white font-bold">
+          {100 + onboardedFriends * 50} CBG
+        </p>
       </div>
     </div>
   );
