@@ -10,21 +10,22 @@ export default function StartSubmission() {
       <TopBar />
 
       <div className="flex flex-col justify-center items-center mt-32 sm:mt-0">
-        <p className="text-white sm:text-2xl sm:w-[618px] text-center mb-16">
-          to offer the best experience in{' '}
-          <span className="font-bold">Web3 YouTube monetization</span>, we are
-          growing our community of Creators.
+        <p className="text-white sm:text-2xl sm:w-[618px] text-center mb-[50px]">
+          revolutionize the way you <span className="font-bold">monetize</span>{' '}
+          your <span className="font-bold">channel</span> using the tools made
+          possible by <span className="font-bold">blockchain</span> and{' '}
+          <span className="font-bold">cobogo</span>
         </p>
 
         <JoinOurWaitlist />
 
-        <Link href="/submit/connect" className="mb-8">
+        <Link href="/submit/connect" className=" mb-[100px]">
           <Button
-            text="start submission"
+            text="join now"
             color="bg-purple"
             hoverColor="brightness-90"
-            width="w-48"
-            height="h-12"
+            width="w-[147px]"
+            height="h-[50px]"
             fontSize="text-xl"
           />
         </Link>

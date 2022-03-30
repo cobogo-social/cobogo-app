@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function JoinOurWaitlist() {
   return (
-    <div className="sm:[572px] sm:h-[130px] bg-secondary flex flex-col sm:flex-row justify-center items-center px-4 py-6 mb-16">
+    <div className="sm:w-[572px] sm:h-[130px] bg-secondary flex flex-col sm:flex-row justify-start items-center px-4 py-4 mb-[50px]">
       <div className="hidden sm:flex mr-2">
         <Image src="/images/100-cbg-icon.svg" width={108} height={108} />
       </div>
@@ -11,9 +11,11 @@ export default function JoinOurWaitlist() {
         <Image src="/images/100-cbg-icon.svg" width={79} height={79} />
       </div>
 
-      <p className="text-white text-center sm:text-left">
-        join our waitlist to be the first in this revolutionary economy, and to
-        earn <span className="font-bold">100 CBG</span> tokens.
+      <p className="text-white text-center sm:text-left max-w-[402px]">
+        <span className="font-bold">join our waitlist</span> now and be one of
+        the first to experience the new Creator Economy, while also earning the
+        equivalent of <span className="font-bold">60 dollars</span> of our
+        native token (<span className="font-bold">100 CBG</span>)!
       </p>
     </div>
   );
