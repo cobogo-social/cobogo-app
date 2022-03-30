@@ -21,7 +21,7 @@ export default function ReferralLink({ referralCode }: ReferralLinkProps) {
           className={`pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-details outline-none flex justify-center items-center`}
         >
           <CopyToClipboard
-            text={`https://app.cobogo.social/submit?ref={referralCode}`}
+            text={`https://app.cobogo.social/submit?ref=${referralCode}`}
           >
             <IoCopySharp className="hover:cursor-pointer" color="white" />
           </CopyToClipboard>
