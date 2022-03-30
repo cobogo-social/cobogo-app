@@ -22,7 +22,7 @@ export default function ChannelBanner({
 
   return (
     <div
-      className={`w-[275px] max-h-[296px] bg-black border-[1.5px] border-details pb-6 hidden sm:block`}
+      className={`w-[275px] max-h-[400px] bg-black border-[1.5px] border-details pb-6 hidden sm:block`}
     >
       {banner ? (
         <Image
