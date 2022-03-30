@@ -25,12 +25,13 @@ export default async function handler(req, res) {
       categories,
       account.id,
       channel.id,
-      referral.id,
+      referral?.id,
       referralCode
     );
 
     res.status(201).json({ status: 201, data: response });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ status: 500, error: error.message });
   }
 }
