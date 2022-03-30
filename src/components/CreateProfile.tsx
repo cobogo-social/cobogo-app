@@ -113,14 +113,21 @@ export default function CreateProfile({
     }
   }
 
-  function validateKeyPressed(event) {
+  function validateKeyPressedInDescription(event) {
+    const keyPressed = event.key;
+
+    if (keyPressed === 'Enter') {
+      event.preventDefault();
+    }
+  }
+
+  function validateKeyPressedInHandle(event) {
     const keyPressed = event.key;
 
     if (
       '1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-'.indexOf(
         keyPressed
-      ) < 0 ||
-      keyPressed === 'Enter'
+      ) < 0
     ) {
       event.preventDefault();
     }
@@ -164,7 +171,7 @@ export default function CreateProfile({
                     : 'border-details'
                 } mb-8 p-2 outline-none text-white`}
                 onChange={formik.handleChange}
-                onKeyPress={validateKeyPressed}
+                onKeyPress={validateKeyPressedInDescription}
                 value={formik.values.description}
               />
             </div>
@@ -193,7 +200,7 @@ export default function CreateProfile({
                   name="handle"
                   type="text"
                   onChange={formik.handleChange}
-                  onKeyPress={validateKeyPressed}
+                  onKeyPress={validateKeyPressedInHandle}
                   value={formik.values.handle}
                   className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0 ${
                     (formik.touched.handle && formik.errors.handle) ||
