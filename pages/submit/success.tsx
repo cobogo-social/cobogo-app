@@ -19,7 +19,6 @@ interface SuccessProps {
   banner: string;
   title: string;
   description: string;
-  referralCode: string;
   onboardedFriends: number;
 }
 
@@ -27,7 +26,6 @@ export default function Index({
   banner,
   title,
   description,
-  referralCode,
   onboardedFriends,
 }: SuccessProps) {
   const { data: session } = useSession();
@@ -53,7 +51,6 @@ export default function Index({
           banner={banner}
           title={title}
           description={description}
-          referralCode={referralCode}
           onboardedFriends={onboardedFriends}
         />
 

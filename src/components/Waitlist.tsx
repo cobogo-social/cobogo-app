@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import Button from './Button';
-import CobogoCreators from './cobogoCreators';
+import CobogoCreators from './CobogoCreators';
 import Link from './Link';
 import YouWillBeNotified from './YouWillBeNotified';
 

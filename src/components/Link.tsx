@@ -10,7 +10,9 @@ interface LinkProps {
 export default function Link({ children, href, className }: LinkProps) {
   return (
     <NextLink href={href} passHref>
-      <a className={className}>{children}</a>
+      <a href={href} className={className}>
+        {children}
+      </a>
     </NextLink>
   );
 }

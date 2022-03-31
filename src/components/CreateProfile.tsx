@@ -51,7 +51,7 @@ export default function CreateProfile({
           params: {
             handle: values.handle,
           },
-        }
+        },
       );
 
       if (readProfileByHandle.data.error) {
@@ -68,7 +68,7 @@ export default function CreateProfile({
             description: values.description,
             handle: values.handle,
             categories: categoriesList.toString(),
-            queryRef: queryRef ? queryRef : null,
+            queryRef: queryRef || null,
           })
           .then((response) => {
             if (response.data.error) {
@@ -126,7 +126,7 @@ export default function CreateProfile({
 
     if (
       '1234567890qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM-'.indexOf(
-        keyPressed
+        keyPressed,
       ) < 0
     ) {
       event.preventDefault();

@@ -27,7 +27,7 @@ export default function ReferralLink({ referralCode }: ReferralLinkProps) {
 
         <div
           onClick={handleSetCopy}
-          className={`pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-details outline-none flex justify-center items-center`}
+          className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-details outline-none flex justify-center items-center"
         >
           <CopyToClipboard
             text={`https://app.cobogo.social/submit?ref=${referralCode}`}
