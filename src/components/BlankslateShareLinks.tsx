@@ -21,7 +21,7 @@ export default function BlankslateShareLinks({
 
         <a
           href={`https://t.me/share/url?url=app.cobogo.social/submit?ref=${referralCode}&text=Hi! cobogo is a dapp that helps YouTubers fund themselves sustainably through their communities using blockchain. Use my referral link when you sign up for free for the waitlist, and we both get rewards!`}
-          className="text-white font-bold mr-[85px]"
+          className="text-white font-bold sm:mr-[85px]"
           target="_blank"
           rel="noopener noreferrer"
         >
