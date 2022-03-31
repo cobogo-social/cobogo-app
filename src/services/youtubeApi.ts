@@ -17,7 +17,7 @@ export async function readChannel(session) {
 
     return response.data.items ? response.data.items[0] : null;
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -38,7 +38,7 @@ export async function readVideos(session, youtubeChannel) {
 
     return response.data.items;
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -55,7 +55,7 @@ export async function readVideoById(session, video) {
 
     return response.data.items[0];
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
