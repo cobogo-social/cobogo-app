@@ -85,7 +85,8 @@ export default function VerifyVideo({ channelHandle }: VerifyVideoProps) {
           )}
 
           <p className="text-sm text-graylight sm:w-[408px] pl-9">
-            {`to make it easier to find and identify your video, we require you to put the name "cobogo" in the title.`}
+            to make it easier to find and identify your video, we require you to
+            put the name 'cobogo' in the title.
           </p>
         </div>
 
@@ -112,7 +113,9 @@ export default function VerifyVideo({ channelHandle }: VerifyVideoProps) {
           )}
 
           <p className="text-sm text-graylight sm:w-[408px] pl-9">
-            {`lastly, you will need to put the link to your staking page in the video description box so that your community can find you on cobogo, and support you!`}
+            lastly, you will need to put the link to your staking page in the
+            video description box so that your community can find you on cobogo,
+            and support you!
           </p>
         </div>
         {videoStatus === 1 && (

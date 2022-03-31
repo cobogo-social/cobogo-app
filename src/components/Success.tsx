@@ -8,7 +8,6 @@ interface SuccessProps {
   banner: string;
   title: string;
   description: string;
-  referralCode: string;
   onboardedFriends: number;
 }
 

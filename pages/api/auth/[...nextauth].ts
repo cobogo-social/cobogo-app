@@ -3,14 +3,12 @@ import GoogleProvider from 'next-auth/providers/google';
 
 async function refreshAccessToken(token) {
   try {
-    const url =
-      'https://oauth2.googleapis.com/token?' +
-      new URLSearchParams({
-        client_id: process.env.GOOGLE_CLIENT_ID,
-        client_secret: process.env.GOOGLE_CLIENT_SECRET,
-        grant_type: 'refresh_token',
-        refresh_token: token.refreshToken,
-      });
+    const url = `https://oauth2.googleapis.com/token?${new URLSearchParams({
+      client_id: process.env.GOOGLE_CLIENT_ID,
+      client_secret: process.env.GOOGLE_CLIENT_SECRET,
+      grant_type: 'refresh_token',
+      refresh_token: token.refreshToken,
+    })}`;
 
     const response = await fetch(url, {
       headers: {

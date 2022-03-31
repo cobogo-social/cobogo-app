@@ -21,9 +21,7 @@ export default function ChannelBanner({
   }
 
   return (
-    <div
-      className={`w-[275px] max-h-[400px] bg-black border-[1.5px] border-details pb-6 hidden sm:block`}
-    >
+    <div className="w-[275px] max-h-[400px] bg-black border-[1.5px] border-details pb-6 hidden sm:block">
       {banner ? (
         <Image
           src={banner}
@@ -38,12 +36,12 @@ export default function ChannelBanner({
 
       <p className="text-white px-4">{description.slice(0, 210)}(...)</p>
 
-      <a
+      <button
         onClick={tryAnotherChannel}
         className="text-blue font-bold px-4 hover:cursor-pointer"
       >
         try another account
-      </a>
+      </button>
     </div>
   );
 }

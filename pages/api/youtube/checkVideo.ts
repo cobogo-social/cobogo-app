@@ -29,20 +29,22 @@ export default async function handler(req, res) {
 
       for (const video of videos) {
         const validTitle = video.snippet.title.toLowerCase().includes('cobogo');
-        const validDescription = video.snippet.description.toLowerCase().includes(`app.cobogo.social/${profile.attributes.handle}`);
+        const validDescription = video.snippet.description
+          .toLowerCase()
+          .includes(`app.cobogo.social/${profile.attributes.handle}`);
 
-        console.log(`Validation video ${video.snippet.title}`);
-        console.log(`  Valid Title: ${validTitle}`);
-        console.log(`  Valid Description: ${validDescription} (app.cobogo.social/${profile.attributes.handle})`);
+        console.warn(`Validation video ${video.snippet.title}`);
+        console.warn(`  Valid Title: ${validTitle}`);
+        console.warn(
+          `  Valid Description: ${validDescription} (app.cobogo.social/${profile.attributes.handle})`,
+        );
 
-        if (
-          validTitle &&
-          validDescription
-        ) {
+        if (validTitle && validDescription) {
           const item = await readVideoById(session, video);
-          const validLength = moment.duration(item.contentDetails.duration).asMinutes() >= 2;
-          console.log(`  Valid Length: ${validLength}`);
-          if(validLength) {
+          const validLength =
+            moment.duration(item.contentDetails.duration).asMinutes() >= 2;
+          console.warn(`  Valid Length: ${validLength}`);
+          if (validLength) {
             validVideo = video;
             break;
           }
@@ -50,7 +52,7 @@ export default async function handler(req, res) {
       }
 
       if (validVideo !== null) {
-        if(await createVideo(validVideo, account, channel, profile)) {
+        if (await createVideo(validVideo, account, channel, profile)) {
           await updateWaitlistProfile(profile);
 
           res.status(200).json({ validVideo: 1 });

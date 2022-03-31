@@ -32,7 +32,7 @@ export default function MobileMenu() {
           />
         </div>
 
-        <div className="bg-white w-[9px] h-[9px] rounded-full"></div>
+        <div className="bg-white w-[9px] h-[9px] rounded-full" />
       </div>
 
       <div

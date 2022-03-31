@@ -10,84 +10,96 @@ const api = axios.create({
 export async function readProfileByChannel(channel) {
   try {
     const response = await api.get(
-      `/api/profiles?filters[channel][id][$eq]=${channel.id}`
+      `/api/profiles?filters[channel][id][$eq]=${channel.id}`,
     );
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
 export async function readProfileByReferralCode(referralCode) {
   try {
     const response = await api.get(
-      `/api/profiles?filters[referral_code][$eq]=${referralCode}`
+      `/api/profiles?filters[referral_code][$eq]=${referralCode}`,
     );
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
 export async function readProfilesByReferral(referral) {
   try {
     const response = await api.get(
-      `/api/profiles?filters[referral][id][$eq]=${referral}`
+      `/api/profiles?filters[referral][id][$eq]=${referral}`,
     );
 
     return response.data.data;
   } catch (error) {
-    console.error(error);
+    return error;
   }
 }
 
 export async function readProfileByHandle(handle) {
   try {
     const response = await api.get(
-      `/api/profiles?filters[handle][$eq]=${handle}`
+      `/api/profiles?filters[handle][$eq]=${handle}`,
     );
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
 export async function readAccountByAccountId(accountId) {
   try {
     const response = await api.get(
-      `/api/accounts?filters[account_id][$eq]=${accountId}`
+      `/api/accounts?filters[account_id][$eq]=${accountId}`,
     );
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
 export async function readChannelByChannelId(channelId) {
   try {
     const response = await api.get(
-      `/api/channels?filters[channel_id][$eq]=${channelId}`
+      `/api/channels?filters[channel_id][$eq]=${channelId}`,
     );
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
 export async function readChannelByAccount(account) {
   try {
     const response = await api.get(
-      `/api/channels?filters[account][id][$eq]=${account.id}`
+      `/api/channels?filters[account][id][$eq]=${account.id}`,
     );
 
     return response.data.data[0];
   } catch (error) {
-    console.error(error);
+    return error;
+  }
+}
+
+export async function readChannelByProfile(profile) {
+  try {
+    const response = await api.get(
+      `/api/channels?filters[profile][id][$eq]=${profile.id}`,
+    );
+
+    return response.data.data[0];
+  } catch (error) {
+    return error;
   }
 }
 
@@ -104,7 +116,7 @@ export async function createAccount(user) {
 
     return response.data.data;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
@@ -116,10 +128,13 @@ export async function createChannel(account, youtubeChannel) {
         description: youtubeChannel.snippet.description,
         channel_id: youtubeChannel.id,
         account: account.id,
+        banner: youtubeChannel.brandingSettings.image
+          ? youtubeChannel.brandingSettings.image.bannerExternalUrl
+          : null,
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -130,7 +145,7 @@ export async function createProfile(
   account,
   channel,
   referral,
-  referral_code
+  referralCode,
 ) {
   try {
     await api.post('/api/profiles', {
@@ -141,11 +156,11 @@ export async function createProfile(
         account,
         channel,
         referral,
-        referral_code,
+        referral_code: referralCode,
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -163,7 +178,7 @@ export async function createVideo(validVideo, account, channel, profile) {
     });
     return true;
   } catch (error) {
-    console.log(error);
+    return error;
     return false;
   }
 }
@@ -176,7 +191,7 @@ export async function updateWaitlistProfile(profile) {
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 

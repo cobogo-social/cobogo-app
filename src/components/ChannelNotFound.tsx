@@ -43,12 +43,12 @@ export default function ChannelNotFound({
               there is no channel associated with this account.
             </p>
 
-            <a
+            <button
               onClick={handleTryAnotherAccount}
               className="text-blue font-bold hover:cursor-pointer"
             >
               try another account
-            </a>
+            </button>
           </div>
 
           <div className="hidden sm:block">
