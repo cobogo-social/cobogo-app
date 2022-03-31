@@ -7,7 +7,6 @@ import Footer from '@components/Footer';
 import Link from '@components/Link';
 import {
   readChannelByProfile,
-  readProfileByChannel,
   readProfileByHandle,
   readProfilesByReferral,
 } from '@services/cobogoApi';
@@ -42,13 +41,15 @@ export default function Index({
         <div className="flex flex-col">
           <BlankslateChannelBanner banner={banner} title={title} />
 
-          <div className="mb-[100px]">
-            <BlankslateShareLinks referralCode={referralCode} />
-          </div>
+          {isMine ? (
+            <div className="mb-[100px]">
+              <BlankslateShareLinks referralCode={referralCode} />
+            </div>
+          ) : null}
 
           {!isMine ? (
             <div className="flex w-full justify-center items-center">
-              <Link href="/submit?ref=a">
+              <Link href={`/submit?ref=${referralCode}`}>
                 <Button
                   text="join waitlist"
                   color="bg-purple"
@@ -75,46 +76,40 @@ export const getServerSideProps: GetServerSideProps = async ({
   const { handle } = params;
   const session = await getSession({ req });
 
-  const response = await readProfileByHandle(handle);
-  const channel = await readChannelByProfile(response);
-  const profile = await readProfileByChannel(channel);
-  const onboardedFriends = await readProfilesByReferral(profile.id);
+  const profile = await readProfileByHandle(handle);
 
-  if (!response) {
+  if (!profile) {
     return {
       redirect: {
-        destination: '/submit/connect',
+        destination: '/',
         permanent: false,
       },
     };
   }
 
-  if (session?.user) {
-    const youtubeChannel = await readChannel(session);
+  const channel = await readChannelByProfile(profile);
+  const onboardedFriends = await readProfilesByReferral(profile.id);
 
-    if (youtubeChannel.id === channel.attributes.channel_id) {
-      return {
-        props: {
-          title: channel.attributes.title,
-          banner: channel.attributes.banner ? channel.attributes.banner : null,
-          referralCode: profile.attributes.referral_code,
-          onboardedFriends: onboardedFriends.length,
-          isMine: true,
-        },
-      };
-    }
-  } else {
-    return {
-      props: {
-        title: channel.attributes.title,
-        banner: channel.attributes.banner ? channel.attributes.banner : null,
-        referralCode: profile.attributes.referral_code,
-        isMine: false,
-      },
-    };
+  let youtubeChannel = {
+    id: null,
+  };
+
+  if (session?.user) {
+    const readChannels = await readChannel(session);
+
+    youtubeChannel = readChannels;
   }
 
   return {
-    props: {},
+    props: {
+      title: channel.attributes.title,
+      banner: channel.attributes.banner ? channel.attributes.banner : null,
+      referralCode: profile.attributes.referral_code,
+      onboardedFriends:
+        youtubeChannel.id === channel.attributes.channel_id
+          ? onboardedFriends.length
+          : null,
+      isMine: youtubeChannel.id === channel.attributes.channel_id,
+    },
   };
 };
