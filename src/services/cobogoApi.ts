@@ -15,7 +15,7 @@ export async function readProfileByChannel(channel) {
 
     return response.data.data[0];
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -27,7 +27,7 @@ export async function readProfileByReferralCode(referralCode) {
 
     return response.data.data[0];
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -39,7 +39,7 @@ export async function readProfilesByReferral(referral) {
 
     return response.data.data;
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -51,7 +51,7 @@ export async function readProfileByHandle(handle) {
 
     return response.data.data[0];
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -63,7 +63,7 @@ export async function readAccountByAccountId(accountId) {
 
     return response.data.data[0];
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -75,7 +75,7 @@ export async function readChannelByChannelId(channelId) {
 
     return response.data.data[0];
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -87,7 +87,7 @@ export async function readChannelByAccount(account) {
 
     return response.data.data[0];
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -99,7 +99,7 @@ export async function readChannelByProfile(profile) {
 
     return response.data.data[0];
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -116,7 +116,7 @@ export async function createAccount(user) {
 
     return response.data.data;
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }
 
@@ -178,7 +178,7 @@ export async function createVideo(validVideo, account, channel, profile) {
     });
     return true;
   } catch (error) {
-    return error;
+    console.log(error);
     return false;
   }
 }
