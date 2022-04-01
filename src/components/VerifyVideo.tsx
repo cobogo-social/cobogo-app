@@ -15,7 +15,7 @@ interface VerifyVideoProps {
 
 export default function VerifyVideo({ channelHandle }: VerifyVideoProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [videoStatus, setVideoStatus] = useState(1);
   const { push } = useRouter();
 
@@ -26,7 +26,7 @@ export default function VerifyVideo({ channelHandle }: VerifyVideoProps) {
     const result = await axios.get(`/api/youtube/checkVideo`);
 
     if (result.data.error) {
-      setIsOpen(true);
+      setIsError(true);
     }
 
     if (result.data.validVideo) {
@@ -45,7 +45,7 @@ export default function VerifyVideo({ channelHandle }: VerifyVideoProps) {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <ErrorModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <ErrorModal isError={isError} setIsError={setIsError} />
 
       <div className="flex flex-col">
         <p className="text-4xl text-white mb-4">video</p>
