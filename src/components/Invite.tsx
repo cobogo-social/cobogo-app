@@ -1,4 +1,3 @@
-import Button from './Button';
 import ChannelBanner from './ChannelBanner';
 import Link from './Link';
 import ReferralLink from './ReferralLink';
@@ -32,8 +31,9 @@ export default function Invite({
 
           <p className="text-base sm:text-lg text-white mb-8 sm:w-[408px]">
             you are now on the waitlist and eligible to earn{' '}
-            <span className="font-bold">100 CBG</span> tokens, which is equal to{' '}
-            <span className="font-bold">$60</span> in the public sale!
+            <span className="font-bold">100 CBG</span> tokens, which is
+            equivalent to <span className="font-bold">$60</span> in the public
+            sale!
           </p>
 
           <p className="text-xs sm:text-sm text-white mb-8 sm:w-[408px]">
@@ -61,13 +61,9 @@ export default function Invite({
           </p>
 
           <Link href="/submit/success">
-            <Button
-              width="w-40"
-              height="h-9"
-              color="bg-blue"
-              hoverColor="brightness-90"
-              text="skip"
-            />
+            <button className="text-graylight font-bold hover:cursor-pointer">
+              skip
+            </button>
           </Link>
         </div>
 
