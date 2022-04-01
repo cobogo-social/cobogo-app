@@ -1,26 +1,32 @@
 import Image from 'next/image';
 
 interface ErrorModalProps {
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
+  isError: boolean;
+  setIsError: (value: boolean) => void;
 }
 
-export default function ErrorModal({ isOpen, setIsOpen }: ErrorModalProps) {
+export default function ErrorModal({ isError, setIsError }: ErrorModalProps) {
   function handleClose() {
-    setIsOpen(false);
+    setIsError(false);
   }
 
-  return isOpen ? (
+  return isError ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="bg-secondary w-[240px] flex flex-col justify-center items-center px-2 py-4">
-        <div
-          onClick={handleClose}
-          className="w-full flex justify-end px-2 mb-2 cursor-pointer"
-        >
-          <Image src="/images/cbg-icon.svg" width={20} height={20} />
-        </div>
+      <div className="relative bg-primary w-[605px] h-[244px] flex flex-col justify-center items-center border-[1.5px] border-details">
+        <div className="flex flex-col justify-center items-start">
+          <div
+            onClick={handleClose}
+            className="absolute top-0 right-0 mt-2 mr-2"
+          >
+            <Image src="/images/x2-icon.svg" width={13} height={13} />
+          </div>
 
-        <p className="text-white text-center font-bold">{`The server has encountered a situation it doesn't know how to handle.`}</p>
+          <p className="text-red text-[40px]">error</p>
+
+          <p className="text-white text-[22px] max-w-[425px]">
+            the server has encountered an unexpected error.
+          </p>
+        </div>
       </div>
     </div>
   ) : null;

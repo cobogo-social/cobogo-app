@@ -30,7 +30,7 @@ export default function CreateProfile({
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
   const [input, setInput] = useState('');
   const [createdProfile, setCreatedProfile] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [handleError, setHandleError] = useState('');
   const { push } = useRouter();
@@ -55,7 +55,7 @@ export default function CreateProfile({
       );
 
       if (readProfileByHandle.data.error) {
-        setIsOpen(true);
+        setIsError(true);
       }
 
       if (!readProfileByHandle.data.data) {
@@ -72,7 +72,7 @@ export default function CreateProfile({
           })
           .then((response) => {
             if (response.data.error) {
-              setIsOpen(true);
+              setIsError(true);
             }
 
             setCreatedProfile(true);
@@ -142,7 +142,7 @@ export default function CreateProfile({
   return (
     <>
       <Loading isLoading={isLoading} />
-      <ErrorModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <ErrorModal isError={isError} setIsError={setIsError} />
 
       <StepContainer>
         <TopBar />
