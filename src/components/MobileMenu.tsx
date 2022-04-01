@@ -1,4 +1,6 @@
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import MobileStepItem from './MobileStepItem';
@@ -6,10 +8,16 @@ import MobileStepItem from './MobileStepItem';
 export default function MobileMenu() {
   const [back, setBack] = useState(false);
   const [open, setOpen] = useState(false);
+  const { push } = useRouter();
 
   function setBackAndSetOpen() {
     setBack(!back);
     setOpen(!open);
+  }
+
+  function tryAnotherChannel() {
+    signOut();
+    push('/submit/connect');
   }
 
   return (
@@ -32,7 +40,16 @@ export default function MobileMenu() {
           />
         </div>
 
-        <div className="bg-white w-[9px] h-[9px] rounded-full" />
+        <div className="flex justify-center items-center">
+          <button
+            onClick={tryAnotherChannel}
+            className="text-blue font-bold hover:cursor-pointer mr-4"
+          >
+            try another account
+          </button>
+
+          <div className="bg-white w-[9px] h-[9px] rounded-full" />
+        </div>
       </div>
 
       <div
