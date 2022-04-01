@@ -31,8 +31,9 @@ export default function Invite({
 
           <p className="text-base sm:text-lg text-white mb-8 sm:w-[408px]">
             you are now on the waitlist and eligible to earn{' '}
-            <span className="font-bold">100 CBG</span> tokens, which is equal to{' '}
-            <span className="font-bold">$60</span> in the public sale!
+            <span className="font-bold">100 CBG</span> tokens, which is
+            equivalent to <span className="font-bold">$60</span> in the public
+            sale!
           </p>
 
           <p className="text-xs sm:text-sm text-white mb-8 sm:w-[408px]">

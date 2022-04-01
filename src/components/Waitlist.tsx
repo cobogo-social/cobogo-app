@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import CobogoCreators from './CobogoCreators';
+import JoinChannel from './JoinChannel';
 import Link from './Link';
 import YouWillBeNotified from './YouWillBeNotified';
 
@@ -33,7 +33,7 @@ export default function Waitlist({ title }: WaitlistProps) {
 
       <YouWillBeNotified />
 
-      <CobogoCreators />
+      <JoinChannel />
 
       <Link href="/submit/invite">
         <button className="text-graylight font-bold hover:cursor-pointer">
