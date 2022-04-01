@@ -6,9 +6,10 @@ import YouWillBeNotified from './YouWillBeNotified';
 
 interface WaitlistProps {
   title: string;
+  setIsLoading: (value: boolean) => void;
 }
 
-export default function Waitlist({ title }: WaitlistProps) {
+export default function Waitlist({ title, setIsLoading }: WaitlistProps) {
   return (
     <div className="flex flex-col mb-8">
       <p className="text-4xl text-white mb-4 flex">
@@ -36,7 +37,10 @@ export default function Waitlist({ title }: WaitlistProps) {
       <JoinChannel />
 
       <Link href="/submit/invite">
-        <button className="text-graylight font-bold hover:cursor-pointer">
+        <button
+          onClick={() => setIsLoading(true)}
+          className="text-graylight font-bold hover:cursor-pointer"
+        >
           back to invite
         </button>
       </Link>

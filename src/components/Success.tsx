@@ -1,4 +1,7 @@
+import { useState } from 'react';
+
 import ChannelBanner from './ChannelBanner';
+import Loading from './Loading';
 import StatsTopBar from './StatsTopBar';
 import StepContainer from './StepContainer';
 import StepWrapper from './StepWrapper';
@@ -17,19 +20,25 @@ export default function Success({
   description,
   onboardedFriends,
 }: SuccessProps) {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
-    <StepContainer>
-      <StatsTopBar onboardedFriends={onboardedFriends} />
+    <>
+      <Loading isLoading={isLoading} />
 
-      <StepWrapper>
-        <Waitlist title={title} />
+      <StepContainer>
+        <StatsTopBar onboardedFriends={onboardedFriends} />
 
-        <ChannelBanner
-          banner={banner}
-          title={title}
-          description={description}
-        />
-      </StepWrapper>
-    </StepContainer>
+        <StepWrapper>
+          <Waitlist title={title} setIsLoading={setIsLoading} />
+
+          <ChannelBanner
+            banner={banner}
+            title={title}
+            description={description}
+          />
+        </StepWrapper>
+      </StepContainer>
+    </>
   );
 }
