@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-import Button from './Button';
 import CobogoCreators from './CobogoCreators';
 import Link from './Link';
 import YouWillBeNotified from './YouWillBeNotified';
@@ -28,7 +27,7 @@ export default function Waitlist({ title }: WaitlistProps) {
 
       <p className="text-xs sm:text-sm text-white mb-8 sm:w-[408px]">
         <span className="font-bold">cobogo</span> is a dApp still in
-        development, but The channel <span className="font-bold">{title}</span>{' '}
+        development, but the channel <span className="font-bold">{title}</span>{' '}
         has been added to the waitlist.
       </p>
 
@@ -37,13 +36,9 @@ export default function Waitlist({ title }: WaitlistProps) {
       <CobogoCreators />
 
       <Link href="/submit/invite">
-        <Button
-          width="w-40"
-          height="h-9"
-          color="bg-blue"
-          hoverColor="brightness-90"
-          text="back to invite"
-        />
+        <button className="text-graylight font-bold hover:cursor-pointer">
+          back to invite
+        </button>
       </Link>
     </div>
   );

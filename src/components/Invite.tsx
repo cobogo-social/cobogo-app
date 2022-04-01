@@ -1,4 +1,3 @@
-import Button from './Button';
 import ChannelBanner from './ChannelBanner';
 import Link from './Link';
 import ReferralLink from './ReferralLink';
@@ -61,13 +60,9 @@ export default function Invite({
           </p>
 
           <Link href="/submit/success">
-            <Button
-              width="w-40"
-              height="h-9"
-              color="bg-blue"
-              hoverColor="brightness-90"
-              text="skip"
-            />
+            <button className="text-graylight font-bold hover:cursor-pointer">
+              skip
+            </button>
           </Link>
         </div>
 
