@@ -52,10 +52,6 @@ export default function Invite({
 
             <ReferralLink referralCode={referralCode} />
 
-            <div className="mb-8">
-              <ShareLinks referralCode={referralCode} />
-            </div>
-
             <p className="text-white mb-8 text-lg">
               <a
                 href="https://docs.cobogo.social/overview/getting-started/referral-program"
@@ -67,6 +63,10 @@ export default function Invite({
               </a>{' '}
               about our <span className="font-bold">Referral Program.</span>
             </p>
+
+            <div className="mb-8">
+              <ShareLinks referralCode={referralCode} />
+            </div>
 
             <Link href="/submit/success">
               <button
