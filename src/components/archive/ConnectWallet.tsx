@@ -12,7 +12,7 @@ export default function ConnectWallet() {
   //       setCurrentAccount(account);
   //     }
   //   } catch (error) {
-  //     console.error(error);
+  //     console.log(error);
   //   }
   // }, []);
 

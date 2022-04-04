@@ -13,7 +13,7 @@ export default function TopBar() {
   //       setCurrentAccount(account);
   //     }
   //   } catch (error) {
-  //     console.error(error);
+  //     console.log(error);
   //   }
   // }, []);
 
