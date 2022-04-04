@@ -53,17 +53,17 @@ export default async function handler(
         if (await createVideo(validVideo, account, channel, profile)) {
           await updateWaitlistProfile(profile);
 
-          res.status(200).json({ validVideo: 1 });
+          res.status(200).json({ status: 200, data: { validVideo: 1 } });
         } else {
-          res.status(200).json({ validVideo: 0 });
+          res.status(200).json({ status: 200, data: { validVideo: 0 } });
         }
       } else {
-        res.status(200).json({ validVideo: 0 });
+        res.status(200).json({ status: 200, data: { validVideo: 0 } });
       }
     } else {
-      res.status(200).json({ validVideo: 0 });
+      res.status(200).json({ status: 200, data: { validVideo: 0 } });
     }
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ status: 500, error: error.message });
   }
 }
