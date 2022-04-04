@@ -11,9 +11,13 @@ import {
   readVideos,
 } from '@services/youtubeApi';
 import moment from 'moment';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const session = await getSession({ req });
 
   const youtubeChannel = await readChannelFromYoutube(session);
@@ -33,17 +37,11 @@ export default async function handler(req, res) {
           .toLowerCase()
           .includes(`app.cobogo.social/${profile.attributes.handle}`);
 
-        console.warn(`Validation video ${video.snippet.title}`);
-        console.warn(`  Valid Title: ${validTitle}`);
-        console.warn(
-          `  Valid Description: ${validDescription} (app.cobogo.social/${profile.attributes.handle})`,
-        );
-
         if (validTitle && validDescription) {
           const item = await readVideoById(session, video);
           const validLength =
             moment.duration(item.contentDetails.duration).asMinutes() >= 2;
-          console.warn(`  Valid Length: ${validLength}`);
+
           if (validLength) {
             validVideo = video;
             break;

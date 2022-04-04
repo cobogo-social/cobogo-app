@@ -4,10 +4,14 @@ import {
   readChannelByAccount,
   readProfileByReferralCode,
 } from '@services/cobogoApi';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import referralCodeGenerator from 'referral-code-generator';
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const session = await getSession({ req });
 
   const { description, handle, categories, queryRef } = req.body;

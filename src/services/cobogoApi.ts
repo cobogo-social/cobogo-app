@@ -134,7 +134,7 @@ export async function createChannel(account, youtubeChannel) {
       },
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
 
@@ -160,7 +160,7 @@ export async function createProfile(
       },
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
 
@@ -191,7 +191,7 @@ export async function updateWaitlistProfile(profile) {
       },
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
 

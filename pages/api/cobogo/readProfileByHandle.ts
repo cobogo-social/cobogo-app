@@ -1,6 +1,10 @@
 import { readProfileByHandle } from '@services/cobogoApi';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const { handle } = req.query;
 
   try {
