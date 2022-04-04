@@ -29,7 +29,7 @@ export default function VerifyVideo({ channelHandle }: VerifyVideoProps) {
       setIsError(true);
     }
 
-    if (checkVideo.data.validVideo) {
+    if (checkVideo.data.data.validVideo) {
       setVideoStatus(3);
     } else {
       setVideoStatus(2);
