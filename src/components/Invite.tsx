@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ChannelBanner from './ChannelBanner';
 import Link from './Link';
 import Loading from './Loading';
+import MobileReferralLink from './MobileReferralLink';
 import ReferralLink from './ReferralLink';
 import ShareLinks from './ShareLinks';
 import StatsTopBar from './StatsTopBar';
@@ -37,7 +38,7 @@ export default function Invite({
           <div className="flex flex-col">
             <p className="text-4xl text-white mb-4">congrats!</p>
 
-            <p className="text-base sm:text-lg text-white mb-8 sm:w-[408px]">
+            <p className="sm:text-lg text-white mb-8 sm:w-[408px]">
               you are now on the waitlist and eligible to earn{' '}
               <span className="font-bold">100 CBG</span> tokens, which is
               equivalent to <span className="font-bold">$60</span> in the public
@@ -52,7 +53,9 @@ export default function Invite({
 
             <ReferralLink referralCode={referralCode} />
 
-            <p className="text-white mb-8 text-lg">
+            <MobileReferralLink referralCode={referralCode} />
+
+            <p className="text-white mb-8 sm:text-lg">
               <a
                 href="https://docs.cobogo.social/overview/getting-started/referral-program"
                 className="font-bold text-blue"

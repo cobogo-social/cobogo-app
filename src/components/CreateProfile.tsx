@@ -151,10 +151,7 @@ export default function CreateProfile({
           <form className="flex flex-col" onSubmit={formik.handleSubmit}>
             <p className="text-4xl text-white mb-4">create profile</p>
 
-            <label
-              htmlFor="description"
-              className="text-base sm:text-lg text-white mb-4"
-            >
+            <label htmlFor="description" className="sm:text-lg text-white mb-4">
               write a description to be visible on your public profile.
             </label>
 

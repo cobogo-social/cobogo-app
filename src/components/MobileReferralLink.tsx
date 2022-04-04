@@ -3,11 +3,13 @@ import { useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { IoCopySharp } from 'react-icons/io5';
 
-interface ReferralLinkProps {
+interface MobileReferralLinkProps {
   referralCode: string;
 }
 
-export default function ReferralLink({ referralCode }: ReferralLinkProps) {
+export default function MobileReferralLink({
+  referralCode,
+}: MobileReferralLinkProps) {
   const [copied, setCopied] = useState(false);
 
   function handleSetCopy() {
@@ -15,10 +17,10 @@ export default function ReferralLink({ referralCode }: ReferralLinkProps) {
   }
 
   return (
-    <div className="hidden sm:flex justify-center mb-8">
-      <div className="px-4 h-[90px] bg-secondary flex justify-center items-center border-[1.5px] border-details">
-        <p className="font-bold text-white mr-2">your referral link</p>
+    <div className="flex sm:hidden flex-col justify-center mb-8">
+      <p className="font-bold text-white mb-2">your referral link</p>
 
+      <div className="flex">
         <div className="px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] border-r-0 border-details">
           <p className="text-blue font-bold text-xs sm:text-sm">
             app.cobogo.social/submit?ref={referralCode}
