@@ -3,10 +3,10 @@ import Image from 'next/image';
 export default function Footer() {
   return (
     <div className="bg-black w-full h-[7.5vh] justify-between items-center pl-8 col-span-2 hidden sm:flex">
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center h-full">
         <a
           href="mailto:hi@cobogo.social"
-          className="mr-8"
+          className="flex mr-8"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -20,7 +20,7 @@ export default function Footer() {
 
         <a
           href="https://t.me/cobogosocial"
-          className="mr-8"
+          className="flex mr-8"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -34,7 +34,7 @@ export default function Footer() {
 
         <a
           href="https://twitter.com/cobogosocial"
-          className="mr-8"
+          className="flex mr-8"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -48,7 +48,7 @@ export default function Footer() {
 
         <a
           href="https://github.com/cobogo-social"
-          className="mr-8"
+          className="flex mr-8"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -62,6 +62,7 @@ export default function Footer() {
 
         <a
           href="https://medium.com/@cobogosocial"
+          className="flex"
           target="_blank"
           rel="noopener noreferrer"
         >

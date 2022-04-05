@@ -1,4 +1,5 @@
 import Footer from '@components/Footer';
+import MobileMenu from '@components/MobileMenu';
 import PageWrapper from '@components/PageWrapper';
 import StartSubmission from '@components/StartSubmission';
 import Steps from '@components/Steps';
@@ -23,6 +24,8 @@ export default function Index() {
 
       <PageWrapper>
         <Steps />
+
+        <MobileMenu noSteps />
 
         <StartSubmission />
 
