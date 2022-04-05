@@ -1,66 +1,44 @@
 import BlankslateChannelBanner from '@components/BlankslateChannelBanner';
-import BlankslateShareLinks from '@components/BlankslateShareLinks';
-import BlankslateStatsTopBar from '@components/BlankslateStatsTopBar';
 import Button from '@components/Button';
 import CobogoTopBar from '@components/CobogoTopBar';
 import Footer from '@components/Footer';
 import Link from '@components/Link';
-import {
-  readChannelByProfile,
-  readProfileByHandle,
-  readProfilesByReferral,
-} from '@services/cobogoApi';
-import { readChannel } from '@services/youtubeApi';
+import { readChannelByProfile, readProfileByHandle } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
 
 interface ProfileProps {
   title: string;
   banner: string;
   referralCode: string;
-  onboardedFriends: number;
-  isMine: boolean;
 }
 
-export default function Index({
-  title,
-  banner,
-  referralCode,
-  onboardedFriends,
-  isMine,
-}: ProfileProps) {
+export default function Index({ title, banner, referralCode }: ProfileProps) {
   return (
     <>
       <div className="h-[92.5vh] flex flex-col justify-start items-center p-8">
-        {isMine ? (
-          <BlankslateStatsTopBar onboardedFriends={onboardedFriends} />
-        ) : (
-          <CobogoTopBar />
-        )}
+        <CobogoTopBar />
 
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           <BlankslateChannelBanner banner={banner} title={title} />
 
-          {isMine ? (
-            <div className="mb-[100px]">
-              <BlankslateShareLinks referralCode={referralCode} />
-            </div>
-          ) : null}
+          <p className="text-sm sm:text-base text-white sm:w-[439px] text-center w-full mb-[32px]">
+            if you're a <span className="font-bold">YouTuber</span>, start your
+            submission now and be one of the first in this new{' '}
+            <span className="font-bold">Creator Economy</span>.
+          </p>
 
-          {!isMine ? (
-            <div className="flex w-full justify-center items-center">
-              <Link href={`/submit?ref=${referralCode}`}>
-                <Button
-                  text="join waitlist"
-                  color="bg-purple"
-                  hoverColor="brightness-90"
-                  width="w-[175px]"
-                  height="h-[50px]"
-                  fontSize="text-xl"
-                />
-              </Link>
-            </div>
-          ) : null}
+          <div className="flex items-center justify-center w-full">
+            <Link href={`/submit?ref=${referralCode}`}>
+              <Button
+                text="join waitlist"
+                color="bg-purple"
+                hoverColor="brightness-90"
+                width="w-[175px]"
+                height="h-[50px]"
+                fontSize="text-xl"
+              />
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -69,12 +47,8 @@ export default function Index({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  params,
-}) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { handle } = params;
-  const session = await getSession({ req });
 
   const profile = await readProfileByHandle(handle);
 
@@ -88,28 +62,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   const channel = await readChannelByProfile(profile);
-  const onboardedFriends = await readProfilesByReferral(profile.id);
-
-  let youtubeChannel = {
-    id: null,
-  };
-
-  if (session?.user) {
-    const readChannels = await readChannel(session);
-
-    youtubeChannel = readChannels;
-  }
 
   return {
     props: {
       title: channel.attributes.title,
       banner: channel.attributes.banner ? channel.attributes.banner : null,
       referralCode: profile.attributes.referral_code,
-      onboardedFriends:
-        youtubeChannel.id === channel.attributes.channel_id
-          ? onboardedFriends.length
-          : null,
-      isMine: youtubeChannel.id === channel.attributes.channel_id,
     },
   };
 };
