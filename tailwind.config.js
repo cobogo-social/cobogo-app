@@ -14,6 +14,7 @@ module.exports = {
       white: '#FFFFFF',
       purple: '#514E7F',
       blue: '#4FB9E3',
+      bluelight: '#00B9E9',
       bluetelegram: '#36AEE2',
       bluetwitter: '#1D9BF0',
       red: '#FF3815',
