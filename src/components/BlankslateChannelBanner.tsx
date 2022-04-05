@@ -24,10 +24,7 @@ export default function BlankslateChannelBanner({
       ) : null}
 
       <div className="absolute top-0 flex items-center justify-start w-full p-4 sm:p-8">
-      {banner ? (
-        <Badge title={title} />
-      ) : null}
-        
+        {banner ? <Badge title={title} /> : null}
       </div>
 
       <div className="w-full px-8 py-8">
