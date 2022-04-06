@@ -1,34 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![cobogo-github](public/images/cobogo.png)
 
-## Getting Started
+# The next generation of YouTube monetization
 
-First, run the development server:
+cobogo allows fans to support their favorite YouTube Creators by sharing the rewards of their investments in an unique way.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Any YouTuber can submit their channel, mint their pool and receive rewards, and any fan can stake their tokens, so they both receive rewards in the form of a yield. An alternative monetization mechanism made possible by Blockchain and Smart Contracts.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+We call fans Patrons and YouTubers Content Creators.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Technical Viewpoint
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+cobogo is an aggregator of protocols that has the goal of funding Content Creators sustainably through their own community, using DeFi. It is a platform that leverages Web 3.0 to monetize Creators while maximizing their growth and community building abilities.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+It works by allowing Creators to mint their own Social Tokens and Staking Pool, where Patrons can stake on it. After that, both Creators and Patrons get rewards in the form of a yield, in a 50%/50% split.
 
-## Learn More
+All Creators have to do after minting their pool is let their community know about this opportunity. They can also offer Perks to those staking from them, which can vary from receiving the Creator’s Social Tokens, getting access to a private discord, private content and even being able to vote for the next videos' type of content. The possibilities are endless.
 
-To learn more about Next.js, take a look at the following resources:
+Even small and niche YouTubers will be able to be properly monetized by their own Community. Through Cobogo community building and monetization is taken to a new level not found in Web2.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Concept behind cobogo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Cobogó is an element of Brazilian architecture. It is a little block of concrete that allows light and fresh air to come inside rooms, they can have infinite different styles and colors which can always be combined to form a new, unique style.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+All these characteristics can be associated with what we want to achieve with this platform. The blocks allude to both blockchain and composability (which are usually compared to Lego blocks); the light entering the room represents the videos being watched in the house of each fan and the air represents the new ways in which cobogo allows creators to monetize themselves.
