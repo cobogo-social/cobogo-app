@@ -18,7 +18,12 @@ export default function ErrorModal({ isError, setIsError }: ErrorModalProps) {
             onClick={handleClose}
             className="absolute top-0 right-0 mt-2 mr-2"
           >
-            <Image src="/images/x2-icon.svg" width={13} height={13} />
+            <Image
+              src="/images/x2-icon.svg"
+              width={13}
+              height={13}
+              alt="x2 icon"
+            />
           </div>
 
           <p className="text-red text-[40px]">error</p>

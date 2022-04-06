@@ -34,6 +34,7 @@ export default function MobileMenu({ noSteps }: MobileMenuProps) {
                 src={back ? '/images/back-icon.svg' : '/images/next-icon.svg'}
                 width={28}
                 height={28}
+                alt="back or next icon"
               />
             </div>
           )}

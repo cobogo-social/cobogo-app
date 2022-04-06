@@ -37,7 +37,12 @@ export default function Success({
             <p className="text-4xl text-white mb-4 flex">
               waitlist{' '}
               <span className="flex ml-4">
-                <Image src="/images/success-icon.svg" width={34} height={34} />
+                <Image
+                  src="/images/success-icon.svg"
+                  width={34}
+                  height={34}
+                  alt="success icon"
+                />
               </span>
             </p>
 

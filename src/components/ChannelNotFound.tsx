@@ -35,7 +35,12 @@ export default function ChannelNotFound({
             <p className="text-4xl text-white mb-4 flex">
               channel not found{' '}
               <span className="flex ml-4">
-                <Image src="/images/warning-icon.svg" width={34} height={34} />
+                <Image
+                  src="/images/warning-icon.svg"
+                  width={34}
+                  height={34}
+                  alt="warning icon"
+                />
               </span>
             </p>
 

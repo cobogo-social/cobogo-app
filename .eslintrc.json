@@ -10,7 +10,9 @@
     "airbnb",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "plugin:react/jsx-runtime"
+    "plugin:react/jsx-runtime",
+    "plugin:@next/next/recommended",
+    "next"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

@@ -15,7 +15,12 @@ export default function BlankslateStatsTopBar({
 
       <div className="flex">
         <div className="flex mr-2">
-          <Image src="/images/cbg-icon.svg" width={24} height={21} />
+          <Image
+            src="/images/cbg-icon.svg"
+            width={24}
+            height={21}
+            alt="cbg icon"
+          />
         </div>
 
         <p className="text-white font-bold">

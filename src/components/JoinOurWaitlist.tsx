@@ -4,11 +4,21 @@ export default function JoinOurWaitlist() {
   return (
     <div className="sm:w-[572px] sm:h-[130px] bg-secondary flex flex-col sm:flex-row justify-start items-center px-4 py-4 mb-[50px]">
       <div className="hidden sm:flex mr-2">
-        <Image src="/images/100-cbg-icon.svg" width={108} height={108} />
+        <Image
+          src="/images/100-cbg-icon.svg"
+          width={108}
+          height={108}
+          alt="100 cbg icon"
+        />
       </div>
 
       <div className="flex sm:hidden mr-2">
-        <Image src="/images/100-cbg-icon.svg" width={79} height={79} />
+        <Image
+          src="/images/100-cbg-icon.svg"
+          width={79}
+          height={79}
+          alt="100 cbg icon"
+        />
       </div>
 
       <p className="text-white text-center sm:text-left max-w-[402px]">
