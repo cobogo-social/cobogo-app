@@ -12,7 +12,7 @@ export default function YouWillBeNotified() {
         />
       </div>
 
-      <p className="sm:w-[369px] font-bold text-white text-xs sm:text-base">
+      <p className="sm:w-[369px] font-bold text-xs sm:text-base">
         you will be notified via the email registered on your YouTube account.
       </p>
     </div>

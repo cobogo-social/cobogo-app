@@ -36,16 +36,16 @@ export default function Invite({
 
         <StepWrapper>
           <div className="flex flex-col">
-            <p className="text-4xl text-white mb-4">congrats!</p>
+            <p className="mb-4 text-4xl">congrats!</p>
 
-            <p className="sm:text-lg text-white mb-8 sm:w-[408px]">
+            <p className="sm:text-lg mb-8 sm:w-[408px]">
               you are now on the waitlist and eligible to earn{' '}
               <span className="font-bold">100 CBG</span> tokens, which is
               equivalent to <span className="font-bold">$60</span> in the public
               sale!
             </p>
 
-            <p className="text-xs sm:text-sm text-white mb-8 sm:w-[408px]">
+            <p className="text-xs sm:text-sm mb-8 sm:w-[408px]">
               you can earn more <span className="font-bold">50 CBG</span> for
               each Creator that joins the waitlist using your referral link, an
               they will earn rewards too.
@@ -55,7 +55,7 @@ export default function Invite({
 
             <MobileReferralLink referralCode={referralCode} />
 
-            <p className="text-white mb-8 sm:text-lg">
+            <p className="mb-8 sm:text-lg">
               <a
                 href="https://docs.cobogo.social/overview/getting-started/referral-program"
                 className="font-bold text-blue"
@@ -74,7 +74,7 @@ export default function Invite({
             <Link href="/submit/success">
               <button
                 onClick={() => setIsLoading(true)}
-                className="text-graylight font-bold hover:cursor-pointer"
+                className="font-bold text-gray3 hover:cursor-pointer"
               >
                 skip
               </button>

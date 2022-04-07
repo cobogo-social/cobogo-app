@@ -149,9 +149,9 @@ export default function CreateProfile({
 
         <StepWrapper>
           <form className="flex flex-col" onSubmit={formik.handleSubmit}>
-            <p className="text-4xl text-white mb-4">create profile</p>
+            <p className="mb-4 text-4xl">create profile</p>
 
-            <label htmlFor="description" className="sm:text-lg text-white mb-4">
+            <label htmlFor="description" className="mb-4 sm:text-lg">
               write a description to be visible on your public profile.
             </label>
 
@@ -166,24 +166,24 @@ export default function CreateProfile({
                   formik.touched.description && formik.errors.description
                     ? 'border-red'
                     : 'border-details'
-                } mb-8 p-2 outline-none text-white`}
+                } mb-8 p-2 outline-none`}
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressedInDescription}
                 value={formik.values.description}
               />
             </div>
 
-            <label htmlFor="handle" className="text-lg text-white sm:mb-4">
+            <label htmlFor="handle" className="text-lg sm:mb-4">
               choose a handle
             </label>
 
-            <p className="text-sm mb-4 break-words text-graylight sm:hidden">
+            <p className="mb-4 text-sm break-words text-gray3 sm:hidden">
               app.cobogo.social/{formik.values.handle}
             </p>
 
             <div className="flex">
               <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
-                <p className="text-white font-bold">app.cobogo.social/</p>
+                <p className="font-bold">app.cobogo.social/</p>
               </div>
 
               <div className="relative w-full">
@@ -204,12 +204,12 @@ export default function CreateProfile({
                     handleError
                       ? 'border-red'
                       : 'border-details'
-                  } mb-8 p-2 outline-none text-white`}
+                  } mb-8 p-2 outline-none`}
                 />
               </div>
             </div>
 
-            <p className="text-lg text-white mb-4">choose categories</p>
+            <p className="mb-4 text-lg">choose categories</p>
 
             <div className="flex">
               <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-details flex justify-center items-center">

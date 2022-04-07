@@ -21,7 +21,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`${width} ${height} ${color} hover:${hoverColor} font-bold ${fontSize} text-white`}
+      className={`${width} ${height} ${color} hover:${hoverColor} font-bold ${fontSize}`}
       onClick={onClick}
       onKeyDown={onKeyDown}
     >

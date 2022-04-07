@@ -20,8 +20,8 @@ export default function ChannelNotFound({
     <StepContainer>
       <TopBar />
 
-      <div className="flex flex-col justify-center items-start pl-16 sm:px-16 2xl:px-64 mt-32 sm:mt-0">
-        <div className="flex flex-col sm:flex-row items-start w-full justify-between">
+      <div className="flex flex-col items-start justify-center pl-16 mt-32 sm:px-16 2xl:px-64 sm:mt-0">
+        <div className="flex flex-col items-start justify-between w-full sm:flex-row">
           <div className="block sm:hidden">
             <Image
               src="/images/cobogo-blocks.svg"
@@ -32,7 +32,7 @@ export default function ChannelNotFound({
           </div>
 
           <div>
-            <p className="text-4xl text-white mb-4 flex">
+            <p className="flex mb-4 text-4xl">
               channel not found{' '}
               <span className="flex ml-4">
                 <Image
@@ -44,13 +44,13 @@ export default function ChannelNotFound({
               </span>
             </p>
 
-            <p className="text-lg text-white mb-8">
+            <p className="mb-8 text-lg">
               there is no channel associated with this account.
             </p>
 
             <button
               onClick={handleTryAnotherAccount}
-              className="text-blue font-bold hover:cursor-pointer"
+              className="font-bold text-blue hover:cursor-pointer"
             >
               try another account
             </button>

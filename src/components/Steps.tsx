@@ -4,12 +4,12 @@ import StepItem from './StepItem';
 
 export default function Steps() {
   return (
-    <div className="bg-secondary p-8 w-full h-full hidden sm:block">
+    <div className="hidden w-full h-full p-8 bg-secondary sm:block">
       <div className="mb-16">
         <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
       </div>
 
-      <p className="text-white mb-8 text-2xl">submit a channel</p>
+      <p className="mb-8 text-2xl">submit a channel</p>
 
       <StepItem number="1" text="connect" href="/submit/connect" />
 

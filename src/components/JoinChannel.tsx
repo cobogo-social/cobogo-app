@@ -18,8 +18,8 @@ export default function JoinChannel() {
         </span>
 
         <span className="flex flex-col">
-          <p className="font-bold text-white text-xl">join channel</p>
-          <p className="text-white">Telegram</p>
+          <p className="text-xl font-bold">join channel</p>
+          <p>Telegram</p>
         </span>
       </span>
     </a>

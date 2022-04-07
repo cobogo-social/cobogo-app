@@ -12,7 +12,11 @@ export default function BlankslateChannelBanner({
   title,
 }: BlankslateChannelBannerProps) {
   return (
-    <div className="bg-black sm:w-[680px] max-h-[498px] border-[1.5px] border-details mb-[50px] relative">
+    <div
+      className={`bg-black sm:w-[680px] ${
+        banner && 'h-[498px]'
+      } border-[1.5px] border-details mb-[50px] relative`}
+    >
       {banner ? (
         <Image
           src={banner}
@@ -28,11 +32,9 @@ export default function BlankslateChannelBanner({
       </div>
 
       <div className="w-full px-8 py-8">
-        <p className="mb-[32px] text-2xl sm:text-5xl text-white">
-          coming soon...
-        </p>
+        <p className="mb-[32px] text-2xl sm:text-5xl">coming soon...</p>
 
-        <p className="sm:text-xl text-white mb-[50px]">
+        <p className="sm:text-xl mb-[50px]">
           <span className="font-bold">cobogo</span> is an alternative
           monetization mechanism that leverages{' '}
           <span className="font-bold">blockchain</span> to enable{' '}
@@ -40,7 +42,7 @@ export default function BlankslateChannelBanner({
           sustainably through their own community.
         </p>
 
-        <p className="text-white sm:text-xl">
+        <p className="sm:text-xl">
           in the near future you will be able to support this channel by
           depositing <span className="font-bold">CBG tokens</span> in their{' '}
           <span className="font-bold">Staking Pool</span>, and you both will get

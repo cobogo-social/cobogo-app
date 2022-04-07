@@ -64,9 +64,9 @@ export default function Video({
 
         <StepWrapper>
           <div className="flex flex-col">
-            <p className="text-4xl text-white mb-4">video</p>
+            <p className="mb-4 text-4xl">video</p>
 
-            <p className="sm:text-xl text-white sm:w-[408px] mb-8">
+            <p className="sm:text-xl sm:w-[408px] mb-8">
               {`to join the waitlist and earn CBG, you'll have to make a video
           presenting cobogo to your community, so they'll be ready to support
           you when the time comes!`}
@@ -83,7 +83,7 @@ export default function Video({
                 <SuccessBullet text="longer than 2 minutes" />
               )}
 
-              <p className="text-sm text-graylight sm:w-[408px] pl-9">
+              <p className="text-sm text-gray3 sm:w-[408px] pl-9">
                 {`we believe that in order to explain what cobogo is about, that is, a
           platform to monetize your work, and to let your community know how
           they'll be able to support you, a video of at least 2 minutes is
@@ -104,7 +104,7 @@ export default function Video({
                 <SuccessBullet text='have the name "cobogo" in the title' />
               )}
 
-              <p className="text-sm text-graylight sm:w-[408px] pl-9">
+              <p className="text-sm text-gray3 sm:w-[408px] pl-9">
                 to make it easier to find and identify your video, we require
                 you to put the name 'cobogo' in the title.
               </p>
@@ -132,7 +132,7 @@ export default function Video({
                 />
               )}
 
-              <p className="text-sm text-graylight sm:w-[408px] pl-9">
+              <p className="text-sm text-gray3 sm:w-[408px] pl-9">
                 lastly, you will need to put the link to your staking page in
                 the video description box so that your community can find you on
                 cobogo, and support you!

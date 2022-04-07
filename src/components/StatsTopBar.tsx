@@ -7,7 +7,7 @@ interface StatsTopBarProps {
 export default function StatsTopBar({ onboardedFriends }: StatsTopBarProps) {
   return (
     <div className="hidden sm:flex w-full justify-end items-center mb-[70px]">
-      <p className="text-white mr-8">
+      <p className="mr-8">
         onboarded friends: <span className="font-bold">{onboardedFriends}</span>
       </p>
 
@@ -21,9 +21,7 @@ export default function StatsTopBar({ onboardedFriends }: StatsTopBarProps) {
           />
         </div>
 
-        <p className="text-white font-bold">
-          {100 + onboardedFriends * 50} CBG
-        </p>
+        <p className="font-bold">{100 + onboardedFriends * 50} CBG</p>
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ export default function Success({
 
         <StepWrapper>
           <div className="flex flex-col mb-8">
-            <p className="text-4xl text-white mb-4 flex">
+            <p className="flex mb-4 text-4xl">
               waitlist{' '}
               <span className="flex ml-4">
                 <Image
@@ -46,14 +46,14 @@ export default function Success({
               </span>
             </p>
 
-            <p className="sm:text-xl text-white sm:w-[408px] mb-8">
+            <p className="sm:text-xl sm:w-[408px] mb-8">
               now you are eligible to join an exclusive{' '}
               <span className="font-bold">channel</span> for Content Creators!
               Be a pioneer in the first Content Creator{' '}
               <span className="font-bold">DAO</span>!
             </p>
 
-            <p className="text-xs sm:text-sm text-white mb-8 sm:w-[408px]">
+            <p className="text-xs sm:text-sm mb-8 sm:w-[408px]">
               <span className="font-bold">cobogo</span> is a dApp still in
               development, but the channel{' '}
               <span className="font-bold">{title}</span> has been added to the
@@ -67,7 +67,7 @@ export default function Success({
             <Link href="/submit/invite">
               <button
                 onClick={() => setIsLoading(true)}
-                className="text-graylight font-bold hover:cursor-pointer"
+                className="font-bold text-gray3 hover:cursor-pointer"
               >
                 back to invite
               </button>

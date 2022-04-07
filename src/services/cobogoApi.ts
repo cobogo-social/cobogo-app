@@ -103,6 +103,18 @@ export async function readChannelByProfile(profile) {
   }
 }
 
+export async function readWalletByAccount(account) {
+  try {
+    const response = await api.get(
+      `/api/wallets?filters[account][$eq]=${account}`,
+    );
+
+    return response.data.data[0] ? response.data.data[0] : null;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function createAccount(user) {
   try {
     const response = await api.post('/api/accounts', {
@@ -115,6 +127,21 @@ export async function createAccount(user) {
     });
 
     return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function createWallet(wallet, referralCode) {
+  console.log(wallet, referralCode);
+
+  try {
+    await api.post('/api/wallets', {
+      data: {
+        account: wallet,
+        referral_code: referralCode,
+      },
+    });
   } catch (error) {
     console.log(error);
   }

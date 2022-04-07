@@ -17,7 +17,11 @@ export default async function handler(
   const { description, handle, categories, queryRef } = req.body;
 
   try {
-    const referralCode = referralCodeGenerator.alphaNumeric('lowercase', 2, 2);
+    const referralCode = await referralCodeGenerator.alphaNumeric(
+      'lowercase',
+      2,
+      2,
+    );
 
     const account = await readAccountByAccountId(session.user['id']);
     const channel = await readChannelByAccount(account);

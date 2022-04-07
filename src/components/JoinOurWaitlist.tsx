@@ -21,7 +21,7 @@ export default function JoinOurWaitlist() {
         />
       </div>
 
-      <p className="text-white text-center sm:text-left max-w-[402px]">
+      <p className="text-center sm:text-left max-w-[402px]">
         <span className="font-bold">join our waitlist</span> now and be one of
         the first to experience the new Creator Economy, while also earning the
         equivalent of <span className="font-bold">60 dollars</span> of our
