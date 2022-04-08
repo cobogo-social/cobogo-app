@@ -16,7 +16,7 @@ export default function ErrorModal({ isError, setIsError }: ErrorModalProps) {
         <div className="flex flex-col items-start justify-center">
           <div
             onClick={handleClose}
-            className="absolute top-0 right-0 mt-2 mr-2"
+            className="absolute top-0 right-0 mt-2 mr-2 hover:cursor-pointer"
           >
             <Image
               src="/images/x2-icon.svg"

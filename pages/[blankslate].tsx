@@ -44,8 +44,6 @@ export default function Index({ title, banner, referralCode }: ProfileProps) {
         },
       );
 
-      console.log(readWalletByAccount);
-
       if (!readWalletByAccount.data.data) {
         await axios.post('/api/cobogo/createWallet', {
           wallet,

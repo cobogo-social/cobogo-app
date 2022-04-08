@@ -133,8 +133,6 @@ export async function createAccount(user) {
 }
 
 export async function createWallet(wallet, referralCode) {
-  console.log(wallet, referralCode);
-
   try {
     await api.post('/api/wallets', {
       data: {
