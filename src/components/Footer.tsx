@@ -2,8 +2,8 @@ import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <div className="bg-black w-full h-[7.5vh] justify-between items-center pl-8 col-span-2 hidden sm:flex">
-      <div className="flex justify-center items-center h-full">
+    <div className="items-center justify-between hidden w-full h-full col-span-2 pl-8 bg-black sm:flex">
+      <div className="flex items-center justify-center h-full">
         <a
           href="mailto:hi@cobogo.social"
           className="flex mr-8"
@@ -75,10 +75,10 @@ export default function Footer() {
         </a>
       </div>
 
-      <div className="flex justify-center items-center h-full">
+      <div className="flex items-center justify-center h-full">
         <a
           href="https://cobogo.social/faq"
-          className="text-white font-bold mr-8"
+          className="mr-8 font-bold text-white"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -87,7 +87,7 @@ export default function Footer() {
 
         <a
           href="https://cobogo.social/code"
-          className="text-white font-bold mr-8"
+          className="mr-8 font-bold text-white"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -96,7 +96,7 @@ export default function Footer() {
 
         <a
           href="https://cobogo.social/privacy"
-          className="text-white font-bold mr-8"
+          className="mr-8 font-bold text-white"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -105,7 +105,7 @@ export default function Footer() {
 
         <a
           href="https://cobogo.social/terms"
-          className="text-white font-bold mr-8"
+          className="mr-8 font-bold text-white"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -118,7 +118,7 @@ export default function Footer() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span className="mr-3 flex justify-center items-center">
+          <span className="flex items-center justify-center mr-3">
             <Image
               src="/images/gitbook-icon.svg"
               width={30}
@@ -127,7 +127,7 @@ export default function Footer() {
             />
           </span>
 
-          <span className="text-white font-bold">docs</span>
+          <span className="font-bold text-white">docs</span>
         </a>
       </div>
     </div>
