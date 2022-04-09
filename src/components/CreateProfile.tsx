@@ -97,8 +97,12 @@ export default function CreateProfile({
       }
 
       if (input) {
-        setCategoriesList([...categoriesList, input]);
-        setInput('');
+        const isDuplicated = categoriesList.filter((c) => c === input);
+
+        if (isDuplicated.length === 0) {
+          setCategoriesList([...categoriesList, input]);
+          setInput('');
+        }
       }
     }
   }
@@ -149,9 +153,9 @@ export default function CreateProfile({
 
         <StepWrapper>
           <form className="flex flex-col" onSubmit={formik.handleSubmit}>
-            <p className="text-4xl text-white mb-4">create profile</p>
+            <p className="mb-4 text-4xl text-white">create profile</p>
 
-            <label htmlFor="description" className="sm:text-lg text-white mb-4">
+            <label htmlFor="description" className="mb-4 text-white sm:text-lg">
               write a description to be visible on your public profile.
             </label>
 
@@ -177,13 +181,13 @@ export default function CreateProfile({
               choose a handle
             </label>
 
-            <p className="text-sm mb-4 break-words text-graylight sm:hidden">
+            <p className="mb-4 text-sm break-words text-graylight sm:hidden">
               app.cobogo.social/{formik.values.handle}
             </p>
 
             <div className="flex">
               <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
-                <p className="text-white font-bold">app.cobogo.social/</p>
+                <p className="font-bold text-white">app.cobogo.social/</p>
               </div>
 
               <div className="relative w-full">
@@ -209,7 +213,7 @@ export default function CreateProfile({
               </div>
             </div>
 
-            <p className="text-lg text-white mb-4">choose categories</p>
+            <p className="mb-4 text-lg text-white">choose categories</p>
 
             <div className="flex">
               <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-details flex justify-center items-center">
