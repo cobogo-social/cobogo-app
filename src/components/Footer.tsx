@@ -16,7 +16,7 @@ export default function Footer() {
   }, []);
 
   return haveScroll ? (
-    <div className="bg-black w-full h-[70px] justify-between items-center pl-8 col-span-2 hidden sm:flex">
+    <div className="items-center justify-between hidden w-full h-full col-span-2 pl-8 bg-black sm:flex">
       <div className="flex items-center justify-center h-full">
         <a
           href="mailto:hi@cobogo.social"

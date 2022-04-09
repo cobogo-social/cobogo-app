@@ -4,7 +4,7 @@ import StepItem from './StepItem';
 
 export default function Steps() {
   return (
-    <div className="hidden w-full h-full p-8 bg-secondary sm:block">
+    <div className="hidden w-full h-[870px] p-8 bg-secondary sm:block">
       <div className="mb-16">
         <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
       </div>
