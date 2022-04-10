@@ -17,7 +17,7 @@ export default function StartSubmission() {
       <StepContainer>
         <TopBar />
 
-        <div className="flex flex-col justify-center items-center mt-32 sm:mt-0">
+        <div className="flex flex-col items-center justify-center mt-32 sm:mt-0">
           <p className="text-white sm:text-2xl sm:w-[618px] text-center mb-[50px]">
             revolutionize the way you{' '}
             <span className="font-bold">monetize</span> your{' '}
@@ -40,13 +40,13 @@ export default function StartSubmission() {
             />
           </Link>
 
-          <p className="text-white text-center mb-2">
+          <p className="mb-2 text-center text-white">
             if you have any questions about the onboarding process:
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center items-center">
+          <div className="flex flex-col items-center justify-center sm:flex-row">
             <a
-              href="https://docs.cobogo.social"
+              href="https://docs.cobogo.social/overview/getting-started"
               className="font-bold text-blue sm:mr-8"
               target="_blank"
               rel="noopener noreferrer"
