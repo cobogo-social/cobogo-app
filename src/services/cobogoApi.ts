@@ -1,4 +1,5 @@
 import axios from 'axios';
+import referralCodeGenerator from 'referral-code-generator';
 
 const api = axios.create({
   baseURL: process.env.COBOGO_API_URL,
@@ -10,7 +11,7 @@ const api = axios.create({
 export async function readProfileByChannel(channel) {
   try {
     const response = await api.get(
-      `/api/profiles?filters[channel][id][$eq]=${channel.id}`,
+      `/api/profiles?populate=*&filters[channel][id][$eq]=${channel.id}`,
     );
 
     return response.data.data[0];
@@ -19,10 +20,10 @@ export async function readProfileByChannel(channel) {
   }
 }
 
-export async function readProfileByReferralCode(referralCode) {
+export async function readAccountByReferralCode(referralCode) {
   try {
     const response = await api.get(
-      `/api/profiles?filters[referral_code][$eq]=${referralCode}`,
+      `/api/accounts?filters[referral_code][$eq]=${referralCode}`,
     );
 
     return response.data.data[0];
@@ -46,7 +47,7 @@ export async function readProfilesByReferral(referral) {
 export async function readProfileByHandle(handle) {
   try {
     const response = await api.get(
-      `/api/profiles?filters[handle][$eq]=${handle}`,
+      `/api/profiles?populate=*&filters[handle][$eq]=${handle}`,
     );
 
     return response.data.data[0];
@@ -55,10 +56,10 @@ export async function readProfileByHandle(handle) {
   }
 }
 
-export async function readAccountByAccountId(accountId) {
+export async function readAccountByYoutubeAccountId(youtubeAccountId) {
   try {
     const response = await api.get(
-      `/api/accounts?filters[account_id][$eq]=${accountId}`,
+      `/api/accounts?filters[youtube_account_id][$eq]=${youtubeAccountId}`,
     );
 
     return response.data.data[0];
@@ -103,10 +104,10 @@ export async function readChannelByProfile(profile) {
   }
 }
 
-export async function readWalletByAccount(account) {
+export async function readWalletByAddress(address) {
   try {
     const response = await api.get(
-      `/api/wallets?filters[account][$eq]=${account}`,
+      `/api/wallets?filters[address][$eq]=${address}`,
     );
 
     return response.data.data[0] ? response.data.data[0] : null;
@@ -117,12 +118,19 @@ export async function readWalletByAccount(account) {
 
 export async function createAccount(user) {
   try {
+    const referralCode = await referralCodeGenerator.alphaNumeric(
+      'lowercase',
+      2,
+      2,
+    );
+
     const response = await api.post('/api/accounts', {
       data: {
         name: user.name,
         email: user.email,
         image: user.image,
-        account_id: user.id,
+        youtube_account_id: user.id,
+        referral_code: referralCode,
       },
     });
 
@@ -132,12 +140,12 @@ export async function createAccount(user) {
   }
 }
 
-export async function createWallet(wallet, referralCode) {
+export async function createWallet(address, account) {
   try {
     await api.post('/api/wallets', {
       data: {
-        account: wallet,
-        referral_code: referralCode,
+        address,
+        account: account.id,
       },
     });
   } catch (error) {
@@ -170,7 +178,6 @@ export async function createProfile(
   account,
   channel,
   referral,
-  referralCode,
 ) {
   try {
     await api.post('/api/profiles', {
@@ -181,7 +188,6 @@ export async function createProfile(
         account,
         channel,
         referral,
-        referral_code: referralCode,
       },
     });
   } catch (error) {

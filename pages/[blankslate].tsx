@@ -31,22 +31,22 @@ export default function Index({ title, banner, referralCode }: ProfileProps) {
         method: 'eth_requestAccounts',
       });
 
-      const wallet = accounts[0];
+      const address = accounts[0];
 
-      setCurrentAccount(wallet);
+      setCurrentAccount(address);
 
-      const readWalletByAccount = await axios.get(
-        '/api/cobogo/readWalletByAccount',
+      const readWalletByAddress = await axios.get(
+        '/api/cobogo/readWalletByAddress',
         {
           params: {
-            wallet,
+            address,
           },
         },
       );
 
-      if (!readWalletByAccount.data.data) {
+      if (!readWalletByAddress.data.data) {
         await axios.post('/api/cobogo/createWallet', {
-          wallet,
+          address,
         });
       }
     } catch (error) {
@@ -122,7 +122,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     props: {
       title: channel.attributes.title,
       banner: channel.attributes.banner ? channel.attributes.banner : null,
-      referralCode: profile.attributes.referral_code,
+      referralCode: profile.attributes.account.data.attributes.referral_code,
     },
   };
 };

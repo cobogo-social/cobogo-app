@@ -1,6 +1,6 @@
 import {
   createVideo,
-  readAccountByAccountId,
+  readAccountByYoutubeAccountId,
   readChannelByAccount,
   readProfileByChannel,
   updateWaitlistProfile,
@@ -27,7 +27,7 @@ export default async function handler(
     let validVideo = null;
 
     if (videos.length) {
-      const account = await readAccountByAccountId(session.user['id']);
+      const account = await readAccountByYoutubeAccountId(session.user['id']);
       const channel = await readChannelByAccount(account);
       const profile = await readProfileByChannel(channel);
 

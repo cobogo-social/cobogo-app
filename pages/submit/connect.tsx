@@ -7,7 +7,7 @@ import Steps from '@components/Steps';
 import {
   createAccount,
   createChannel,
-  readAccountByAccountId,
+  readAccountByYoutubeAccountId,
   readChannelByChannelId,
 } from '@services/cobogoApi';
 import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   if (session?.user) {
     const account =
-      (await readAccountByAccountId(session.user['id'])) ||
+      (await readAccountByYoutubeAccountId(session.user['id'])) ||
       (await createAccount(session.user));
 
     if (!account) {

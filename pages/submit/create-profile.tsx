@@ -4,7 +4,7 @@ import MobileMenu from '@components/MobileMenu';
 import PageWrapper from '@components/PageWrapper';
 import Steps from '@components/Steps';
 import {
-  readAccountByAccountId,
+  readAccountByYoutubeAccountId,
   readChannelByAccount,
   readProfileByChannel,
 } from '@services/cobogoApi';
@@ -68,7 +68,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const account = await readAccountByAccountId(session.user['id']);
+  const account = await readAccountByYoutubeAccountId(session.user['id']);
   const channel = await readChannelByAccount(account);
 
   if (!channel) {

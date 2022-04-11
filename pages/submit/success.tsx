@@ -4,7 +4,7 @@ import PageWrapper from '@components/PageWrapper';
 import Steps from '@components/Steps';
 import Success from '@components/Success';
 import {
-  readAccountByAccountId,
+  readAccountByYoutubeAccountId,
   readChannelByAccount,
   readProfileByChannel,
   readProfilesByReferral,
@@ -72,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const account = await readAccountByAccountId(session.user['id']);
+  const account = await readAccountByYoutubeAccountId(session.user['id']);
   const channel = await readChannelByAccount(account);
 
   if (!channel) {
@@ -116,7 +116,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
           : '',
       title: youtubeChannel ? youtubeChannel.snippet.title : '',
       description: youtubeChannel ? youtubeChannel.snippet.description : '',
-      referralCode: profile.attributes.referral_code,
+      referralCode: profile.attributes.account.data.attributes.referral_code,
       onboardedFriends: onboardedFriends.length,
     },
   };

@@ -1,21 +1,21 @@
-import { createWallet } from '@services/cobogoApi';
+import {
+  createWallet,
+  readAccountByYoutubeAccountId,
+} from '@services/cobogoApi';
 import { NextApiRequest, NextApiResponse } from 'next';
-import referralCodeGenerator from 'referral-code-generator';
+import { getSession } from 'next-auth/react';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  const session = await getSession({ req });
   const { wallet } = req.body;
 
   try {
-    const referralCode = await referralCodeGenerator.alphaNumeric(
-      'lowercase',
-      2,
-      2,
-    );
+    const account = await readAccountByYoutubeAccountId(session.user['id']);
 
-    const response = await createWallet(wallet, referralCode);
+    const response = await createWallet(wallet, account);
 
     res.status(201).json({ status: 201, data: response });
   } catch (error) {

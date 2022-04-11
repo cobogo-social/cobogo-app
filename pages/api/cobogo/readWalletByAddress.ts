@@ -1,14 +1,14 @@
-import { readWalletByAccount } from '@services/cobogoApi';
+import { readWalletByAddress } from '@services/cobogoApi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { account } = req.query;
+  const { address } = req.query;
 
   try {
-    const response = await readWalletByAccount(account);
+    const response = await readWalletByAddress(address);
 
     res.status(200).json({ status: 200, data: response });
   } catch (error) {
