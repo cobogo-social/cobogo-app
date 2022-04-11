@@ -64,7 +64,7 @@ export default function Video({
 
         <StepWrapper>
           <div className="flex flex-col">
-            <p className="text-4xl text-white mb-4">video</p>
+            <p className="mb-4 text-4xl text-white">video</p>
 
             <p className="sm:text-xl text-white sm:w-[408px] mb-8">
               {`to join the waitlist and earn CBG, you'll have to make a video
