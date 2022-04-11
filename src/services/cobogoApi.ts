@@ -34,7 +34,7 @@ export async function readProfileByReferralCode(referralCode) {
 export async function readProfilesByReferral(referral) {
   try {
     const response = await api.get(
-      `/api/profiles?filters[referral][id][$eq]=${referral}`,
+      `/api/profiles?filters[referral][id][$eq]=${referral}&filters[waitlist][$eq]=true`,
     );
 
     return response.data.data;
