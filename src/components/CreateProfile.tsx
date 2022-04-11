@@ -240,8 +240,8 @@ export default function CreateProfile({
               text="send to review"
               color="bg-blue"
               hoverColor="brightness-90"
-              width="w-40"
-              height="h-9"
+              width="w-[155px]"
+              height="h-[38px]"
               onClick={handleRequest}
               onKeyDown={handleRequest}
             />

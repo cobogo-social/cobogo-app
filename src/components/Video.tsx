@@ -140,8 +140,8 @@ export default function Video({
             </div>
             {videoStatus === 1 && (
               <Button
-                width="w-40"
-                height="h-9"
+                width="w-[131px]"
+                height="h-[38px]"
                 color="bg-blue"
                 hoverColor="brightness-90"
                 text="verify video"
@@ -151,8 +151,8 @@ export default function Video({
 
             {videoStatus === 2 && (
               <Button
-                width="w-40"
-                height="h-9"
+                width="w-[131px]"
+                height="h-[38px]"
                 color="bg-blue"
                 hoverColor="brightness-90"
                 text="verify again"
@@ -162,8 +162,8 @@ export default function Video({
 
             {videoStatus === 3 && (
               <Button
-                width="w-40"
-                height="h-9"
+                width="w-[131px]"
+                height="h-[38px]"
                 color="bg-blue"
                 hoverColor="brightness-90"
                 text="next step"
