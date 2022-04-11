@@ -41,7 +41,7 @@ export default function Index() {
       <PageWrapper>
         <Steps />
 
-        <MobileMenu />
+        <MobileMenu noLogout />
 
         {!haveChannel ? (
           <ChannelNotFound setHaveChannel={handleSetHaveChannel} />

@@ -27,7 +27,7 @@ export default function Index() {
       <PageWrapper>
         <Steps />
 
-        <MobileMenu noSteps />
+        <MobileMenu noSteps noLogout />
 
         <StartSubmission />
 
