@@ -4,7 +4,6 @@ import Button from './Button';
 import ErrorModal from './ErrorModal';
 import Link from './Link';
 import Loading from './Loading';
-import ReferralLinkModal from './ReferralLinkModal';
 
 interface BlankslateBandProps {
   referralCode: string;
@@ -22,21 +21,11 @@ export default function BlankslateBand({
   currentAccount,
 }: BlankslateBandProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-
-  function handleOpenReferralLinkModal() {
-    setIsOpen(true);
-  }
 
   return (
     <>
       <Loading isLoading={isLoading} />
       <ErrorModal isError={isError} setIsError={setIsError} />
-      <ReferralLinkModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        referralCode={referralCode}
-      />
 
       <div className="w-full h-[228px] bg-secondary mb-[50px] flex justify-center items-center">
         <div className="flex flex-col mr-[100px]">
@@ -63,16 +52,26 @@ export default function BlankslateBand({
             and get your own referral link to invite YouTubers
           </p>
 
-          <Button
-            text={currentAccount ? 'view my referral link' : 'connect wallet'}
-            color={currentAccount ? 'bg-gray2' : 'bg-blue'}
-            hoverColor="brightness-90"
-            width={currentAccount ? 'w-[196px]' : 'w-[152px]'}
-            height="h-[38px]"
-            onClick={
-              currentAccount ? handleOpenReferralLinkModal : connectWallet
-            }
-          />
+          {!currentAccount ? (
+            <Button
+              text="connect wallet"
+              color="bg-blue"
+              hoverColor="brightness-90"
+              width="w-[152px]"
+              height="h-[38px]"
+              onClick={connectWallet}
+            />
+          ) : (
+            <Link href="/referral-dashboard">
+              <Button
+                text="view my referral link"
+                color="bg-gray2"
+                hoverColor="brightness-90"
+                width="w-[196px]"
+                height="h-[38px]"
+              />
+            </Link>
+          )}
         </div>
       </div>
     </>

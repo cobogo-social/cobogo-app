@@ -1,39 +1,19 @@
 import Image from 'next/image';
 
-interface BlankslateTopBarProps {
-  onboardedFriends: number;
+interface ReferralDashboardTopBarProps {
   currentAccount: string;
 }
 
-export default function BlankslateTopBar({
-  onboardedFriends,
+export default function ReferralDashboardTopBar({
   currentAccount,
-}: BlankslateTopBarProps) {
+}: ReferralDashboardTopBarProps) {
   return (
     <div className="flex w-full justify-between items-center mb-[70px] px-8 pt-8">
       <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
 
       {currentAccount && (
         <div className="flex items-center justify-center">
-          <p className="mr-8">
-            onboarded friends:{' '}
-            <span className="font-bold text-green">{onboardedFriends}</span>
-          </p>
-
           <div className="flex items-center justify-center">
-            <div className="flex mr-2">
-              <Image
-                src="/images/cbg-icon.svg"
-                width={24}
-                height={21}
-                alt="cbg icon"
-              />
-            </div>
-
-            <p className="flex mr-8 font-bold">
-              {100 + onboardedFriends * 50} CBG
-            </p>
-
             <div className="flex items-center justify-center">
               <Image
                 src="/images/metamask-small-icon.svg"

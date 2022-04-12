@@ -1,21 +1,14 @@
-import {
-  createWallet,
-  readAccountByYoutubeAccountId,
-} from '@services/cobogoApi';
+import { createWallet } from '@services/cobogoApi';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = await getSession({ req });
-  const { wallet } = req.body;
+  const { address } = req.body;
 
   try {
-    const account = await readAccountByYoutubeAccountId(session.user['id']);
-
-    const response = await createWallet(wallet, account);
+    const response = await createWallet(address);
 
     res.status(201).json({ status: 201, data: response });
   } catch (error) {

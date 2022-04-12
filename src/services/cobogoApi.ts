@@ -140,12 +140,11 @@ export async function createAccount(user) {
   }
 }
 
-export async function createWallet(address, account) {
+export async function createWallet(address) {
   try {
     await api.post('/api/wallets', {
       data: {
         address,
-        account: account.id,
       },
     });
   } catch (error) {

@@ -8,13 +8,17 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';
 
-interface ProfileProps {
+interface BlankslateProps {
   title: string;
   banner: string;
   referralCode: string;
 }
 
-export default function Index({ title, banner, referralCode }: ProfileProps) {
+export default function Index({
+  title,
+  banner,
+  referralCode,
+}: BlankslateProps) {
   const [currentAccount, setCurrentAccount] = useState('');
   const [isError, setIsError] = useState(false);
 
