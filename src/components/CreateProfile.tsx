@@ -113,7 +113,7 @@ export default function CreateProfile({
     }
   }
 
-  function validateKeyPressedInDescription(event) {
+  function handleValidateKeyPressedInDescription(event) {
     const keyPressed = event.key;
 
     if (keyPressed === 'Enter') {
@@ -121,7 +121,7 @@ export default function CreateProfile({
     }
   }
 
-  function validateKeyPressedInHandle(event) {
+  function handleValidateKeyPressedInHandle(event) {
     const keyPressed = event.key;
 
     if (
@@ -168,7 +168,7 @@ export default function CreateProfile({
                     : 'border-details'
                 } mb-8 p-2 outline-none`}
                 onChange={formik.handleChange}
-                onKeyPress={validateKeyPressedInDescription}
+                onKeyPress={handleValidateKeyPressedInDescription}
                 value={formik.values.description}
               />
             </div>
@@ -197,7 +197,7 @@ export default function CreateProfile({
                   name="handle"
                   type="text"
                   onChange={formik.handleChange}
-                  onKeyPress={validateKeyPressedInHandle}
+                  onKeyPress={handleValidateKeyPressedInHandle}
                   value={formik.values.handle}
                   className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0 ${
                     (formik.touched.handle && formik.errors.handle) ||

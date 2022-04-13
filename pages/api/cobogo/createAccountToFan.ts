@@ -1,17 +1,17 @@
-import { createWallet, readWalletByAddress } from '@services/cobogoApi';
+import { createAccountToFan, readAccountByName } from '@services/cobogoApi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { address, account } = req.body;
+  const { name } = req.body;
 
   try {
-    const wallet = await readWalletByAddress(address);
+    const account = await readAccountByName(name);
 
-    if (!wallet) {
-      const response = await createWallet(address, account);
+    if (!account) {
+      const response = await createAccountToFan(name);
 
       res.status(201).json({ status: 201, data: response });
     } else {

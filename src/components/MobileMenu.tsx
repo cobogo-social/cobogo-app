@@ -14,12 +14,12 @@ export default function MobileMenu({ noSteps }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
   const { push } = useRouter();
 
-  function setBackAndSetOpen() {
+  function handleSetBackAndSetOpen() {
     setBack(!back);
     setOpen(!open);
   }
 
-  function tryAnotherChannel() {
+  function handleTryAnotherChannel() {
     signOut();
     push('/submit/connect');
   }
@@ -29,7 +29,7 @@ export default function MobileMenu({ noSteps }: MobileMenuProps) {
       <div className="bg-secondary z-20 p-4 w-screen h-[52px] flex justify-between items-center fixed sm:hidden shadow-[0_0px_10px_15px_rgba(0,0,0,0.3)]">
         <div className="flex">
           {!noSteps && (
-            <div className="flex mr-4" onClick={setBackAndSetOpen}>
+            <div className="flex mr-4" onClick={handleSetBackAndSetOpen}>
               <Image
                 src={back ? '/images/back-icon.svg' : '/images/next-icon.svg'}
                 width={28}
@@ -47,11 +47,11 @@ export default function MobileMenu({ noSteps }: MobileMenuProps) {
           />
         </div>
 
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           {!noSteps && (
             <button
-              onClick={tryAnotherChannel}
-              className="text-blue font-bold hover:cursor-pointer mr-4"
+              onClick={handleTryAnotherChannel}
+              className="mr-4 font-bold text-blue hover:cursor-pointer"
             >
               try another account
             </button>

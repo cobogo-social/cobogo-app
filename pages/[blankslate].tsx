@@ -39,18 +39,14 @@ export default function Index({
 
       setCurrentAccount(address);
 
-      const readWalletByAddress = await axios.get(
-        '/api/cobogo/readWalletByAddress',
-        {
-          params: {
-            address,
-          },
-        },
-      );
+      const createAccount = await axios.post('/api/cobogo/createAccountToFan', {
+        name: address,
+      });
 
-      if (!readWalletByAddress.data.data) {
+      if (createAccount.data.data) {
         await axios.post('/api/cobogo/createWallet', {
           address,
+          account: createAccount.data.data.id,
         });
       }
     } catch (error) {

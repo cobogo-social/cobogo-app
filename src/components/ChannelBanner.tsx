@@ -19,7 +19,7 @@ export default function ChannelBanner({
   const { push } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  function tryAnotherChannel() {
+  function handleTryAnotherChannel() {
     setIsLoading(true);
     signOut();
     push('/submit/connect');
@@ -45,7 +45,7 @@ export default function ChannelBanner({
         <p className="px-4">{description.slice(0, 210)}(...)</p>
 
         <button
-          onClick={tryAnotherChannel}
+          onClick={handleTryAnotherChannel}
           className="px-4 font-bold text-blue hover:cursor-pointer"
         >
           try another account
