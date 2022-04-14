@@ -66,7 +66,7 @@ export default function Index({
         setCurrentAccount(account);
       }
     } catch (error) {
-      console.log(error);
+      setIsError(true);
     }
   }, []);
 

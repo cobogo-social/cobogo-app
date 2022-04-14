@@ -5,13 +5,14 @@ module.exports = {
   ],
   theme: {
     colors: {
-      black: '#000000',
       primary: '#121212',
       secondary: '#242424',
-      details: '#3F3F3F',
+      black: '#000000',
       gray: '#333333',
       gray2: '#666666',
       gray3: '#CCCCCC',
+      gray4: '#1D1D1D',
+      gray5: '#2F2F2F',
       white: '#FFFFFF',
       purple: '#514E7F',
       blue: '#4FB9E3',

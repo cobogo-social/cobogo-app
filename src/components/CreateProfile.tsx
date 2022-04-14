@@ -165,7 +165,7 @@ export default function CreateProfile({
                 className={`w-full sm:w-[432px] h-32 bg-black border-[1.5px] ${
                   formik.touched.description && formik.errors.description
                     ? 'border-red'
-                    : 'border-details'
+                    : 'border-gray5'
                 } mb-8 p-2 outline-none`}
                 onChange={formik.handleChange}
                 onKeyPress={handleValidateKeyPressedInDescription}
@@ -182,7 +182,7 @@ export default function CreateProfile({
             </p>
 
             <div className="flex">
-              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
+              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-gray5">
                 <p className="font-bold">app.cobogo.social/</p>
               </div>
 
@@ -203,7 +203,7 @@ export default function CreateProfile({
                     (formik.touched.handle && formik.errors.handle) ||
                     handleError
                       ? 'border-red'
-                      : 'border-details'
+                      : 'border-gray5'
                   } mb-8 p-2 outline-none`}
                 />
               </div>
@@ -212,7 +212,7 @@ export default function CreateProfile({
             <p className="mb-4 text-lg">choose categories</p>
 
             <div className="flex">
-              <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-details flex justify-center items-center">
+              <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-gray5 flex justify-center items-center">
                 <Image
                   src="/images/search-icon.svg"
                   width={19}

@@ -15,7 +15,7 @@ export default function BlankslateChannelBanner({
     <div
       className={`bg-black sm:w-[680px] ${
         banner && 'h-[498px]'
-      } border-[1.5px] border-details mb-[50px] relative`}
+      } border-[1.5px] border-gray5 mb-[50px] relative`}
     >
       {banner ? (
         <Image

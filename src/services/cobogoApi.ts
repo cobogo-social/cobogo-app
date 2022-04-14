@@ -74,7 +74,9 @@ export async function readAccountByYoutubeAccountId(youtubeAccountId) {
 
 export async function readAccountByName(name) {
   try {
-    const response = await api.get(`/api/accounts?filters[name][$eq]=${name}`);
+    const response = await api.get(
+      `/api/accounts?populate=*&filters[name][$eq]=${name}`,
+    );
 
     return response.data.data[0] ? response.data.data[0] : null;
   } catch (error) {
@@ -141,6 +143,22 @@ export async function readChannelByProfile(profile) {
     );
 
     return response.data.data[0];
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response.data);
+    } else {
+      console.log(error);
+    }
+  }
+}
+
+export async function readProfileById(id) {
+  try {
+    const response = await api.get(
+      `/api/profiles?populate=*&filters[id][$eq]=${id}`,
+    );
+
+    return response.data.data[0] ? response.data.data[0] : null;
   } catch (error) {
     if (error.response) {
       console.log(error.response.data);

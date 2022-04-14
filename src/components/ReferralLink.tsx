@@ -16,10 +16,10 @@ export default function ReferralLink({ referralCode }: ReferralLinkProps) {
 
   return (
     <div className="justify-center hidden mb-8 sm:flex">
-      <div className="px-4 h-[90px] bg-secondary flex justify-center items-center border-[1.5px] border-details">
+      <div className="px-4 h-[90px] bg-gray4 flex justify-center items-center">
         <p className="mr-2 text-xs font-bold">your referral link</p>
 
-        <div className="px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] border-r-0 border-details">
+        <div className="px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] border-r-0 border-gray5">
           <p className="text-xs font-bold text-blue sm:text-sm">
             app.cobogo.social/submit?ref={referralCode}
           </p>
@@ -27,7 +27,7 @@ export default function ReferralLink({ referralCode }: ReferralLinkProps) {
 
         <div
           onClick={handleSetCopy}
-          className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-details outline-none flex justify-center items-center"
+          className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-gray5 outline-none flex justify-center items-center"
         >
           <CopyToClipboard
             text={`https://app.cobogo.social/submit?ref=${referralCode}`}

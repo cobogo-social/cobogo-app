@@ -128,7 +128,7 @@ export default function Footer() {
 
         <a
           href="https://docs.cobogo.social/overview/what-is-cobogo"
-          className="flex justify-center items-center h-full bg-secondary w-[148px]"
+          className="flex justify-center items-center h-full bg-gray4 w-[148px]"
           target="_blank"
           rel="noopener noreferrer"
         >
