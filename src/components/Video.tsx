@@ -51,6 +51,7 @@ export default function Video({
   }
 
   function handlePushToNextStep() {
+    setIsLoading(true);
     push('/submit/invite');
   }
 

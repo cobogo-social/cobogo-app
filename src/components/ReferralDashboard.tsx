@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import ErrorModal from './ErrorModal';
 import Loading from './Loading';
 import ReferralDashboardBand from './ReferralDashboardBand';
-import ReferralLink from './ReferralLink';
+import ReferralDashboardReferralLink from './ReferralDashboardReferralLink';
 
 interface ReferralDashboardProps {
   currentAccount: string;
@@ -40,18 +40,22 @@ export default function ReferralDashboard({
           );
           setReferralCode(response.data.data.attributes.referral_code);
 
-          profiles.forEach(async (profile) => {
-            await axios
-              .get('/api/cobogo/readProfileById', {
-                params: {
-                  id: profile.id,
-                },
-              })
-              .then((channel) => {
-                setChannels((c) => [...c, channel.data.data.attributes]);
-                setIsLoading(false);
-              });
-          });
+          if (profiles.length) {
+            profiles.forEach(async (profile) => {
+              await axios
+                .get('/api/cobogo/readProfileById', {
+                  params: {
+                    id: profile.id,
+                  },
+                })
+                .then((channel) => {
+                  setChannels((c) => [...c, channel.data.data.attributes]);
+                  setIsLoading(false);
+                });
+            });
+          } else {
+            setIsLoading(false);
+          }
         });
     } else {
       setIsLoading(false);
@@ -76,7 +80,10 @@ export default function ReferralDashboard({
             your referral link!
           </p>
 
-          <ReferralLink referralCode={referralCode} />
+          <ReferralDashboardReferralLink
+            referralCode={referralCode}
+            currentAccount={currentAccount}
+          />
 
           <p className="mb-[80px] sm:text-lg">
             <a
@@ -94,6 +101,7 @@ export default function ReferralDashboard({
         <ReferralDashboardBand
           onboardedFriends={onboardedFriends}
           channels={channels}
+          currentAccount={currentAccount}
         />
       </div>
     </>

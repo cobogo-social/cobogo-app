@@ -16,17 +16,19 @@ export default function ReferralDashboardTopBar({
       <div className="flex items-center justify-center">
         <div className="flex items-center justify-center">
           <div className="flex items-center justify-center">
-            <Image
-              src="/images/metamask-small-icon.svg"
-              width={32}
-              height={32}
-              alt="metamask small icon"
-            />
-
             {currentAccount ? (
-              <p className="flex ml-2 font-bold">
-                {currentAccount.slice(0, 5)}...{currentAccount.slice(38)}
-              </p>
+              <>
+                <Image
+                  src="/images/metamask-small-icon.svg"
+                  width={32}
+                  height={32}
+                  alt="metamask small icon"
+                />
+
+                <p className="flex ml-2 font-bold">
+                  {currentAccount.slice(0, 5)}...{currentAccount.slice(38)}
+                </p>
+              </>
             ) : (
               <button onClick={connectWallet} className="flex ml-2 font-bold">
                 connect wallet
