@@ -8,17 +8,15 @@ interface ReferralDashboardBandProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   channels: any[];
   currentAccount: string;
+  tokens: number;
 }
 
 export default function ReferralDashboardBand({
   onboardedFriends,
   channels,
   currentAccount,
+  tokens,
 }: ReferralDashboardBandProps) {
-  useEffect(() => {
-    console.log(channels);
-  }, [channels]);
-
   return (
     <div className="w-full min-h-[455px] bg-secondary flex flex-col justify-start items-start px-[204px] pt-[85px]">
       <div className="flex items-center justify-between w-full mb-[31px]">
@@ -42,7 +40,7 @@ export default function ReferralDashboardBand({
               />
             </div>
 
-            <p className="font-bold">{100 + onboardedFriends * 50} CBG</p>
+            <p className="font-bold">{tokens} CBG</p>
           </div>
         )}
       </div>

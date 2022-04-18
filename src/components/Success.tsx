@@ -15,6 +15,7 @@ interface SuccessProps {
   title: string;
   description: string;
   onboardedFriends: number;
+  tokens: number;
 }
 
 export default function Success({
@@ -22,6 +23,7 @@ export default function Success({
   title,
   description,
   onboardedFriends,
+  tokens,
 }: SuccessProps) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,7 +32,7 @@ export default function Success({
       <Loading isLoading={isLoading} />
 
       <StepContainer>
-        <StatsTopBar onboardedFriends={onboardedFriends} />
+        <StatsTopBar onboardedFriends={onboardedFriends} tokens={tokens} />
 
         <StepWrapper>
           <div className="flex flex-col mb-8">

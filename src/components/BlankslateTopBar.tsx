@@ -3,11 +3,13 @@ import Image from 'next/image';
 interface BlankslateTopBarProps {
   onboardedFriends: number;
   currentAccount: string;
+  tokens: number;
 }
 
 export default function BlankslateTopBar({
   onboardedFriends,
   currentAccount,
+  tokens,
 }: BlankslateTopBarProps) {
   return (
     <div className="flex w-full justify-between items-center mb-[70px] px-8 pt-8">
@@ -30,9 +32,7 @@ export default function BlankslateTopBar({
               />
             </div>
 
-            <p className="flex mr-8 font-bold">
-              {100 + onboardedFriends * 50} CBG
-            </p>
+            <p className="flex mr-8 font-bold">{tokens} CBG</p>
 
             <div className="flex items-center justify-center">
               <Image

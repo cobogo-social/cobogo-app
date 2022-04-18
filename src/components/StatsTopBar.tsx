@@ -2,9 +2,13 @@ import Image from 'next/image';
 
 interface StatsTopBarProps {
   onboardedFriends: number;
+  tokens: number;
 }
 
-export default function StatsTopBar({ onboardedFriends }: StatsTopBarProps) {
+export default function StatsTopBar({
+  onboardedFriends,
+  tokens,
+}: StatsTopBarProps) {
   return (
     <div className="hidden sm:flex w-full justify-end items-center mb-[70px]">
       <p className="mr-8">
@@ -22,7 +26,7 @@ export default function StatsTopBar({ onboardedFriends }: StatsTopBarProps) {
           />
         </div>
 
-        <p className="font-bold">{100 + onboardedFriends * 50} CBG</p>
+        <p className="font-bold">{tokens} CBG</p>
       </div>
     </div>
   );

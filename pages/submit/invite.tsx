@@ -21,6 +21,7 @@ interface InviteProps {
   description: string;
   referralCode: string;
   onboardedFriends: number;
+  tokens: number;
 }
 
 export default function Index({
@@ -29,6 +30,7 @@ export default function Index({
   description,
   referralCode,
   onboardedFriends,
+  tokens,
 }: InviteProps) {
   const { data: session } = useSession();
 
@@ -55,6 +57,7 @@ export default function Index({
           description={description}
           referralCode={referralCode}
           onboardedFriends={onboardedFriends}
+          tokens={tokens}
         />
 
         <Footer />
@@ -121,6 +124,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       description: youtubeChannel ? youtubeChannel.snippet.description : '',
       referralCode: profile.attributes.account.data.attributes.referral_code,
       onboardedFriends: onboardedFriends.length,
+      tokens: account.attributes.tokens,
     },
   };
 };

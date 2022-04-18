@@ -16,6 +16,7 @@ interface InviteProps {
   description: string;
   referralCode: string;
   onboardedFriends: number;
+  tokens: number;
 }
 
 export default function Invite({
@@ -24,6 +25,7 @@ export default function Invite({
   description,
   referralCode,
   onboardedFriends,
+  tokens,
 }: InviteProps) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,7 +34,7 @@ export default function Invite({
       <Loading isLoading={isLoading} />
 
       <StepContainer>
-        <StatsTopBar onboardedFriends={onboardedFriends} />
+        <StatsTopBar onboardedFriends={onboardedFriends} tokens={tokens} />
 
         <StepWrapper>
           <div className="flex flex-col">

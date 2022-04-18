@@ -343,3 +343,19 @@ export async function updateWaitlistProfile(profile) {
     }
   }
 }
+
+export async function updateTokensAccount(account, tokens) {
+  try {
+    await api.put(`/api/accounts/${account.id}`, {
+      data: {
+        tokens: account.attributes.tokens + tokens,
+      },
+    });
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response.data);
+    } else {
+      console.log(error);
+    }
+  }
+}

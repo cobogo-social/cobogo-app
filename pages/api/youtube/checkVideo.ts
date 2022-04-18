@@ -3,6 +3,7 @@ import {
   readAccountByYoutubeAccountId,
   readChannelByAccount,
   readProfileByChannel,
+  updateTokensAccount,
   updateWaitlistProfile,
 } from '@services/cobogoApi';
 import {
@@ -52,6 +53,11 @@ export default async function handler(
       if (validVideo !== null) {
         if (await createVideo(validVideo, account, channel, profile)) {
           await updateWaitlistProfile(profile);
+          await updateTokensAccount(account, 100);
+
+          if (profile.attributes.referral.data) {
+            await updateTokensAccount(profile.attributes.referral.data, 50);
+          }
 
           res.status(200).json({ status: 200, data: { validVideo: 1 } });
         } else {

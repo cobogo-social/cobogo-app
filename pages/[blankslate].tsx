@@ -2,7 +2,11 @@ import Blankslate from '@components/Blankslate';
 import BlankslateTopBar from '@components/BlankslateTopBar';
 import BlankslateWrapper from '@components/BlankslateWrapper';
 import Footer from '@components/Footer';
-import { readChannelByProfile, readProfileByHandle } from '@services/cobogoApi';
+import {
+  readAccountByReferralCode,
+  readChannelByProfile,
+  readProfileByHandle,
+} from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
@@ -12,12 +16,14 @@ interface BlankslateProps {
   title: string;
   banner: string;
   referralCode: string;
+  tokens: number;
 }
 
 export default function Index({
   title,
   banner,
   referralCode,
+  tokens,
 }: BlankslateProps) {
   const [currentAccount, setCurrentAccount] = useState('');
   const [isError, setIsError] = useState(false);
@@ -84,6 +90,7 @@ export default function Index({
         <BlankslateTopBar
           onboardedFriends={0}
           currentAccount={currentAccount}
+          tokens={tokens}
         />
 
         <Blankslate
@@ -118,11 +125,16 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   const channel = await readChannelByProfile(profile);
 
+  const referralCode = profile.attributes.account.data.attributes.referral_code;
+
+  const account = await readAccountByReferralCode(referralCode);
+
   return {
     props: {
       title: channel.attributes.title,
       banner: channel.attributes.banner ? channel.attributes.banner : null,
-      referralCode: profile.attributes.account.data.attributes.referral_code,
+      referralCode,
+      tokens: account.attributes.tokens,
     },
   };
 };

@@ -20,6 +20,7 @@ interface SuccessProps {
   title: string;
   description: string;
   onboardedFriends: number;
+  tokens: number;
 }
 
 export default function Index({
@@ -27,6 +28,7 @@ export default function Index({
   title,
   description,
   onboardedFriends,
+  tokens,
 }: SuccessProps) {
   const { data: session } = useSession();
 
@@ -52,6 +54,7 @@ export default function Index({
           title={title}
           description={description}
           onboardedFriends={onboardedFriends}
+          tokens={tokens}
         />
 
         <Footer />
@@ -118,6 +121,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       description: youtubeChannel ? youtubeChannel.snippet.description : '',
       referralCode: profile.attributes.account.data.attributes.referral_code,
       onboardedFriends: onboardedFriends.length,
+      tokens: account.attributes.tokens,
     },
   };
 };

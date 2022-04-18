@@ -19,6 +19,7 @@ export default function ReferralDashboard({
 }: ReferralDashboardProps) {
   const [onboardedFriends, setOnboardedFriends] = useState(0);
   const [referralCode, setReferralCode] = useState('');
+  const [tokens, setTokens] = useState(0);
   const [channels, setChannels] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,6 +40,7 @@ export default function ReferralDashboard({
             response.data.data.attributes.profiles.data.length,
           );
           setReferralCode(response.data.data.attributes.referral_code);
+          setTokens(response.data.data.attributes.tokens);
 
           if (profiles.length) {
             profiles.forEach(async (profile) => {
@@ -102,6 +104,7 @@ export default function ReferralDashboard({
           onboardedFriends={onboardedFriends}
           channels={channels}
           currentAccount={currentAccount}
+          tokens={tokens}
         />
       </div>
     </>
