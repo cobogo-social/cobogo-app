@@ -28,16 +28,14 @@ export default function ReferralDashboard({
 
     if (currentAccount) {
       await axios
-        .get('/api/cobogo/readAccountByName', {
+        .get('/api/cobogo/readAccountByNameOrYoutubeAccountId', {
           params: {
             name: currentAccount,
           },
         })
         .then((response) => {
           if (response.data.data) {
-            const profiles = response.data.data
-              ? response.data.data.attributes.profiles.data
-              : [];
+            const profiles = response.data.data.attributes.profiles.data;
 
             setOnboardedFriends(
               response.data.data.attributes.profiles.data.length,

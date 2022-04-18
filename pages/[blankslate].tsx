@@ -76,12 +76,11 @@ export default function Index({
       if (accounts.length !== 0) {
         const account = accounts[0];
         setCurrentAccount(account);
-        push('/referral-dashboard');
       }
     } catch (error) {
       setIsError(true);
     }
-  }, [push]);
+  }, []);
 
   useEffect(() => {
     checkIfWalletIsConnected();

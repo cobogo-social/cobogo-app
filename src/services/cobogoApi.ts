@@ -59,7 +59,7 @@ export async function readProfilesByReferral(referral) {
 export async function readAccountByYoutubeAccountId(youtubeAccountId) {
   try {
     const response = await api.get(
-      `/api/accounts?filters[youtube_account_id][$eq]=${youtubeAccountId}`,
+      `/api/accounts?populate=*&filters[youtube_account_id][$eq]=${youtubeAccountId}`,
     );
 
     return response.data.data[0];

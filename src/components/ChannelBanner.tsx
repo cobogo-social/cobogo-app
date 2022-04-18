@@ -40,7 +40,7 @@ export default function ChannelBanner({
           />
         ) : null}
 
-        <p className="px-4 mt-6 text-xl font-bold">{title}</p>
+        <p className="px-4 mt-6 text-xl">{title}</p>
 
         <p className="px-4">{description.slice(0, 210)}(...)</p>
 

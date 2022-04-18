@@ -1,5 +1,4 @@
 import {
-  createAccountToFan,
   readAccountByName,
   readAccountByYoutubeAccountId,
 } from '@services/cobogoApi';
@@ -10,20 +9,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { name } = req.body;
+  const { name } = req.query;
   const session = await getSession({ req });
 
   try {
     if (!session?.user) {
-      const account = await readAccountByName(name);
+      const response = await readAccountByName(name);
 
-      if (!account) {
-        const response = await createAccountToFan(name);
-
-        res.status(201).json({ status: 201, data: response });
-      } else {
-        res.status(200).json({ status: 200 });
-      }
+      res.status(200).json({ status: 200, data: response });
     } else {
       const response = await readAccountByYoutubeAccountId(session.user['id']);
 
