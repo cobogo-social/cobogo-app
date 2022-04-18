@@ -34,27 +34,33 @@ export default function ReferralDashboard({
           },
         })
         .then((response) => {
-          const profiles = response.data.data.attributes.profiles.data;
+          if (response.data.data) {
+            const profiles = response.data.data
+              ? response.data.data.attributes.profiles.data
+              : [];
 
-          setOnboardedFriends(
-            response.data.data.attributes.profiles.data.length,
-          );
-          setReferralCode(response.data.data.attributes.referral_code);
-          setTokens(response.data.data.attributes.tokens);
+            setOnboardedFriends(
+              response.data.data.attributes.profiles.data.length,
+            );
+            setReferralCode(response.data.data.attributes.referral_code);
+            setTokens(response.data.data.attributes.tokens);
 
-          if (profiles.length) {
-            profiles.forEach(async (profile) => {
-              await axios
-                .get('/api/cobogo/readProfileById', {
-                  params: {
-                    id: profile.id,
-                  },
-                })
-                .then((channel) => {
-                  setChannels((c) => [...c, channel.data.data.attributes]);
-                  setIsLoading(false);
-                });
-            });
+            if (profiles.length) {
+              profiles.forEach(async (profile) => {
+                await axios
+                  .get('/api/cobogo/readProfileById', {
+                    params: {
+                      id: profile.id,
+                    },
+                  })
+                  .then((channel) => {
+                    setChannels((c) => [...c, channel.data.data.attributes]);
+                    setIsLoading(false);
+                  });
+              });
+            } else {
+              setIsLoading(false);
+            }
           } else {
             setIsLoading(false);
           }

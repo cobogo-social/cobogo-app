@@ -10,6 +10,7 @@ import {
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
 interface BlankslateProps {
@@ -27,6 +28,7 @@ export default function Index({
 }: BlankslateProps) {
   const [currentAccount, setCurrentAccount] = useState('');
   const [isError, setIsError] = useState(false);
+  const { push } = useRouter();
 
   async function handleConnectWallet() {
     try {
@@ -54,6 +56,10 @@ export default function Index({
           address,
           account: createAccount.data.data.id,
         });
+
+        push('/referral-dashboard');
+      } else {
+        push('/referral-dashboard');
       }
     } catch (error) {
       setIsError(true);
@@ -70,11 +76,12 @@ export default function Index({
       if (accounts.length !== 0) {
         const account = accounts[0];
         setCurrentAccount(account);
+        push('/referral-dashboard');
       }
     } catch (error) {
       setIsError(true);
     }
-  }, []);
+  }, [push]);
 
   useEffect(() => {
     checkIfWalletIsConnected();
