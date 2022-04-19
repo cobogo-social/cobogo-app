@@ -96,8 +96,12 @@ export default function CreateProfile({
       }
 
       if (input) {
-        setCategoriesList([...categoriesList, input]);
-        setInput('');
+        const isDuplicated = categoriesList.filter((c) => c === input);
+
+        if (isDuplicated.length === 0) {
+          setCategoriesList([...categoriesList, input]);
+          setInput('');
+        }
       }
     }
   }
@@ -235,8 +239,8 @@ export default function CreateProfile({
               text="send to review"
               color="bg-blue"
               hoverColor="brightness-90"
-              width="w-40"
-              height="h-9"
+              width="w-[155px]"
+              height="h-[38px]"
               onClick={handleRequest}
               onKeyDown={handleRequest}
             />

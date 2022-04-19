@@ -6,9 +6,10 @@ import { useState } from 'react';
 
 interface MobileMenuProps {
   noSteps?: boolean;
+  noLogout?: boolean;
 }
 
-export default function MobileMenu({ noSteps }: MobileMenuProps) {
+export default function MobileMenu({ noSteps, noLogout }: MobileMenuProps) {
   const [back, setBack] = useState(false);
   const [open, setOpen] = useState(false);
   const { push } = useRouter();
@@ -18,7 +19,7 @@ export default function MobileMenu({ noSteps }: MobileMenuProps) {
     setOpen(!open);
   }
 
-  function handleTryAnotherChannel() {
+  function handleLogout() {
     signOut();
     push('/submit/connect');
   }
@@ -47,12 +48,12 @@ export default function MobileMenu({ noSteps }: MobileMenuProps) {
         </div>
 
         <div className="flex items-center justify-center">
-          {!noSteps && (
+          {!noLogout && (
             <button
-              onClick={handleTryAnotherChannel}
+              onClick={handleLogout}
               className="mr-4 font-bold text-blue hover:cursor-pointer"
             >
-              try another account
+              logout
             </button>
           )}
 

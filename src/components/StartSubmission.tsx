@@ -45,7 +45,7 @@ export default function StartSubmission() {
 
           <div className="flex flex-col items-center justify-center sm:flex-row">
             <a
-              href="https://docs.cobogo.social"
+              href="https://docs.cobogo.social/overview/getting-started"
               className="font-bold text-blue sm:mr-8"
               target="_blank"
               rel="noopener noreferrer"
