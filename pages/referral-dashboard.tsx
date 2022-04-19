@@ -1,7 +1,7 @@
-import ReferralDashboardContainer from '@components/containers/ReferralDashboardContainer';
+import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import Footer from '@components/Footer';
 import ReferralDashboard from '@components/ReferralDashboard';
-import ReferralDashboardTopBar from '@components/topbars/ReferralDashboardTopBar';
+import ReferralDashboardTopBar from '@components/ReferralDashboardTopBar';
 import axios from 'axios';
 import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';

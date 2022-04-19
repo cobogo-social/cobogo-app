@@ -1,4 +1,4 @@
-import ReferralLink from '@components/referrallinks/ReferralLink';
+import ReferralLink from '@components/ReferralLink';
 import Image from 'next/image';
 
 interface ReferralLinkModalProps {

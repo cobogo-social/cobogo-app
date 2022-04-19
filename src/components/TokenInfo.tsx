@@ -1,4 +1,4 @@
-import TokenInfoModal from '@components/modals/TokenInfoModal';
+import TokenInfoModal from '@components/TokenInfoModal';
 import Image from 'next/image';
 import { useState } from 'react';
 

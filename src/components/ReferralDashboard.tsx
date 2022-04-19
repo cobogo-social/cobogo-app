@@ -1,7 +1,7 @@
-import ReferralDashboardBand from '@components/bands/ReferralDashboardBand';
-import ErrorModal from '@components/modals/ErrorModal';
-import Loading from '@components/others/Loading';
-import ReferralDashboardReferralLink from '@components/referrallinks/ReferralDashboardReferralLink';
+import ReferralDashboardBand from '@components/ReferralDashboardBand';
+import ErrorModal from '@components/ErrorModal';
+import Loading from '@components/Loading';
+import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 

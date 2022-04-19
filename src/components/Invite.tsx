@@ -1,12 +1,12 @@
-import ChannelBox from '@components/channelboxes/ChannelBox';
-import StepContainer from '@components/containers/StepContainer';
-import StepSubContainer from '@components/containers/StepSubContainer';
-import Link from '@components/others/Link';
-import Loading from '@components/others/Loading';
-import ShareLinks from '@components/others/ShareLinks';
-import MobileReferralLink from '@components/referrallinks/MobileReferralLink';
-import ReferralLink from '@components/referrallinks/ReferralLink';
-import StatsTopBar from '@components/topbars/StatsTopBar';
+import ChannelBox from '@components/ChannelBox';
+import StepContainer from '@components/StepContainer';
+import StepSubContainer from '@components/StepSubContainer';
+import Link from '@components/Link';
+import Loading from '@components/Loading';
+import ShareLinks from '@components/ShareLinks';
+import MobileReferralLink from '@components/MobileReferralLink';
+import ReferralLink from '@components/ReferralLink';
+import StatsTopBar from '@components/StatsTopBar';
 import { useState } from 'react';
 
 interface InviteProps {

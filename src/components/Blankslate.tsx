@@ -1,5 +1,5 @@
-import BlankslateBand from '@components/bands/BlankslateBand';
-import BlankslateChannelBox from '@components/channelboxes/BlankslateChannelBox';
+import BlankslateBand from '@components/BlankslateBand';
+import BlankslateChannelBox from '@components/BlankslateChannelBox';
 
 interface BlankslateProps {
   banner: string;

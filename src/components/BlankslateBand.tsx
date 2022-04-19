@@ -1,7 +1,7 @@
-import Button from '@components/buttons/Button';
-import ErrorModal from '@components/modals/ErrorModal';
-import Link from '@components/others/Link';
-import Loading from '@components/others/Loading';
+import Button from '@components/Button';
+import ErrorModal from '@components/ErrorModal';
+import Link from '@components/Link';
+import Loading from '@components/Loading';
 import { useState } from 'react';
 
 interface BlankslateBandProps {

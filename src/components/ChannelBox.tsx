@@ -1,4 +1,4 @@
-import Loading from '@components/others/Loading';
+import Loading from '@components/Loading';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';

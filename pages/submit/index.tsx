@@ -1,7 +1,7 @@
-import PageContainer from '@components/containers/PageContainer';
+import PageContainer from '@components/PageContainer';
 import Footer from '@components/Footer';
-import MobileMenu from '@components/menus/MobileMenu';
-import StepsMenu from '@components/menus/StepsMenu';
+import MobileMenu from '@components/MobileMenu';
+import StepsMenu from '@components/StepsMenu';
 import StartSubmission from '@components/StartSubmission';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';

@@ -1,4 +1,4 @@
-import TokenInfo from '@components/others/TokenInfo';
+import TokenInfo from '@components/TokenInfo';
 
 interface StatsTopBarProps {
   onboardedFriends: number;

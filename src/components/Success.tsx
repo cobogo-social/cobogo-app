@@ -1,11 +1,11 @@
-import ChannelBox from '@components/channelboxes/ChannelBox';
-import StepContainer from '@components/containers/StepContainer';
-import StepSubContainer from '@components/containers/StepSubContainer';
-import JoinChannel from '@components/others/JoinChannel';
-import Link from '@components/others/Link';
-import Loading from '@components/others/Loading';
-import YouWillBeNotified from '@components/others/YouWillBeNotified';
-import StatsTopBar from '@components/topbars/StatsTopBar';
+import ChannelBox from '@components/ChannelBox';
+import StepContainer from '@components/StepContainer';
+import StepSubContainer from '@components/StepSubContainer';
+import JoinChannel from '@components/JoinChannel';
+import Link from '@components/Link';
+import Loading from '@components/Loading';
+import YouWillBeNotified from '@components/YouWillBeNotified';
+import StatsTopBar from '@components/StatsTopBar';
 import Image from 'next/image';
 import { useState } from 'react';
 

@@ -1,9 +1,9 @@
-import Button from '@components/buttons/Button';
-import StepContainer from '@components/containers/StepContainer';
-import JoinOurWaitlist from '@components/others/JoinOurWaitlist';
-import Link from '@components/others/Link';
-import Loading from '@components/others/Loading';
-import TopBar from '@components/topbars/TopBar';
+import Button from '@components/Button';
+import StepContainer from '@components/StepContainer';
+import JoinOurWaitlist from '@components/JoinOurWaitlist';
+import Link from '@components/Link';
+import Loading from '@components/Loading';
+import TopBar from '@components/TopBar';
 import { useState } from 'react';
 
 export default function StartSubmission() {

@@ -1,4 +1,4 @@
-import Badge from '@components/others/Badge';
+import Badge from '@components/Badge';
 import Image from 'next/image';
 
 interface BlankslateChannelBoxProps {

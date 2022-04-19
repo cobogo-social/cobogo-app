@@ -1,4 +1,4 @@
-import TokenInfo from '@components/others/TokenInfo';
+import TokenInfo from '@components/TokenInfo';
 import Image from 'next/image';
 
 interface BlankslateTopBarProps {

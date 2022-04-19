@@ -1,4 +1,4 @@
-import StepItem from '@components/stepitems/StepItem';
+import StepItem from '@components/StepItem';
 import Image from 'next/image';
 
 export default function StepsMenu() {

@@ -1,8 +1,8 @@
-import PageContainer from '@components/containers/PageContainer';
+import PageContainer from '@components/PageContainer';
 import CreateProfile from '@components/CreateProfile';
 import Footer from '@components/Footer';
-import MobileMenu from '@components/menus/MobileMenu';
-import StepsMenu from '@components/menus/StepsMenu';
+import MobileMenu from '@components/MobileMenu';
+import StepsMenu from '@components/StepsMenu';
 import {
   readAccountByYoutubeAccountId,
   readChannelByAccount,

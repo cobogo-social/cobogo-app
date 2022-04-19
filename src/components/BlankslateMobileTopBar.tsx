@@ -1,4 +1,4 @@
-import TokenInfo from '@components/others/TokenInfo';
+import TokenInfo from '@components/TokenInfo';
 import axios from 'axios';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';

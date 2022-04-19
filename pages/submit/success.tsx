@@ -1,7 +1,7 @@
-import PageContainer from '@components/containers/PageContainer';
+import PageContainer from '@components/PageContainer';
 import Footer from '@components/Footer';
-import MobileMenu from '@components/menus/MobileMenu';
-import StepsMenu from '@components/menus/StepsMenu';
+import MobileMenu from '@components/MobileMenu';
+import StepsMenu from '@components/StepsMenu';
 import Success from '@components/Success';
 import {
   readAccountByYoutubeAccountId,

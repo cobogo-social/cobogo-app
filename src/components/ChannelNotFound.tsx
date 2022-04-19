@@ -1,5 +1,5 @@
-import StepContainer from '@components/containers/StepContainer';
-import TopBar from '@components/topbars/TopBar';
+import StepContainer from '@components/StepContainer';
+import TopBar from '@components/TopBar';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 

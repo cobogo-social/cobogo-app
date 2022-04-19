@@ -1,9 +1,9 @@
 import ChannelNotFound from '@components/ChannelNotFound';
 import Connect from '@components/Connect';
-import PageContainer from '@components/containers/PageContainer';
+import PageContainer from '@components/PageContainer';
 import Footer from '@components/Footer';
-import MobileMenu from '@components/menus/MobileMenu';
-import StepsMenu from '@components/menus/StepsMenu';
+import MobileMenu from '@components/MobileMenu';
+import StepsMenu from '@components/StepsMenu';
 import {
   createAccount,
   createChannel,

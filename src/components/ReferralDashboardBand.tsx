@@ -1,5 +1,5 @@
-import ReferralDashboardChannelBox from '@components/channelboxes/ReferralDashboardChannelBox';
-import TokenInfo from '@components/others/TokenInfo';
+import ReferralDashboardChannelBox from '@components/ReferralDashboardChannelBox';
+import TokenInfo from '@components/TokenInfo';
 
 interface ReferralDashboardBandProps {
   onboardedFriends: number;
