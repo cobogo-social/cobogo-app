@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import TokenInfo from '@components/others/TokenInfo';
 
 interface StatsTopBarProps {
   onboardedFriends: number;
@@ -16,18 +16,7 @@ export default function StatsTopBar({
         <span className="font-bold text-green">{onboardedFriends}</span>
       </p>
 
-      <div className="flex">
-        <div className="flex mr-2">
-          <Image
-            src="/images/cbg-icon.svg"
-            width={24}
-            height={21}
-            alt="cbg icon"
-          />
-        </div>
-
-        <p className="font-bold">{tokens} CBG</p>
-      </div>
+      <TokenInfo tokens={tokens} />
     </div>
   );
 }

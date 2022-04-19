@@ -1,3 +1,4 @@
+import TokenInfo from '@components/others/TokenInfo';
 import Image from 'next/image';
 
 interface BlankslateTopBarProps {
@@ -23,16 +24,7 @@ export default function BlankslateTopBar({
           </p>
 
           <div className="flex items-center justify-center">
-            <div className="flex mr-2">
-              <Image
-                src="/images/cbg-icon.svg"
-                width={24}
-                height={21}
-                alt="cbg icon"
-              />
-            </div>
-
-            <p className="flex mr-8 font-bold">{tokens} CBG</p>
+            <TokenInfo tokens={tokens} />
 
             <div className="flex items-center justify-center">
               <Image

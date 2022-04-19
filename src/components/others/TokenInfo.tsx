@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import TokenInfoModal from '@components/modals/TokenInfoModal';
+import Image from 'next/image';
+import { useState } from 'react';
 
 interface TokenInfoProps {
   tokens: number;
@@ -16,9 +17,18 @@ export default function TokenInfo({ tokens }: TokenInfoProps) {
     <>
       <TokenInfoModal isOpen={isOpen} setIsOpen={setIsOpen} />
 
-      <button onClick={openModal} className="flex mr-8 font-bold">
-        {tokens} CBG
-      </button>
+      <div onClick={openModal} className="flex hover:cursor-pointer">
+        <div className="flex mr-2">
+          <Image
+            src="/images/cbg-icon.svg"
+            width={24}
+            height={21}
+            alt="cbg icon"
+          />
+        </div>
+
+        <p className="flex mr-8 font-bold">{tokens} CBG</p>
+      </div>
     </>
   );
 }

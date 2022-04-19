@@ -15,11 +15,11 @@ export default function TokenInfoModal({
 
   return isOpen ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="relative bg-primary w-[605px] h-[244px] flex flex-col justify-center items-center border-[1.5px] border-gray5">
-        <div className="flex flex-col items-start justify-center">
+      <div className="relative bg-primary w-[605px] h-[466px] flex flex-col justify-center items-center border-[1.5px] border-gray5 px-[70px]">
+        <div className="flex flex-col items-center justify-center">
           <div
             onClick={closeModal}
-            className="absolute top-0 right-0 mt-2 mr-2 hover:cursor-pointer"
+            className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
           >
             <Image
               src="/images/x2-icon.svg"
@@ -29,11 +29,25 @@ export default function TokenInfoModal({
             />
           </div>
 
-          <p className="text-red text-[40px]">error</p>
+          <div className="mb-[27px]">
+            <Image
+              src="/images/cbg-icon.svg"
+              width={73}
+              height={65}
+              alt="cbg icon"
+            />
+          </div>
 
-          <p className="text-[22px] max-w-[425px]">
-            the server has encountered an unexpected error.
-          </p>
+          <p className="text-[40px] mb-[18px]">CBG Token</p>
+
+          <div className="flex flex-col items-start justify-center">
+            <p className="text-[20px] mb-[29px]">
+              CBG is the official token of cobogo. The token was not minted yet
+              and is not listed on any exchange.
+            </p>
+
+            <p className="font-bold">initial supply: 100,000,000</p>
+          </div>
         </div>
       </div>
     </div>

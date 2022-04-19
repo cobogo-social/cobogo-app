@@ -1,6 +1,5 @@
 import ReferralDashboardChannelBox from '@components/channelboxes/ReferralDashboardChannelBox';
 import TokenInfo from '@components/others/TokenInfo';
-import Image from 'next/image';
 
 interface ReferralDashboardBandProps {
   onboardedFriends: number;
@@ -28,20 +27,7 @@ export default function ReferralDashboardBand({
           <p className="text-[40px] flex">connect wallet to view information</p>
         )}
 
-        {currentAccount && (
-          <div className="flex">
-            <div className="flex mr-2">
-              <Image
-                src="/images/cbg-icon.svg"
-                width={24}
-                height={21}
-                alt="cbg icon"
-              />
-            </div>
-
-            <TokenInfo tokens={tokens} />
-          </div>
-        )}
+        {currentAccount && <TokenInfo tokens={tokens} />}
       </div>
 
       <div className="flex flex-wrap items-start justify-between w-full mb-[95px]">
