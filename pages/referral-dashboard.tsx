@@ -1,7 +1,7 @@
+import ReferralDashboardContainer from '@components/containers/ReferralDashboardContainer';
 import Footer from '@components/Footer';
 import ReferralDashboard from '@components/ReferralDashboard';
-import ReferralDashboardTopBar from '@components/ReferralDashboardTopBar';
-import ReferralDashboardWrapper from '@components/ReferralDashboardWrapper';
+import ReferralDashboardTopBar from '@components/topbars/ReferralDashboardTopBar';
 import axios from 'axios';
 import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';
@@ -27,9 +27,12 @@ export default function Index() {
 
       setCurrentAccount(address);
 
-      const createAccount = await axios.post('/api/cobogo/createAccountToFan', {
-        name: address,
-      });
+      const createAccount = await axios.post(
+        '/api/cobogo/createAccountToFanOrYoutuber',
+        {
+          name: address,
+        },
+      );
 
       if (createAccount.data.data) {
         await axios.post('/api/cobogo/createWallet', {
@@ -68,7 +71,7 @@ export default function Index() {
         <title>cobogo - referral dashboard</title>
       </Head>
 
-      <ReferralDashboardWrapper>
+      <ReferralDashboardContainer>
         <ReferralDashboardTopBar
           currentAccount={currentAccount}
           connectWallet={handleConnectWallet}
@@ -79,7 +82,7 @@ export default function Index() {
           isError={isError}
           setIsError={setIsError}
         />
-      </ReferralDashboardWrapper>
+      </ReferralDashboardContainer>
 
       <Footer />
     </div>

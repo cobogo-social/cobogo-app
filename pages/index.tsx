@@ -1,8 +1,8 @@
+import PageContainer from '@components/containers/PageContainer';
 import Footer from '@components/Footer';
-import MobileMenu from '@components/MobileMenu';
-import PageWrapper from '@components/PageWrapper';
+import MobileMenu from '@components/menus/MobileMenu';
+import StepsMenu from '@components/menus/StepsMenu';
 import StartSubmission from '@components/StartSubmission';
-import Steps from '@components/Steps';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
@@ -24,15 +24,15 @@ export default function Index() {
         <title>cobogo - submit</title>
       </Head>
 
-      <PageWrapper>
-        <Steps />
+      <PageContainer>
+        <StepsMenu />
 
         <MobileMenu noSteps />
 
         <StartSubmission />
 
         <Footer />
-      </PageWrapper>
+      </PageContainer>
     </div>
   );
 }

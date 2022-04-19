@@ -1,8 +1,7 @@
+import SignInButton from '@components/buttons/SignInButton';
+import StepContainer from '@components/containers/StepContainer';
+import TopBar from '@components/topbars/TopBar';
 import Image from 'next/image';
-
-import SignInButton from './SignInButton';
-import StepContainer from './StepContainer';
-import TopBar from './TopBar';
 
 export default function Connect() {
   return (

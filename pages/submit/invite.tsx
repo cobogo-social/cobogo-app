@@ -1,44 +1,22 @@
+import PageContainer from '@components/containers/PageContainer';
 import Footer from '@components/Footer';
-import Invite from '@components/Invite';
-import MobileMenu from '@components/MobileMenu';
-import PageWrapper from '@components/PageWrapper';
-import Steps from '@components/Steps';
-import {
-  readAccountByYoutubeAccountId,
-  readChannelByAccount,
-  readProfileByChannel,
-  readProfilesByReferral,
-} from '@services/cobogoApi';
-import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
+import MobileMenu from '@components/menus/MobileMenu';
+import StepsMenu from '@components/menus/StepsMenu';
+import StartSubmission from '@components/StartSubmission';
 import { GetServerSideProps } from 'next';
-import { getSession, signIn, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-interface InviteProps {
-  banner: string;
-  title: string;
-  description: string;
-  referralCode: string;
-  onboardedFriends: number;
-  tokens: number;
-}
-
-export default function Index({
-  banner,
-  title,
-  description,
-  referralCode,
-  onboardedFriends,
-  tokens,
-}: InviteProps) {
-  const { data: session } = useSession();
+export default function Index() {
+  const { query } = useRouter();
 
   useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      signIn('google');
+    if (query.ref) {
+      sessionStorage.setItem('queryRef', query.ref as string);
     }
-  }, [session]);
+  }, [query]);
 
   return (
     <div className="w-full">
@@ -46,22 +24,15 @@ export default function Index({
         <title>cobogo - submit</title>
       </Head>
 
-      <PageWrapper>
-        <Steps />
+      <PageContainer>
+        <StepsMenu />
 
-        <MobileMenu />
+        <MobileMenu noSteps />
 
-        <Invite
-          banner={banner}
-          title={title}
-          description={description}
-          referralCode={referralCode}
-          onboardedFriends={onboardedFriends}
-          tokens={tokens}
-        />
+        <StartSubmission />
 
         <Footer />
-      </PageWrapper>
+      </PageContainer>
     </div>
   );
 }
@@ -69,7 +40,7 @@ export default function Index({
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
-  if (!session?.user) {
+  if (session?.user) {
     return {
       redirect: {
         destination: '/submit/connect',
@@ -77,54 +48,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       },
     };
   }
-
-  const account = await readAccountByYoutubeAccountId(session.user['id']);
-  const channel = await readChannelByAccount(account);
-
-  if (!channel) {
-    return {
-      redirect: {
-        destination: '/submit/connect',
-        permanent: false,
-      },
-    };
-  }
-
-  const profile = await readProfileByChannel(channel);
-
-  if (!profile) {
-    return {
-      redirect: {
-        destination: '/submit/create-profile',
-        permanent: false,
-      },
-    };
-  }
-
-  if (!profile.attributes.waitlist) {
-    return {
-      redirect: {
-        destination: '/submit/video',
-        permanent: false,
-      },
-    };
-  }
-
-  const youtubeChannel = await readChannelFromYoutube(session);
-
-  const onboardedFriends = await readProfilesByReferral(profile.id);
 
   return {
-    props: {
-      banner:
-        youtubeChannel && youtubeChannel.brandingSettings.image
-          ? youtubeChannel.brandingSettings.image.bannerExternalUrl
-          : '',
-      title: youtubeChannel ? youtubeChannel.snippet.title : '',
-      description: youtubeChannel ? youtubeChannel.snippet.description : '',
-      referralCode: profile.attributes.account.data.attributes.referral_code,
-      onboardedFriends: onboardedFriends.length,
-      tokens: account.attributes.tokens,
-    },
+    props: {},
   };
 };

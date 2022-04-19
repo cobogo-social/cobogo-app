@@ -1,9 +1,8 @@
+import Button from '@components/buttons/Button';
+import ErrorModal from '@components/modals/ErrorModal';
+import Link from '@components/others/Link';
+import Loading from '@components/others/Loading';
 import { useState } from 'react';
-
-import Button from './Button';
-import ErrorModal from './ErrorModal';
-import Link from './Link';
-import Loading from './Loading';
 
 interface BlankslateBandProps {
   referralCode: string;

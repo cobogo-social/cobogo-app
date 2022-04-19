@@ -1,20 +1,19 @@
+import Button from '@components/buttons/Button';
+import ChannelBox from '@components/channelboxes/ChannelBox';
+import StepContainer from '@components/containers/StepContainer';
+import StepSubContainer from '@components/containers/StepSubContainer';
+import CategoriesInput from '@components/inputs/CategoriesInput';
+import ErrorModal from '@components/modals/ErrorModal';
+import Categories from '@components/others/Categories';
+import ErrorLabel from '@components/others/ErrorLabel';
+import Loading from '@components/others/Loading';
+import TopBar from '@components/topbars/TopBar';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
 import * as yup from 'yup';
-
-import Button from './Button';
-import Categories from './Categories';
-import CategoriesInput from './CategoriesInput';
-import ChannelBanner from './ChannelBanner';
-import ErrorLabel from './ErrorLabel';
-import ErrorModal from './ErrorModal';
-import Loading from './Loading';
-import StepContainer from './StepContainer';
-import StepWrapper from './StepWrapper';
-import TopBar from './TopBar';
 
 interface CreateProfileProps {
   banner: string;
@@ -147,7 +146,7 @@ export default function CreateProfile({
       <StepContainer>
         <TopBar />
 
-        <StepWrapper>
+        <StepSubContainer>
           <form className="flex flex-col" onSubmit={formik.handleSubmit}>
             <p className="mb-4 text-4xl">create profile</p>
 
@@ -243,12 +242,8 @@ export default function CreateProfile({
             />
           </form>
 
-          <ChannelBanner
-            banner={banner}
-            title={title}
-            description={description}
-          />
-        </StepWrapper>
+          <ChannelBox banner={banner} title={title} description={description} />
+        </StepSubContainer>
       </StepContainer>
     </>
   );

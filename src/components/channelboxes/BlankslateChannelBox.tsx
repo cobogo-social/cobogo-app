@@ -1,16 +1,15 @@
+import Badge from '@components/others/Badge';
 import Image from 'next/image';
 
-import Badge from './Badge';
-
-interface BlankslateChannelBannerProps {
+interface BlankslateChannelBoxProps {
   banner: string;
   title: string;
 }
 
-export default function BlankslateChannelBanner({
+export default function BlankslateChannelBox({
   banner,
   title,
-}: BlankslateChannelBannerProps) {
+}: BlankslateChannelBoxProps) {
   return (
     <div
       className={`bg-black sm:w-[680px] ${

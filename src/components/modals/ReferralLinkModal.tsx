@@ -1,6 +1,5 @@
+import ReferralLink from '@components/referrallinks/ReferralLink';
 import Image from 'next/image';
-
-import ReferralLink from './ReferralLink';
 
 interface ReferralLinkModalProps {
   isOpen: boolean;

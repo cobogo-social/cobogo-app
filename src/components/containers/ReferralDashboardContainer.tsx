@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 
-interface ReferralDashboardWrapperProps {
+interface ReferralDashboardContainerProps {
   children: ReactNode;
 }
 
-export default function ReferralDashboardWrapper({
+export default function ReferralDashboardContainer({
   children,
-}: ReferralDashboardWrapperProps) {
+}: ReferralDashboardContainerProps) {
   return (
     <div className="flex flex-col items-center justify-start h-full">
       {children}

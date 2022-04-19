@@ -1,17 +1,16 @@
+import Bullet from '@components/bullets/Bullet';
+import SuccessBullet from '@components/bullets/SuccessBullet';
+import WarningBullet from '@components/bullets/WarningBullet';
+import Button from '@components/buttons/Button';
+import ChannelBox from '@components/channelboxes/ChannelBox';
+import StepContainer from '@components/containers/StepContainer';
+import StepSubContainer from '@components/containers/StepSubContainer';
+import ErrorModal from '@components/modals/ErrorModal';
+import Loading from '@components/others/Loading';
+import TopBar from '@components/topbars/TopBar';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-
-import Bullet from './Bullet';
-import Button from './Button';
-import ChannelBanner from './ChannelBanner';
-import ErrorModal from './ErrorModal';
-import Loading from './Loading';
-import StepContainer from './StepContainer';
-import StepWrapper from './StepWrapper';
-import SuccessBullet from './SuccessBullet';
-import TopBar from './TopBar';
-import WarningBullet from './WarningBullet';
 
 interface VideoProps {
   banner: string;
@@ -63,7 +62,7 @@ export default function Video({
       <StepContainer>
         <TopBar />
 
-        <StepWrapper>
+        <StepSubContainer>
           <div className="flex flex-col">
             <p className="mb-4 text-4xl">video</p>
 
@@ -173,12 +172,8 @@ export default function Video({
             )}
           </div>
 
-          <ChannelBanner
-            banner={banner}
-            title={title}
-            description={description}
-          />
-        </StepWrapper>
+          <ChannelBox banner={banner} title={title} description={description} />
+        </StepSubContainer>
       </StepContainer>
     </>
   );

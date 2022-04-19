@@ -1,8 +1,7 @@
+import StepContainer from '@components/containers/StepContainer';
+import TopBar from '@components/topbars/TopBar';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
-
-import StepContainer from './StepContainer';
-import TopBar from './TopBar';
 
 interface ChannelNotFoundProps {
   setHaveChannel?: () => void;

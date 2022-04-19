@@ -1,5 +1,5 @@
-import BlankslateBand from './BlankslateBand';
-import BlankslateChannelBanner from './BlankslateChannelBanner';
+import BlankslateBand from '@components/bands/BlankslateBand';
+import BlankslateChannelBox from '@components/channelboxes/BlankslateChannelBox';
 
 interface BlankslateProps {
   banner: string;
@@ -22,7 +22,7 @@ export default function Blankslate({
 }: BlankslateProps) {
   return (
     <div className="flex flex-col items-center w-full">
-      <BlankslateChannelBanner banner={banner} title={title} />
+      <BlankslateChannelBox banner={banner} title={title} />
 
       <BlankslateBand
         referralCode={referralCode}

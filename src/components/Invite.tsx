@@ -1,14 +1,13 @@
+import ChannelBox from '@components/channelboxes/ChannelBox';
+import StepContainer from '@components/containers/StepContainer';
+import StepSubContainer from '@components/containers/StepSubContainer';
+import Link from '@components/others/Link';
+import Loading from '@components/others/Loading';
+import ShareLinks from '@components/others/ShareLinks';
+import MobileReferralLink from '@components/referrallinks/MobileReferralLink';
+import ReferralLink from '@components/referrallinks/ReferralLink';
+import StatsTopBar from '@components/topbars/StatsTopBar';
 import { useState } from 'react';
-
-import ChannelBanner from './ChannelBanner';
-import Link from './Link';
-import Loading from './Loading';
-import MobileReferralLink from './MobileReferralLink';
-import ReferralLink from './ReferralLink';
-import ShareLinks from './ShareLinks';
-import StatsTopBar from './StatsTopBar';
-import StepContainer from './StepContainer';
-import StepWrapper from './StepWrapper';
 
 interface InviteProps {
   banner: string;
@@ -36,7 +35,7 @@ export default function Invite({
       <StepContainer>
         <StatsTopBar onboardedFriends={onboardedFriends} tokens={tokens} />
 
-        <StepWrapper>
+        <StepSubContainer>
           <div className="flex flex-col">
             <p className="mb-4 text-4xl">congrats!</p>
 
@@ -83,12 +82,8 @@ export default function Invite({
             </Link>
           </div>
 
-          <ChannelBanner
-            banner={banner}
-            title={title}
-            description={description}
-          />
-        </StepWrapper>
+          <ChannelBox banner={banner} title={title} description={description} />
+        </StepSubContainer>
       </StepContainer>
     </>
   );

@@ -1,21 +1,20 @@
+import Loading from '@components/others/Loading';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import Loading from './Loading';
-
-interface ChannelBannerProps {
+interface ChannelBoxProps {
   banner: string;
   title: string;
   description: string;
 }
 
-export default function ChannelBanner({
+export default function ChannelBox({
   banner,
   title,
   description,
-}: ChannelBannerProps) {
+}: ChannelBoxProps) {
   const { push } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 

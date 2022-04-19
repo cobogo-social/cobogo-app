@@ -1,7 +1,7 @@
 import Blankslate from '@components/Blankslate';
-import BlankslateTopBar from '@components/BlankslateTopBar';
-import BlankslateWrapper from '@components/BlankslateWrapper';
+import BlankslateContainer from '@components/containers/BlankslateContainer';
 import Footer from '@components/Footer';
+import BlankslateTopBar from '@components/topbars/BlankslateTopBar';
 import {
   readAccountByReferralCode,
   readChannelByProfile,
@@ -47,9 +47,12 @@ export default function Index({
 
       setCurrentAccount(address);
 
-      const createAccount = await axios.post('/api/cobogo/createAccountToFan', {
-        name: address,
-      });
+      const createAccount = await axios.post(
+        '/api/cobogo/createAccountToFanOrYoutuber',
+        {
+          name: address,
+        },
+      );
 
       if (createAccount.data.data) {
         await axios.post('/api/cobogo/createWallet', {
@@ -92,7 +95,7 @@ export default function Index({
         <title>cobogo - {title}</title>
       </Head>
 
-      <BlankslateWrapper>
+      <BlankslateContainer>
         <BlankslateTopBar
           onboardedFriends={0}
           currentAccount={currentAccount}
@@ -108,7 +111,7 @@ export default function Index({
           setIsError={setIsError}
           currentAccount={currentAccount}
         />
-      </BlankslateWrapper>
+      </BlankslateContainer>
 
       <Footer />
     </div>

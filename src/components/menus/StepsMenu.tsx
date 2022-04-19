@@ -1,10 +1,9 @@
+import StepItem from '@components/stepitems/StepItem';
 import Image from 'next/image';
 
-import StepItem from './StepItem';
-
-export default function Steps() {
+export default function StepsMenu() {
   return (
-    <div className="hidden w-full h-[870px] p-8 bg-secondary sm:block">
+    <div className="hidden w-full h-[945px] p-8 bg-secondary sm:block">
       <div className="mb-16">
         <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
       </div>

@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 
-interface BlankslateWrapperProps {
+interface BlankslateContainerProps {
   children: ReactNode;
 }
 
-export default function BlankslateWrapper({
+export default function BlankslateContainer({
   children,
-}: BlankslateWrapperProps) {
+}: BlankslateContainerProps) {
   return (
     <div className="flex flex-col items-center justify-start h-full">
       {children}

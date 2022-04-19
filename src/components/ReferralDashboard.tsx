@@ -1,10 +1,9 @@
+import ReferralDashboardBand from '@components/bands/ReferralDashboardBand';
+import ErrorModal from '@components/modals/ErrorModal';
+import Loading from '@components/others/Loading';
+import ReferralDashboardReferralLink from '@components/referrallinks/ReferralDashboardReferralLink';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
-
-import ErrorModal from './ErrorModal';
-import Loading from './Loading';
-import ReferralDashboardBand from './ReferralDashboardBand';
-import ReferralDashboardReferralLink from './ReferralDashboardReferralLink';
 
 interface ReferralDashboardProps {
   currentAccount: string;

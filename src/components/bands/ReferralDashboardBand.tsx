@@ -1,7 +1,6 @@
+import ReferralDashboardChannelBox from '@components/channelboxes/ReferralDashboardChannelBox';
+import TokenInfo from '@components/others/TokenInfo';
 import Image from 'next/image';
-import { useEffect } from 'react';
-
-import ChannelBox from './ChannelBox';
 
 interface ReferralDashboardBandProps {
   onboardedFriends: number;
@@ -17,9 +16,6 @@ export default function ReferralDashboardBand({
   currentAccount,
   tokens,
 }: ReferralDashboardBandProps) {
-  useEffect(() => {
-    console.log(channels);
-  }, [channels]);
   return (
     <div className="w-full min-h-[455px] bg-secondary flex flex-col justify-start items-start px-[204px] pt-[85px]">
       <div className="flex items-center justify-between w-full mb-[31px]">
@@ -43,14 +39,14 @@ export default function ReferralDashboardBand({
               />
             </div>
 
-            <p className="font-bold">{tokens} CBG</p>
+            <TokenInfo tokens={tokens} />
           </div>
         )}
       </div>
 
       <div className="flex flex-wrap items-start justify-between w-full mb-[95px]">
         {channels.map((item) => (
-          <ChannelBox
+          <ReferralDashboardChannelBox
             key={item.channel.data.id}
             banner={item.channel.data.attributes.banner}
             title={item.channel.data.attributes.title}

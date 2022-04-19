@@ -1,18 +1,18 @@
 import Image from 'next/image';
 
-interface ChannelBoxProps {
+interface ReferralDashboardChannelBoxProps {
   banner: string;
   title: string;
   email: string;
   status: string;
 }
 
-export default function ChannelBox({
+export default function ReferralDashboardChannelBox({
   banner,
   title,
   email,
   status,
-}: ChannelBoxProps) {
+}: ReferralDashboardChannelBoxProps) {
   return (
     <div className="mb-[30px] w-[277px] h-[193px] bg-black border-[1.5px] border-gray5 flex flex-col justify-center">
       {banner ? (

@@ -1,14 +1,13 @@
+import ChannelBox from '@components/channelboxes/ChannelBox';
+import StepContainer from '@components/containers/StepContainer';
+import StepSubContainer from '@components/containers/StepSubContainer';
+import JoinChannel from '@components/others/JoinChannel';
+import Link from '@components/others/Link';
+import Loading from '@components/others/Loading';
+import YouWillBeNotified from '@components/others/YouWillBeNotified';
+import StatsTopBar from '@components/topbars/StatsTopBar';
 import Image from 'next/image';
 import { useState } from 'react';
-
-import ChannelBanner from './ChannelBanner';
-import JoinChannel from './JoinChannel';
-import Link from './Link';
-import Loading from './Loading';
-import StatsTopBar from './StatsTopBar';
-import StepContainer from './StepContainer';
-import StepWrapper from './StepWrapper';
-import YouWillBeNotified from './YouWillBeNotified';
 
 interface SuccessProps {
   banner: string;
@@ -34,7 +33,7 @@ export default function Success({
       <StepContainer>
         <StatsTopBar onboardedFriends={onboardedFriends} tokens={tokens} />
 
-        <StepWrapper>
+        <StepSubContainer>
           <div className="flex flex-col mb-8">
             <p className="flex mb-4 text-4xl">
               waitlist{' '}
@@ -76,12 +75,8 @@ export default function Success({
             </Link>
           </div>
 
-          <ChannelBanner
-            banner={banner}
-            title={title}
-            description={description}
-          />
-        </StepWrapper>
+          <ChannelBox banner={banner} title={title} description={description} />
+        </StepSubContainer>
       </StepContainer>
     </>
   );

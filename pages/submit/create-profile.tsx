@@ -1,8 +1,8 @@
+import PageContainer from '@components/containers/PageContainer';
 import CreateProfile from '@components/CreateProfile';
 import Footer from '@components/Footer';
-import MobileMenu from '@components/MobileMenu';
-import PageWrapper from '@components/PageWrapper';
-import Steps from '@components/Steps';
+import MobileMenu from '@components/menus/MobileMenu';
+import StepsMenu from '@components/menus/StepsMenu';
 import {
   readAccountByYoutubeAccountId,
   readChannelByAccount,
@@ -39,8 +39,8 @@ export default function Index({
         <title>cobogo - submit</title>
       </Head>
 
-      <PageWrapper>
-        <Steps />
+      <PageContainer>
+        <StepsMenu />
 
         <MobileMenu />
 
@@ -51,7 +51,7 @@ export default function Index({
         />
 
         <Footer />
-      </PageWrapper>
+      </PageContainer>
     </div>
   );
 }
