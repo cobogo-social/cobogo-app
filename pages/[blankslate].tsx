@@ -98,6 +98,7 @@ export default function Index({
 
       <BlankslateContainer>
         <BlankslateTopBar
+          setCurrentAccount={setCurrentAccount}
           onboardedFriends={0}
           currentAccount={currentAccount}
           tokens={tokens}

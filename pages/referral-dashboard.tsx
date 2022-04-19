@@ -74,6 +74,7 @@ export default function Index() {
 
       <ReferralDashboardContainer>
         <ReferralDashboardTopBar
+          setCurrentAccount={setCurrentAccount}
           currentAccount={currentAccount}
           connectWallet={connectMetaMaskWallet}
         />
