@@ -24,7 +24,7 @@ export default function BlankslateBand({
   return (
     <>
       <Loading isLoading={isLoading} />
-      <ErrorModal isError={isError} setIsError={setIsError} />
+      <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
       <div className="w-full h-[228px] bg-secondary mb-[50px] flex justify-center items-center">
         <div className="flex flex-col mr-[100px]">

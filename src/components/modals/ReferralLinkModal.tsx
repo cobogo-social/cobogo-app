@@ -12,7 +12,7 @@ export default function ReferralLinkModal({
   setIsOpen,
   referralCode,
 }: ReferralLinkModalProps) {
-  function handleClose() {
+  function closeModal() {
     setIsOpen(false);
   }
 
@@ -21,7 +21,7 @@ export default function ReferralLinkModal({
       <div className="relative bg-primary w-[605px] h-[449px] flex flex-col justify-center border-[1.5px] border-gray5 px-[70px]">
         <div className="flex flex-col items-start justify-center">
           <div
-            onClick={handleClose}
+            onClick={closeModal}
             className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
           >
             <Image

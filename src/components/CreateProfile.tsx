@@ -141,7 +141,7 @@ export default function CreateProfile({
   return (
     <>
       <Loading isLoading={isLoading} />
-      <ErrorModal isError={isError} setIsError={setIsError} />
+      <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
       <StepContainer>
         <TopBar />

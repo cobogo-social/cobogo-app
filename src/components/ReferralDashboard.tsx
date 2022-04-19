@@ -74,7 +74,7 @@ export default function ReferralDashboard({
   return (
     <>
       <Loading isLoading={isLoading} />
-      <ErrorModal isError={isError} setIsError={setIsError} />
+      <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
       <div className="flex flex-col items-center w-full">
         <div className="flex w-full flex-col items-start px-[204px]">
