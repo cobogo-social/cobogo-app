@@ -21,7 +21,7 @@ export default function Blankslate({
   currentAccount,
 }: BlankslateProps) {
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full pt-[93px]">
       <BlankslateChannelBox banner={banner} title={title} />
 
       <BlankslateBand

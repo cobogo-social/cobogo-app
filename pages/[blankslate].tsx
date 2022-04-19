@@ -1,6 +1,7 @@
 import Blankslate from '@components/Blankslate';
 import BlankslateContainer from '@components/containers/BlankslateContainer';
 import Footer from '@components/Footer';
+import BlankslateMobileTopBar from '@components/topbars/BlankslateMobileTopBar';
 import BlankslateTopBar from '@components/topbars/BlankslateTopBar';
 import {
   readAccountByReferralCode,
@@ -30,7 +31,7 @@ export default function Index({
   const [isError, setIsError] = useState(false);
   const { push } = useRouter();
 
-  async function handleConnectWallet() {
+  async function connectMetaMaskWallet() {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
@@ -102,11 +103,13 @@ export default function Index({
           tokens={tokens}
         />
 
+        <BlankslateMobileTopBar currentAccount={currentAccount} />
+
         <Blankslate
           banner={banner}
           title={title}
           referralCode={referralCode}
-          connectWallet={handleConnectWallet}
+          connectWallet={connectMetaMaskWallet}
           isError={isError}
           setIsError={setIsError}
           currentAccount={currentAccount}

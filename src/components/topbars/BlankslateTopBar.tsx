@@ -13,7 +13,7 @@ export default function BlankslateTopBar({
   tokens,
 }: BlankslateTopBarProps) {
   return (
-    <div className="flex w-full justify-between items-center mb-[70px] px-8 pt-8">
+    <div className="hidden sm:flex w-full justify-between items-center mb-[70px] px-8 pt-8">
       <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
 
       {currentAccount && (
@@ -24,7 +24,9 @@ export default function BlankslateTopBar({
           </p>
 
           <div className="flex items-center justify-center">
-            <TokenInfo tokens={tokens} />
+            <div className="mr-8">
+              <TokenInfo tokens={tokens} />
+            </div>
 
             <div className="flex items-center justify-center">
               <Image

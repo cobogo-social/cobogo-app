@@ -38,7 +38,9 @@ export default function ReferralDashboardChannelBox({
         {status ? 'onboarded' : 'pending'}
       </p>
 
-      <TokenInfo tokens={status ? 50 : 0} />
+      <div className="mr-8">
+        <TokenInfo tokens={status ? 50 : 0} />
+      </div>
     </div>
   );
 }

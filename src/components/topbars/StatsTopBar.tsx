@@ -16,7 +16,9 @@ export default function StatsTopBar({
         <span className="font-bold text-green">{onboardedFriends}</span>
       </p>
 
-      <TokenInfo tokens={tokens} />
+      <div className="mr-8">
+        <TokenInfo tokens={tokens} />
+      </div>
     </div>
   );
 }

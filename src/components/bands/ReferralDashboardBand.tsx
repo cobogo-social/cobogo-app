@@ -27,7 +27,11 @@ export default function ReferralDashboardBand({
           <p className="text-[40px] flex">connect wallet to view information</p>
         )}
 
-        {currentAccount && <TokenInfo tokens={tokens} />}
+        {currentAccount && (
+          <div className="mr-8">
+            <TokenInfo tokens={tokens} />
+          </div>
+        )}
       </div>
 
       <div className="flex flex-wrap items-start justify-between w-full mb-[95px]">

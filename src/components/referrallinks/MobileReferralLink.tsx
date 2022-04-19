@@ -12,7 +12,7 @@ export default function MobileReferralLink({
 }: MobileReferralLinkProps) {
   const [copied, setCopied] = useState(false);
 
-  function handleSetCopy() {
+  function copyToClipboard() {
     setCopied(true);
   }
 
@@ -28,7 +28,7 @@ export default function MobileReferralLink({
         </div>
 
         <div
-          onClick={handleSetCopy}
+          onClick={copyToClipboard}
           className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-gray5 outline-none flex justify-center items-center"
         >
           <CopyToClipboard

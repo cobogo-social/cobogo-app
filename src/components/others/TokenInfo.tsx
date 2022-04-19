@@ -27,7 +27,7 @@ export default function TokenInfo({ tokens }: TokenInfoProps) {
           />
         </div>
 
-        <p className="flex mr-8 font-bold">{tokens} CBG</p>
+        <p className="flex font-bold">{tokens} CBG</p>
       </div>
     </>
   );
