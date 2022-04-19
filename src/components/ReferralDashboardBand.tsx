@@ -16,10 +16,10 @@ export default function ReferralDashboardBand({
   tokens,
 }: ReferralDashboardBandProps) {
   return (
-    <div className="w-full min-h-[455px] bg-secondary flex flex-col justify-start items-start px-[204px] pt-[85px]">
-      <div className="flex items-center justify-between w-full mb-[31px]">
+    <div className="w-full min-h-[455px] bg-secondary flex flex-col justify-start items-start px-[30px] sm:px-[204px] pt-[85px]">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full mb-[31px]">
         {currentAccount ? (
-          <p className="text-[40px] flex">
+          <p className="text-[26px] sm:text-[40px] flex">
             onboarded friends (
             <span className="text-green">{onboardedFriends}</span>)
           </p>
@@ -34,7 +34,7 @@ export default function ReferralDashboardBand({
         )}
       </div>
 
-      <div className="flex flex-wrap items-start justify-between w-full mb-[95px]">
+      <div className="flex flex-wrap items-start justify-center sm:justify-between w-full mb-[95px]">
         {channels.map((item) => (
           <ReferralDashboardChannelBox
             key={item.channel.data.id}

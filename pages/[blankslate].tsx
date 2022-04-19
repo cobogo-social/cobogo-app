@@ -1,8 +1,8 @@
 import Blankslate from '@components/Blankslate';
 import BlankslateContainer from '@components/BlankslateContainer';
-import Footer from '@components/Footer';
-import BlankslateMobileTopBar from '@components/BlankslateMobileTopBar';
 import BlankslateTopBar from '@components/BlankslateTopBar';
+import Footer from '@components/Footer';
+import MobileTopBar from '@components/MobileTopBar';
 import {
   readAccountByReferralCode,
   readChannelByProfile,
@@ -103,7 +103,10 @@ export default function Index({
           tokens={tokens}
         />
 
-        <BlankslateMobileTopBar currentAccount={currentAccount} />
+        <MobileTopBar
+          connectWallet={connectMetaMaskWallet}
+          currentAccount={currentAccount}
+        />
 
         <Blankslate
           banner={banner}

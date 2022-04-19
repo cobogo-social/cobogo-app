@@ -15,7 +15,7 @@ export default function ReferralDashboardChannelBox({
   status,
 }: ReferralDashboardChannelBoxProps) {
   return (
-    <div className="mb-[30px] w-[277px] h-[193px] bg-black border-[1.5px] border-gray5 flex flex-col justify-center">
+    <div className="mb-[30px] w-[277px] h-[193px] bg-black border-[1.5px] border-gray5 flex flex-col justify-start">
       {banner ? (
         <Image
           src={banner}
@@ -38,7 +38,7 @@ export default function ReferralDashboardChannelBox({
         {status ? 'onboarded' : 'pending'}
       </p>
 
-      <div className="mr-8">
+      <div className="px-4 pb-4">
         <TokenInfo tokens={status ? 50 : 0} />
       </div>
     </div>

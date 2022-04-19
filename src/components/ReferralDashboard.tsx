@@ -1,9 +1,11 @@
-import ReferralDashboardBand from '@components/ReferralDashboardBand';
 import ErrorModal from '@components/ErrorModal';
 import Loading from '@components/Loading';
+import ReferralDashboardBand from '@components/ReferralDashboardBand';
 import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
+
+import MobileReferralLink from './MobileReferralLink';
 
 interface ReferralDashboardProps {
   currentAccount: string;
@@ -76,14 +78,18 @@ export default function ReferralDashboard({
       <Loading isLoading={isLoading} />
       <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
-      <div className="flex flex-col items-center w-full">
-        <div className="flex w-full flex-col items-start px-[204px]">
-          <p className="text-[40px] mb-[31px]">invite YouTubers</p>
+      <div className="flex flex-col items-center w-full pt-[93px]">
+        <div className="flex w-full flex-col items-start px-[30px] sm:px-[204px]">
+          <p className="text-[26px] sm:text-[40px] mb-[14px] sm:mb-[31px]">
+            invite YouTubers
+          </p>
 
-          <p className="text-[22px] mb-[44px]">
+          <p className="sm:text-[22px] mb-[14px] sm:mb-[44px]">
             you can earn 50 CBG for each Creator that joins the waitlist using
             your referral link!
           </p>
+
+          <MobileReferralLink referralCode={referralCode} />
 
           <ReferralDashboardReferralLink
             referralCode={referralCode}

@@ -10,7 +10,7 @@ export default function ReferralDashboardTopBar({
   connectWallet,
 }: ReferralDashboardTopBarProps) {
   return (
-    <div className="flex w-full justify-between items-center mb-[70px] px-8 pt-8">
+    <div className="hidden sm:flex w-full justify-between items-center mb-[70px] px-8 pt-8">
       <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
 
       <div className="flex items-center justify-center">

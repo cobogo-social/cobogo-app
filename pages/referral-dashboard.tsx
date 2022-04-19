@@ -1,6 +1,7 @@
-import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import Footer from '@components/Footer';
+import MobileTopBar from '@components/MobileTopBar';
 import ReferralDashboard from '@components/ReferralDashboard';
+import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import ReferralDashboardTopBar from '@components/ReferralDashboardTopBar';
 import axios from 'axios';
 import Head from 'next/head';
@@ -10,7 +11,7 @@ export default function Index() {
   const [currentAccount, setCurrentAccount] = useState('');
   const [isError, setIsError] = useState(false);
 
-  async function handleConnectWallet() {
+  async function connectMetaMaskWallet() {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
@@ -74,7 +75,12 @@ export default function Index() {
       <ReferralDashboardContainer>
         <ReferralDashboardTopBar
           currentAccount={currentAccount}
-          connectWallet={handleConnectWallet}
+          connectWallet={connectMetaMaskWallet}
+        />
+
+        <MobileTopBar
+          connectWallet={connectMetaMaskWallet}
+          currentAccount={currentAccount}
         />
 
         <ReferralDashboard

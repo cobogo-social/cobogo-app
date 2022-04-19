@@ -5,13 +5,15 @@ import { useCallback, useEffect, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { IoCopySharp } from 'react-icons/io5';
 
-interface BlankslateMobileTopBarProps {
+interface MobileTopBarProps {
   currentAccount: string;
+  connectWallet: () => void;
 }
 
-export default function BlankslateMobileTopBar({
+export default function MobileTopBar({
   currentAccount,
-}: BlankslateMobileTopBarProps) {
+  connectWallet,
+}: MobileTopBarProps) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [onboardedFriends, setOnboardedFriends] = useState(0);
@@ -86,7 +88,12 @@ export default function BlankslateMobileTopBar({
             </div>
           </div>
         ) : (
-          <div className="bg-white w-[9px] h-[9px] rounded-full" />
+          <div className="flex items-center justify-center">
+            <button onClick={connectWallet} className="flex mr-2 font-bold">
+              connect wallet
+            </button>
+            <div className="bg-white w-[9px] h-[9px] rounded-full" />
+          </div>
         )}
       </div>
 
