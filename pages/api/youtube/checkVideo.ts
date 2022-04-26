@@ -27,9 +27,12 @@ export default async function handler(
     let validVideo = null;
 
     if (videos.length) {
-      const account = await readAccountByAccountId(session.user['id']);
-      const channel = await readChannelByAccount(account);
-      const profile = await readProfileByChannel(channel);
+      const account = await readAccountByAccountId(
+        session.user['sub'],
+        session,
+      );
+      const channel = await readChannelByAccount(account, session);
+      const profile = await readProfileByChannel(channel, session);
 
       for (const video of videos) {
         const validTitle = video.snippet.title.toLowerCase().includes('cobogo');
@@ -50,8 +53,8 @@ export default async function handler(
       }
 
       if (validVideo !== null) {
-        if (await createVideo(validVideo, account, channel, profile)) {
-          await updateWaitlistProfile(profile);
+        if (await createVideo(validVideo, account, channel, profile, session)) {
+          await updateWaitlistProfile(profile, session);
 
           res.status(200).json({ status: 200, data: { validVideo: 1 } });
         } else {

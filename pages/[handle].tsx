@@ -5,6 +5,7 @@ import Footer from '@components/Footer';
 import Link from '@components/Link';
 import { readChannelByProfile, readProfileByHandle } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 
 interface ProfileProps {
   title: string;
@@ -47,10 +48,14 @@ export default function Index({ title, banner, referralCode }: ProfileProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  params,
+}) => {
+  const session = await getSession({ req });
   const { handle } = params;
 
-  const profile = await readProfileByHandle(handle);
+  const profile = await readProfileByHandle(handle, session);
 
   if (!profile) {
     return {
@@ -61,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   }
 
-  const channel = await readChannelByProfile(profile);
+  const channel = await readChannelByProfile(profile, session);
 
   return {
     props: {

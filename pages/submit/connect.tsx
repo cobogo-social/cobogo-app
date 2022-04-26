@@ -60,8 +60,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   if (session?.user) {
     const account =
-      (await readAccountByAccountId(session.user['id'])) ||
-      (await createAccount(session.user));
+      (await readAccountByAccountId(session.user['sub'], session)) ||
+      (await createAccount(session.user, session));
 
     if (!account) {
       return {
@@ -72,8 +72,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const youtubeChannel = await readChannelFromYoutube(session);
 
     if (youtubeChannel) {
-      (await readChannelByChannelId(youtubeChannel.id)) ||
-        (await createChannel(account, youtubeChannel));
+      (await readChannelByChannelId(youtubeChannel.id, session)) ||
+        (await createChannel(account, youtubeChannel, session));
 
       return {
         redirect: {

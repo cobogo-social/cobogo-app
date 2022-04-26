@@ -1,43 +1,7 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
-async function refreshAccessToken(token) {
-  try {
-    const url = `https://oauth2.googleapis.com/token?${new URLSearchParams({
-      client_id: process.env.GOOGLE_CLIENT_ID,
-      client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      grant_type: 'refresh_token',
-      refresh_token: token.refreshToken,
-    })}`;
-
-    const response = await fetch(url, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      method: 'POST',
-    });
-
-    const refreshedTokens = await response.json();
-
-    if (!response.ok) {
-      throw refreshedTokens;
-    }
-
-    return {
-      ...token,
-      accessToken: refreshedTokens.access_token,
-      accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
-      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken,
-    };
-  } catch (error) {
-    return {
-      ...token,
-      error: 'RefreshAccessTokenError',
-    };
-  }
-}
-
-export default NextAuth({
+const options = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -53,30 +17,33 @@ export default NextAuth({
       },
     }),
   ],
+  database: process.env.NEXT_PUBLIC_DATABASE_URL,
   secret: process.env.SECRET,
   callbacks: {
-    async jwt({ token, user, account }) {
-      if (account && user) {
-        return {
-          accessToken: account.access_token,
-          accessTokenExpires: Date.now() + Number(account.expires_in) * 1000,
-          refreshToken: account.refresh_token,
-          user,
-        };
-      }
-
-      if (Date.now() < token.accessTokenExpires) {
-        return token;
-      }
-
-      return refreshAccessToken(token);
-    },
-    async session({ session, token }) {
-      session.user = token.user;
-      session.accessToken = token.accessToken;
-      session.error = token.error;
+    session: async ({ session, token }) => {
+      session.user = token;
+      session.youtubeAccessToken = token.youtubeAccessToken;
+      session.cobogoAccessToken = token.cobogoAccessToken;
 
       return session;
     },
+    jwt: async ({ token, user, account }) => {
+      if (user) {
+        const response = await fetch(
+          `${process.env.COBOGO_API_URL}/api/auth/${account.provider}/callback?access_token=${account?.access_token}`,
+        );
+
+        const data = await response.json();
+
+        token.youtubeAccessToken = account.access_token;
+        token.cobogoAccessToken = data.jwt;
+      }
+
+      return token;
+    },
   },
-});
+};
+
+const Auth = (req, res) => NextAuth(req, res, options);
+
+export default Auth;

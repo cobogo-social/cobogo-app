@@ -75,8 +75,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const account = await readAccountByAccountId(session.user['id']);
-  const channel = await readChannelByAccount(account);
+  const account = await readAccountByAccountId(session.user['sub'], session);
+  const channel = await readChannelByAccount(account, session);
 
   if (!channel) {
     return {
@@ -87,7 +87,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const profile = await readProfileByChannel(channel);
+  const profile = await readProfileByChannel(channel, session);
 
   if (!profile) {
     return {
@@ -109,7 +109,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   const youtubeChannel = await readChannelFromYoutube(session);
 
-  const onboardedFriends = await readProfilesByReferral(profile.id);
+  const onboardedFriends = await readProfilesByReferral(profile.id, session);
 
   return {
     props: {

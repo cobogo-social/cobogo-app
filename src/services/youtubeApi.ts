@@ -10,14 +10,19 @@ export async function readChannel(session) {
       `/channels?part=snippet%2CbrandingSettings&mine=true`,
       {
         headers: {
-          Authorization: `Bearer ${session.accessToken}`,
+          Authorization: `Bearer ${session.youtubeAccessToken}`,
         },
       },
     );
 
     return response.data.items ? response.data.items[0] : null;
   } catch (error) {
-    console.log(error);
+    if (error.response) {
+      console.log('readChannel');
+      console.log(error.response.data);
+    } else {
+      console.log(error);
+    }
   }
 }
 
@@ -31,14 +36,19 @@ export async function readVideos(session, youtubeChannel) {
           q: 'cobogo',
         },
         headers: {
-          Authorization: `Bearer ${session.accessToken}`,
+          Authorization: `Bearer ${session.youtubeAccessToken}`,
         },
       },
     );
 
     return response.data.items;
   } catch (error) {
-    console.log(error);
+    if (error.response) {
+      console.log('readVideos');
+      console.log(error.response.data);
+    } else {
+      console.log(error);
+    }
   }
 }
 
@@ -49,14 +59,17 @@ export async function readVideoById(session, video) {
         id: video.id.videoId,
       },
       headers: {
-        Authorization: `Bearer ${session.accessToken}`,
+        Authorization: `Bearer ${session.youtubeAccessToken}`,
       },
     });
 
     return response.data.items[0];
   } catch (error) {
-    console.log(error);
+    if (error.response) {
+      console.log('readVideoById');
+      console.log(error.response.data);
+    } else {
+      console.log(error);
+    }
   }
 }
-
-export default api;

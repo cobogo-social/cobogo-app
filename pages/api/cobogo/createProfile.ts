@@ -19,9 +19,9 @@ export default async function handler(
   try {
     const referralCode = referralCodeGenerator.alphaNumeric('lowercase', 2, 2);
 
-    const account = await readAccountByAccountId(session.user['id']);
-    const channel = await readChannelByAccount(account);
-    const referral = await readProfileByReferralCode(queryRef);
+    const account = await readAccountByAccountId(session.user['sub'], session);
+    const channel = await readChannelByAccount(account, session);
+    const referral = await readProfileByReferralCode(queryRef, session);
 
     const response = await createProfile(
       description,
@@ -31,6 +31,7 @@ export default async function handler(
       channel.id,
       referral?.id,
       referralCode,
+      session,
     );
 
     res.status(201).json({ status: 201, data: response });
