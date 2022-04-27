@@ -10,7 +10,7 @@ export async function readChannel(session) {
       `/channels?part=snippet%2CbrandingSettings&mine=true`,
       {
         headers: {
-          Authorization: `Bearer ${session.youtubeAccessToken}`,
+          Authorization: `Bearer ${session.user.youtubeAccessToken}`,
         },
       },
     );
@@ -36,7 +36,7 @@ export async function readVideos(session, youtubeChannel) {
           q: 'cobogo',
         },
         headers: {
-          Authorization: `Bearer ${session.youtubeAccessToken}`,
+          Authorization: `Bearer ${session.user.youtubeAccessToken}`,
         },
       },
     );
@@ -59,7 +59,7 @@ export async function readVideoById(session, video) {
         id: video.id.videoId,
       },
       headers: {
-        Authorization: `Bearer ${session.youtubeAccessToken}`,
+        Authorization: `Bearer ${session.user.youtubeAccessToken}`,
       },
     });
 

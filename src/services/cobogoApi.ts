@@ -10,7 +10,7 @@ export async function readProfileByChannel(channel, session) {
       `/api/profiles?filters[channel][id][$eq]=${channel.id}`,
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -32,7 +32,7 @@ export async function readProfileByReferralCode(referralCode, session) {
       `/api/profiles?filters[referral_code][$eq]=${referralCode}`,
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -54,7 +54,7 @@ export async function readProfilesByReferral(referral, session) {
       `/api/profiles?filters[referral][id][$eq]=${referral}&filters[waitlist][$eq]=true`,
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -76,7 +76,7 @@ export async function readProfileByHandle(handle, session) {
       `/api/profiles?filters[handle][$eq]=${handle}`,
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -98,7 +98,7 @@ export async function readAccountByAccountId(accountId, session) {
       `/api/accounts?filters[account_id][$eq]=${accountId}`,
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -120,7 +120,7 @@ export async function readChannelByChannelId(channelId, session) {
       `/api/channels?filters[channel_id][$eq]=${channelId}`,
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -142,7 +142,7 @@ export async function readChannelByAccount(account, session) {
       `/api/channels?filters[account][id][$eq]=${account.id}`,
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -164,7 +164,7 @@ export async function readChannelByProfile(profile, session) {
       `/api/channels?filters[profile][id][$eq]=${profile.id}`,
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -194,7 +194,7 @@ export async function createAccount(user, session) {
       },
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -227,7 +227,7 @@ export async function createChannel(account, youtubeChannel, session) {
       },
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -267,7 +267,7 @@ export async function createProfile(
       },
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -303,7 +303,7 @@ export async function createVideo(
       },
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
@@ -330,7 +330,7 @@ export async function updateWaitlistProfile(profile, session) {
       },
       {
         headers: {
-          Authorization: `Bearer ${session.cobogoAccessToken}`,
+          Authorization: `Bearer ${session.user.cobogoAccessToken}`,
         },
       },
     );
