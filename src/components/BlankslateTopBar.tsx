@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import DisconnectWalletModal from './DisconnectWalletModal';
+import MetaMask from './MetaMask';
 
 interface BlankslateTopBarProps {
   onboardedFriends: number;
@@ -48,23 +49,10 @@ export default function BlankslateTopBar({
               </div>
 
               <div className="flex items-center justify-center">
-                <div
-                  onClick={openDisconnectWalletModal}
-                  className="flex hover:cursor-pointer"
-                >
-                  <Image
-                    src="/images/metamask-small-icon.svg"
-                    width={32}
-                    height={32}
-                    alt="metamask small icon"
-                  />
-                </div>
-
-                <p className="flex ml-2 font-bold">
-                  {currentAccount.slice(0, 5)}...{currentAccount.slice(38)}
-                </p>
-
-                <div className="flex w-[9px] h-[9px] bg-green ml-2 rounded-full" />
+                <MetaMask
+                  currentAccount={currentAccount}
+                  openDisconnectWalletModal={openDisconnectWalletModal}
+                />
               </div>
             </div>
           </div>

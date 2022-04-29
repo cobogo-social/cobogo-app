@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import DisconnectWalletModal from './DisconnectWalletModal';
+import MetaMask from './MetaMask';
 
 interface ReferralDashboardTopBarProps {
   currentAccount: string;
@@ -36,31 +37,14 @@ export default function ReferralDashboardTopBar({
           <div className="flex items-center justify-center">
             <div className="flex items-center justify-center">
               {currentAccount ? (
-                <>
-                  <div
-                    onClick={openDisconnectWalletModal}
-                    className="flex hover:cursor-pointer"
-                  >
-                    <Image
-                      src="/images/metamask-small-icon.svg"
-                      width={32}
-                      height={32}
-                      alt="metamask small icon"
-                    />
-                  </div>
-
-                  <p className="flex ml-2 font-bold">
-                    {currentAccount.slice(0, 5)}...{currentAccount.slice(38)}
-                  </p>
-                </>
+                <MetaMask
+                  currentAccount={currentAccount}
+                  openDisconnectWalletModal={openDisconnectWalletModal}
+                />
               ) : (
                 <button onClick={connectWallet} className="flex ml-2 font-bold">
                   connect wallet
                 </button>
-              )}
-
-              {currentAccount && (
-                <div className="flex w-[9px] h-[9px] bg-green ml-2 rounded-full" />
               )}
             </div>
           </div>
