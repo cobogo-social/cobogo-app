@@ -2,8 +2,6 @@ import ErrorModal from '@components/ErrorModal';
 import Loading from '@components/Loading';
 import ReferralDashboardBand from '@components/ReferralDashboardBand';
 import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
-import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
 
 import MobileReferralLink from './MobileReferralLink';
 
@@ -11,68 +9,24 @@ interface ReferralDashboardProps {
   currentAccount: string;
   isError: boolean;
   setIsError: (value: boolean) => void;
+  isLoading: boolean;
+  referralCode: string;
+  onboardedFriends: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  channels: any[];
+  tokens: number;
 }
 
 export default function ReferralDashboard({
   currentAccount,
   isError,
   setIsError,
+  isLoading,
+  referralCode,
+  onboardedFriends,
+  channels,
+  tokens,
 }: ReferralDashboardProps) {
-  const [onboardedFriends, setOnboardedFriends] = useState(0);
-  const [referralCode, setReferralCode] = useState('');
-  const [tokens, setTokens] = useState(0);
-  const [channels, setChannels] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleGetChannels = useCallback(async () => {
-    setIsLoading(true);
-
-    if (currentAccount) {
-      await axios
-        .get('/api/cobogo/readAccountByNameOrYoutubeAccountId', {
-          params: {
-            name: currentAccount,
-          },
-        })
-        .then((response) => {
-          if (response.data.data) {
-            const profiles = response.data.data.attributes.profiles.data;
-
-            setOnboardedFriends(
-              response.data.data.attributes.profiles.data.length,
-            );
-            setReferralCode(response.data.data.attributes.referral_code);
-            setTokens(response.data.data.attributes.tokens);
-
-            if (profiles.length) {
-              profiles.forEach(async (profile) => {
-                await axios
-                  .get('/api/cobogo/readProfileById', {
-                    params: {
-                      id: profile.id,
-                    },
-                  })
-                  .then((channel) => {
-                    setChannels((c) => [...c, channel.data.data.attributes]);
-                    setIsLoading(false);
-                  });
-              });
-            } else {
-              setIsLoading(false);
-            }
-          } else {
-            setIsLoading(false);
-          }
-        });
-    } else {
-      setIsLoading(false);
-    }
-  }, [currentAccount]);
-
-  useEffect(() => {
-    handleGetChannels();
-  }, [currentAccount, handleGetChannels]);
-
   return (
     <>
       <Loading isLoading={isLoading} />

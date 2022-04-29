@@ -10,6 +10,11 @@ import { useCallback, useEffect, useState } from 'react';
 export default function Index() {
   const [currentAccount, setCurrentAccount] = useState('');
   const [isError, setIsError] = useState(false);
+  const [onboardedFriends, setOnboardedFriends] = useState(0);
+  const [referralCode, setReferralCode] = useState('');
+  const [tokens, setTokens] = useState(0);
+  const [channels, setChannels] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function connectMetaMaskWallet() {
     try {
@@ -62,6 +67,55 @@ export default function Index() {
     }
   }, []);
 
+  const handleGetChannels = useCallback(async () => {
+    setIsLoading(true);
+
+    if (currentAccount) {
+      await axios
+        .get('/api/cobogo/readAccountByNameOrYoutubeAccountId', {
+          params: {
+            name: currentAccount,
+          },
+        })
+        .then((response) => {
+          if (response.data.data) {
+            const profiles = response.data.data.attributes.profiles.data;
+
+            setOnboardedFriends(
+              response.data.data.attributes.profiles.data.length,
+            );
+            setReferralCode(response.data.data.attributes.referral_code);
+            setTokens(response.data.data.attributes.tokens);
+
+            if (profiles.length) {
+              profiles.forEach(async (profile) => {
+                await axios
+                  .get('/api/cobogo/readProfileById', {
+                    params: {
+                      id: profile.id,
+                    },
+                  })
+                  .then((channel) => {
+                    setChannels((c) => [...c, channel.data.data.attributes]);
+                    setIsLoading(false);
+                  });
+              });
+            } else {
+              setIsLoading(false);
+            }
+          } else {
+            setIsLoading(false);
+          }
+        });
+    } else {
+      setIsLoading(false);
+    }
+  }, [currentAccount]);
+
+  useEffect(() => {
+    handleGetChannels();
+  }, [currentAccount, handleGetChannels]);
+
   useEffect(() => {
     checkIfWalletIsConnected();
   }, [checkIfWalletIsConnected]);
@@ -77,6 +131,7 @@ export default function Index() {
           setCurrentAccount={setCurrentAccount}
           currentAccount={currentAccount}
           connectWallet={connectMetaMaskWallet}
+          setChannels={setChannels}
         />
 
         <MobileTopBar
@@ -88,6 +143,11 @@ export default function Index() {
           currentAccount={currentAccount}
           isError={isError}
           setIsError={setIsError}
+          isLoading={isLoading}
+          referralCode={referralCode}
+          onboardedFriends={onboardedFriends}
+          channels={channels}
+          tokens={tokens}
         />
       </ReferralDashboardContainer>
 
