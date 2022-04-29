@@ -7,10 +7,7 @@ export default class MyDocument extends Document {
         <Head>
           <link rel="shortcut icon" href="/favicon.ico" type="image/ico" />
 
-          <meta
-            name="description"
-            content="cobogo is an aggregator of protocols that has the goal of funding Content Creators sustainably through their own community, using DeFi. It is a platform that leverages Web 3.0 to monetize Creators while maximizing their growth and community building abilities."
-          />
+          <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         </Head>
 
         <body>

@@ -5,7 +5,6 @@ import StartSubmission from '@components/StartSubmission';
 import Steps from '@components/Steps';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -20,10 +19,6 @@ export default function Index() {
 
   return (
     <div className="w-full">
-      <Head>
-        <title>cobogo - submit</title>
-      </Head>
-
       <PageWrapper>
         <Steps />
 
