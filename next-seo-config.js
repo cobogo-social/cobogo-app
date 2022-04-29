@@ -13,7 +13,7 @@ const SEO = {
     description,
     images: [
       {
-        url: '/images/cobogo-social-logo.png',
+        url: '/images/open-graph.png',
       },
     ],
   },
