@@ -14,7 +14,7 @@ export default function Footer() {
             src="/images/mail-icon.svg"
             width={22}
             height={17}
-            alt="main icon"
+            alt="mail icon"
           />
         </a>
 
@@ -62,7 +62,7 @@ export default function Footer() {
 
         <a
           href="https://medium.com/@cobogosocial"
-          className="flex"
+          className="flex mr-8"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -71,6 +71,20 @@ export default function Footer() {
             width={21}
             height={21}
             alt="medium icon"
+          />
+        </a>
+
+        <a
+          href="https://discord.gg/FWh7cqUkDt"
+          className="flex"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            src="/images/discord-icon.svg"
+            width={21}
+            height={21}
+            alt="discord icon"
           />
         </a>
       </div>
