@@ -49,7 +49,7 @@ export default function BlankslateChannelBox({
           coming soon...
         </p>
 
-        <p className="sm:text-xl mb-[17px] sm:mb-[50px]">
+        <p className="sm:text-xl mb-[10px] sm:mb-[32px]">
           <span className="font-bold">cobogo</span> is an alternative
           monetization mechanism that leverages{' '}
           <span className="font-bold">blockchain</span> to enable{' '}
