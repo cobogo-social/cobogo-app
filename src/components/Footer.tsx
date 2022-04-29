@@ -82,8 +82,8 @@ export default function Footer() {
         >
           <Image
             src="/images/discord-icon.svg"
-            width={21}
-            height={21}
+            width={27}
+            height={27}
             alt="discord icon"
           />
         </a>
