@@ -15,7 +15,7 @@ export default function ReferralDashboardChannelBox({
   status,
 }: ReferralDashboardChannelBoxProps) {
   return (
-    <div className="mb-[30px] w-[277px] h-[193px] bg-black border-[1.5px] border-gray5 flex flex-col justify-start">
+    <div className="mb-[30px] w-full sm:w-[277px] h-[193px] bg-black border-[1.5px] border-gray5 flex flex-col justify-start">
       {banner ? (
         <Image
           src={banner}
