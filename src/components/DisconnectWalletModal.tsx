@@ -6,7 +6,7 @@ interface DisconnectWalletModalProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
   setCurrentAccount: (value: string) => void;
-  setChannels: (value: []) => void;
+  setChannels?: (value: []) => void;
 }
 
 export default function DisconnectWalletModal({
