@@ -13,7 +13,6 @@ import {
 import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
-import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 export default function Index() {
@@ -34,10 +33,6 @@ export default function Index() {
 
   return (
     <div className="w-full">
-      <Head>
-        <title>cobogo - submit</title>
-      </Head>
-
       <PageWrapper>
         <Steps />
 

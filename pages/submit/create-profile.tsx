@@ -11,7 +11,6 @@ import {
 import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
-import Head from 'next/head';
 import { useEffect } from 'react';
 
 interface CreateProfileProps {
@@ -35,10 +34,6 @@ export default function Index({
 
   return (
     <div className="w-full">
-      <Head>
-        <title>cobogo - submit</title>
-      </Head>
-
       <PageWrapper>
         <Steps />
 

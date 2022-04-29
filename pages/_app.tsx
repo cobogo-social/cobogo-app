@@ -1,13 +1,20 @@
 import '@styles/globals.css';
 
 import { SessionProvider } from 'next-auth/react';
+import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
+
+import SEO from '../next-seo-config';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={pageProps.session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+    <>
+      <DefaultSeo {...SEO} />
+
+      <SessionProvider session={pageProps.session}>
+        <Component {...pageProps} />
+      </SessionProvider>
+    </>
   );
 }
 
