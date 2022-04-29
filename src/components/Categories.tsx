@@ -2,7 +2,7 @@ import CategoryItem from './CategoryItem';
 
 interface CategoriesProps {
   categories: string[];
-  removeCategory: (category: string) => void;
+  removeCategory?: (category: string) => void;
 }
 
 export default function Categories({
@@ -15,7 +15,7 @@ export default function Categories({
         <CategoryItem
           key={category}
           category={category}
-          removeCategory={removeCategory}
+          removeCategory={removeCategory || null}
         />
       ))}
     </div>
