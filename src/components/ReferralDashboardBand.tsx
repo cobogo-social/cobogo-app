@@ -34,7 +34,7 @@ export default function ReferralDashboardBand({
         )}
       </div>
 
-      <div className="flex flex-wrap items-start justify-center sm:justify-between w-full mb-[95px]">
+      <div className="flex flex-wrap items-start justify-center sm:justify-start w-full mb-[95px]">
         {channels.map((item) => (
           <ReferralDashboardChannelBox
             key={item.channel.data.id}
