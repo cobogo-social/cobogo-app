@@ -112,7 +112,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       title: youtubeChannel ? youtubeChannel.snippet.title : '',
       description: youtubeChannel ? youtubeChannel.snippet.description : '',
       referralCode: profile.attributes.referral_code,
-      onboardedFriends: onboardedFriends.length,
+      onboardedFriends: onboardedFriends?.length || 0,
     },
   };
 };
