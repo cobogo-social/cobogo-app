@@ -1,9 +1,8 @@
+import MobileStepItem from '@components/MobileStepItem';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-
-import MobileStepItem from './MobileStepItem';
 
 interface MobileMenuProps {
   noSteps?: boolean;

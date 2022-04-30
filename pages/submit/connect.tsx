@@ -1,13 +1,13 @@
 import ChannelNotFound from '@components/ChannelNotFound';
 import Connect from '@components/Connect';
+import PageContainer from '@components/PageContainer';
 import Footer from '@components/Footer';
 import MobileMenu from '@components/MobileMenu';
-import PageWrapper from '@components/PageWrapper';
-import Steps from '@components/Steps';
+import StepsMenu from '@components/StepsMenu';
 import {
   createAccount,
   createChannel,
-  readAccountByAccountId,
+  readAccountByYoutubeAccountId,
   readChannelByChannelId,
 } from '@services/cobogoApi';
 import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
@@ -33,8 +33,8 @@ export default function Index() {
 
   return (
     <div className="w-full">
-      <PageWrapper>
-        <Steps />
+      <PageContainer>
+        <StepsMenu />
 
         <MobileMenu noLogout />
 
@@ -45,7 +45,7 @@ export default function Index() {
         )}
 
         <Footer />
-      </PageWrapper>
+      </PageContainer>
     </div>
   );
 }
@@ -55,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   if (session?.user) {
     const account =
-      (await readAccountByAccountId(session.user['id'])) ||
+      (await readAccountByYoutubeAccountId(session.user['id'])) ||
       (await createAccount(session.user));
 
     if (!account) {

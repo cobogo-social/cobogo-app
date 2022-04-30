@@ -12,24 +12,24 @@ export default function MobileReferralLink({
 }: MobileReferralLinkProps) {
   const [copied, setCopied] = useState(false);
 
-  function handleSetCopy() {
+  function copyToClipboard() {
     setCopied(true);
   }
 
   return (
-    <div className="flex sm:hidden flex-col justify-center mb-8">
-      <p className="font-bold text-white mb-2">your referral link</p>
+    <div className="flex flex-col justify-center mb-8 sm:hidden">
+      <p className="mb-2 font-bold">your referral link</p>
 
       <div className="flex">
-        <div className="px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] border-r-0 border-details">
-          <p className="text-blue font-bold text-xs sm:text-sm">
+        <div className="px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] border-r-0 border-gray5">
+          <p className="text-xs font-bold text-blue sm:text-sm">
             app.cobogo.social/submit?ref={referralCode}
           </p>
         </div>
 
         <div
-          onClick={handleSetCopy}
-          className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-details outline-none flex justify-center items-center"
+          onClick={copyToClipboard}
+          className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-gray5 outline-none flex justify-center items-center"
         >
           <CopyToClipboard
             text={`https://app.cobogo.social/submit?ref=${referralCode}`}

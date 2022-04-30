@@ -1,10 +1,10 @@
+import PageContainer from '@components/PageContainer';
 import Footer from '@components/Footer';
 import MobileMenu from '@components/MobileMenu';
-import PageWrapper from '@components/PageWrapper';
-import Steps from '@components/Steps';
+import StepsMenu from '@components/StepsMenu';
 import Success from '@components/Success';
 import {
-  readAccountByAccountId,
+  readAccountByYoutubeAccountId,
   readChannelByAccount,
   readProfileByChannel,
   readProfilesByReferral,
@@ -19,6 +19,7 @@ interface SuccessProps {
   title: string;
   description: string;
   onboardedFriends: number;
+  tokens: number;
 }
 
 export default function Index({
@@ -26,6 +27,7 @@ export default function Index({
   title,
   description,
   onboardedFriends,
+  tokens,
 }: SuccessProps) {
   const { data: session } = useSession();
 
@@ -37,8 +39,8 @@ export default function Index({
 
   return (
     <div className="w-full">
-      <PageWrapper>
-        <Steps />
+      <PageContainer>
+        <StepsMenu />
 
         <MobileMenu />
 
@@ -47,10 +49,11 @@ export default function Index({
           title={title}
           description={description}
           onboardedFriends={onboardedFriends}
+          tokens={tokens}
         />
 
         <Footer />
-      </PageWrapper>
+      </PageContainer>
     </div>
   );
 }
@@ -67,7 +70,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const account = await readAccountByAccountId(session.user['id']);
+  const account = await readAccountByYoutubeAccountId(session.user['id']);
   const channel = await readChannelByAccount(account);
 
   if (!channel) {
@@ -111,8 +114,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
           : '',
       title: youtubeChannel ? youtubeChannel.snippet.title : '',
       description: youtubeChannel ? youtubeChannel.snippet.description : '',
-      referralCode: profile.attributes.referral_code,
+      referralCode: profile.attributes.account.data.attributes.referral_code,
       onboardedFriends: onboardedFriends?.length || 0,
+      tokens: account.attributes.tokens,
     },
   };
 };

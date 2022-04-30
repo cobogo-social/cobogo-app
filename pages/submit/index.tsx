@@ -1,8 +1,8 @@
+import PageContainer from '@components/PageContainer';
 import Footer from '@components/Footer';
 import MobileMenu from '@components/MobileMenu';
-import PageWrapper from '@components/PageWrapper';
+import StepsMenu from '@components/StepsMenu';
 import StartSubmission from '@components/StartSubmission';
-import Steps from '@components/Steps';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -19,15 +19,15 @@ export default function Index() {
 
   return (
     <div className="w-full">
-      <PageWrapper>
-        <Steps />
+      <PageContainer>
+        <StepsMenu />
 
         <MobileMenu noSteps noLogout />
 
         <StartSubmission />
 
         <Footer />
-      </PageWrapper>
+      </PageContainer>
     </div>
   );
 }

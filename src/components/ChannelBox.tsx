@@ -1,25 +1,24 @@
+import Loading from '@components/Loading';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import Loading from './Loading';
-
-interface ChannelBannerProps {
+interface ChannelBoxProps {
   banner: string;
   title: string;
   description: string;
 }
 
-export default function ChannelBanner({
+export default function ChannelBox({
   banner,
   title,
   description,
-}: ChannelBannerProps) {
+}: ChannelBoxProps) {
   const { push } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  function tryAnotherChannel() {
+  function handleTryAnotherChannel() {
     setIsLoading(true);
     signOut();
     push('/submit/connect');
@@ -29,7 +28,7 @@ export default function ChannelBanner({
     <>
       <Loading isLoading={isLoading} />
 
-      <div className="w-[275px] max-h-[400px] bg-black border-[1.5px] border-details pb-6 hidden sm:block">
+      <div className="w-[275px] max-h-[400px] bg-black border-[1.5px] border-gray5 pb-6 hidden sm:block">
         {banner ? (
           <Image
             src={banner}
@@ -40,13 +39,13 @@ export default function ChannelBanner({
           />
         ) : null}
 
-        <p className="font-bold text-white text-xl px-4 mt-6">{title}</p>
+        <p className="px-4 mt-6 text-xl">{title}</p>
 
-        <p className="text-white px-4">{description.slice(0, 210)}(...)</p>
+        <p className="px-4">{description.slice(0, 210)}(...)</p>
 
         <button
-          onClick={tryAnotherChannel}
-          className="text-blue font-bold px-4 hover:cursor-pointer"
+          onClick={handleTryAnotherChannel}
+          className="px-4 font-bold text-blue hover:cursor-pointer"
         >
           try another account
         </button>

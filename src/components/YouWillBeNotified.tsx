@@ -3,7 +3,7 @@ import Image from 'next/image';
 export default function YouWillBeNotified() {
   return (
     <div className="flex h-[60px] justify-center items-center mb-8">
-      <div className="w-[60px] h-[60px] sm:border-l-4 border-details flex justify-center items-center">
+      <div className="w-[60px] h-[60px] sm:border-l-4 border-gray5 flex justify-center items-center">
         <Image
           src="/images/notification-icon.svg"
           width={18}
@@ -12,7 +12,7 @@ export default function YouWillBeNotified() {
         />
       </div>
 
-      <p className="sm:w-[369px] font-bold text-white text-xs sm:text-base">
+      <p className="sm:w-[369px] font-bold text-xs sm:text-base">
         you will be notified via the email registered on your YouTube account.
       </p>
     </div>

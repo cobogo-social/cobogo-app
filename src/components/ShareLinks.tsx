@@ -1,4 +1,4 @@
-import ButtonWithIcon from './ButtonWithIcon';
+import ButtonWithIcon from '@components/ButtonWithIcon';
 
 interface ShareLinksProps {
   referralCode: string;

@@ -19,7 +19,7 @@ export default function ButtonWithIcon({
         <Image src={icon} width={25} height={21} alt={icon} />
       </div>
 
-      <div className="h-[38px] w-[183px] text-white bg-gray flex justify-start items-center px-4">
+      <div className="h-[38px] w-[183px] bg-gray flex justify-start items-center px-4">
         <p className="flex font-bold">{text}</p>
       </div>
     </div>

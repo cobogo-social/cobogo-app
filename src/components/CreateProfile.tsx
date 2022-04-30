@@ -1,20 +1,19 @@
+import Button from '@components/Button';
+import ChannelBox from '@components/ChannelBox';
+import StepContainer from '@components/StepContainer';
+import StepSubContainer from '@components/StepSubContainer';
+import CategoriesInput from '@components/CategoriesInput';
+import ErrorModal from '@components/ErrorModal';
+import Categories from '@components/Categories';
+import ErrorLabel from '@components/ErrorLabel';
+import Loading from '@components/Loading';
+import TopBar from '@components/TopBar';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
 import * as yup from 'yup';
-
-import Button from './Button';
-import Categories from './Categories';
-import CategoriesInput from './CategoriesInput';
-import ChannelBanner from './ChannelBanner';
-import ErrorLabel from './ErrorLabel';
-import ErrorModal from './ErrorModal';
-import Loading from './Loading';
-import StepContainer from './StepContainer';
-import StepWrapper from './StepWrapper';
-import TopBar from './TopBar';
 
 interface CreateProfileProps {
   banner: string;
@@ -117,7 +116,7 @@ export default function CreateProfile({
     }
   }
 
-  function validateKeyPressedInDescription(event) {
+  function handleValidateKeyPressedInDescription(event) {
     const keyPressed = event.key;
 
     if (keyPressed === 'Enter') {
@@ -125,7 +124,7 @@ export default function CreateProfile({
     }
   }
 
-  function validateKeyPressedInHandle(event) {
+  function handleValidateKeyPressedInHandle(event) {
     const keyPressed = event.key;
 
     if (
@@ -146,16 +145,16 @@ export default function CreateProfile({
   return (
     <>
       <Loading isLoading={isLoading} />
-      <ErrorModal isError={isError} setIsError={setIsError} />
+      <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
       <StepContainer>
         <TopBar />
 
-        <StepWrapper>
+        <StepSubContainer>
           <form className="flex flex-col" onSubmit={formik.handleSubmit}>
-            <p className="mb-4 text-4xl text-white">create profile</p>
+            <p className="mb-4 text-4xl">create profile</p>
 
-            <label htmlFor="description" className="mb-4 text-white sm:text-lg">
+            <label htmlFor="description" className="mb-4 sm:text-lg">
               write a description to be visible on your public profile.
             </label>
 
@@ -169,25 +168,25 @@ export default function CreateProfile({
                 className={`w-full sm:w-[432px] h-32 bg-black border-[1.5px] ${
                   formik.touched.description && formik.errors.description
                     ? 'border-red'
-                    : 'border-details'
-                } mb-8 p-2 outline-none text-white`}
+                    : 'border-gray5'
+                } mb-8 p-2 outline-none`}
                 onChange={formik.handleChange}
-                onKeyPress={validateKeyPressedInDescription}
+                onKeyPress={handleValidateKeyPressedInDescription}
                 value={formik.values.description}
               />
             </div>
 
-            <label htmlFor="handle" className="text-lg text-white sm:mb-4">
+            <label htmlFor="handle" className="text-lg sm:mb-4">
               choose a handle
             </label>
 
-            <p className="mb-4 text-sm break-words text-graylight sm:hidden">
+            <p className="mb-4 text-sm break-words text-gray3 sm:hidden">
               app.cobogo.social/{formik.values.handle}
             </p>
 
             <div className="flex">
-              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
-                <p className="font-bold text-white">app.cobogo.social/</p>
+              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-gray5">
+                <p className="font-bold">app.cobogo.social/</p>
               </div>
 
               <div className="relative w-full">
@@ -201,22 +200,22 @@ export default function CreateProfile({
                   name="handle"
                   type="text"
                   onChange={formik.handleChange}
-                  onKeyPress={validateKeyPressedInHandle}
+                  onKeyPress={handleValidateKeyPressedInHandle}
                   value={formik.values.handle}
                   className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0 ${
                     (formik.touched.handle && formik.errors.handle) ||
                     handleError
                       ? 'border-red'
-                      : 'border-details'
-                  } mb-8 p-2 outline-none text-white`}
+                      : 'border-gray5'
+                  } mb-8 p-2 outline-none`}
                 />
               </div>
             </div>
 
-            <p className="mb-4 text-lg text-white">choose categories</p>
+            <p className="mb-4 text-lg">choose categories</p>
 
             <div className="flex">
-              <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-details flex justify-center items-center">
+              <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-gray5 flex justify-center items-center">
                 <Image
                   src="/images/search-icon.svg"
                   width={19}
@@ -247,12 +246,8 @@ export default function CreateProfile({
             />
           </form>
 
-          <ChannelBanner
-            banner={banner}
-            title={title}
-            description={description}
-          />
-        </StepWrapper>
+          <ChannelBox banner={banner} title={title} description={description} />
+        </StepSubContainer>
       </StepContainer>
     </>
   );

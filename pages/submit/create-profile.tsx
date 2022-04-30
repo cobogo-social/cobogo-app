@@ -1,10 +1,10 @@
+import PageContainer from '@components/PageContainer';
 import CreateProfile from '@components/CreateProfile';
 import Footer from '@components/Footer';
 import MobileMenu from '@components/MobileMenu';
-import PageWrapper from '@components/PageWrapper';
-import Steps from '@components/Steps';
+import StepsMenu from '@components/StepsMenu';
 import {
-  readAccountByAccountId,
+  readAccountByYoutubeAccountId,
   readChannelByAccount,
   readProfileByChannel,
 } from '@services/cobogoApi';
@@ -34,8 +34,8 @@ export default function Index({
 
   return (
     <div className="w-full">
-      <PageWrapper>
-        <Steps />
+      <PageContainer>
+        <StepsMenu />
 
         <MobileMenu />
 
@@ -46,7 +46,7 @@ export default function Index({
         />
 
         <Footer />
-      </PageWrapper>
+      </PageContainer>
     </div>
   );
 }
@@ -63,7 +63,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const account = await readAccountByAccountId(session.user['id']);
+  const account = await readAccountByYoutubeAccountId(session.user['id']);
   const channel = await readChannelByAccount(account);
 
   if (!channel) {

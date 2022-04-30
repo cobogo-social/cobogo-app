@@ -1,17 +1,16 @@
+import Bullet from '@components/Bullet';
+import SuccessBullet from '@components/SuccessBullet';
+import WarningBullet from '@components/WarningBullet';
+import Button from '@components/Button';
+import ChannelBox from '@components/ChannelBox';
+import StepContainer from '@components/StepContainer';
+import StepSubContainer from '@components/StepSubContainer';
+import ErrorModal from '@components/ErrorModal';
+import Loading from '@components/Loading';
+import TopBar from '@components/TopBar';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-
-import Bullet from './Bullet';
-import Button from './Button';
-import ChannelBanner from './ChannelBanner';
-import ErrorModal from './ErrorModal';
-import Loading from './Loading';
-import StepContainer from './StepContainer';
-import StepWrapper from './StepWrapper';
-import SuccessBullet from './SuccessBullet';
-import TopBar from './TopBar';
-import WarningBullet from './WarningBullet';
 
 interface VideoProps {
   banner: string;
@@ -51,22 +50,23 @@ export default function Video({
   }
 
   function handlePushToNextStep() {
+    setIsLoading(true);
     push('/submit/invite');
   }
 
   return (
     <>
       <Loading isLoading={isLoading} />
-      <ErrorModal isError={isError} setIsError={setIsError} />
+      <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
       <StepContainer>
         <TopBar />
 
-        <StepWrapper>
+        <StepSubContainer>
           <div className="flex flex-col">
-            <p className="mb-4 text-4xl text-white">video</p>
+            <p className="mb-4 text-4xl">video</p>
 
-            <p className="sm:text-xl text-white sm:w-[408px] mb-8">
+            <p className="sm:text-xl sm:w-[408px] mb-8">
               {`to join the waitlist and earn CBG, you'll have to make a video
           presenting cobogo to your community, so they'll be ready to support
           you when the time comes!`}
@@ -83,7 +83,7 @@ export default function Video({
                 <SuccessBullet text="longer than 2 minutes" />
               )}
 
-              <p className="text-sm text-graylight sm:w-[408px] pl-9">
+              <p className="text-sm text-gray3 sm:w-[408px] pl-9">
                 {`we believe that in order to explain what cobogo is about, that is, a
           platform to monetize your work, and to let your community know how
           they'll be able to support you, a video of at least 2 minutes is
@@ -104,7 +104,7 @@ export default function Video({
                 <SuccessBullet text='have the name "cobogo" in the title' />
               )}
 
-              <p className="text-sm text-graylight sm:w-[408px] pl-9">
+              <p className="text-sm text-gray3 sm:w-[408px] pl-9">
                 to make it easier to find and identify your video, we require
                 you to put the name 'cobogo' in the title.
               </p>
@@ -132,7 +132,7 @@ export default function Video({
                 />
               )}
 
-              <p className="text-sm text-graylight sm:w-[408px] pl-9">
+              <p className="text-sm text-gray3 sm:w-[408px] pl-9">
                 lastly, you will need to put the link to your staking page in
                 the video description box so that your community can find you on
                 cobogo, and support you!
@@ -172,12 +172,8 @@ export default function Video({
             )}
           </div>
 
-          <ChannelBanner
-            banner={banner}
-            title={title}
-            description={description}
-          />
-        </StepWrapper>
+          <ChannelBox banner={banner} title={title} description={description} />
+        </StepSubContainer>
       </StepContainer>
     </>
   );

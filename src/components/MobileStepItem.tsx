@@ -15,10 +15,10 @@ export default function MobileStepItem({
 }: StepItemProps) {
   const { asPath } = useRouter();
 
-  const selected = asPath === href ? 'border-blue' : 'border-details';
+  const selected = asPath === href ? 'border-blue' : 'border-gray5';
 
   return (
-    <div className="flex items-center text-white mb-[13px]">
+    <div className="flex items-center mb-[13px]">
       <div
         className={`border-[6px] ${selected} w-[31px] h-[28px] flex items-center justify-center ${
           open ? 'mr-[20px]' : 'mr-0'

@@ -1,7 +1,7 @@
 export default function UnderAnalysis() {
   return (
     <div className="flex flex-col">
-      {/* <p className="text-4xl text-yellow mb-4">under analysis</p>
+      {/* <p className="mb-4 text-4xl text-yellow">under analysis</p>
 
       <p className="text-xl text-white w-[408px] mb-12">
         the channel <span className="font-bold">Space Official</span>{' '}
@@ -11,7 +11,7 @@ export default function UnderAnalysis() {
       </p>
 
       <div className="flex h-[60px] justify-center items-center">
-        <div className="w-[60px] h-[60px] border-l-4 border-details flex justify-center items-center">
+        <div className="w-[60px] h-[60px] border-l-4 border-gray5 flex justify-center items-center">
           <div className="">
             <Image
               src="/images/notification-icon.svg"

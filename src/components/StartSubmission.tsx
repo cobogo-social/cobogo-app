@@ -1,11 +1,10 @@
+import Button from '@components/Button';
+import StepContainer from '@components/StepContainer';
+import JoinOurWaitlist from '@components/JoinOurWaitlist';
+import Link from '@components/Link';
+import Loading from '@components/Loading';
+import TopBar from '@components/TopBar';
 import { useState } from 'react';
-
-import Button from './Button';
-import JoinOurWaitlist from './JoinOurWaitlist';
-import Link from './Link';
-import Loading from './Loading';
-import StepContainer from './StepContainer';
-import TopBar from './TopBar';
 
 export default function StartSubmission() {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +17,7 @@ export default function StartSubmission() {
         <TopBar />
 
         <div className="flex flex-col items-center justify-center mt-32 sm:mt-0">
-          <p className="text-white sm:text-2xl sm:w-[618px] text-center mb-[50px]">
+          <p className="sm:text-2xl sm:w-[618px] text-center mb-[50px]">
             revolutionize the way you{' '}
             <span className="font-bold">monetize</span> your{' '}
             <span className="font-bold">channel</span> using the tools made
@@ -40,7 +39,7 @@ export default function StartSubmission() {
             />
           </Link>
 
-          <p className="mb-2 text-center text-white">
+          <p className="mb-2 text-center">
             if you have any questions about the onboarding process:
           </p>
 
