@@ -12,7 +12,6 @@ import {
 import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
-import Head from 'next/head';
 import { useEffect } from 'react';
 
 interface InviteProps {
@@ -42,10 +41,6 @@ export default function Index({
 
   return (
     <div className="w-full">
-      <Head>
-        <title>cobogo - submit</title>
-      </Head>
-
       <PageContainer>
         <StepsMenu />
 
@@ -123,7 +118,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       title: youtubeChannel ? youtubeChannel.snippet.title : '',
       description: youtubeChannel ? youtubeChannel.snippet.description : '',
       referralCode: profile.attributes.account.data.attributes.referral_code,
-      onboardedFriends: onboardedFriends.length,
+      onboardedFriends: onboardedFriends?.length || 0,
       tokens: account.attributes.tokens,
     },
   };

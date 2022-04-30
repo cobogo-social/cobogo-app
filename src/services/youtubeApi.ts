@@ -18,9 +18,9 @@ export async function readChannel(session) {
     return response.data.items ? response.data.items[0] : null;
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -43,9 +43,9 @@ export async function readVideos(session, youtubeChannel) {
     return response.data.items;
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -64,9 +64,9 @@ export async function readVideoById(session, video) {
     return response.data.items[0];
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }

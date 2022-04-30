@@ -17,9 +17,9 @@ export async function readProfileByChannel(channel) {
     return response.data.data[0];
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -33,9 +33,9 @@ export async function readAccountByReferralCode(referralCode) {
     return response.data.data[0];
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -49,9 +49,9 @@ export async function readProfilesByReferral(referral) {
     return response.data.data;
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -65,9 +65,9 @@ export async function readAccountByYoutubeAccountId(youtubeAccountId) {
     return response.data.data[0];
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -81,9 +81,9 @@ export async function readAccountByName(name) {
     return response.data.data[0] ? response.data.data[0] : null;
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -97,9 +97,9 @@ export async function readProfileByHandle(handle) {
     return response.data.data[0];
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -113,9 +113,9 @@ export async function readChannelByChannelId(channelId) {
     return response.data.data[0];
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -129,9 +129,9 @@ export async function readChannelByAccount(account) {
     return response.data.data[0];
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -145,9 +145,9 @@ export async function readChannelByProfile(profile) {
     return response.data.data[0];
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -161,9 +161,9 @@ export async function readProfileById(id) {
     return response.data.data[0] ? response.data.data[0] : null;
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -177,9 +177,9 @@ export async function readWalletByAddress(address) {
     return response.data.data[0] ? response.data.data[0] : null;
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -205,9 +205,9 @@ export async function createAccount(user) {
     return response.data.data;
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -230,9 +230,9 @@ export async function createAccountToFan(name) {
     return response.data.data;
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -247,9 +247,9 @@ export async function createWallet(address, account) {
     });
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -269,9 +269,9 @@ export async function createChannel(account, youtubeChannel) {
     });
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -297,9 +297,9 @@ export async function createProfile(
     });
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -319,9 +319,9 @@ export async function createVideo(validVideo, account, channel, profile) {
     return true;
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
 
     return false;
@@ -337,9 +337,9 @@ export async function updateWaitlistProfile(profile) {
     });
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
@@ -353,9 +353,9 @@ export async function updateTokensAccount(account, tokens) {
     });
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
+      console.error(error.response.data);
     } else {
-      console.log(error);
+      console.error(error);
     }
   }
 }
