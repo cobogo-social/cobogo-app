@@ -15,7 +15,7 @@ export async function readProfileByChannel(channel) {
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -27,7 +27,7 @@ export async function readProfileByReferralCode(referralCode) {
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -39,7 +39,7 @@ export async function readProfilesByReferral(referral) {
 
     return response.data.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -51,7 +51,7 @@ export async function readProfileByHandle(handle) {
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -63,7 +63,7 @@ export async function readAccountByAccountId(accountId) {
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -75,7 +75,7 @@ export async function readChannelByChannelId(channelId) {
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -87,7 +87,7 @@ export async function readChannelByAccount(account) {
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -99,7 +99,7 @@ export async function readChannelByProfile(profile) {
 
     return response.data.data[0];
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -116,7 +116,7 @@ export async function createAccount(user) {
 
     return response.data.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -134,7 +134,7 @@ export async function createChannel(account, youtubeChannel) {
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -160,7 +160,7 @@ export async function createProfile(
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -178,7 +178,7 @@ export async function createVideo(validVideo, account, channel, profile) {
     });
     return true;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return false;
   }
 }
@@ -191,7 +191,7 @@ export async function updateWaitlistProfile(profile) {
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
