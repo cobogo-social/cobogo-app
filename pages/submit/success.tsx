@@ -7,7 +7,7 @@ import {
   readAccountByYoutubeAccountId,
   readChannelByAccount,
   readProfileByChannel,
-  readProfilesByReferral,
+  // readAccountsByReferral,
 } from '@services/cobogoApi';
 import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
@@ -104,7 +104,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   const youtubeChannel = await readChannelFromYoutube(session);
 
-  const onboardedFriends = await readProfilesByReferral(profile.id);
+  // const onboardedFriends = await readAccountsByReferral(profile.id);
 
   return {
     props: {
@@ -115,7 +115,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       title: youtubeChannel ? youtubeChannel.snippet.title : '',
       description: youtubeChannel ? youtubeChannel.snippet.description : '',
       referralCode: profile.attributes.account.data.attributes.referral_code,
-      onboardedFriends: onboardedFriends?.length || 0,
+      onboardedFriends: 0,
       tokens: account.attributes.tokens,
     },
   };
