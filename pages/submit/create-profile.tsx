@@ -1,12 +1,11 @@
-import PageContainer from '@components/PageContainer';
 import CreateProfile from '@components/CreateProfile';
 import Footer from '@components/Footer';
 import MobileMenu from '@components/MobileMenu';
+import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
 import {
   readAccountByYoutubeAccountId,
-  readChannelByAccount,
-  readProfileByChannel,
+  readProfileByAccount,
 } from '@services/cobogoApi';
 import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
@@ -14,15 +13,21 @@ import { getSession, signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
 interface CreateProfileProps {
-  banner: string;
   title: string;
-  description: string;
+  youtubeDescription: string;
+  youtubeChannelId: string;
+  bannerImage: string;
+  profileImage: string;
+  youtubeSubscribers: string;
 }
 
 export default function Index({
-  banner,
   title,
-  description,
+  youtubeDescription,
+  youtubeChannelId,
+  bannerImage,
+  profileImage,
+  youtubeSubscribers,
 }: CreateProfileProps) {
   const { data: session } = useSession();
 
@@ -40,9 +45,12 @@ export default function Index({
         <MobileMenu />
 
         <CreateProfile
-          banner={banner}
           title={title}
-          description={description}
+          youtubeDescription={youtubeDescription}
+          youtubeChannelId={youtubeChannelId}
+          bannerImage={bannerImage}
+          profileImage={profileImage}
+          youtubeSubscribers={youtubeSubscribers}
         />
 
         <Footer />
@@ -64,18 +72,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const account = await readAccountByYoutubeAccountId(session.user['id']);
-  const channel = await readChannelByAccount(account);
 
-  if (!channel) {
-    return {
-      redirect: {
-        destination: '/submit/connect',
-        permanent: false,
-      },
-    };
-  }
-
-  const profile = await readProfileByChannel(channel);
+  const profile = await readProfileByAccount(account);
 
   if (profile) {
     return {
@@ -90,12 +88,21 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   return {
     props: {
-      banner:
+      title: youtubeChannel ? youtubeChannel.snippet.title : '',
+      youtubeDescription: youtubeChannel
+        ? youtubeChannel.snippet.description
+        : '',
+      youtubeChannelId: youtubeChannel ? youtubeChannel.id : '',
+      bannerImage:
         youtubeChannel && youtubeChannel.brandingSettings.image
           ? youtubeChannel.brandingSettings.image.bannerExternalUrl
           : '',
-      title: youtubeChannel ? youtubeChannel.snippet.title : '',
-      description: youtubeChannel ? youtubeChannel.snippet.description : '',
+      profileImage: youtubeChannel
+        ? youtubeChannel.snippet.thumbnails.high.url
+        : '',
+      youtubeSubscribers: youtubeChannel
+        ? youtubeChannel.statistics.subscriberCount
+        : '',
     },
   };
 };

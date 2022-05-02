@@ -1,29 +1,29 @@
 import Bullet from '@components/Bullet';
-import SuccessBullet from '@components/SuccessBullet';
-import WarningBullet from '@components/WarningBullet';
 import Button from '@components/Button';
 import ChannelBox from '@components/ChannelBox';
-import StepContainer from '@components/StepContainer';
-import StepSubContainer from '@components/StepSubContainer';
 import ErrorModal from '@components/ErrorModal';
 import Loading from '@components/Loading';
+import StepContainer from '@components/StepContainer';
+import StepSubContainer from '@components/StepSubContainer';
+import SuccessBullet from '@components/SuccessBullet';
 import TopBar from '@components/TopBar';
+import WarningBullet from '@components/WarningBullet';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 interface VideoProps {
-  banner: string;
+  bannerImage: string;
   title: string;
-  description: string;
-  channelHandle: string;
+  youtubeDescription: string;
+  handle: string;
 }
 
 export default function Video({
-  banner,
+  bannerImage,
   title,
-  description,
-  channelHandle,
+  youtubeDescription,
+  handle,
 }: VideoProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -112,23 +112,20 @@ export default function Video({
 
             <div className="mb-8">
               {videoStatus === 1 && (
-                <Bullet
-                  text="link to"
-                  link={`app.cobogo.social/${channelHandle}`}
-                />
+                <Bullet text="link to" link={`app.cobogo.social/${handle}`} />
               )}
 
               {videoStatus === 2 && (
                 <WarningBullet
                   text="link to"
-                  link={`app.cobogo.social/${channelHandle}`}
+                  link={`app.cobogo.social/${handle}`}
                 />
               )}
 
               {videoStatus === 3 && (
                 <SuccessBullet
                   text="link to"
-                  link={`app.cobogo.social/${channelHandle}`}
+                  link={`app.cobogo.social/${handle}`}
                 />
               )}
 
@@ -172,7 +169,11 @@ export default function Video({
             )}
           </div>
 
-          <ChannelBox banner={banner} title={title} description={description} />
+          <ChannelBox
+            banner={bannerImage}
+            title={title}
+            description={youtubeDescription}
+          />
         </StepSubContainer>
       </StepContainer>
     </>

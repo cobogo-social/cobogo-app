@@ -37,11 +37,11 @@ export default function ReferralDashboardBand({
       <div className="flex flex-wrap items-start justify-center sm:justify-start w-full mb-[95px]">
         {channels.map((item) => (
           <ReferralDashboardChannelBox
-            key={item.channel.data.id}
-            banner={item.channel.data.attributes.banner}
-            title={item.channel.data.attributes.title}
-            email={item.account.data.attributes.email}
-            status={item.waitlist}
+            key={item.id}
+            banner={item.profiles.data[0].attributes.banner_image}
+            title={item.profiles.data[0].attributes.title}
+            email={item.email}
+            status={item.profiles.data[0].attributes.waitlist}
           />
         ))}
       </div>

@@ -1,12 +1,12 @@
 import Button from '@components/Button';
+import Categories from '@components/Categories';
+import CategoriesInput from '@components/CategoriesInput';
 import ChannelBox from '@components/ChannelBox';
+import ErrorLabel from '@components/ErrorLabel';
+import ErrorModal from '@components/ErrorModal';
+import Loading from '@components/Loading';
 import StepContainer from '@components/StepContainer';
 import StepSubContainer from '@components/StepSubContainer';
-import CategoriesInput from '@components/CategoriesInput';
-import ErrorModal from '@components/ErrorModal';
-import Categories from '@components/Categories';
-import ErrorLabel from '@components/ErrorLabel';
-import Loading from '@components/Loading';
 import TopBar from '@components/TopBar';
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -16,15 +16,21 @@ import { SetStateAction, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 interface CreateProfileProps {
-  banner: string;
   title: string;
-  description: string;
+  youtubeDescription: string;
+  youtubeChannelId: string;
+  bannerImage: string;
+  profileImage: string;
+  youtubeSubscribers: string;
 }
 
 export default function CreateProfile({
-  banner,
   title,
-  description,
+  youtubeDescription,
+  youtubeChannelId,
+  bannerImage,
+  profileImage,
+  youtubeSubscribers,
 }: CreateProfileProps) {
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
   const [input, setInput] = useState('');
@@ -68,6 +74,12 @@ export default function CreateProfile({
             handle: values.handle,
             categories: categoriesList.toString(),
             queryRef: queryRef || null,
+            title,
+            youtubeDescription,
+            youtubeChannelId,
+            bannerImage,
+            profileImage,
+            youtubeSubscribers,
           })
           .then((response) => {
             if (response.data.error) {
@@ -246,7 +258,11 @@ export default function CreateProfile({
             />
           </form>
 
-          <ChannelBox banner={banner} title={title} description={description} />
+          <ChannelBox
+            banner={bannerImage}
+            title={title}
+            description={youtubeDescription}
+          />
         </StepSubContainer>
       </StepContainer>
     </>

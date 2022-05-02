@@ -1,29 +1,51 @@
 import TokenInfo from '@components/TokenInfo';
+import axios from 'axios';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import DisconnectWalletModal from './DisconnectWalletModal';
 import MetaMask from './MetaMask';
 
 interface BlankslateTopBarProps {
-  onboardedFriends: number;
   currentAccount: string;
   setCurrentAccount: (value: string) => void;
-  tokens: number;
 }
 
 export default function BlankslateTopBar({
-  onboardedFriends,
   currentAccount,
   setCurrentAccount,
-  tokens,
 }: BlankslateTopBarProps) {
   const [disconnectWalletModalIsOpen, setDisconnectWalletModalIsOpen] =
     useState(false);
+  const [onboardedFriends, setOnboardedFriends] = useState(0);
+  const [tokens, setTokens] = useState(0);
 
   function openDisconnectWalletModal() {
     setDisconnectWalletModalIsOpen(true);
   }
+
+  const getInfo = useCallback(async () => {
+    if (currentAccount) {
+      await axios
+        .get('/api/cobogo/readAccountByNameOrYoutubeAccountId', {
+          params: {
+            name: currentAccount,
+          },
+        })
+        .then((response) => {
+          if (response.data.data) {
+            setOnboardedFriends(
+              response.data.data.attributes.affiliates.data.length,
+            );
+            setTokens(response.data.data.attributes.tokens);
+          }
+        });
+    }
+  }, [currentAccount]);
+
+  useEffect(() => {
+    getInfo();
+  }, [currentAccount, getInfo]);
 
   return (
     <>

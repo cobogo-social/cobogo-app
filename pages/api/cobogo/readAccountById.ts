@@ -1,4 +1,4 @@
-import { readProfileById } from '@services/cobogoApi';
+import { readAccountById } from '@services/cobogoApi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(
@@ -8,7 +8,7 @@ export default async function handler(
   const { id } = req.query;
 
   try {
-    const response = await readProfileById(id);
+    const response = await readAccountById(id);
 
     res.status(200).json({ status: 200, data: response });
   } catch (error) {
