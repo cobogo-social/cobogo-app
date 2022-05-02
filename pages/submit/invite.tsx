@@ -5,28 +5,25 @@ import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
 import {
   readAccountByYoutubeAccountId,
-  readChannelByAccount,
-  readProfileByChannel,
-  // readProfilesByReferral,
+  readProfileByAccount,
 } from '@services/cobogoApi';
-import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
 interface InviteProps {
-  banner: string;
+  bannerImage: string;
   title: string;
-  description: string;
+  youtubeDescription: string;
   referralCode: string;
   onboardedFriends: number;
   tokens: number;
 }
 
 export default function Index({
-  banner,
+  bannerImage,
   title,
-  description,
+  youtubeDescription,
   referralCode,
   onboardedFriends,
   tokens,
@@ -47,9 +44,9 @@ export default function Index({
         <MobileMenu />
 
         <Invite
-          banner={banner}
+          bannerImage={bannerImage}
           title={title}
-          description={description}
+          youtubeDescription={youtubeDescription}
           referralCode={referralCode}
           onboardedFriends={onboardedFriends}
           tokens={tokens}
@@ -74,18 +71,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const account = await readAccountByYoutubeAccountId(session.user['id']);
-  const channel = await readChannelByAccount(account);
 
-  if (!channel) {
-    return {
-      redirect: {
-        destination: '/submit/connect',
-        permanent: false,
-      },
-    };
-  }
-
-  const profile = await readProfileByChannel(channel);
+  const profile = await readProfileByAccount(account);
 
   if (!profile) {
     return {
@@ -105,20 +92,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const youtubeChannel = await readChannelFromYoutube(session);
-
-  // const onboardedFriends = await readProfilesByReferral(profile.id);
-
   return {
     props: {
-      banner:
-        youtubeChannel && youtubeChannel.brandingSettings.image
-          ? youtubeChannel.brandingSettings.image.bannerExternalUrl
-          : '',
-      title: youtubeChannel ? youtubeChannel.snippet.title : '',
-      description: youtubeChannel ? youtubeChannel.snippet.description : '',
-      referralCode: profile.attributes.account.data.attributes.referral_code,
-      onboardedFriends: 0,
+      bannerImage: profile.attributes.banner_image,
+      title: profile.attributes.title,
+      youtubeDescription: profile.attributes.youtube_description,
+      referralCode: account.attributes.referral_code,
+      onboardedFriends: account.attributes.affiliates.data.length,
       tokens: account.attributes.tokens,
     },
   };

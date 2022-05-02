@@ -1,16 +1,14 @@
 import ChannelNotFound from '@components/ChannelNotFound';
 import Connect from '@components/Connect';
-import PageContainer from '@components/PageContainer';
 import Footer from '@components/Footer';
 import MobileMenu from '@components/MobileMenu';
+import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
 import {
   createAccount,
-  createChannel,
   readAccountByYoutubeAccountId,
-  readChannelByChannelId,
 } from '@services/cobogoApi';
-import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
+import { readChannel } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
@@ -54,22 +52,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
   if (session?.user) {
-    const account =
-      (await readAccountByYoutubeAccountId(session.user['id'])) ||
-      (await createAccount(session.user));
+    const accountByYoutubeAccountId = await readAccountByYoutubeAccountId(
+      session.user['id'],
+    );
 
-    if (!account) {
-      return {
-        props: {},
-      };
+    if (!accountByYoutubeAccountId) {
+      await createAccount(session.user);
     }
 
-    const youtubeChannel = await readChannelFromYoutube(session);
+    const channel = await readChannel(session);
 
-    if (youtubeChannel) {
-      (await readChannelByChannelId(youtubeChannel.id)) ||
-        (await createChannel(account, youtubeChannel));
-
+    if (channel) {
       return {
         redirect: {
           destination: '/submit/create-profile',

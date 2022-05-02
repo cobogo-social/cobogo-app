@@ -1,31 +1,28 @@
-import PageContainer from '@components/PageContainer';
 import Footer from '@components/Footer';
 import MobileMenu from '@components/MobileMenu';
+import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
 import Success from '@components/Success';
 import {
   readAccountByYoutubeAccountId,
-  readChannelByAccount,
-  readProfileByChannel,
-  // readAccountsByReferral,
+  readProfileByAccount,
 } from '@services/cobogoApi';
-import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
 interface SuccessProps {
-  banner: string;
+  bannerImage: string;
   title: string;
-  description: string;
+  youtubeDescription: string;
   onboardedFriends: number;
   tokens: number;
 }
 
 export default function Index({
-  banner,
+  bannerImage,
   title,
-  description,
+  youtubeDescription,
   onboardedFriends,
   tokens,
 }: SuccessProps) {
@@ -45,9 +42,9 @@ export default function Index({
         <MobileMenu />
 
         <Success
-          banner={banner}
+          bannerImage={bannerImage}
           title={title}
-          description={description}
+          youtubeDescription={youtubeDescription}
           onboardedFriends={onboardedFriends}
           tokens={tokens}
         />
@@ -71,18 +68,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const account = await readAccountByYoutubeAccountId(session.user['id']);
-  const channel = await readChannelByAccount(account);
 
-  if (!channel) {
-    return {
-      redirect: {
-        destination: '/submit/connect',
-        permanent: false,
-      },
-    };
-  }
-
-  const profile = await readProfileByChannel(channel);
+  const profile = await readProfileByAccount(account);
 
   if (!profile) {
     return {
@@ -102,20 +89,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const youtubeChannel = await readChannelFromYoutube(session);
-
-  // const onboardedFriends = await readAccountsByReferral(profile.id);
-
   return {
     props: {
-      banner:
-        youtubeChannel && youtubeChannel.brandingSettings.image
-          ? youtubeChannel.brandingSettings.image.bannerExternalUrl
-          : '',
-      title: youtubeChannel ? youtubeChannel.snippet.title : '',
-      description: youtubeChannel ? youtubeChannel.snippet.description : '',
-      referralCode: profile.attributes.account.data.attributes.referral_code,
-      onboardedFriends: 0,
+      bannerImage: profile.attributes.banner_image,
+      title: profile.attributes.title,
+      youtubeDescription: profile.attributes.youtube_description,
+      referralCode: account.attributes.referral_code,
+      onboardedFriends: account.attributes.affiliates.data.length,
       tokens: account.attributes.tokens,
     },
   };

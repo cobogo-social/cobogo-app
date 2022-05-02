@@ -1,26 +1,26 @@
 import ChannelBox from '@components/ChannelBox';
-import StepContainer from '@components/StepContainer';
-import StepSubContainer from '@components/StepSubContainer';
 import JoinChannel from '@components/JoinChannel';
 import Link from '@components/Link';
 import Loading from '@components/Loading';
-import YouWillBeNotified from '@components/YouWillBeNotified';
 import StatsTopBar from '@components/StatsTopBar';
+import StepContainer from '@components/StepContainer';
+import StepSubContainer from '@components/StepSubContainer';
+import YouWillBeNotified from '@components/YouWillBeNotified';
 import Image from 'next/image';
 import { useState } from 'react';
 
 interface SuccessProps {
-  banner: string;
+  bannerImage: string;
   title: string;
-  description: string;
+  youtubeDescription: string;
   onboardedFriends: number;
   tokens: number;
 }
 
 export default function Success({
-  banner,
+  bannerImage,
   title,
-  description,
+  youtubeDescription,
   onboardedFriends,
   tokens,
 }: SuccessProps) {
@@ -75,7 +75,11 @@ export default function Success({
             </Link>
           </div>
 
-          <ChannelBox banner={banner} title={title} description={description} />
+          <ChannelBox
+            banner={bannerImage}
+            title={title}
+            description={youtubeDescription}
+          />
         </StepSubContainer>
       </StepContainer>
     </>

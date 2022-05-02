@@ -1,8 +1,8 @@
-import PageContainer from '@components/PageContainer';
 import Footer from '@components/Footer';
 import MobileMenu from '@components/MobileMenu';
-import StepsMenu from '@components/StepsMenu';
+import PageContainer from '@components/PageContainer';
 import StartSubmission from '@components/StartSubmission';
+import StepsMenu from '@components/StepsMenu';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';

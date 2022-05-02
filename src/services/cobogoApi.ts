@@ -8,10 +8,10 @@ const api = axios.create({
   },
 });
 
-export async function readProfileByChannel(channel) {
+export async function readProfileByAccount(account) {
   try {
     const response = await api.get(
-      `/api/profiles?populate=*&filters[channel][id][$eq]=${channel.id}`,
+      `/api/profiles?populate=*&filters[accounts][id][$eq]=${account.id}`,
     );
 
     return response.data.data[0];
@@ -30,7 +30,23 @@ export async function readAccountByReferralCode(referralCode) {
       `/api/accounts?filters[referral_code][$eq]=${referralCode}`,
     );
 
-    return response.data.data[0];
+    return response.data.data[0] ? response.data.data[0] : null;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function readAccountById(id) {
+  try {
+    const response = await api.get(
+      `/api/accounts?populate=*&filters[id][$eq]=${id}`,
+    );
+
+    return response.data.data[0] ? response.data.data[0] : null;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);
@@ -62,7 +78,7 @@ export async function readAccountByYoutubeAccountId(youtubeAccountId) {
       `/api/accounts?populate=*&filters[youtube_account_id][$eq]=${youtubeAccountId}`,
     );
 
-    return response.data.data[0];
+    return response.data.data[0] ? response.data.data[0] : null;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);
@@ -281,8 +297,13 @@ export async function createProfile(
   handle,
   categories,
   account,
-  channel,
   referral,
+  title,
+  youtubeDescription,
+  youtubeChannelId,
+  bannerImage,
+  profileImage,
+  youtubeSubscribers,
 ) {
   try {
     await api.post('/api/profiles', {
@@ -290,9 +311,14 @@ export async function createProfile(
         description,
         handle,
         categories,
-        account,
-        channel,
+        accounts: account,
         referral,
+        title,
+        youtube_description: youtubeDescription,
+        youtube_channel_id: youtubeChannelId,
+        banner_image: bannerImage,
+        profile_image: profileImage,
+        youtube_subscribers: youtubeSubscribers,
       },
     });
   } catch (error) {
@@ -304,7 +330,7 @@ export async function createProfile(
   }
 }
 
-export async function createVideo(validVideo, account, channel, profile) {
+export async function createVideo(validVideo, account, profile) {
   try {
     await api.post('/api/videos', {
       data: {
@@ -312,7 +338,6 @@ export async function createVideo(validVideo, account, channel, profile) {
         description: validVideo.snippet.description,
         video_id: validVideo.id.videoId,
         account: account.id,
-        channel: channel.id,
         profile: profile.id,
       },
     });
@@ -349,6 +374,22 @@ export async function updateTokensAccount(account, tokens) {
     await api.put(`/api/accounts/${account.id}`, {
       data: {
         tokens: account.attributes.tokens + tokens,
+      },
+    });
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function updateReferralAccount(account, referral) {
+  try {
+    await api.put(`/api/accounts/${account.id}`, {
+      data: {
+        referral: referral.id,
       },
     });
   } catch (error) {

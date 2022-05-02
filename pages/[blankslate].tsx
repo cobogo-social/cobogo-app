@@ -3,11 +3,7 @@ import BlankslateContainer from '@components/BlankslateContainer';
 import BlankslateTopBar from '@components/BlankslateTopBar';
 import Footer from '@components/Footer';
 import MobileTopBar from '@components/MobileTopBar';
-import {
-  readAccountByReferralCode,
-  readChannelByProfile,
-  readProfileByHandle,
-} from '@services/cobogoApi';
+import { readProfileByHandle } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
@@ -16,16 +12,14 @@ import { useCallback, useEffect, useState } from 'react';
 
 interface BlankslateProps {
   title: string;
-  banner: string;
+  bannerImage: string;
   referralCode: string;
-  tokens: number;
 }
 
 export default function Index({
   title,
-  banner,
+  bannerImage,
   referralCode,
-  tokens,
 }: BlankslateProps) {
   const [currentAccount, setCurrentAccount] = useState('');
   const [isError, setIsError] = useState(false);
@@ -99,9 +93,7 @@ export default function Index({
       <BlankslateContainer>
         <BlankslateTopBar
           setCurrentAccount={setCurrentAccount}
-          onboardedFriends={0}
           currentAccount={currentAccount}
-          tokens={tokens}
         />
 
         <MobileTopBar
@@ -110,7 +102,7 @@ export default function Index({
         />
 
         <Blankslate
-          banner={banner}
+          bannerImage={bannerImage}
           title={title}
           referralCode={referralCode}
           connectWallet={connectMetaMaskWallet}
@@ -139,18 +131,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   }
 
-  const channel = await readChannelByProfile(profile);
-
-  const referralCode = profile.attributes.account.data.attributes.referral_code;
-
-  const account = await readAccountByReferralCode(referralCode);
-
   return {
     props: {
-      title: channel.attributes.title,
-      banner: channel.attributes.banner ? channel.attributes.banner : null,
-      referralCode,
-      tokens: account.attributes.tokens,
+      title: profile.attributes.title,
+      bannerImage: profile.attributes.banner_image,
+      referralCode:
+        profile.attributes.accounts.data[0].attributes.referral_code,
     },
   };
 };

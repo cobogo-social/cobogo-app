@@ -2,7 +2,7 @@ import BlankslateBand from '@components/BlankslateBand';
 import BlankslateChannelBox from '@components/BlankslateChannelBox';
 
 interface BlankslateProps {
-  banner: string;
+  bannerImage: string;
   title: string;
   referralCode: string;
   connectWallet: () => void;
@@ -12,7 +12,7 @@ interface BlankslateProps {
 }
 
 export default function Blankslate({
-  banner,
+  bannerImage,
   title,
   referralCode,
   connectWallet,
@@ -22,7 +22,7 @@ export default function Blankslate({
 }: BlankslateProps) {
   return (
     <div className="flex flex-col items-center w-full pt-[93px]">
-      <BlankslateChannelBox banner={banner} title={title} />
+      <BlankslateChannelBox banner={bannerImage} title={title} />
 
       <BlankslateBand
         referralCode={referralCode}

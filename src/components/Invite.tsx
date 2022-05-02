@@ -1,27 +1,27 @@
 import ChannelBox from '@components/ChannelBox';
-import StepContainer from '@components/StepContainer';
-import StepSubContainer from '@components/StepSubContainer';
 import Link from '@components/Link';
 import Loading from '@components/Loading';
-import ShareLinks from '@components/ShareLinks';
 import MobileReferralLink from '@components/MobileReferralLink';
 import ReferralLink from '@components/ReferralLink';
+import ShareLinks from '@components/ShareLinks';
 import StatsTopBar from '@components/StatsTopBar';
+import StepContainer from '@components/StepContainer';
+import StepSubContainer from '@components/StepSubContainer';
 import { useState } from 'react';
 
 interface InviteProps {
-  banner: string;
+  bannerImage: string;
   title: string;
-  description: string;
+  youtubeDescription: string;
   referralCode: string;
   onboardedFriends: number;
   tokens: number;
 }
 
 export default function Invite({
-  banner,
+  bannerImage,
   title,
-  description,
+  youtubeDescription,
   referralCode,
   onboardedFriends,
   tokens,
@@ -82,7 +82,11 @@ export default function Invite({
             </Link>
           </div>
 
-          <ChannelBox banner={banner} title={title} description={description} />
+          <ChannelBox
+            banner={bannerImage}
+            title={title}
+            description={youtubeDescription}
+          />
         </StepSubContainer>
       </StepContainer>
     </>

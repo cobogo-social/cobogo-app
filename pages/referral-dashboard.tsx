@@ -51,22 +51,6 @@ export default function Index() {
     }
   }
 
-  const checkIfWalletIsConnected = useCallback(async () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { ethereum } = window as any;
-
-    try {
-      const accounts = await ethereum.request({ method: 'eth_accounts' });
-
-      if (accounts.length !== 0) {
-        const account = accounts[0];
-        setCurrentAccount(account);
-      }
-    } catch (error) {
-      setIsError(true);
-    }
-  }, []);
-
   const handleGetChannels = useCallback(async () => {
     setIsLoading(true);
 
@@ -79,20 +63,19 @@ export default function Index() {
         })
         .then((response) => {
           if (response.data.data) {
-            const profiles = response.data.data.attributes.profiles.data;
+            const affiliates = response.data.data.attributes.affiliates.data;
 
-            setOnboardedFriends(
-              response.data.data.attributes.profiles.data.length,
-            );
+            console.log(response.data.data.attributes.affiliates);
+            setOnboardedFriends(affiliates.length);
             setReferralCode(response.data.data.attributes.referral_code);
             setTokens(response.data.data.attributes.tokens);
 
-            if (profiles.length) {
-              profiles.forEach(async (profile) => {
+            if (affiliates.length) {
+              affiliates.forEach(async (affiliate) => {
                 await axios
-                  .get('/api/cobogo/readProfileById', {
+                  .get('/api/cobogo/readAccountById', {
                     params: {
-                      id: profile.id,
+                      id: affiliate.id,
                     },
                   })
                   .then((channel) => {
@@ -111,6 +94,22 @@ export default function Index() {
       setIsLoading(false);
     }
   }, [currentAccount]);
+
+  const checkIfWalletIsConnected = useCallback(async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { ethereum } = window as any;
+
+    try {
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+
+      if (accounts.length !== 0) {
+        const account = accounts[0];
+        setCurrentAccount(account);
+      }
+    } catch (error) {
+      setIsError(true);
+    }
+  }, []);
 
   useEffect(() => {
     handleGetChannels();

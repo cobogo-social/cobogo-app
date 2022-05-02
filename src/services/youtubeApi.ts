@@ -7,7 +7,7 @@ const api = axios.create({
 export async function readChannel(session) {
   try {
     const response = await api.get(
-      `/channels?part=snippet%2CbrandingSettings&mine=true`,
+      `/channels?part=snippet%2CbrandingSettings%2Cstatistics&mine=true`,
       {
         headers: {
           Authorization: `Bearer ${session.accessToken}`,
@@ -25,13 +25,13 @@ export async function readChannel(session) {
   }
 }
 
-export async function readVideos(session, youtubeChannel) {
+export async function readVideos(session, youtubeChannelId) {
   try {
     const response = await api.get(
       `/search?part=snippet&maxResults=25&type=video`,
       {
         params: {
-          channelId: youtubeChannel.id,
+          channelId: youtubeChannelId,
           q: 'cobogo',
         },
         headers: {

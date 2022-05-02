@@ -1,30 +1,28 @@
-import PageContainer from '@components/PageContainer';
 import Footer from '@components/Footer';
 import MobileMenu from '@components/MobileMenu';
+import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
 import Video from '@components/Video';
 import {
   readAccountByYoutubeAccountId,
-  readChannelByAccount,
-  readProfileByChannel,
+  readProfileByAccount,
 } from '@services/cobogoApi';
-import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
 interface VideoProps {
-  banner: string;
+  bannerImage: string;
   title: string;
-  description: string;
-  channelHandle: string;
+  youtubeDescription: string;
+  handle: string;
 }
 
 export default function Index({
-  banner,
+  bannerImage,
   title,
-  description,
-  channelHandle,
+  youtubeDescription,
+  handle,
 }: VideoProps) {
   const { data: session } = useSession();
 
@@ -42,10 +40,10 @@ export default function Index({
         <MobileMenu />
 
         <Video
-          banner={banner}
+          bannerImage={bannerImage}
           title={title}
-          description={description}
-          channelHandle={channelHandle}
+          youtubeDescription={youtubeDescription}
+          handle={handle}
         />
 
         <Footer />
@@ -67,18 +65,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const account = await readAccountByYoutubeAccountId(session.user['id']);
-  const channel = await readChannelByAccount(account);
 
-  if (!channel) {
-    return {
-      redirect: {
-        destination: '/submit/connect',
-        permanent: false,
-      },
-    };
-  }
-
-  const profile = await readProfileByChannel(channel);
+  const profile = await readProfileByAccount(account);
 
   if (!profile) {
     return {
@@ -98,17 +86,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const youtubeChannel = await readChannelFromYoutube(session);
-
   return {
     props: {
-      banner:
-        youtubeChannel && youtubeChannel.brandingSettings.image
-          ? youtubeChannel.brandingSettings.image.bannerExternalUrl
-          : '',
-      title: youtubeChannel ? youtubeChannel.snippet.title : '',
-      description: youtubeChannel ? youtubeChannel.snippet.description : '',
-      channelHandle: profile.attributes.handle,
+      bannerImage: profile.attributes.banner_image,
+      title: profile.attributes.title,
+      youtubeDescription: profile.attributes.youtube_description,
+      handle: profile.attributes.handle,
     },
   };
 };

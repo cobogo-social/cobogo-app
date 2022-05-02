@@ -1,16 +1,11 @@
 import {
   createVideo,
   readAccountByYoutubeAccountId,
-  readChannelByAccount,
-  readProfileByChannel,
+  readProfileByAccount,
   updateTokensAccount,
   updateWaitlistProfile,
 } from '@services/cobogoApi';
-import {
-  readChannel as readChannelFromYoutube,
-  readVideoById,
-  readVideos,
-} from '@services/youtubeApi';
+import { readVideoById, readVideos } from '@services/youtubeApi';
 import moment from 'moment';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
@@ -21,17 +16,17 @@ export default async function handler(
 ) {
   const session = await getSession({ req });
 
-  const youtubeChannel = await readChannelFromYoutube(session);
-
   try {
-    const videos = await readVideos(session, youtubeChannel);
+    const account = await readAccountByYoutubeAccountId(session.user['id']);
+    const profile = await readProfileByAccount(account);
+    const videos = await readVideos(
+      session,
+      profile.attributes.youtube_channel_id,
+    );
+
     let validVideo = null;
 
     if (videos.length) {
-      const account = await readAccountByYoutubeAccountId(session.user['id']);
-      const channel = await readChannelByAccount(account);
-      const profile = await readProfileByChannel(channel);
-
       for (const video of videos) {
         const validTitle = video.snippet.title.toLowerCase().includes('cobogo');
         const validDescription = video.snippet.description
@@ -51,12 +46,12 @@ export default async function handler(
       }
 
       if (validVideo !== null) {
-        if (await createVideo(validVideo, account, channel, profile)) {
+        if (await createVideo(validVideo, account, profile)) {
           await updateWaitlistProfile(profile);
           await updateTokensAccount(account, 100);
 
-          if (profile.attributes.referral.data) {
-            await updateTokensAccount(profile.attributes.referral.data, 50);
+          if (account.attributes.referral.data) {
+            await updateTokensAccount(account.attributes.referral.data, 50);
           }
 
           res.status(200).json({ status: 200, data: { validVideo: 1 } });
