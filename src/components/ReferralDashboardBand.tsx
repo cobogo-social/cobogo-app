@@ -3,6 +3,7 @@ import TokenInfo from '@components/TokenInfo';
 
 interface ReferralDashboardBandProps {
   onboardedFriends: number;
+  pendingFriends: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onboardedFriendsChannels: any[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,6 +14,7 @@ interface ReferralDashboardBandProps {
 
 export default function ReferralDashboardBand({
   onboardedFriends,
+  pendingFriends,
   onboardedFriendsChannels,
   pendingFriendsChannels,
   currentAccount,
@@ -52,8 +54,7 @@ export default function ReferralDashboardBand({
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full mb-[31px]">
         {currentAccount ? (
           <p className="text-[26px] sm:text-[40px] flex">
-            pending friends (
-            <span className="text-red">{onboardedFriends}</span>)
+            pending friends (<span className="text-red">{pendingFriends}</span>)
           </p>
         ) : (
           <p className="text-[40px] flex">connect wallet to view information</p>
