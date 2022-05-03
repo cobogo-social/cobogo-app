@@ -22,7 +22,10 @@ export default function DisconnectWalletModal({
   function disconnectWallet() {
     setCurrentAccount('');
     setIsOpen(false);
-    setChannels([]);
+
+    if (setChannels) {
+      setChannels([]);
+    }
   }
 
   return isOpen ? (

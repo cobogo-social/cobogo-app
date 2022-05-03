@@ -32,11 +32,29 @@ export default function BlankslateTopBar({
             name: currentAccount,
           },
         })
-        .then((response) => {
+        .then(async (response) => {
           if (response.data.data) {
-            setOnboardedFriends(
-              response.data.data.attributes.affiliates.data.length,
+            const account = response.data.data;
+
+            const accountsByReferralId = await axios.get(
+              '/api/cobogo/readAccountsByReferralId',
+              {
+                params: {
+                  accountId: account.id,
+                },
+              },
             );
+
+            accountsByReferralId.data.data.forEach((accountByReferralId) => {
+              console.log(accountByReferralId.attributes.profiles);
+              const waitlisted =
+                accountByReferralId.attributes.profiles.data[0].attributes
+                  .waitlist;
+
+              if (waitlisted) {
+                setOnboardedFriends((c) => c + 1);
+              }
+            });
             setTokens(response.data.data.attributes.tokens);
           }
         });
