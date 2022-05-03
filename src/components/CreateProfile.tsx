@@ -16,21 +16,15 @@ import { SetStateAction, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 interface CreateProfileProps {
+  bannerImage: string;
   title: string;
   youtubeDescription: string;
-  youtubeChannelId: string;
-  bannerImage: string;
-  profileImage: string;
-  youtubeSubscribers: string;
 }
 
 export default function CreateProfile({
+  bannerImage,
   title,
   youtubeDescription,
-  youtubeChannelId,
-  bannerImage,
-  profileImage,
-  youtubeSubscribers,
 }: CreateProfileProps) {
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
   const [input, setInput] = useState('');
@@ -69,17 +63,11 @@ export default function CreateProfile({
         const queryRef = sessionStorage.getItem('queryRef');
 
         await axios
-          .post('/api/cobogo/createProfile', {
+          .post('/api/cobogo/updateProfile', {
             description: values.description,
             handle: values.handle,
             categories: categoriesList.toString(),
             queryRef: queryRef || null,
-            title,
-            youtubeDescription,
-            youtubeChannelId,
-            bannerImage,
-            profileImage,
-            youtubeSubscribers,
           })
           .then((response) => {
             if (response.data.error) {

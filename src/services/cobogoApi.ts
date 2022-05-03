@@ -345,6 +345,29 @@ export async function createVideo(validVideo, account, profile) {
   }
 }
 
+export async function updateProfile(
+  description: string,
+  handle: string,
+  categories: string,
+  profileId: number,
+) {
+  try {
+    await api.put(`/api/profiles/${profileId}`, {
+      data: {
+        description,
+        handle,
+        categories,
+      },
+    });
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
 export async function updateWaitlistProfile(profile) {
   try {
     await api.put(`/api/profiles/${profile.id}`, {
