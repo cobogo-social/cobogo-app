@@ -93,7 +93,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const accountsByReferralId = await readAccountsByReferralId(account.id);
 
   accountsByReferralId.forEach((accountByReferralId) => {
-    console.log(accountByReferralId.attributes.profiles);
     const waitlisted =
       accountByReferralId.attributes.profiles.data[0].attributes.waitlist;
 

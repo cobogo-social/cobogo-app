@@ -13,7 +13,8 @@ export default function Index() {
   const [onboardedFriends, setOnboardedFriends] = useState(0);
   const [referralCode, setReferralCode] = useState('');
   const [tokens, setTokens] = useState(0);
-  const [channels, setChannels] = useState([]);
+  const [onboardedFriendsChannels, setOnboardedFriendsChannels] = useState([]);
+  const [pendingFriendsChannels, setPendingFriendsChannels] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   async function connectMetaMaskWallet() {
@@ -51,7 +52,7 @@ export default function Index() {
     }
   }
 
-  const handleGetChannels = useCallback(async () => {
+  const getInfo = useCallback(async () => {
     setIsLoading(true);
 
     if (currentAccount) {
@@ -61,31 +62,47 @@ export default function Index() {
             name: currentAccount,
           },
         })
-        .then((response) => {
+        .then(async (response) => {
           if (response.data.data) {
-            const affiliates = response.data.data.attributes.affiliates.data;
+            const account = response.data.data;
 
-            console.log(response.data.data.attributes.affiliates);
-            setOnboardedFriends(affiliates.length);
+            const accountsByReferralId = await axios.get(
+              '/api/cobogo/readAccountsByReferralId',
+              {
+                params: {
+                  referralId: account.id,
+                },
+              },
+            );
+
+            accountsByReferralId.data.data.forEach((accountByReferralId) => {
+              if (
+                accountByReferralId.attributes.profiles.data[0].attributes
+                  .waitlist
+              ) {
+                setOnboardedFriendsChannels((c) => [
+                  ...c,
+                  accountByReferralId.attributes,
+                ]);
+              } else {
+                setPendingFriendsChannels((c) => [
+                  ...c,
+                  accountByReferralId.attributes,
+                ]);
+              }
+
+              const waitlisted =
+                accountByReferralId.attributes.profiles.data[0].attributes
+                  .waitlist;
+
+              if (waitlisted) {
+                setOnboardedFriends((c) => c + 1);
+              }
+            });
             setReferralCode(response.data.data.attributes.referral_code);
             setTokens(response.data.data.attributes.tokens);
 
-            if (affiliates.length) {
-              affiliates.forEach(async (affiliate) => {
-                await axios
-                  .get('/api/cobogo/readAccountById', {
-                    params: {
-                      id: affiliate.id,
-                    },
-                  })
-                  .then((channel) => {
-                    setChannels((c) => [...c, channel.data.data.attributes]);
-                    setIsLoading(false);
-                  });
-              });
-            } else {
-              setIsLoading(false);
-            }
+            setIsLoading(false);
           } else {
             setIsLoading(false);
           }
@@ -112,8 +129,8 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    handleGetChannels();
-  }, [currentAccount, handleGetChannels]);
+    getInfo();
+  }, [currentAccount, getInfo]);
 
   useEffect(() => {
     checkIfWalletIsConnected();
@@ -130,7 +147,8 @@ export default function Index() {
           setCurrentAccount={setCurrentAccount}
           currentAccount={currentAccount}
           connectWallet={connectMetaMaskWallet}
-          setChannels={setChannels}
+          setOnboardedFriendsChannels={setOnboardedFriendsChannels}
+          setPendingFriendsChannels={setPendingFriendsChannels}
         />
 
         <MobileTopBar
@@ -145,7 +163,8 @@ export default function Index() {
           isLoading={isLoading}
           referralCode={referralCode}
           onboardedFriends={onboardedFriends}
-          channels={channels}
+          onboardedFriendsChannels={onboardedFriendsChannels}
+          pendingFriendsChannels={pendingFriendsChannels}
           tokens={tokens}
         />
       </ReferralDashboardContainer>

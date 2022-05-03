@@ -46,7 +46,6 @@ export default function BlankslateTopBar({
             );
 
             accountsByReferralId.data.data.forEach((accountByReferralId) => {
-              console.log(accountByReferralId.attributes.profiles);
               const waitlisted =
                 accountByReferralId.attributes.profiles.data[0].attributes
                   .waitlist;

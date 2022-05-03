@@ -8,14 +8,16 @@ interface ReferralDashboardTopBarProps {
   currentAccount: string;
   setCurrentAccount: (value: string) => void;
   connectWallet: () => void;
-  setChannels: (value: []) => void;
+  setOnboardedFriendsChannels: (value: []) => void;
+  setPendingFriendsChannels: (value: []) => void;
 }
 
 export default function ReferralDashboardTopBar({
   currentAccount,
   setCurrentAccount,
   connectWallet,
-  setChannels,
+  setOnboardedFriendsChannels,
+  setPendingFriendsChannels,
 }: ReferralDashboardTopBarProps) {
   const [disconnectWalletModalIsOpen, setDisconnectWalletModalIsOpen] =
     useState(false);
@@ -30,7 +32,8 @@ export default function ReferralDashboardTopBar({
         setCurrentAccount={setCurrentAccount}
         isOpen={disconnectWalletModalIsOpen}
         setIsOpen={setDisconnectWalletModalIsOpen}
-        setChannels={setChannels}
+        setOnboardedFriendsChannels={setOnboardedFriendsChannels}
+        setPendingFriendsChannels={setPendingFriendsChannels}
       />
 
       <div className="hidden sm:flex w-full justify-between items-center mb-[70px] px-8 pt-8">
