@@ -5,7 +5,7 @@ import StepsMenu from '@components/StepsMenu';
 import Success from '@components/Success';
 import {
   readAccountByYoutubeAccountId,
-  readProfileByAccount,
+  readAccountsByReferralId,
 } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
@@ -68,8 +68,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const account = await readAccountByYoutubeAccountId(session.user['id']);
-
-  const profile = await readProfileByAccount(account);
+  const profile = account.attributes.profiles.data[0];
 
   if (!profile) {
     return {
@@ -89,13 +88,26 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
+  let onboardedFriends = 0;
+
+  const accountsByReferralId = await readAccountsByReferralId(account.id);
+
+  accountsByReferralId.forEach((accountByReferralId) => {
+    console.log(accountByReferralId.attributes.profiles);
+    const waitlisted =
+      accountByReferralId.attributes.profiles.data[0].attributes.waitlist;
+
+    if (waitlisted) {
+      onboardedFriends += 1;
+    }
+  });
+
   return {
     props: {
       bannerImage: profile.attributes.banner_image,
       title: profile.attributes.title,
       youtubeDescription: profile.attributes.youtube_description,
-      referralCode: account.attributes.referral_code,
-      onboardedFriends: account.attributes.affiliates.data.length,
+      onboardedFriends,
       tokens: account.attributes.tokens,
     },
   };
