@@ -6,14 +6,16 @@ interface DisconnectWalletModalProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
   setCurrentAccount: (value: string) => void;
-  setChannels?: (value: []) => void;
+  setOnboardedFriendsChannels?: (value: []) => void;
+  setPendingFriendsChannels?: (value: []) => void;
 }
 
 export default function DisconnectWalletModal({
   isOpen,
   setIsOpen,
   setCurrentAccount,
-  setChannels,
+  setOnboardedFriendsChannels,
+  setPendingFriendsChannels,
 }: DisconnectWalletModalProps) {
   function closeModal() {
     setIsOpen(false);
@@ -23,8 +25,12 @@ export default function DisconnectWalletModal({
     setCurrentAccount('');
     setIsOpen(false);
 
-    if (setChannels) {
-      setChannels([]);
+    if (setOnboardedFriendsChannels) {
+      setOnboardedFriendsChannels([]);
+    }
+
+    if (setPendingFriendsChannels) {
+      setPendingFriendsChannels([]);
     }
   }
 
