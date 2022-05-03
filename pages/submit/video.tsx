@@ -3,10 +3,7 @@ import MobileMenu from '@components/MobileMenu';
 import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
 import Video from '@components/Video';
-import {
-  readAccountByYoutubeAccountId,
-  readProfileByAccount,
-} from '@services/cobogoApi';
+import { readAccountByYoutubeAccountId } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
@@ -65,8 +62,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const account = await readAccountByYoutubeAccountId(session.user['id']);
-
-  const profile = await readProfileByAccount(account);
+  const profile = account.attributes.profiles.data[0];
 
   if (!profile) {
     return {

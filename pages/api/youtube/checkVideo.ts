@@ -1,7 +1,6 @@
 import {
   createVideo,
   readAccountByYoutubeAccountId,
-  readProfileByAccount,
   updateTokensAccount,
   updateWaitlistProfile,
 } from '@services/cobogoApi';
@@ -18,7 +17,7 @@ export default async function handler(
 
   try {
     const account = await readAccountByYoutubeAccountId(session.user['id']);
-    const profile = await readProfileByAccount(account);
+    const profile = account.attributes.profiles.data[0];
     const videos = await readVideos(
       session,
       profile.attributes.youtube_channel_id,
@@ -46,7 +45,9 @@ export default async function handler(
       }
 
       if (validVideo !== null) {
-        if (await createVideo(validVideo, account, profile)) {
+        if (!profile.attributes.waitlist) {
+          await createVideo(validVideo, account, profile);
+
           await updateWaitlistProfile(profile);
           await updateTokensAccount(account, 100);
 
