@@ -12,6 +12,7 @@ interface ReferralDashboardProps {
   isLoading: boolean;
   referralCode: string;
   onboardedFriends: number;
+  pendingFriends: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onboardedFriendsChannels: any[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,6 +27,7 @@ export default function ReferralDashboard({
   isLoading,
   referralCode,
   onboardedFriends,
+  pendingFriends,
   onboardedFriendsChannels,
   pendingFriendsChannels,
   tokens,
@@ -68,6 +70,7 @@ export default function ReferralDashboard({
 
         <ReferralDashboardBand
           onboardedFriends={onboardedFriends}
+          pendingFriends={pendingFriends}
           onboardedFriendsChannels={onboardedFriendsChannels}
           pendingFriendsChannels={pendingFriendsChannels}
           currentAccount={currentAccount}

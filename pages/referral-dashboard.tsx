@@ -11,6 +11,7 @@ export default function Index() {
   const [currentAccount, setCurrentAccount] = useState('');
   const [isError, setIsError] = useState(false);
   const [onboardedFriends, setOnboardedFriends] = useState(0);
+  const [pendingFriends, setPendingFriends] = useState(0);
   const [referralCode, setReferralCode] = useState('');
   const [tokens, setTokens] = useState(0);
   const [onboardedFriendsChannels, setOnboardedFriendsChannels] = useState([]);
@@ -97,6 +98,8 @@ export default function Index() {
 
               if (waitlisted) {
                 setOnboardedFriends((c) => c + 1);
+              } else {
+                setPendingFriends((c) => c + 1);
               }
             });
             setReferralCode(response.data.data.attributes.referral_code);
@@ -163,6 +166,7 @@ export default function Index() {
           isLoading={isLoading}
           referralCode={referralCode}
           onboardedFriends={onboardedFriends}
+          pendingFriends={pendingFriends}
           onboardedFriendsChannels={onboardedFriendsChannels}
           pendingFriendsChannels={pendingFriendsChannels}
           tokens={tokens}
