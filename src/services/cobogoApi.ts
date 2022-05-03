@@ -56,7 +56,7 @@ export async function readAccountById(id) {
   }
 }
 
-export async function readAccountsByReferralId(referralId: number) {
+export async function readAccountsByReferralId(referralId) {
   try {
     const response = await api.get(
       `/api/accounts?populate=*&filters[referral][id][$eq]=${referralId}`,
