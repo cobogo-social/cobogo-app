@@ -293,26 +293,18 @@ export async function createChannel(account, youtubeChannel) {
 }
 
 export async function createProfile(
-  description,
-  handle,
-  categories,
-  account,
-  referral,
-  title,
-  youtubeDescription,
-  youtubeChannelId,
-  bannerImage,
-  profileImage,
-  youtubeSubscribers,
+  accountId: string,
+  title: string,
+  youtubeDescription: string,
+  youtubeChannelId: string,
+  bannerImage: string,
+  profileImage: string,
+  youtubeSubscribers: number,
 ) {
   try {
     await api.post('/api/profiles', {
       data: {
-        description,
-        handle,
-        categories,
-        accounts: account,
-        referral,
+        accounts: accountId,
         title,
         youtube_description: youtubeDescription,
         youtube_channel_id: youtubeChannelId,

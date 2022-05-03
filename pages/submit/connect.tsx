@@ -6,6 +6,7 @@ import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
 import {
   createAccount,
+  createProfile,
   readAccountByYoutubeAccountId,
 } from '@services/cobogoApi';
 import { readChannel } from '@services/youtubeApi';
@@ -57,18 +58,27 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     );
 
     if (!accountByYoutubeAccountId) {
-      await createAccount(session.user);
-    }
+      const account = await createAccount(session.user);
+      const channel = await readChannel(session);
 
-    const channel = await readChannel(session);
+      if (channel) {
+        await createProfile(
+          account.id,
+          channel.snippet.title,
+          channel.snippet.description,
+          channel.id,
+          channel.brandingSettings.image?.bannerExternalUrl,
+          channel.snippet.thumbnails.high.url,
+          channel.statistics.subscriberCount,
+        );
 
-    if (channel) {
-      return {
-        redirect: {
-          destination: '/submit/create-profile',
-          permanent: false,
-        },
-      };
+        return {
+          redirect: {
+            destination: '/submit/create-profile',
+            permanent: false,
+          },
+        };
+      }
     }
   }
 
