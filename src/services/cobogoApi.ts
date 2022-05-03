@@ -56,10 +56,10 @@ export async function readAccountById(id) {
   }
 }
 
-export async function readProfilesByReferral(referral) {
+export async function readAccountsByReferralId(referralId: number) {
   try {
     const response = await api.get(
-      `/api/profiles?filters[referral][id][$eq]=${referral}&filters[waitlist][$eq]=true`,
+      `/api/accounts?populate=*&filters[referral][id][$eq]=${referralId}`,
     );
 
     return response.data.data;
