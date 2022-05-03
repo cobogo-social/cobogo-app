@@ -3,31 +3,21 @@ import Footer from '@components/Footer';
 import MobileMenu from '@components/MobileMenu';
 import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
-import {
-  readAccountByYoutubeAccountId,
-  readProfileByAccount,
-} from '@services/cobogoApi';
-import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
+import { readAccountByYoutubeAccountId } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
 interface CreateProfileProps {
+  bannerImage: string;
   title: string;
   youtubeDescription: string;
-  youtubeChannelId: string;
-  bannerImage: string;
-  profileImage: string;
-  youtubeSubscribers: string;
 }
 
 export default function Index({
+  bannerImage,
   title,
   youtubeDescription,
-  youtubeChannelId,
-  bannerImage,
-  profileImage,
-  youtubeSubscribers,
 }: CreateProfileProps) {
   const { data: session } = useSession();
 
@@ -45,12 +35,9 @@ export default function Index({
         <MobileMenu />
 
         <CreateProfile
+          bannerImage={bannerImage}
           title={title}
           youtubeDescription={youtubeDescription}
-          youtubeChannelId={youtubeChannelId}
-          bannerImage={bannerImage}
-          profileImage={profileImage}
-          youtubeSubscribers={youtubeSubscribers}
         />
 
         <Footer />
@@ -72,10 +59,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const account = await readAccountByYoutubeAccountId(session.user['id']);
+  const profile = account.attributes.profiles.data[0];
 
-  const profile = await readProfileByAccount(account);
-
-  if (profile) {
+  if (profile.attributes.handle) {
     return {
       redirect: {
         destination: '/submit/video',
@@ -84,25 +70,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const youtubeChannel = await readChannelFromYoutube(session);
-
   return {
     props: {
-      title: youtubeChannel ? youtubeChannel.snippet.title : '',
-      youtubeDescription: youtubeChannel
-        ? youtubeChannel.snippet.description
-        : '',
-      youtubeChannelId: youtubeChannel ? youtubeChannel.id : '',
-      bannerImage:
-        youtubeChannel && youtubeChannel.brandingSettings.image
-          ? youtubeChannel.brandingSettings.image.bannerExternalUrl
-          : '',
-      profileImage: youtubeChannel
-        ? youtubeChannel.snippet.thumbnails.high.url
-        : '',
-      youtubeSubscribers: youtubeChannel
-        ? youtubeChannel.statistics.subscriberCount
-        : '',
+      bannerImage: profile.attributes.banner_image,
+      title: profile.attributes.title,
+      youtubeDescription: profile.attributes.youtube_description,
     },
   };
 };

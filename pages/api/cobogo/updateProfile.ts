@@ -1,7 +1,7 @@
 import {
-  createProfile,
   readAccountByReferralCode,
   readAccountByYoutubeAccountId,
+  updateProfile,
   updateReferralAccount,
 } from '@services/cobogoApi';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -13,18 +13,7 @@ export default async function handler(
 ) {
   const session = await getSession({ req });
 
-  const {
-    description,
-    handle,
-    categories,
-    queryRef,
-    title,
-    youtubeDescription,
-    youtubeChannelId,
-    bannerImage,
-    profileImage,
-    youtubeSubscribers,
-  } = req.body;
+  const { description, handle, categories, queryRef } = req.body;
 
   try {
     const account = await readAccountByYoutubeAccountId(session.user['id']);
@@ -34,18 +23,13 @@ export default async function handler(
       await updateReferralAccount(account, referral);
     }
 
-    const response = await createProfile(
+    const profile = account.attributes.profiles.data[0];
+
+    const response = await updateProfile(
       description,
       handle,
       categories,
-      account.id,
-      referral?.id,
-      title,
-      youtubeDescription,
-      youtubeChannelId,
-      bannerImage,
-      profileImage,
-      youtubeSubscribers,
+      profile.id,
     );
 
     res.status(201).json({ status: 201, data: response });
