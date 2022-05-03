@@ -133,7 +133,7 @@ export default function Index() {
 
   useEffect(() => {
     getInfo();
-  }, [currentAccount, getInfo]);
+  }, [getInfo]);
 
   useEffect(() => {
     checkIfWalletIsConnected();
