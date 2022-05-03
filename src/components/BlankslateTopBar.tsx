@@ -40,7 +40,7 @@ export default function BlankslateTopBar({
               '/api/cobogo/readAccountsByReferralId',
               {
                 params: {
-                  accountId: account.id,
+                  referralId: account.id,
                 },
               },
             );
@@ -62,7 +62,7 @@ export default function BlankslateTopBar({
 
   useEffect(() => {
     getInfo();
-  }, [currentAccount, getInfo]);
+  }, [getInfo]);
 
   return (
     <>
