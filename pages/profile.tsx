@@ -23,7 +23,7 @@ export default function Index() {
           <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
 
           <div className="flex items-center justify-center">
-            <p className="font-bold text-white mr-[40px] hover:cursor-pointer">
+            <p className="font-bold mr-[40px] hover:cursor-pointer">
               back to home
             </p>
 
@@ -47,7 +47,7 @@ export default function Index() {
                 />
               </div>
 
-              <p className="font-bold text-white mr-[10px]">wallet address</p>
+              <p className="font-bold mr-[10px]">wallet address</p>
 
               <div className="w-[9px] h-[9px] bg-green rounded-full" />
             </div>
@@ -57,16 +57,16 @@ export default function Index() {
         <div className="h-[299px] w-full">
           <div className="h-[207px] w-full bg-blue relative">
             <div className="w-full h-[92px] absolute bg-black opacity-50 bottom-0 flex justify-between items-center px-[145px]">
-              <p className="text-white text-[40px]">Channel Name</p>
+              <p className="text-[40px]">Channel Name</p>
 
               <div className="flex">
-                <p className="text-white mr-[40px]">
-                  <span className="mr-1 font-bold text-white">XXXX</span>
+                <p className="mr-[40px]">
+                  <span className="mr-1 font-bold">XXXX</span>
                   subscribers
                 </p>
 
-                <p className="text-white">
-                  <span className="mr-1 font-bold text-white">XX</span>
+                <p>
+                  <span className="mr-1 font-bold">XX</span>
                   stakers
                 </p>
               </div>
@@ -75,7 +75,7 @@ export default function Index() {
 
           <div className="h-[92px] w-full bg-gray99 flex justify-between items-center px-[145px]">
             <div className="flex">
-              <div className="flex flex-col text-white mr-[30px]">
+              <div className="flex flex-col mr-[30px]">
                 <p className="font-bold">your stake</p>
 
                 <p className="font-bold text-gray98">
@@ -83,7 +83,7 @@ export default function Index() {
                 </p>
               </div>
 
-              <div className="flex flex-col text-white mr-[30px]">
+              <div className="flex flex-col mr-[30px]">
                 <p className="font-bold">your rewards</p>
 
                 <p className="font-bold text-gray98">
@@ -91,7 +91,7 @@ export default function Index() {
                 </p>
               </div>
 
-              <div className="flex flex-col text-white mr-[30px]">
+              <div className="flex flex-col mr-[30px]">
                 <p className="font-bold">total staked</p>
 
                 <p className="font-bold text-gray98">
@@ -99,7 +99,7 @@ export default function Index() {
                 </p>
               </div>
 
-              <div className="flex flex-col text-white">
+              <div className="flex flex-col">
                 <p className="font-bold">youtuber rewards</p>
 
                 <p className="font-bold text-gray98">
@@ -134,7 +134,7 @@ export default function Index() {
           <div className="w-full pt-[62px] px-[147px] flex justify-between items-start">
             <div className="flex flex-col">
               <div className="flex mb-[10px]">
-                <p className="mr-1 text-white text-[22px]">about</p>
+                <p className="mr-1 text-[22px]">about</p>
 
                 <div
                   onClick={openEditProfileModal}
@@ -149,7 +149,7 @@ export default function Index() {
                 </div>
               </div>
 
-              <p className="text-white w-[486px] mb-[15px]">
+              <p className="w-[486px] mb-[15px]">
                 Follow the latest Rocket launch webcasts, Conferences & more
                 space-related Livestream events. Channel Name provides a
                 Platform for Aerospace companies, nonprofit organizations &
@@ -189,13 +189,13 @@ export default function Index() {
             </div>
 
             <div>
-              <p className="text-white mb-[20px] text-[22px]">top stakers</p>
+              <p className="mb-[20px] text-[22px]">top stakers</p>
 
               <div className="w-[430px] h-[70px] bg-gray97 flex justify-between items-center px-[10px] mb-[20px]">
                 <div className="flex items-center justify-center">
                   <div className="bg-blue w-[50px] h-[50px] mr-[20px]" />
 
-                  <p className="font-bold text-white">wallet address</p>
+                  <p className="font-bold">wallet address</p>
                 </div>
 
                 <p className="font-bold text-gray98">
@@ -207,7 +207,7 @@ export default function Index() {
                 <div className="flex items-center justify-center">
                   <div className="bg-blue w-[50px] h-[50px] mr-[20px]" />
 
-                  <p className="font-bold text-white">wallet address</p>
+                  <p className="font-bold">wallet address</p>
                 </div>
 
                 <p className="font-bold text-gray98">
@@ -219,7 +219,7 @@ export default function Index() {
                 <div className="flex items-center justify-center">
                   <div className="bg-blue w-[50px] h-[50px] mr-[20px]" />
 
-                  <p className="font-bold text-white">wallet address</p>
+                  <p className="font-bold">wallet address</p>
                 </div>
 
                 <p className="font-bold text-gray98">
@@ -230,7 +230,7 @@ export default function Index() {
           </div>
 
           <div className="flex flex-col w-full px-[147px] pb-[62px]">
-            <p className="text-white text-[22px] mb-[26px]">
+            <p className="text-[22px] mb-[26px]">
               Channel Name's latest videos
             </p>
 
@@ -238,7 +238,7 @@ export default function Index() {
               <div className="flex flex-col mr-[40px]">
                 <div className="w-[220px] h-[123px] bg-blue mb-[15px]" />
 
-                <p className="font-bold w-[218px] text-white mb-[15px]">
+                <p className="font-bold w-[218px] mb-[15px]">
                   WATCH LIVE: SpaceX First All-Civilian Crew Mission to Space!
                   #Inspiration4 #LIVE #SPACEX
                 </p>
@@ -251,7 +251,7 @@ export default function Index() {
               <div className="flex flex-col mr-[40px]">
                 <div className="w-[220px] h-[123px] bg-blue mb-[15px]" />
 
-                <p className="font-bold w-[218px] text-white mb-[15px]">
+                <p className="font-bold w-[218px] mb-[15px]">
                   WATCH LIVE: SpaceX First All-Civilian Crew Mission to Space!
                   #Inspiration4 #LIVE #SPACEX
                 </p>
@@ -264,7 +264,7 @@ export default function Index() {
               <div className="flex flex-col mr-[40px]">
                 <div className="w-[220px] h-[123px] bg-blue mb-[15px]" />
 
-                <p className="font-bold w-[218px] text-white mb-[15px]">
+                <p className="font-bold w-[218px] mb-[15px]">
                   WATCH LIVE: SpaceX First All-Civilian Crew Mission to Space!
                   #Inspiration4 #LIVE #SPACEX
                 </p>
@@ -277,7 +277,7 @@ export default function Index() {
               <div className="flex flex-col mr-[40px]">
                 <div className="w-[220px] h-[123px] bg-blue mb-[15px]" />
 
-                <p className="font-bold w-[218px] text-white mb-[15px]">
+                <p className="font-bold w-[218px] mb-[15px]">
                   WATCH LIVE: SpaceX First All-Civilian Crew Mission to Space!
                   #Inspiration4 #LIVE #SPACEX
                 </p>

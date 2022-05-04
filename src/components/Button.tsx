@@ -31,9 +31,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`${width} ${height} ${color} hover:${hoverColor} font-bold ${fontSize} ${
-        textColor || 'text-white'
-      } ${borderColor} ${borderSize} flex justify-center items-center`}
+      className={`${width} ${height} ${color} hover:${hoverColor} font-bold ${fontSize} ${textColor} ${borderColor} ${borderSize} flex justify-center items-center`}
       onClick={onClick}
       onKeyDown={onKeyDown}
     >
