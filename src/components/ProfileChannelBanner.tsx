@@ -1,7 +1,7 @@
 export default function ProfileChannelBanner() {
   return (
     <div className="h-[207px] w-full bg-blue relative">
-      <div className="w-full h-[92px] absolute bg-black opacity-50 bottom-0 flex justify-between items-center px-[145px]">
+      <div className="w-full h-[92px] absolute bg-black/[0.8] bottom-0 flex justify-between items-center px-[145px]">
         <p className="text-[40px]">Channel Name</p>
 
         <div className="flex">
