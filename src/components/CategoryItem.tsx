@@ -15,7 +15,7 @@ export default function CategoryItem({
 
   return (
     <div
-      className={`h-8 bg-black border-[1.5px] border-details flex justify-center items-center p-2 mr-2 mb-2 ${
+      className={`h-8 bg-black border-[1.5px] border-gray5 flex justify-center items-center p-2 mr-2 mb-2 ${
         removeCategory && 'hover:cursor-pointer'
       }`}
       onClick={removeCategory ? handleRemoveCategory : null}

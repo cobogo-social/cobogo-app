@@ -73,12 +73,12 @@ export default function Index() {
             </div>
           </div>
 
-          <div className="h-[92px] w-full bg-gray99 flex justify-between items-center px-[145px]">
+          <div className="h-[92px] w-full bg-gray7 flex justify-between items-center px-[145px]">
             <div className="flex">
               <div className="flex flex-col mr-[30px]">
                 <p className="font-bold">your stake</p>
 
-                <p className="font-bold text-gray98">
+                <p className="font-bold text-gray6">
                   <span className="text-blue">XXXX</span> CBG
                 </p>
               </div>
@@ -86,7 +86,7 @@ export default function Index() {
               <div className="flex flex-col mr-[30px]">
                 <p className="font-bold">your rewards</p>
 
-                <p className="font-bold text-gray98">
+                <p className="font-bold text-gray6">
                   <span className="text-blue">XX</span> CBG
                 </p>
               </div>
@@ -94,7 +94,7 @@ export default function Index() {
               <div className="flex flex-col mr-[30px]">
                 <p className="font-bold">total staked</p>
 
-                <p className="font-bold text-gray98">
+                <p className="font-bold text-gray6">
                   <span className="text-blue">XXXXX</span> CBG
                 </p>
               </div>
@@ -102,7 +102,7 @@ export default function Index() {
               <div className="flex flex-col">
                 <p className="font-bold">youtuber rewards</p>
 
-                <p className="font-bold text-gray98">
+                <p className="font-bold text-gray6">
                   <span className="text-blue">XXXX</span> CBG
                 </p>
               </div>
@@ -112,7 +112,7 @@ export default function Index() {
               <div className="mr-[25px]">
                 <Button
                   text="withdraw"
-                  color="bg-gray99"
+                  color="bg-gray7"
                   hoverColor="brightness-90"
                   width="w-[114px]"
                   height="h-[38px]"
@@ -165,9 +165,9 @@ export default function Index() {
                     hoverColor="brightness-90"
                     width="w-[159px]"
                     height="h-[38px]"
-                    borderColor="border-gray97"
+                    borderColor="border-gray4"
                     borderSize="border-[1px]"
-                    textColor="text-gray98"
+                    textColor="text-gray6"
                     icon="/images/link-icon.svg"
                   />
                 </div>
@@ -178,9 +178,9 @@ export default function Index() {
                   hoverColor="brightness-90"
                   width="w-[115px]"
                   height="h-[38px]"
-                  borderColor="border-gray97"
+                  borderColor="border-gray4"
                   borderSize="border-[1px]"
-                  textColor="text-gray98"
+                  textColor="text-gray6"
                   icon="/images/link-icon.svg"
                 />
               </div>
@@ -191,38 +191,38 @@ export default function Index() {
             <div>
               <p className="mb-[20px] text-[22px]">top stakers</p>
 
-              <div className="w-[430px] h-[70px] bg-gray97 flex justify-between items-center px-[10px] mb-[20px]">
+              <div className="w-[430px] h-[70px] bg-gray4 flex justify-between items-center px-[10px] mb-[20px]">
                 <div className="flex items-center justify-center">
                   <div className="bg-blue w-[50px] h-[50px] mr-[20px]" />
 
                   <p className="font-bold">wallet address</p>
                 </div>
 
-                <p className="font-bold text-gray98">
+                <p className="font-bold text-gray6">
                   <span className="text-green">XXXX</span> CBG
                 </p>
               </div>
 
-              <div className="w-[430px] h-[70px] bg-gray97 flex justify-between items-center px-[10px] mb-[20px]">
+              <div className="w-[430px] h-[70px] bg-gray4 flex justify-between items-center px-[10px] mb-[20px]">
                 <div className="flex items-center justify-center">
                   <div className="bg-blue w-[50px] h-[50px] mr-[20px]" />
 
                   <p className="font-bold">wallet address</p>
                 </div>
 
-                <p className="font-bold text-gray98">
+                <p className="font-bold text-gray6">
                   <span className="text-green">XXXX</span> CBG
                 </p>
               </div>
 
-              <div className="w-[430px] h-[70px] bg-gray97 flex justify-between items-center px-[10px] mb-[20px]">
+              <div className="w-[430px] h-[70px] bg-gray4 flex justify-between items-center px-[10px] mb-[20px]">
                 <div className="flex items-center justify-center">
                   <div className="bg-blue w-[50px] h-[50px] mr-[20px]" />
 
                   <p className="font-bold">wallet address</p>
                 </div>
 
-                <p className="font-bold text-gray98">
+                <p className="font-bold text-gray6">
                   <span className="text-green">XXXX</span> CBG
                 </p>
               </div>

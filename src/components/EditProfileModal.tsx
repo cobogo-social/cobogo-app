@@ -19,7 +19,7 @@ export default function EditProfileModal({
 
   return isOpen ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="relative bg-primary w-[550px] h-[745px] flex flex-col justify-center border-[1.5px] border-details px-[70px]">
+      <div className="relative bg-primary w-[550px] h-[745px] flex flex-col justify-center border-[1.5px] border-gray5 px-[70px]">
         <div className="flex flex-col items-start justify-center">
           <div
             onClick={closeModal}
@@ -44,7 +44,7 @@ export default function EditProfileModal({
               <textarea
                 id="description"
                 name="description"
-                className="w-full sm:w-[432px] h-32 bg-black border-[1.5px] border-details mb-8 p-2 outline-none text-white"
+                className="w-full sm:w-[432px] h-32 bg-black border-[1.5px] border-gray5 mb-8 p-2 outline-none text-white"
               />
             </div>
 
@@ -52,12 +52,8 @@ export default function EditProfileModal({
               choose a handle
             </label>
 
-            <p className="mb-4 text-sm break-words text-graylight sm:hidden">
-              app.cobogo.social/
-            </p>
-
             <div className="flex">
-              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-details">
+              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-gray5">
                 <p className="font-bold text-white">app.cobogo.social/</p>
               </div>
 
@@ -66,7 +62,7 @@ export default function EditProfileModal({
                   id="handle"
                   name="handle"
                   type="text"
-                  className="w-full h-12 bg-black border-[1.5px] sm:border-l-0  mb-8 p-2 outline-none text-white border-details"
+                  className="w-full h-12 bg-black border-[1.5px] sm:border-l-0  mb-8 p-2 outline-none text-white border-gray5"
                 />
               </div>
             </div>
@@ -74,7 +70,7 @@ export default function EditProfileModal({
             <p className="mb-4 text-[22px] text-white">choose categories</p>
 
             <div className="flex">
-              <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-details flex justify-center items-center">
+              <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-gray5 flex justify-center items-center">
                 <Image
                   src="/images/search-icon.svg"
                   width={19}
