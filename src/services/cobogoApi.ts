@@ -174,27 +174,11 @@ export async function createWallet(address, account) {
   }
 }
 
-export async function createProfile(
-  accountId: string,
-  title: string,
-  youtubeDescription: string,
-  youtubeChannelId: string,
-  bannerImage: string,
-  profileImage: string,
-  youtubeSubscribers: number,
-) {
+export async function createProfile(data) {
   try {
-    await api.post('/api/profiles', {
-      data: {
-        accounts: accountId,
-        title,
-        youtube_description: youtubeDescription,
-        youtube_channel_id: youtubeChannelId,
-        banner_image: bannerImage,
-        profile_image: profileImage,
-        youtube_subscribers: youtubeSubscribers,
-      },
-    });
+    const response = await api.post('/api/profiles', { data });
+
+    return response.data.data;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);

@@ -53,25 +53,39 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
   if (session?.user) {
-    const accountByYoutubeAccountId = await readAccountByYoutubeAccountId(
-      session.user['id'],
-    );
+    const account = await readAccountByYoutubeAccountId(session.user['id']);
 
-    if (!accountByYoutubeAccountId) {
-      const account = await createAccount(session.user);
-      const channel = await readChannel(session);
+    let createdAccount;
 
-      if (channel) {
-        await createProfile(
-          account.id,
-          channel.snippet.title,
-          channel.snippet.description,
-          channel.id,
-          channel.brandingSettings.image?.bannerExternalUrl,
-          channel.snippet.thumbnails.high.url,
-          channel.statistics.subscriberCount,
+    if (!account) {
+      createdAccount = await createAccount(session.user);
+    }
+
+    const channel = await readChannel(session);
+
+    let profile = null;
+
+    if (channel) {
+      if (account) {
+        profile = account.attributes.profiles.data.find(
+          (profileFound) =>
+            profileFound.attributes.youtube_channel_id === channel.id,
         );
+      }
 
+      if (!profile) {
+        profile = await createProfile({
+          accounts: createdAccount ? createdAccount.id : account.id,
+          title: channel.snippet.title,
+          youtube_description: channel.snippet.description,
+          youtube_channel_id: channel.id,
+          banner_image: channel.brandingSettings.image?.bannerExternalUrl,
+          profile_image: channel.snippet.thumbnails.high.url,
+          youtube_subscribers: channel.statistics.subscriberCount,
+        });
+      }
+
+      if (profile.id) {
         return {
           redirect: {
             destination: '/submit/create-profile',
