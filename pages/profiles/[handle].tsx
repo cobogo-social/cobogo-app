@@ -10,6 +10,7 @@ import { readVideosByChannelId } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 
 interface ProfileProps {
+  bannerImage: string;
   title: string;
   youtubeSubscribers: number;
   description: string;
@@ -20,6 +21,7 @@ interface ProfileProps {
 }
 
 export default function Index({
+  bannerImage,
   title,
   youtubeSubscribers,
   description,
@@ -33,6 +35,7 @@ export default function Index({
 
       <div className="h-[299px] w-full">
         <ProfileChannelBanner
+          bannerImage={bannerImage}
           title={title}
           youtubeSubscribers={youtubeSubscribers}
         />
@@ -77,6 +80,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   return {
     props: {
+      bannerImage: profile.attributes.banner_image,
       title: profile.attributes.title,
       youtubeSubscribers: profile.attributes.youtube_subscribers,
       description: profile.attributes.description,
