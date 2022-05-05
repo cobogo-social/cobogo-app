@@ -70,3 +70,26 @@ export async function readVideoById(session, video) {
     }
   }
 }
+
+export async function readVideosByChannelId(youtubeChannelId) {
+  try {
+    const response = await api.get(`/search?`, {
+      params: {
+        channelId: youtubeChannelId,
+        key: process.env.YOUTUBE_API_KEY,
+        type: 'video',
+        part: 'snippet',
+        maxResults: 4,
+        order: 'date',
+      },
+    });
+
+    return response.data.items;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}

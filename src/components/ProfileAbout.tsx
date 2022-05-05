@@ -5,7 +5,17 @@ import Button from './Button';
 import Categories from './Categories';
 import EditProfileModal from './EditProfileModal';
 
-export default function About() {
+interface ProfileAboutProps {
+  description: string;
+  categories: string;
+  youtubeChannelId: string;
+}
+
+export default function ProfileAbout({
+  description,
+  categories,
+  youtubeChannelId,
+}: ProfileAboutProps) {
   const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
 
   function openEditProfileModal() {
@@ -36,27 +46,27 @@ export default function About() {
           </div>
         </div>
 
-        <p className="w-[486px] mb-[15px]">
-          Follow the latest Rocket launch webcasts, Conferences & more
-          space-related Livestream events. Channel Name provides a Platform for
-          Aerospace companies, nonprofit organizations & scientists to
-          communicate their work to the general public, decreasing the knowledge
-          gap between academia and society.
-        </p>
+        <p className="w-[486px] mb-[15px]">{description}</p>
 
         <div className="flex mb-[30px]">
           <div className="mr-[20px]">
-            <Button
-              text="visit channel"
-              color="bg-primary"
-              hoverColor="brightness-90"
-              width="w-[159px]"
-              height="h-[38px]"
-              borderColor="border-gray4"
-              borderSize="border-[1px]"
-              textColor="text-gray6"
-              icon="/images/link-icon.svg"
-            />
+            <a
+              href={`https://www.youtube.com/channel/${youtubeChannelId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button
+                text="visit channel"
+                color="bg-primary"
+                hoverColor="brightness-90"
+                width="w-[159px]"
+                height="h-[38px]"
+                borderColor="border-gray4"
+                borderSize="border-[1px]"
+                textColor="text-gray6"
+                icon="/images/link-icon.svg"
+              />
+            </a>
           </div>
 
           <Button
@@ -72,7 +82,7 @@ export default function About() {
           />
         </div>
 
-        <Categories categories={['category 1', 'category 2']} />
+        <Categories categories={categories.split(',')} />
       </div>
     </>
   );

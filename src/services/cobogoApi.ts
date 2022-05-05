@@ -78,7 +78,7 @@ export async function readProfileByHandle(handle) {
       `/api/profiles?populate=*&filters[handle][$eq]=${handle}`,
     );
 
-    return response.data.data[0];
+    return response.data.data[0] ? response.data.data[0] : null;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);
