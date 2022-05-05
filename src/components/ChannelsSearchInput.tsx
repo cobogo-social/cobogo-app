@@ -15,7 +15,7 @@ export default function ChannelsSearchInput() {
       <input
         className="w-[418px] h-[48px] bg-black border-[1.5px] border-l-0 border-gray5 p-2 outline-none"
         type="text"
-        placeholder="search by category or channel "
+        placeholder="search by category or channel"
       />
     </div>
   );

@@ -1,29 +1,51 @@
+import ChannelsCategoriesMenu from '@components/ChannelsCategoriesMenu';
+import ChannelsChannelBanner from '@components/ChannelsChannelBanner';
+import ChannelsChannelBox from '@components/ChannelsChannelBox';
+import ChannelsFilter from '@components/ChannelsFilter';
+import ChannelsSearchInput from '@components/ChannelsSearchInput';
 import Footer from '@components/Footer';
-import MobileMenu from '@components/MobileMenu';
-import PageContainer from '@components/PageContainer';
-import StartSubmission from '@components/StartSubmission';
-import StepsMenu from '@components/StepsMenu';
-import { GetServerSideProps } from 'next';
+import MainTopBar from '@components/MainTopBar';
+import Image from 'next/image';
 
 export default function Index() {
   return (
-    <div className="w-full">
-      <PageContainer>
-        <StepsMenu />
+    <div className="flex flex-col">
+      <MainTopBar />
 
-        <MobileMenu noSteps noLogout />
+      <div className="h-[467px] w-full">
+        <ChannelsChannelBanner />
+      </div>
 
-        <StartSubmission />
+      <div className="flex">
+        <ChannelsCategoriesMenu />
 
-        <Footer />
-      </PageContainer>
+        <div className="w-full px-[100px] py-[40px] flex flex-col justify-start items-center">
+          <div className="flex max-w-[771px]">
+            <div className="mr-[30px]">
+              <ChannelsSearchInput />
+            </div>
+
+            <ChannelsFilter />
+          </div>
+
+          <ChannelsChannelBox />
+
+          <ChannelsChannelBox />
+
+          <ChannelsChannelBox />
+
+          <div className="mt-[30px]">
+            <Image
+              src="/images/loading-icon.svg"
+              width={107}
+              height={27}
+              alt="loading icon"
+            />
+          </div>
+        </div>
+      </div>
+
+      <Footer />
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => ({
-  redirect: {
-    destination: '/submit',
-    permanent: false,
-  },
-});
