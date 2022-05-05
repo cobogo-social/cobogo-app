@@ -11,7 +11,7 @@ export default function ProfileChannelBanner() {
           </p>
 
           <p>
-            <span className="mr-1 font-bold">XX</span>
+            <span className="mr-1 font-bold">-</span>
             stakers
           </p>
         </div>

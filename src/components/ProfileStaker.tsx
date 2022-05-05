@@ -8,7 +8,7 @@ export default function ProfileStaker() {
       </div>
 
       <p className="font-bold text-gray6">
-        <span className="text-green">XXXX</span> CBG
+        <span className="text-green">-</span> CBG
       </p>
     </div>
   );

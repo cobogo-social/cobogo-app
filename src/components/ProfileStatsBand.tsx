@@ -23,7 +23,7 @@ export default function ProfileStatsBand() {
             <p className="font-bold">your stake</p>
 
             <p className="font-bold text-gray6">
-              <span className="text-blue">XXXX</span> CBG
+              <span className="text-blue">-</span> CBG
             </p>
           </div>
 
@@ -31,7 +31,7 @@ export default function ProfileStatsBand() {
             <p className="font-bold">your rewards</p>
 
             <p className="font-bold text-gray6">
-              <span className="text-blue">XX</span> CBG
+              <span className="text-blue">-</span> CBG
             </p>
           </div>
 
@@ -39,7 +39,7 @@ export default function ProfileStatsBand() {
             <p className="font-bold">total staked</p>
 
             <p className="font-bold text-gray6">
-              <span className="text-blue">XXXXX</span> CBG
+              <span className="text-blue">-</span> CBG
             </p>
           </div>
 
@@ -47,7 +47,7 @@ export default function ProfileStatsBand() {
             <p className="font-bold">youtuber rewards</p>
 
             <p className="font-bold text-gray6">
-              <span className="text-blue">XXXX</span> CBG
+              <span className="text-blue">-</span> CBG
             </p>
           </div>
         </div>
