@@ -88,6 +88,22 @@ export async function readProfileByHandle(handle) {
   }
 }
 
+export async function readProfiles(page) {
+  try {
+    const response = await api.get(
+      `/api/profiles?pagination[page]=${page}&pagination[pageSize]=3`,
+    );
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
 export async function readWalletByAddress(address) {
   try {
     const response = await api.get(

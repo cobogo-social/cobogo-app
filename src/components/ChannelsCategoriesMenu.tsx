@@ -1,6 +1,6 @@
 export default function ChannelsCategoriesMenu() {
   return (
-    <div className="w-[332px] h-[1338px] bg-secondary py-[48px] px-[39px]">
+    <div className="w-[332px] bg-secondary py-[48px] px-[39px]">
       <p className="text-[24px] mb-[31px]">categories</p>
 
       <div className="text-gray3">

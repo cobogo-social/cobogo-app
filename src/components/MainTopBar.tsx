@@ -31,18 +31,18 @@ export default function MainTopBar() {
         </div>
 
         <div className="flex items-center justify-center hover:cursor-pointer">
-          <div className="flex mr-[6px]">
+          {/* <div className="flex mr-[6px]">
             <Image
               src="/images/metamask-small-icon.svg"
               width={32}
               height={32}
               alt="metamask icon"
             />
-          </div>
+          </div> */}
 
-          <p className="font-bold mr-[10px]">wallet address</p>
+          <p className="font-bold">connect wallet</p>
 
-          <div className="w-[9px] h-[9px] bg-green rounded-full" />
+          {/* <div className="w-[9px] h-[9px] ml-[10px] bg-green rounded-full" /> */}
         </div>
       </div>
     </div>
