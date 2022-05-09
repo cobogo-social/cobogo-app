@@ -1,4 +1,6 @@
+import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
+import Loading from '@components/Loading';
 import MainTopBar from '@components/MainTopBar';
 import ProfileAbout from '@components/ProfileAbout';
 import ProfileChannelBanner from '@components/ProfileChannelBanner';
@@ -8,17 +10,21 @@ import ProfileVideos from '@components/ProfileVideos';
 import { readProfileByHandle } from '@services/cobogoApi';
 import { readVideosByChannelId } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
+import { useState } from 'react';
 
 interface ProfileProps {
   bannerImage: string;
   title: string;
   youtubeSubscribers: number;
   description: string;
-  categories: string;
+  categories: string[];
   youtubeChannelId: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   videos: any[];
+  isOwner: boolean;
+  handle: string;
 }
 
 export default function Index({
@@ -29,43 +35,61 @@ export default function Index({
   categories,
   youtubeChannelId,
   videos,
+  isOwner,
+  handle,
 }: ProfileProps) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   return (
-    <div className="flex flex-col">
-      <Head>
-        <title>cobogo - {title}</title>
-      </Head>
+    <>
+      <Loading isLoading={isLoading} />
+      <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
-      <MainTopBar />
+      <div className="flex flex-col">
+        <Head>
+          <title>cobogo - {title}</title>
+        </Head>
 
-      <div className="h-[299px] w-full">
-        <ProfileChannelBanner
-          bannerImage={bannerImage}
-          title={title}
-          youtubeSubscribers={youtubeSubscribers}
-        />
+        <MainTopBar />
 
-        <ProfileStatsBand />
+        <div className="h-[299px] w-full">
+          <ProfileChannelBanner
+            bannerImage={bannerImage}
+            title={title}
+            youtubeSubscribers={youtubeSubscribers}
+          />
+
+          <ProfileStatsBand />
+        </div>
+
+        <div className="w-full pt-[62px] px-[147px] flex justify-between items-start">
+          <ProfileAbout
+            description={description}
+            categories={categories}
+            youtubeChannelId={youtubeChannelId}
+            isOwner={isOwner}
+            handle={handle}
+            setIsLoading={setIsLoading}
+            setIsError={setIsError}
+          />
+
+          <ProfileTopStakers />
+        </div>
+
+        <ProfileVideos videos={videos} />
+
+        <Footer />
       </div>
-
-      <div className="w-full pt-[62px] px-[147px] flex justify-between items-start">
-        <ProfileAbout
-          description={description}
-          categories={categories}
-          youtubeChannelId={youtubeChannelId}
-        />
-
-        <ProfileTopStakers />
-      </div>
-
-      <ProfileVideos videos={videos} />
-
-      <Footer />
-    </div>
+    </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  params,
+}) => {
+  const session = await getSession({ req });
   const { handle } = params;
 
   const profile = await readProfileByHandle(handle);
@@ -89,9 +113,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       title: profile.attributes.title,
       youtubeSubscribers: profile.attributes.youtube_subscribers,
       description: profile.attributes.description,
-      categories: profile.attributes.categories,
+      categories: profile.attributes.categories.split(','),
       youtubeChannelId: profile.attributes.youtube_channel_id,
       videos,
+      isOwner:
+        session.user['id'] ===
+        profile.attributes.accounts.data[0].attributes.youtube_account_id,
+      handle: profile.attributes.handle,
     },
   };
 };

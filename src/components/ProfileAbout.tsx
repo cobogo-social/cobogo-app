@@ -7,14 +7,22 @@ import EditProfileModal from './EditProfileModal';
 
 interface ProfileAboutProps {
   description: string;
-  categories: string;
+  categories: string[];
   youtubeChannelId: string;
+  isOwner: boolean;
+  handle: string;
+  setIsLoading: (value: boolean) => void;
+  setIsError: (value: boolean) => void;
 }
 
 export default function ProfileAbout({
   description,
   categories,
   youtubeChannelId,
+  isOwner,
+  handle,
+  setIsLoading,
+  setIsError,
 }: ProfileAboutProps) {
   const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
 
@@ -27,23 +35,30 @@ export default function ProfileAbout({
       <EditProfileModal
         isOpen={editProfileModalIsOpen}
         setIsOpen={setEditProfileModalIsOpen}
+        description={description}
+        categories={categories}
+        handle={handle}
+        setIsLoading={setIsLoading}
+        setIsError={setIsError}
       />
 
       <div className="flex flex-col">
         <div className="flex mb-[10px]">
           <p className="mr-1 text-[22px]">about</p>
 
-          <div
-            onClick={openEditProfileModal}
-            className="flex hover:cursor-pointer"
-          >
-            <Image
-              src="/images/edit-icon.svg"
-              width={21}
-              height={19}
-              alt="edit icon"
-            />
-          </div>
+          {isOwner && (
+            <div
+              onClick={openEditProfileModal}
+              className="flex hover:cursor-pointer"
+            >
+              <Image
+                src="/images/edit-icon.svg"
+                width={21}
+                height={19}
+                alt="edit icon"
+              />
+            </div>
+          )}
         </div>
 
         <p className="w-[486px] mb-[15px]">{description}</p>
@@ -82,7 +97,7 @@ export default function ProfileAbout({
           />
         </div>
 
-        <Categories categories={categories.split(',')} />
+        <Categories categories={categories} />
       </div>
     </>
   );

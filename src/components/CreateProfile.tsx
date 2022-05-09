@@ -162,6 +162,7 @@ export default function CreateProfile({
               {formik.touched.description && formik.errors.description ? (
                 <ErrorLabel error={formik.errors.description} />
               ) : null}
+
               <textarea
                 id="description"
                 name="description"
