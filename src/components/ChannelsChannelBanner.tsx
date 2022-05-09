@@ -7,7 +7,7 @@ export default function ChannelsChannelBanner() {
         discover new channels and start staking
       </p>
 
-      <div className="w-full h-[179px] absolute bg-black/[0.8] bottom-0 flex justify-between items-center px-[145px]">
+      <div className="w-full h-[179px] absolute bg-black/[0.8] bottom-0 flex justify-between items-center px-[39px]">
         <div>
           <p className="text-[40px]">Channel Name</p>
           <p className="max-w-[667px]">

@@ -8,6 +8,7 @@ import ProfileVideos from '@components/ProfileVideos';
 import { readProfileByHandle } from '@services/cobogoApi';
 import { readVideosByChannelId } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 
 interface ProfileProps {
   bannerImage: string;
@@ -31,6 +32,10 @@ export default function Index({
 }: ProfileProps) {
   return (
     <div className="flex flex-col">
+      <Head>
+        <title>cobogo - {title}</title>
+      </Head>
+
       <MainTopBar />
 
       <div className="h-[299px] w-full">
