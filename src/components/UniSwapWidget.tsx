@@ -7,7 +7,7 @@ export default function UniSwapWidget() {
   const theme: Theme = {
     primary: '#FFFFFF',
     secondary: '#FFFFFF',
-    interactive: '#242424',
+    interactive: '#666666',
     container: '#000000',
     module: '#242424',
     accent: '#242424',
