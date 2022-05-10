@@ -3,7 +3,17 @@ import { useState } from 'react';
 import Button from './Button';
 import StakeStepsModals from './StakeStepsModals';
 
-export default function ProfileStatsBand() {
+interface ProfileStatsBandProps {
+  title: string;
+  description: string;
+  bannerImage: string;
+}
+
+export default function ProfileStatsBand({
+  title,
+  description,
+  bannerImage,
+}: ProfileStatsBandProps) {
   const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
 
   function openStakeStepsModals() {
@@ -15,6 +25,9 @@ export default function ProfileStatsBand() {
       <StakeStepsModals
         isOpen={stakeStepsModalsIsOpen}
         setIsOpen={setStakeStepsModalsOpen}
+        title={title}
+        description={description}
+        bannerImage={bannerImage}
       />
 
       <div className="h-[92px] w-full bg-gray7 flex justify-between items-center px-[145px]">

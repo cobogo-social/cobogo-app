@@ -33,7 +33,7 @@ export default function ChannelsChannelBox({
       <div className="px-[30px]">
         <p className="text-[22px] mb-[14px]">{title}</p>
 
-        <p>{description.slice(0, 154)}(...)</p>
+        <p>{description.slice(0, 154)} (...)</p>
       </div>
 
       <div className="bg-secondary w-full h-[78px] flex justify-between items-center px-[30px]">

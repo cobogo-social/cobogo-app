@@ -3,9 +3,9 @@ import Image from 'next/image';
 interface ButtonProps {
   text: string;
   color: string;
-  hoverColor: string;
-  width: string;
-  height: string;
+  hoverColor?: string;
+  width?: string;
+  height?: string;
   fontSize?: string;
   onClick?: (event: unknown) => void;
   onKeyDown?: (event: unknown) => void;
@@ -31,7 +31,9 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`${width} ${height} ${color} hover:${hoverColor} font-bold ${fontSize} ${textColor} ${borderColor} ${borderSize} flex justify-center items-center`}
+      className={`${width} ${
+        height || 'h-[38px]'
+      } ${color} hover:${hoverColor} font-bold ${fontSize} ${textColor} ${borderColor} ${borderSize} flex justify-center items-center px-[20px] hover:brightness-90`}
       onClick={onClick}
       onKeyDown={onKeyDown}
     >

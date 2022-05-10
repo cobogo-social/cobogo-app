@@ -1,23 +1,65 @@
 import Image from 'next/image';
+import { useCallback, useEffect } from 'react';
 
 import Button from './Button';
 
 interface StakeStepOneModalProps {
   setIsOpen: (value: boolean) => void;
   setStep: (value: number) => void;
+  title: string;
+  description: string;
+  bannerImage: string;
 }
 
 export default function StakeStepOneModal({
   setIsOpen,
   setStep,
+  title,
+  description,
+  bannerImage,
 }: StakeStepOneModalProps) {
   function closeModal() {
     setIsOpen(false);
+    setStep(1);
   }
 
-  function nextStep() {
-    setStep(2);
+  async function connectMetaMaskWallet() {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { ethereum } = window as any;
+
+      if (!ethereum) {
+        return;
+      }
+
+      await ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+
+      setStep(2);
+    } catch (error) {
+      console.error(error);
+    }
   }
+
+  const checkIfWalletIsConnected = useCallback(async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { ethereum } = window as any;
+
+    try {
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+
+      if (accounts.length !== 0) {
+        setStep(2);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [setStep]);
+
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, [checkIfWalletIsConnected]);
 
   return (
     <div className="relative bg-primary w-[858px] h-[412px] flex justify-between border-[1.5px] border-gray5 pl-[50px]">
@@ -37,43 +79,47 @@ export default function StakeStepOneModal({
         <p className="text-white text-[40px]">stake</p>
 
         <p className="text-white text-[22px] max-w-[438px] sm:mb-[30px]">
-          you need to connect your Tally wallet.
+          you need to connect your <span className="font-bold">MetaMask</span>{' '}
+          wallet.
         </p>
 
         <div className="flex items-center justify-center mb-[64px]">
           <Image
-            src="/images/tally-icon.svg"
+            src="/images/metamask-small-icon.svg"
             width={98}
             height={74}
             alt="tally icon"
           />
 
           <p className="font-bold text-gray3 max-w-[241px]">
-            Available for Chrome, Brave, and Firefox.
+            available as a browser extension and as a mobile app.
           </p>
         </div>
 
         <Button
-          text="connect to Tally"
+          text="connect to MetaMask"
           color="bg-blue"
-          hoverColor="brightness-90"
-          width="w-[161px]"
-          height="h-[38px]"
-          onClick={nextStep}
+          onClick={connectMetaMaskWallet}
         />
       </div>
 
       <div className="h-full bg-black w-[300px] border-l-[1.5px] border-gray5">
-        <div className="w-full bg-blue h-[47px]" />
+        {bannerImage ? (
+          <Image
+            src={bannerImage}
+            objectFit="cover"
+            width={298}
+            height={47}
+            alt={bannerImage}
+          />
+        ) : (
+          <div className="w-full bg-blue h-[47px]" />
+        )}
 
         <div className="py-[40px] px-[30px]">
-          <p className="text-[22px]">Channel Name</p>
+          <p className="text-[22px]">{title}</p>
 
-          <p>
-            Follow the latest Rocket launch webcasts, Conferences & more
-            space-related Livestream events. SPACE (Official) provides a
-            Platform for Aerospace companies (...)
-          </p>
+          <p>{description.slice(0, 154)} (...)</p>
         </div>
       </div>
     </div>

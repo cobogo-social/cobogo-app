@@ -60,7 +60,11 @@ export default function Index({
             youtubeSubscribers={youtubeSubscribers}
           />
 
-          <ProfileStatsBand />
+          <ProfileStatsBand
+            title={title}
+            description={description}
+            bannerImage={bannerImage}
+          />
         </div>
 
         <div className="w-full pt-[62px] px-[147px] flex justify-between items-start">

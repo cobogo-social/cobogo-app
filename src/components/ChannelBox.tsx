@@ -41,7 +41,7 @@ export default function ChannelBox({
 
         <p className="px-4 mt-6 text-xl">{title}</p>
 
-        <p className="px-4">{description.slice(0, 210)}(...)</p>
+        <p className="px-4">{description.slice(0, 210)} (...)</p>
 
         <button
           onClick={handleTryAnotherChannel}

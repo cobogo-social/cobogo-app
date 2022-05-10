@@ -36,7 +36,7 @@ export default function ChannelsChannelBanner({
       <div className="w-full h-[179px] absolute bg-black/[0.8] bottom-0 flex justify-between items-center px-[39px]">
         <div>
           <p className="text-[40px]">{title}</p>
-          <p className="max-w-[667px]">{description.slice(0, 154)}(...)</p>
+          <p className="max-w-[667px]">{description.slice(0, 154)} (...)</p>
         </div>
 
         <div className="flex flex-col items-end">

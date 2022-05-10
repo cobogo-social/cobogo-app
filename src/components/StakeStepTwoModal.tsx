@@ -1,23 +1,69 @@
+import { utils } from 'ethers';
 import Image from 'next/image';
+import { useCallback, useEffect } from 'react';
 
 import Button from './Button';
 
 interface StakeStepTwoModalProps {
   setIsOpen: (value: boolean) => void;
   setStep: (value: number) => void;
+  title: string;
+  description: string;
+  bannerImage: string;
 }
 
 export default function StakeStepTwoModal({
   setIsOpen,
   setStep,
+  title,
+  description,
+  bannerImage,
 }: StakeStepTwoModalProps) {
   function closeModal() {
     setIsOpen(false);
+    setStep(1);
   }
 
-  function nextStep() {
-    setStep(3);
+  async function addOrChangePolygonToMetaMaskWallet() {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { ethereum } = window as any;
+
+      await ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [
+          {
+            chainId: utils.hexValue(137),
+            chainName: 'Polygon',
+            nativeCurrency: {
+              name: 'MATIC',
+              symbol: 'MATIC',
+              decimals: 18,
+            },
+            rpcUrls: ['https://polygon-rpc.com/'],
+            blockExplorerUrls: ['https://polygonscan.com/'],
+          },
+        ],
+      });
+
+      setStep(3);
+    } catch (error) {
+      console.error(error);
+    }
   }
+
+  const checkIfNetworkIsPolygon = useCallback(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { ethereum } = window as any;
+
+    if (ethereum.networkVersion === '137') {
+      setStep(3);
+    }
+  }, [setStep]);
+
+  useEffect(() => {
+    checkIfNetworkIsPolygon();
+  }, [checkIfNetworkIsPolygon]);
 
   return (
     <div className="relative bg-primary w-[858px] h-[412px] flex justify-between border-[1.5px] border-gray5 pl-[50px]">
@@ -38,7 +84,7 @@ export default function StakeStepTwoModal({
           <p className="text-white text-[40px] mr-2">stake</p>
 
           <Image
-            src="/images/tally-outlined-icon.svg"
+            src="/images/metamask-small-icon.svg"
             width={32}
             height={32}
             alt="tally outlined icon"
@@ -48,8 +94,7 @@ export default function StakeStepTwoModal({
         </div>
 
         <p className="text-white text-[22px] max-w-[438px] sm:mb-[30px]">
-          you need to add <span className="mr-1 font-bold">Polygon</span>
-          to your wallet.
+          change your network to <span className="font-bold">Polygon.</span>
         </p>
 
         <div className="flex items-center justify-between mb-[64px] w-[309px]">
@@ -63,7 +108,7 @@ export default function StakeStepTwoModal({
           <Image src="/images/arrow.svg" width={75} height={27} alt="arrow" />
 
           <Image
-            src="/images/tally-icon.svg"
+            src="/images/metamask-small-icon.svg"
             width={98}
             height={74}
             alt="tally icon"
@@ -71,26 +116,29 @@ export default function StakeStepTwoModal({
         </div>
 
         <Button
-          text="add Polygon to Tally"
+          text="change to Polygon"
           color="bg-blue"
-          hoverColor="brightness-90"
-          width="w-[196px]"
-          height="h-[38px]"
-          onClick={nextStep}
+          onClick={addOrChangePolygonToMetaMaskWallet}
         />
       </div>
 
       <div className="h-full bg-black w-[300px] border-l-[1.5px] border-gray5">
-        <div className="w-full bg-blue h-[47px]" />
+        {bannerImage ? (
+          <Image
+            src={bannerImage}
+            objectFit="cover"
+            width={298}
+            height={47}
+            alt={bannerImage}
+          />
+        ) : (
+          <div className="w-full bg-blue h-[47px]" />
+        )}
 
         <div className="py-[40px] px-[30px]">
-          <p className="text-[22px]">Channel Name</p>
+          <p className="text-[22px]">{title}</p>
 
-          <p>
-            Follow the latest Rocket launch webcasts, Conferences & more
-            space-related Livestream events. SPACE (Official) provides a
-            Platform for Aerospace companies (...)
-          </p>
+          <p>{description.slice(0, 154)} (...)</p>
         </div>
       </div>
     </div>

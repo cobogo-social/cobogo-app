@@ -118,9 +118,9 @@ export default function Index({
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { blankslate } = params;
+  const { handle } = params;
 
-  const profile = await readProfileByHandle(blankslate);
+  const profile = await readProfileByHandle(handle);
 
   if (!profile) {
     return {
