@@ -26,7 +26,7 @@
   "rules": {
     "consistent-return": "off",
     "react/button-has-type": "off",
-    "no-console": "off",
+    "no-console": ["error", { "allow": ["error"] }],
     "import/no-unresolved": "off",
     "no-useless-return": "off",
     "react/require-default-props": "off",
