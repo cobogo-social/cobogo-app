@@ -1,8 +1,9 @@
+import '@uniswap/widgets/fonts.css';
+
 import Image from 'next/image';
 
 import Button from './Button';
-import StakeCBGSwapInput from './StakeCBGSwapInput';
-import StakeSwapInput from './StakeSwapInput';
+import UniSwapWidget from './UniSwapWidget';
 
 interface StakeStepThreeModalProps {
   setIsOpen: (value: boolean) => void;
@@ -29,7 +30,7 @@ export default function StakeStepThreeModal({
   }
 
   return (
-    <div className="relative bg-primary w-[858px] h-[412px] flex justify-between border-[1.5px] border-gray5 pl-[50px]">
+    <div className="relative bg-primary w-[858px] h-[680px] flex justify-between border-[1.5px] border-gray5 pl-[50px]">
       <div className="flex flex-col items-start justify-start py-[46px]">
         <div
           onClick={closeModal}
@@ -69,22 +70,19 @@ export default function StakeStepThreeModal({
           ooops, it seems that you don't have CBG in your wallet. Swap now!
         </p>
 
-        <div className="mb-[10px]">
+        <UniSwapWidget />
+
+        {/* <div className="mb-[10px]">
           <StakeSwapInput />
         </div>
 
         <div className="mb-[20px]">
           <StakeCBGSwapInput />
-        </div>
+        </div> */}
 
-        <Button
-          text="swap"
-          color="bg-blue"
-          hoverColor="brightness-90"
-          width="w-[76px]"
-          height="h-[38px]"
-          onClick={nextStep}
-        />
+        <div className="mt-[30px]">
+          <Button text="next step" color="bg-blue" onClick={nextStep} />
+        </div>
       </div>
 
       <div className="h-full bg-black w-[300px] border-l-[1.5px] border-gray5">
