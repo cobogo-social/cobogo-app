@@ -89,6 +89,22 @@ export async function readProfileByHandle(handle) {
   }
 }
 
+export async function readProfilesByCategory(categoryId) {
+  try {
+    const response = await api.get(
+      `/api/profiles?filters[category][id][$eq]=${categoryId}`,
+    );
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
 export async function readProfiles(page) {
   try {
     const response = await api.get(

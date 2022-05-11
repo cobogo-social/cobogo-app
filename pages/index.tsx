@@ -1,11 +1,11 @@
 import ChannelsCategoriesMenu from '@components/ChannelsCategoriesMenu';
 import ChannelsChannelBanner from '@components/ChannelsChannelBanner';
 import ChannelsChannelBox from '@components/ChannelsChannelBox';
-import ChannelsFilter from '@components/ChannelsFilter';
+import ChannelsFilterSelect from '@components/ChannelsFilterSelect';
 import ChannelsSearchInput from '@components/ChannelsSearchInput';
 import Footer from '@components/Footer';
 import MainTopBar from '@components/MainTopBar';
-import { readProfiles } from '@services/cobogoApi';
+import { readCategories, readProfiles } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
@@ -19,6 +19,8 @@ interface ChannelsProps {
   handle: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   channels: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  categories: any[];
 }
 
 export default function Index({
@@ -28,6 +30,7 @@ export default function Index({
   youtubeChannelId,
   handle,
   channels,
+  categories,
 }: ChannelsProps) {
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -41,18 +44,6 @@ export default function Index({
       channel.attributes.title.toLowerCase().includes(lowerSearch),
     );
   }, [search, updatedChannels]);
-
-  useEffect(() => {
-    const intersectionObserver = new IntersectionObserver(async (entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        setPage((c) => c + 1);
-      }
-    });
-
-    intersectionObserver.observe(document.querySelector('#sentinel'));
-
-    return () => intersectionObserver.disconnect();
-  }, []);
 
   const readProfilesByPage = useCallback(async () => {
     setIsLoading(true);
@@ -74,6 +65,34 @@ export default function Index({
     }
   }, [page]);
 
+  async function searchByCategory(categoryId) {
+    setIsLoading(true);
+
+    await axios
+      .get('/api/cobogo/readProfileByCategory', {
+        params: {
+          categoryId,
+        },
+      })
+      .then((response) => {
+        setUpdatedChannels(response.data.data);
+      });
+
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    const intersectionObserver = new IntersectionObserver(async (entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        setPage((c) => c + 1);
+      }
+    });
+
+    intersectionObserver.observe(document.querySelector('#sentinel'));
+
+    return () => intersectionObserver.disconnect();
+  }, []);
+
   useEffect(() => {
     readProfilesByPage();
   }, [page, readProfilesByPage]);
@@ -93,7 +112,10 @@ export default function Index({
       </div>
 
       <div className="flex">
-        <ChannelsCategoriesMenu />
+        <ChannelsCategoriesMenu
+          categories={categories}
+          searchByCategory={searchByCategory}
+        />
 
         <div className="w-full px-[100px] py-[40px] flex flex-col justify-start items-center">
           <div className="flex max-w-[771px]">
@@ -101,7 +123,7 @@ export default function Index({
               <ChannelsSearchInput search={search} setSearch={setSearch} />
             </div>
 
-            <ChannelsFilter />
+            <ChannelsFilterSelect />
           </div>
 
           {filteredChannels.map((channel) => (
@@ -135,6 +157,8 @@ export default function Index({
 export const getServerSideProps: GetServerSideProps = async () => {
   const profiles = await readProfiles(1);
 
+  const categories = await readCategories();
+
   return {
     props: {
       bannerImage: profiles[0].attributes.banner_image,
@@ -143,6 +167,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       youtubeChannelId: profiles[0].attributes.youtube_channel_id,
       handle: profiles[0].attributes.handle,
       channels: profiles,
+      categories,
     },
   };
 };
