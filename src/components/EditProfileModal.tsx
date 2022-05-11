@@ -246,23 +246,12 @@ export default function EditProfileModal({
               </div>
             </div>
 
-            <p className="mb-4 text-[22px] text-white">choose categories</p>
+            <p className="mb-4 text-[22px] text-white">choose tag's</p>
 
-            <div className="flex">
-              <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-gray5 flex justify-center items-center">
-                <Image
-                  src="/images/search-icon.svg"
-                  width={19}
-                  height={19}
-                  alt="search icon"
-                />
-              </div>
-
-              <CategoriesInput
-                input={input}
-                handleChangeCategories={handleChangeCategories}
-              />
-            </div>
+            <CategoriesInput
+              input={input}
+              handleChangeCategories={handleChangeCategories}
+            />
 
             <Categories
               categories={categoriesList}

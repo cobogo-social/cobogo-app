@@ -24,6 +24,7 @@ export default function Index() {
 
         <MobileMenu noSteps noLogout />
 
+        {/* TODO: remove all first components equal to this */}
         <StartSubmission />
 
         <Footer />

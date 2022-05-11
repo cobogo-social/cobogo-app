@@ -4,6 +4,7 @@ const api = axios.create({
   baseURL: 'https://www.googleapis.com/youtube/v3',
 });
 
+// TODO: add types on all functions
 export async function readChannel(session) {
   try {
     const response = await api.get(

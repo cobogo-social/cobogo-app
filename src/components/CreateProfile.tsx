@@ -10,24 +10,29 @@ import StepSubContainer from '@components/StepSubContainer';
 import TopBar from '@components/TopBar';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
 import * as yup from 'yup';
+
+import CategoriesSelect from './CategoriesSelect';
 
 interface CreateProfileProps {
   bannerImage: string;
   title: string;
   youtubeDescription: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  categories: any[];
 }
 
 export default function CreateProfile({
   bannerImage,
   title,
   youtubeDescription,
+  categories,
 }: CreateProfileProps) {
   const [categoriesList, setCategoriesList] = useState<string[]>([]);
-  const [input, setInput] = useState('');
+  const [tagInput, setTagInput] = useState('');
+  const [categoryValue, setCategoryValue] = useState('');
   const [createdProfile, setCreatedProfile] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -68,6 +73,7 @@ export default function CreateProfile({
             handle: values.handle,
             categories: categoriesList.toString(),
             queryRef: queryRef || null,
+            category: categoryValue,
           })
           .then((response) => {
             if (response.data.error) {
@@ -88,22 +94,29 @@ export default function CreateProfile({
     target: { value: SetStateAction<string> };
     key: string;
   }) {
-    setInput(event.target.value);
+    setTagInput(event.target.value);
 
     if (event.key === 'Enter') {
       if (categoriesList.length === 5) {
         return;
       }
 
-      if (input) {
-        const isDuplicated = categoriesList.filter((c) => c === input);
+      if (tagInput) {
+        const isDuplicated = categoriesList.filter((c) => c === tagInput);
 
         if (isDuplicated.length === 0) {
-          setCategoriesList([...categoriesList, input]);
-          setInput('');
+          setCategoriesList([...categoriesList, tagInput]);
+          setTagInput('');
         }
       }
     }
+  }
+
+  function changeCategory(event: {
+    target: { value: SetStateAction<string> };
+    key: string;
+  }) {
+    setCategoryValue(event.target.value);
   }
 
   function handleRemoveCategory(category: string) {
@@ -213,35 +226,31 @@ export default function CreateProfile({
               </div>
             </div>
 
-            <p className="mb-4 text-lg">choose categories</p>
+            <p className="mb-4 text-lg">choose tag's</p>
 
-            <div className="flex">
-              <div className="w-12 h-12 border-[1.5px] bg-black border-r-0 border-gray5 flex justify-center items-center">
-                <Image
-                  src="/images/search-icon.svg"
-                  width={19}
-                  height={19}
-                  alt="search icon"
-                />
-              </div>
+            {/* TODO: update all components with this name to "TagsInput" and "handleChangeCategories" to "handleChangeTags" */}
+            <CategoriesInput
+              input={tagInput}
+              handleChangeCategories={handleChangeCategories}
+            />
 
-              <CategoriesInput
-                input={input}
-                handleChangeCategories={handleChangeCategories}
-              />
-            </div>
-
+            {/* TODO: update all components with this name to "Tags", "categories" to "tags" and "removeCategory" to "removeTag" */}
             <Categories
               categories={categoriesList}
               removeCategory={handleRemoveCategory}
             />
 
+            <p className="mb-4 text-lg">choose categories</p>
+
+            <CategoriesSelect
+              categories={categories}
+              changeCategory={changeCategory}
+            />
+
             <Button
               text="send to review"
               color="bg-blue"
-              hoverColor="brightness-90"
               width="w-[155px]"
-              height="h-[38px]"
               onClick={handleRequest}
               onKeyDown={handleRequest}
             />

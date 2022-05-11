@@ -13,7 +13,7 @@ export default async function handler(
 ) {
   const session = await getSession({ req });
 
-  const { description, handle, categories, queryRef } = req.body;
+  const { description, handle, categories, queryRef, category } = req.body;
 
   try {
     const account = await readAccountByYoutubeAccountId(session.user['id']);
@@ -30,6 +30,7 @@ export default async function handler(
       handle,
       categories,
       profile.id,
+      category,
     );
 
     res.status(201).json({ status: 201, data: response });

@@ -8,6 +8,7 @@ const api = axios.create({
   },
 });
 
+// TODO: add types on all functions
 export async function readAccountByReferralCode(referralCode) {
   try {
     const response = await api.get(
@@ -93,6 +94,20 @@ export async function readProfiles(page) {
     const response = await api.get(
       `/api/profiles?pagination[page]=${page}&pagination[pageSize]=3`,
     );
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function readCategories() {
+  try {
+    const response = await api.get(`/api/categories`);
 
     return response.data.data;
   } catch (error) {
@@ -232,6 +247,7 @@ export async function updateProfile(
   handle: string,
   categories: string,
   profileId: number,
+  category: number,
 ) {
   try {
     await api.put(`/api/profiles/${profileId}`, {
@@ -239,6 +255,7 @@ export async function updateProfile(
         description,
         handle,
         categories,
+        category,
       },
     });
   } catch (error) {

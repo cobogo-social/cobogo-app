@@ -18,6 +18,7 @@ export default function Index() {
   const [haveChannel, setHaveChannel] = useState<boolean>();
   const { data: session } = useSession();
 
+  // TODO: remove "handle" on all functions
   function handleSetHaveChannel() {
     setHaveChannel(true);
   }
@@ -74,6 +75,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       }
 
       if (!profile) {
+        // TODO: update all methods to this pattern
         profile = await createProfile({
           accounts: createdAccount ? createdAccount.id : account.id,
           title: channel.snippet.title,
@@ -93,6 +95,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
           },
         };
       }
+      // TODO: add treatment to if not create profile
     }
   }
 

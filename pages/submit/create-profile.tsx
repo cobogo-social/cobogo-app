@@ -3,7 +3,10 @@ import Footer from '@components/Footer';
 import MobileMenu from '@components/MobileMenu';
 import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
-import { readAccountByYoutubeAccountId } from '@services/cobogoApi';
+import {
+  readAccountByYoutubeAccountId,
+  readCategories,
+} from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
@@ -12,12 +15,15 @@ interface CreateProfileProps {
   bannerImage: string;
   title: string;
   youtubeDescription: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  categories: any[];
 }
 
 export default function Index({
   bannerImage,
   title,
   youtubeDescription,
+  categories,
 }: CreateProfileProps) {
   const { data: session } = useSession();
 
@@ -38,6 +44,7 @@ export default function Index({
           bannerImage={bannerImage}
           title={title}
           youtubeDescription={youtubeDescription}
+          categories={categories}
         />
 
         <Footer />
@@ -61,6 +68,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const account = await readAccountByYoutubeAccountId(session.user['id']);
   const profile = account.attributes.profiles.data[0];
 
+  if (!profile) {
+    return {
+      redirect: {
+        destination: '/submit/connect',
+        permanent: false,
+      },
+    };
+  }
+
   if (profile.attributes.handle) {
     return {
       redirect: {
@@ -70,11 +86,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
+  const categories = await readCategories();
+
   return {
     props: {
       bannerImage: profile.attributes.banner_image,
       title: profile.attributes.title,
       youtubeDescription: profile.attributes.youtube_description,
+      categories,
     },
   };
 };

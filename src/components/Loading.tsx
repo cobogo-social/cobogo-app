@@ -5,6 +5,7 @@ interface LoadingProps {
 }
 
 export default function Loading({ isLoading }: LoadingProps) {
+  // TODO: create a context with this Loading and update all Loading's in the app to a hook
   return isLoading ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-20 flex justify-center items-center bg-black/[0.5]">
       <Image
