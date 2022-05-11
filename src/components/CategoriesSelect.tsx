@@ -11,7 +11,7 @@ export default function CategoriesSelect({
   return (
     <div className="flex">
       <select
-        className="w-full sm:w-[432px] h-12 bg-black border-[1.5px] border-gray5 mb-8 p-2 outline-none hidden sm:block"
+        className="w-full sm:w-[432px] h-12 bg-black border-[1.5px] border-gray5 mb-8 px-4 outline-none hidden sm:block"
         onChange={changeCategory}
       >
         {categories.map((category) => (
