@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import Button from './Button';
 import Categories from './Categories';
 
@@ -6,6 +8,7 @@ interface MobileProfileChannelBannerProps {
   youtubeSubscribers: number;
   categories: string[];
   openStakeStepsModals: () => void;
+  bannerImage: string;
 }
 
 export default function MobileProfileChannelBanner({
@@ -13,10 +16,20 @@ export default function MobileProfileChannelBanner({
   youtubeSubscribers,
   categories,
   openStakeStepsModals,
+  bannerImage,
 }: MobileProfileChannelBannerProps) {
   return (
     <div className="flex flex-col items-center justify-center w-full sm:hidden mt-[52px]">
-      <div className="flex w-full h-[59px] bg-blue mb-[37px]" />
+      <div className="flex w-full h-[59px] bg-blue mb-[37px] relative">
+        {bannerImage ? (
+          <Image
+            src={bannerImage}
+            objectFit="cover"
+            layout="fill"
+            alt={bannerImage}
+          />
+        ) : null}
+      </div>
 
       <p className="text-[26px] text-center">{title}</p>
 

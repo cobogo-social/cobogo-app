@@ -149,6 +149,7 @@ export default function Index({
           youtubeSubscribers={youtubeSubscribers}
           categories={categories}
           openStakeStepsModals={openStakeStepsModals}
+          bannerImage={bannerImage}
         />
 
         <div className="w-full pt-[62px] px-[147px] hidden sm:flex justify-between items-start">

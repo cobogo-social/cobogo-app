@@ -47,14 +47,16 @@ export default function StakeStepThreeModal({
         <div className="flex items-center justify-center">
           <p className="text-white text-[40px] mr-2">stake</p>
 
-          <Image
-            src="/images/metamask-small-icon.svg"
-            width={32}
-            height={32}
-            alt="metamask icon"
-          />
+          <div className="hidden sm:flex">
+            <Image
+              src="/images/metamask-small-icon.svg"
+              width={32}
+              height={32}
+              alt="metamask icon"
+            />
 
-          <div className="flex w-[9px] h-[9px] bg-green ml-2 mr-4 rounded-full" />
+            <div className="flex w-[9px] h-[9px] bg-green ml-2 mr-4 rounded-full" />
+          </div>
 
           <Image
             src="/images/polygon-icon.svg"
@@ -71,14 +73,6 @@ export default function StakeStepThreeModal({
         </p>
 
         <UniSwapWidget />
-
-        {/* <div className="mb-[10px]">
-          <StakeSwapInput />
-        </div>
-
-        <div className="mb-[20px]">
-          <StakeCBGSwapInput />
-        </div> */}
 
         <div className="mt-[30px]">
           <Button text="next step" color="bg-blue" onClick={nextStep} />
