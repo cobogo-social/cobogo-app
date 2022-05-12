@@ -23,7 +23,11 @@ export default function MobileProfileChannelBanner({
         subscribers
       </p>
 
-      <Categories categories={categories} />
+      <div className="flex justify-center w-full">
+        <div>
+          <Categories categories={categories} />
+        </div>
+      </div>
 
       <div className="flex flex-col items-center justify-center px-[20px] mb-[40px]">
         <div className="flex mb-[9px]">

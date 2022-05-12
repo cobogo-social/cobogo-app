@@ -1,3 +1,4 @@
+import EditProfileModal from '@components/EditProfileModal';
 import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
 import Loading from '@components/Loading';
@@ -44,9 +45,24 @@ export default function Index({
 }: ProfileProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
+
+  // TODO: remove duplicated functions based this
+  function openEditProfileModal() {
+    setEditProfileModalIsOpen(true);
+  }
 
   return (
     <>
+      <EditProfileModal
+        isOpen={editProfileModalIsOpen}
+        setIsOpen={setEditProfileModalIsOpen}
+        description={description}
+        categories={categories}
+        handle={handle}
+        setIsLoading={setIsLoading}
+        setIsError={setIsError}
+      />
       <Loading isLoading={isLoading} />
       <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
@@ -83,9 +99,7 @@ export default function Index({
             categories={categories}
             youtubeChannelId={youtubeChannelId}
             isOwner={isOwner}
-            handle={handle}
-            setIsLoading={setIsLoading}
-            setIsError={setIsError}
+            openEditProfileModal={openEditProfileModal}
           />
 
           <ProfileTopStakers />
@@ -95,6 +109,7 @@ export default function Index({
           isOwner={isOwner}
           description={description}
           youtubeChannelId={youtubeChannelId}
+          openEditProfileModal={openEditProfileModal}
         />
 
         <MobileProfileTopStakers />

@@ -6,12 +6,14 @@ interface MobileProfileAboutProps {
   isOwner: boolean;
   description: string;
   youtubeChannelId: string;
+  openEditProfileModal: () => void;
 }
 
 export default function MobileProfileAbout({
   isOwner,
   description,
   youtubeChannelId,
+  openEditProfileModal,
 }: MobileProfileAboutProps) {
   return (
     <div className="flex sm:hidden flex-col items-start justify-between w-full bg-secondary px-[20px] py-[32px] mb-[40px]">
@@ -20,7 +22,10 @@ export default function MobileProfileAbout({
           <p className="mr-1 text-[22px]">about</p>
 
           {isOwner && (
-            <div className="flex hover:cursor-pointer">
+            <div
+              onClick={openEditProfileModal}
+              className="flex hover:cursor-pointer"
+            >
               <Image
                 src="/images/edit-icon.svg"
                 width={21}

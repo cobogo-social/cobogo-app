@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { SetStateAction, useEffect, useState } from 'react';
+import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 import Button from './Button';
@@ -162,19 +162,23 @@ export default function EditProfileModal({
     }
   }
 
-  useEffect(() => {
+  const setCurrentValues = useCallback(() => {
     formik.values.description = description;
     formik.values.handle = handle;
     setCategoriesList(categories);
-  }, []);
+  }, [categories, description, formik.values, handle]);
+
+  useEffect(() => {
+    setCurrentValues();
+  }, [setCurrentValues]);
 
   return isOpen ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="relative bg-primary w-[550px] h-[745px] flex flex-col justify-center border-[1.5px] border-gray5 px-[70px]">
+      <div className="relative bg-primary w-full h-full sm:w-[550px] sm:h-[745px] flex flex-col justify-center border-[1.5px] border-gray5 px-[40px] sm:px-[70px]">
         <div className="flex flex-col items-start justify-center">
           <div
             onClick={closeModal}
-            className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
+            className="absolute top-10 sm:top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
           >
             <Image
               src="/images/x2-icon.svg"
@@ -186,11 +190,11 @@ export default function EditProfileModal({
 
           <p className="text-white text-[40px]">edit profile</p>
 
-          <p className="text-white text-[22px] max-w-[438px] sm:mb-4">
+          <p className="text-white text-[22px] max-w-[438px] mb-4">
             write a description to be visible on your public profile.
           </p>
 
-          <form className="flex flex-col" onSubmit={formik.handleSubmit}>
+          <form className="flex flex-col w-full" onSubmit={formik.handleSubmit}>
             <div className="relative">
               {formik.touched.description && formik.errors.description ? (
                 <ErrorLabel error={formik.errors.description} />
