@@ -38,6 +38,7 @@ export default function Index({
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [updatedChannels, setUpdatedChannels] = useState(channels);
+  const [currentAccount, setCurrentAccount] = useState('');
 
   const filteredChannels = useMemo(() => {
     const lowerSearch = search.toLowerCase();
@@ -83,6 +84,43 @@ export default function Index({
     setIsLoading(false);
   }
 
+  async function connectMetaMaskWallet() {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { ethereum } = window as any;
+
+      if (!ethereum) {
+        return;
+      }
+
+      const accounts = await ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+
+      const address = accounts[0];
+
+      setCurrentAccount(address);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const checkIfWalletIsConnected = useCallback(async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { ethereum } = window as any;
+
+    try {
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+
+      if (accounts.length !== 0) {
+        const account = accounts[0];
+        setCurrentAccount(account);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   useEffect(() => {
     const intersectionObserver = new IntersectionObserver(async (entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
@@ -99,11 +137,17 @@ export default function Index({
     readProfilesByPage();
   }, [page, readProfilesByPage]);
 
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, [checkIfWalletIsConnected]);
+
   return (
     <div className="flex flex-col">
       <MainTopBar />
 
       <MobileMainMenu
+        connectWallet={connectMetaMaskWallet}
+        currentAccount={currentAccount}
         categories={categories}
         searchByCategory={searchByCategory}
       />
@@ -124,7 +168,7 @@ export default function Index({
 
         <div className="w-full px-[100px] py-[40px] flex flex-col justify-start items-center">
           <div className="flex flex-col sm:flex-row max-w-[771px]">
-            <div className="mb-[10px] sm:mb-0 sm:mr-[30px]">
+            <div className="mb-[10px] sm:mb-0 sm:mr-[30px] mt-[52px] sm:mt-0">
               <ChannelsSearchInput search={search} setSearch={setSearch} />
             </div>
 

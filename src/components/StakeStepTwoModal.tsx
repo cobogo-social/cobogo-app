@@ -66,11 +66,11 @@ export default function StakeStepTwoModal({
   }, [checkIfNetworkIsPolygon]);
 
   return (
-    <div className="relative bg-primary w-[858px] h-[412px] flex justify-between border-[1.5px] border-gray5 pl-[50px]">
-      <div className="flex flex-col items-start justify-start py-[57px]">
+    <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[412px] flex justify-between border-[1.5px] border-gray5 pl-[50px] pr-[50px] sm:pr-0">
+      <div className="flex flex-col items-start justify-start py-[96px] sm:py-[57px]">
         <div
           onClick={closeModal}
-          className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
+          className="absolute right-0 mt-[20px] mr-[20px] hover:cursor-pointer top-10 sm:top-0"
         >
           <Image
             src="/images/x2-icon.svg"
@@ -93,7 +93,7 @@ export default function StakeStepTwoModal({
           <div className="flex w-[9px] h-[9px] bg-green ml-2 rounded-full" />
         </div>
 
-        <p className="text-white text-[22px] max-w-[438px] sm:mb-[30px]">
+        <p className="text-white text-[22px] max-w-[438px] mb-[30px]">
           change your network to <span className="font-bold">Polygon.</span>
         </p>
 
@@ -122,7 +122,7 @@ export default function StakeStepTwoModal({
         />
       </div>
 
-      <div className="h-full bg-black w-[300px] border-l-[1.5px] border-gray5">
+      <div className="h-full bg-black w-[300px] border-l-[1.5px] border-gray5 hidden sm:block">
         {bannerImage ? (
           <Image
             src={bannerImage}

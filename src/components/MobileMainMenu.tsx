@@ -9,8 +9,8 @@ import Button from './Button';
 import Link from './Link';
 
 interface MobileMainMenuProps {
-  currentAccount?: string;
-  connectWallet?: () => void;
+  currentAccount: string;
+  connectWallet: () => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories?: any[];
   searchByCategory?: (categoryId: number) => void;

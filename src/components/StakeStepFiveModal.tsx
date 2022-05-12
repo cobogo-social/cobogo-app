@@ -15,11 +15,11 @@ export default function StakeStepFiveModal({
   }
 
   return (
-    <div className="relative bg-primary w-[858px] h-[412px] flex justify-between border-[1.5px] border-gray5">
-      <div className="flex flex-col items-center justify-center py-[57px] w-full">
+    <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[412px] flex justify-between border-[1.5px] border-gray5">
+      <div className="flex flex-col items-center justify-center py-[96px] sm:py-[57px] w-full">
         <div
           onClick={closeModal}
-          className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
+          className="absolute right-0 mt-[20px] mr-[20px] hover:cursor-pointer top-10 sm:top-0"
         >
           <Image
             src="/images/x2-icon.svg"

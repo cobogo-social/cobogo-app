@@ -37,11 +37,24 @@ export default function UniSwapWidget() {
   const jsonRpcEndpoint = process.env.NEXT_PUBLIC_INFURA_ENDPOINT;
 
   return (
-    <SwapWidget
-      provider={provider}
-      jsonRpcEndpoint={jsonRpcEndpoint}
-      width={432}
-      theme={theme}
-    />
+    <>
+      <div className="hidden sm:block">
+        <SwapWidget
+          provider={provider}
+          jsonRpcEndpoint={jsonRpcEndpoint}
+          width={432}
+          theme={theme}
+        />
+      </div>
+
+      <div className="sm:hidden">
+        <SwapWidget
+          provider={provider}
+          jsonRpcEndpoint={jsonRpcEndpoint}
+          width={200}
+          theme={theme}
+        />
+      </div>
+    </>
   );
 }

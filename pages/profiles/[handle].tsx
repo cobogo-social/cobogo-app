@@ -13,12 +13,13 @@ import ProfileChannelBanner from '@components/ProfileChannelBanner';
 import ProfileStatsBand from '@components/ProfileStatsBand';
 import ProfileTopStakers from '@components/ProfileTopStakers';
 import ProfileVideos from '@components/ProfileVideos';
+import StakeStepsModals from '@components/StakeStepsModals';
 import { readProfileByHandle } from '@services/cobogoApi';
 import { readVideosByChannelId } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface ProfileProps {
   bannerImage: string;
@@ -47,14 +48,68 @@ export default function Index({
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
+  const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
+  const [currentAccount, setCurrentAccount] = useState('');
+
+  function openStakeStepsModals() {
+    setStakeStepsModalsOpen(true);
+  }
 
   // TODO: remove duplicated functions based this
   function openEditProfileModal() {
     setEditProfileModalIsOpen(true);
   }
 
+  async function connectMetaMaskWallet() {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { ethereum } = window as any;
+
+      if (!ethereum) {
+        return;
+      }
+
+      const accounts = await ethereum.request({
+        method: 'eth_requestAccounts',
+      });
+
+      const address = accounts[0];
+
+      setCurrentAccount(address);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const checkIfWalletIsConnected = useCallback(async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { ethereum } = window as any;
+
+    try {
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+
+      if (accounts.length !== 0) {
+        const account = accounts[0];
+        setCurrentAccount(account);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, [checkIfWalletIsConnected]);
+
   return (
     <>
+      <StakeStepsModals
+        isOpen={stakeStepsModalsIsOpen}
+        setIsOpen={setStakeStepsModalsOpen}
+        title={title}
+        description={description}
+        bannerImage={bannerImage}
+      />
       <EditProfileModal
         isOpen={editProfileModalIsOpen}
         setIsOpen={setEditProfileModalIsOpen}
@@ -74,7 +129,10 @@ export default function Index({
 
         <MainTopBar />
 
-        <MobileMainMenu />
+        <MobileMainMenu
+          connectWallet={connectMetaMaskWallet}
+          currentAccount={currentAccount}
+        />
 
         <div className="h-[299px] w-full hidden sm:flex flex-col">
           <ProfileChannelBanner
@@ -83,17 +141,14 @@ export default function Index({
             youtubeSubscribers={youtubeSubscribers}
           />
 
-          <ProfileStatsBand
-            title={title}
-            description={description}
-            bannerImage={bannerImage}
-          />
+          <ProfileStatsBand openStakeStepsModals={openStakeStepsModals} />
         </div>
 
         <MobileProfileChannelBanner
           title={title}
           youtubeSubscribers={youtubeSubscribers}
           categories={categories}
+          openStakeStepsModals={openStakeStepsModals}
         />
 
         <div className="w-full pt-[62px] px-[147px] hidden sm:flex justify-between items-start">

@@ -5,12 +5,14 @@ interface MobileProfileChannelBannerProps {
   title: string;
   youtubeSubscribers: number;
   categories: string[];
+  openStakeStepsModals: () => void;
 }
 
 export default function MobileProfileChannelBanner({
   title,
   youtubeSubscribers,
   categories,
+  openStakeStepsModals,
 }: MobileProfileChannelBannerProps) {
   return (
     <div className="flex flex-col items-center justify-center w-full sm:hidden mt-[52px]">
@@ -62,7 +64,12 @@ export default function MobileProfileChannelBanner({
           </div>
         </div>
 
-        <Button text="stake" color="bg-blue" width="w-full" />
+        <Button
+          text="stake"
+          color="bg-blue"
+          width="w-full"
+          onClick={openStakeStepsModals}
+        />
       </div>
     </div>
   );
