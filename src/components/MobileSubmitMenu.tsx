@@ -4,12 +4,15 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-interface MobileMenuProps {
+interface MobileSubmitMenuProps {
   noSteps?: boolean;
   noLogout?: boolean;
 }
 
-export default function MobileMenu({ noSteps, noLogout }: MobileMenuProps) {
+export default function MobileSubmitMenu({
+  noSteps,
+  noLogout,
+}: MobileSubmitMenuProps) {
   const [back, setBack] = useState(false);
   const [open, setOpen] = useState(false);
   const { push } = useRouter();

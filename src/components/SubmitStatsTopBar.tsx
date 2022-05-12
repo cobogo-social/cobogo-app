@@ -1,14 +1,14 @@
 import TokenInfo from '@components/TokenInfo';
 
-interface StatsTopBarProps {
+interface SubmitStatsTopBarProps {
   onboardedFriends: number;
   tokens: number;
 }
 
-export default function StatsTopBar({
+export default function SubmitStatsTopBar({
   onboardedFriends,
   tokens,
-}: StatsTopBarProps) {
+}: SubmitStatsTopBarProps) {
   return (
     <div className="hidden sm:flex w-full justify-end items-center mb-[70px]">
       <p className="mr-8">

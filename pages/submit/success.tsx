@@ -1,5 +1,5 @@
 import Footer from '@components/Footer';
-import MobileMenu from '@components/MobileMenu';
+import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
 import Success from '@components/Success';
@@ -39,7 +39,7 @@ export default function Index({
       <PageContainer>
         <StepsMenu />
 
-        <MobileMenu />
+        <MobileSubmitMenu />
 
         <Success
           bannerImage={bannerImage}

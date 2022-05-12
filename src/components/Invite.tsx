@@ -4,10 +4,11 @@ import Loading from '@components/Loading';
 import MobileReferralLink from '@components/MobileReferralLink';
 import ReferralLink from '@components/ReferralLink';
 import ShareLinks from '@components/ShareLinks';
-import StatsTopBar from '@components/StatsTopBar';
 import StepContainer from '@components/StepContainer';
 import StepSubContainer from '@components/StepSubContainer';
 import { useState } from 'react';
+
+import SubmitStatsTopBar from './SubmitStatsTopBar';
 
 interface InviteProps {
   bannerImage: string;
@@ -33,7 +34,10 @@ export default function Invite({
       <Loading isLoading={isLoading} />
 
       <StepContainer>
-        <StatsTopBar onboardedFriends={onboardedFriends} tokens={tokens} />
+        <SubmitStatsTopBar
+          onboardedFriends={onboardedFriends}
+          tokens={tokens}
+        />
 
         <StepSubContainer>
           <div className="flex flex-col">
@@ -58,7 +62,7 @@ export default function Invite({
 
             <p className="mb-8 sm:text-lg">
               <a
-                href="https://docs.cobogo.social/overview/getting-started/referral-program"
+                href="https://docs.cobogo.social/youtubers/referral-program"
                 className="font-bold text-blue"
                 target="_blank"
                 rel="noopener noreferrer"

@@ -1,9 +1,9 @@
 import ChannelNotFound from '@components/ChannelNotFound';
 import Connect from '@components/Connect';
 import Footer from '@components/Footer';
-import MobileMenu from '@components/MobileMenu';
 import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
+import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import {
   createAccount,
   createProfile,
@@ -36,7 +36,7 @@ export default function Index() {
       <PageContainer>
         <StepsMenu />
 
-        <MobileMenu noLogout />
+        <MobileSubmitMenu noLogout />
 
         {!haveChannel ? (
           <ChannelNotFound setHaveChannel={handleSetHaveChannel} />

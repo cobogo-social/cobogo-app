@@ -1,5 +1,5 @@
 import Footer from '@components/Footer';
-import MobileMenu from '@components/MobileMenu';
+import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StartSubmission from '@components/StartSubmission';
 import StepsMenu from '@components/StepsMenu';
@@ -22,7 +22,7 @@ export default function Index() {
       <PageContainer>
         <StepsMenu />
 
-        <MobileMenu noSteps noLogout />
+        <MobileSubmitMenu noSteps noLogout />
 
         {/* TODO: remove all first components equal to this */}
         <StartSubmission />

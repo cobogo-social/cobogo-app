@@ -43,7 +43,7 @@ export default function ReferralLinkModal({
 
           <p className="sm:text-lg">
             <a
-              href="https://docs.cobogo.social/overview/getting-started/referral-program"
+              href="https://docs.cobogo.social/youtubers/referral-program"
               className="font-bold text-blue"
               target="_blank"
               rel="noopener noreferrer"

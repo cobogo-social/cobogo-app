@@ -19,7 +19,7 @@ export default function ChannelsChannelBanner({
   handle,
 }: ChannelsChannelBannerProps) {
   return (
-    <div className="h-[467px] w-full bg-blue relative flex justify-center items-start">
+    <div className="h-[467px] w-full bg-blue relative hidden sm:flex justify-center items-start">
       {bannerImage ? (
         <Image
           src={bannerImage}

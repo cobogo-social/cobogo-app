@@ -9,10 +9,10 @@ export default function ChannelsCategoriesMenu({
   searchByCategory,
 }: ChannelsCategoriesMenuProps) {
   return (
-    <div className="w-[332px] bg-secondary py-[48px] px-[39px]">
+    <div className="hidden sm:block w-[332px] bg-secondary py-[48px] px-[39px]">
       <p className="text-[24px] mb-[31px]">categories</p>
 
-      <div className="text-gray3 flex flex-col items-start">
+      <div className="flex flex-col items-start text-gray3">
         {categories.map((category) => (
           <button
             key={category.id}

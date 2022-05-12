@@ -34,8 +34,7 @@ export default function UniSwapWidget() {
     setProvider(ethereum);
   }, [checkIfWalletIsConnected]);
 
-  const jsonRpcEndpoint =
-    'https://mainnet.infura.io/v3/5b4fdeecfa1d4a2486b38f37a979f33f';
+  const jsonRpcEndpoint = process.env.NEXT_PUBLIC_INFURA_ENDPOINT;
 
   return (
     <SwapWidget

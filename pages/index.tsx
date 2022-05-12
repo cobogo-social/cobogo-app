@@ -5,6 +5,8 @@ import ChannelsFilterSelect from '@components/ChannelsFilterSelect';
 import ChannelsSearchInput from '@components/ChannelsSearchInput';
 import Footer from '@components/Footer';
 import MainTopBar from '@components/MainTopBar';
+import MobileChannelsChannelBox from '@components/MobileChannelsChannelBox';
+import MobileMainMenu from '@components/MobileMainMenu';
 import { readCategories, readProfiles } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
@@ -101,15 +103,18 @@ export default function Index({
     <div className="flex flex-col">
       <MainTopBar />
 
-      <div className="h-[467px] w-full">
-        <ChannelsChannelBanner
-          bannerImage={bannerImage}
-          title={title}
-          description={description}
-          youtubeChannelId={youtubeChannelId}
-          handle={handle}
-        />
-      </div>
+      <MobileMainMenu
+        categories={categories}
+        searchByCategory={searchByCategory}
+      />
+
+      <ChannelsChannelBanner
+        bannerImage={bannerImage}
+        title={title}
+        description={description}
+        youtubeChannelId={youtubeChannelId}
+        handle={handle}
+      />
 
       <div className="flex">
         <ChannelsCategoriesMenu
@@ -118,8 +123,8 @@ export default function Index({
         />
 
         <div className="w-full px-[100px] py-[40px] flex flex-col justify-start items-center">
-          <div className="flex max-w-[771px]">
-            <div className="mr-[30px]">
+          <div className="flex flex-col sm:flex-row max-w-[771px]">
+            <div className="mb-[10px] sm:mb-0 sm:mr-[30px]">
               <ChannelsSearchInput search={search} setSearch={setSearch} />
             </div>
 
@@ -128,6 +133,16 @@ export default function Index({
 
           {filteredChannels.map((channel) => (
             <ChannelsChannelBox
+              key={channel.id}
+              bannerImage={channel.attributes.banner_image}
+              title={channel.attributes.title}
+              description={channel.attributes.youtube_description}
+              handle={channel.attributes.handle}
+            />
+          ))}
+
+          {filteredChannels.map((channel) => (
+            <MobileChannelsChannelBox
               key={channel.id}
               bannerImage={channel.attributes.banner_image}
               title={channel.attributes.title}

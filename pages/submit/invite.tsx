@@ -1,6 +1,6 @@
 import Footer from '@components/Footer';
 import Invite from '@components/Invite';
-import MobileMenu from '@components/MobileMenu';
+import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
 import {
@@ -41,7 +41,7 @@ export default function Index({
       <PageContainer>
         <StepsMenu />
 
-        <MobileMenu />
+        <MobileSubmitMenu />
 
         <Invite
           bannerImage={bannerImage}

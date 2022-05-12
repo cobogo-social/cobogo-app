@@ -2,12 +2,13 @@ import ChannelBox from '@components/ChannelBox';
 import JoinChannel from '@components/JoinChannel';
 import Link from '@components/Link';
 import Loading from '@components/Loading';
-import StatsTopBar from '@components/StatsTopBar';
 import StepContainer from '@components/StepContainer';
 import StepSubContainer from '@components/StepSubContainer';
 import YouWillBeNotified from '@components/YouWillBeNotified';
 import Image from 'next/image';
 import { useState } from 'react';
+
+import SubmitStatsTopBar from './SubmitStatsTopBar';
 
 interface SuccessProps {
   bannerImage: string;
@@ -31,7 +32,10 @@ export default function Success({
       <Loading isLoading={isLoading} />
 
       <StepContainer>
-        <StatsTopBar onboardedFriends={onboardedFriends} tokens={tokens} />
+        <SubmitStatsTopBar
+          onboardedFriends={onboardedFriends}
+          tokens={tokens}
+        />
 
         <StepSubContainer>
           <div className="flex flex-col mb-8">

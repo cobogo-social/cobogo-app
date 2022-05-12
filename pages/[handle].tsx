@@ -2,7 +2,7 @@ import Blankslate from '@components/Blankslate';
 import BlankslateContainer from '@components/BlankslateContainer';
 import BlankslateTopBar from '@components/BlankslateTopBar';
 import Footer from '@components/Footer';
-import MobileTopBar from '@components/MobileTopBar';
+import MobileMainMenu from '@components/MobileMainMenu';
 import { readProfileByHandle } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
@@ -96,7 +96,7 @@ export default function Index({
           currentAccount={currentAccount}
         />
 
-        <MobileTopBar
+        <MobileMainMenu
           connectWallet={connectMetaMaskWallet}
           currentAccount={currentAccount}
         />

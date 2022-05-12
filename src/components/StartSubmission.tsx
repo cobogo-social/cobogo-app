@@ -1,8 +1,8 @@
 import Button from '@components/Button';
-import StepContainer from '@components/StepContainer';
 import JoinOurWaitlist from '@components/JoinOurWaitlist';
 import Link from '@components/Link';
 import Loading from '@components/Loading';
+import StepContainer from '@components/StepContainer';
 import TopBar from '@components/TopBar';
 import { useState } from 'react';
 
@@ -45,7 +45,7 @@ export default function StartSubmission() {
 
           <div className="flex flex-col items-center justify-center sm:flex-row">
             <a
-              href="https://docs.cobogo.social/overview/getting-started"
+              href="https://docs.cobogo.social/youtubers/getting-started"
               className="font-bold text-blue sm:mr-8"
               target="_blank"
               rel="noopener noreferrer"

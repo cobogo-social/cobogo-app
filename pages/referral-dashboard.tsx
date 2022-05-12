@@ -1,5 +1,5 @@
 import Footer from '@components/Footer';
-import MobileTopBar from '@components/MobileTopBar';
+import MobileMainMenu from '@components/MobileMainMenu';
 import ReferralDashboard from '@components/ReferralDashboard';
 import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import ReferralDashboardTopBar from '@components/ReferralDashboardTopBar';
@@ -154,7 +154,7 @@ export default function Index() {
           setPendingFriendsChannels={setPendingFriendsChannels}
         />
 
-        <MobileTopBar
+        <MobileMainMenu
           connectWallet={connectMetaMaskWallet}
           currentAccount={currentAccount}
         />

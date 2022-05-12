@@ -3,6 +3,7 @@ import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
 import Loading from '@components/Loading';
 import MainTopBar from '@components/MainTopBar';
+import MobileMainMenu from '@components/MobileMainMenu';
 import MobileProfileAbout from '@components/MobileProfileAbout';
 import MobileProfileChannelBanner from '@components/MobileProfileChannelBanner';
 import MobileProfileTopStakers from '@components/MobileProfileTopStakers';
@@ -72,6 +73,8 @@ export default function Index({
         </Head>
 
         <MainTopBar />
+
+        <MobileMainMenu />
 
         <div className="h-[299px] w-full hidden sm:flex flex-col">
           <ProfileChannelBanner
