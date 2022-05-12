@@ -51,7 +51,7 @@ export default function StakeStepThreeModal({
             src="/images/metamask-small-icon.svg"
             width={32}
             height={32}
-            alt="tally outlined icon"
+            alt="metamask icon"
           />
 
           <div className="flex w-[9px] h-[9px] bg-green ml-2 mr-4 rounded-full" />

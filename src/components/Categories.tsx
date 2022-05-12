@@ -10,7 +10,7 @@ export default function Categories({
   removeCategory,
 }: CategoriesProps) {
   return (
-    <div className="mb-8 flex flex-wrap w-full sm:w-[432px]">
+    <div className="mb-[30px] sm:mb-8 flex flex-wrap w-full justify-center sm:justify-start sm:w-[432px]">
       {categories.map((category) => (
         <CategoryItem
           key={category}

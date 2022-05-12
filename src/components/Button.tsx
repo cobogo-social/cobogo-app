@@ -30,7 +30,7 @@ export default function Button({
   icon,
 }: ButtonProps) {
   return (
-    // TODO: remove hoverColor, width and height on props
+    // TODO: remove hoverColor on props
     <button
       className={`${width} ${
         height || 'h-[38px]'

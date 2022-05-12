@@ -88,7 +88,7 @@ export default function StakeStepOneModal({
             src="/images/metamask-small-icon.svg"
             width={98}
             height={74}
-            alt="tally icon"
+            alt="metamask icon"
           />
 
           <p className="font-bold text-gray3 max-w-[241px]">

@@ -87,7 +87,7 @@ export default function StakeStepTwoModal({
             src="/images/metamask-small-icon.svg"
             width={32}
             height={32}
-            alt="tally outlined icon"
+            alt="metamask icon"
           />
 
           <div className="flex w-[9px] h-[9px] bg-green ml-2 rounded-full" />
@@ -111,7 +111,7 @@ export default function StakeStepTwoModal({
             src="/images/metamask-small-icon.svg"
             width={98}
             height={74}
-            alt="tally icon"
+            alt="metamask icon"
           />
         </div>
 

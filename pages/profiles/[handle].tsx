@@ -2,6 +2,10 @@ import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
 import Loading from '@components/Loading';
 import MainTopBar from '@components/MainTopBar';
+import MobileProfileAbout from '@components/MobileProfileAbout';
+import MobileProfileChannelBanner from '@components/MobileProfileChannelBanner';
+import MobileProfileTopStakers from '@components/MobileProfileTopStakers';
+import MobileProfileVideos from '@components/MobileProfileVideos';
 import ProfileAbout from '@components/ProfileAbout';
 import ProfileChannelBanner from '@components/ProfileChannelBanner';
 import ProfileStatsBand from '@components/ProfileStatsBand';
@@ -53,7 +57,7 @@ export default function Index({
 
         <MainTopBar />
 
-        <div className="h-[299px] w-full">
+        <div className="h-[299px] w-full hidden sm:flex flex-col">
           <ProfileChannelBanner
             bannerImage={bannerImage}
             title={title}
@@ -67,7 +71,13 @@ export default function Index({
           />
         </div>
 
-        <div className="w-full pt-[62px] px-[147px] flex justify-between items-start">
+        <MobileProfileChannelBanner
+          title={title}
+          youtubeSubscribers={youtubeSubscribers}
+          categories={categories}
+        />
+
+        <div className="w-full pt-[62px] px-[147px] hidden sm:flex justify-between items-start">
           <ProfileAbout
             description={description}
             categories={categories}
@@ -81,7 +91,17 @@ export default function Index({
           <ProfileTopStakers />
         </div>
 
-        <ProfileVideos videos={videos} />
+        <MobileProfileAbout
+          isOwner={isOwner}
+          description={description}
+          youtubeChannelId={youtubeChannelId}
+        />
+
+        <MobileProfileTopStakers />
+
+        <ProfileVideos videos={videos} title={title} />
+
+        <MobileProfileVideos videos={videos} title={title} />
 
         <Footer />
       </div>

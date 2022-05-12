@@ -108,7 +108,7 @@ export async function readProfilesByCategory(categoryId) {
 export async function readProfiles(page) {
   try {
     const response = await api.get(
-      `/api/profiles?pagination[page]=${page}&pagination[pageSize]=3`,
+      `/api/profiles?sort[0]=id:DESC&pagination[page]=${page}&pagination[pageSize]=3`,
     );
 
     return response.data.data;

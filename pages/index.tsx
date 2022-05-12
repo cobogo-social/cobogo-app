@@ -161,11 +161,15 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: {
-      bannerImage: profiles[0].attributes.banner_image,
-      title: profiles[0].attributes.title,
-      description: profiles[0].attributes.youtube_description,
-      youtubeChannelId: profiles[0].attributes.youtube_channel_id,
-      handle: profiles[0].attributes.handle,
+      bannerImage: profiles[0] ? profiles[0].attributes.banner_image : null,
+      title: profiles[0] ? profiles[0].attributes.title : '',
+      description: profiles[0]
+        ? profiles[0].attributes.youtube_description
+        : '',
+      youtubeChannelId: profiles[0]
+        ? profiles[0].attributes.youtube_channel_id
+        : null,
+      handle: profiles[0] ? profiles[0].attributes.handle : null,
       channels: profiles,
       categories,
     },

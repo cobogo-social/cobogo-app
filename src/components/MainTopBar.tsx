@@ -8,7 +8,7 @@ export default function MainTopBar() {
   const { asPath } = useRouter();
 
   return (
-    <div className="h-[100px] w-full flex justify-between items-center px-[39px]">
+    <div className="h-[100px] w-full hidden sm:flex justify-between items-center px-[39px]">
       <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
 
       <div className="flex items-center justify-center">
