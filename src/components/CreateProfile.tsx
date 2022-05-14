@@ -240,7 +240,7 @@ export default function CreateProfile({
               removeCategory={handleRemoveCategory}
             />
 
-            <p className="mb-4 text-lg">choose categories</p>
+            <p className="mb-4 text-lg">choose a category</p>
 
             <CategoriesSelect
               categories={categories}
