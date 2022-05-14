@@ -14,7 +14,7 @@ import ProfileStatsBand from '@components/ProfileStatsBand';
 import ProfileTopStakers from '@components/ProfileTopStakers';
 import ProfileVideos from '@components/ProfileVideos';
 import StakeStepsModals from '@components/StakeStepsModals';
-import { readProfileByHandle } from '@services/cobogoApi';
+import { readCategories, readProfileByHandle } from '@services/cobogoApi';
 import { readVideosByChannelId } from '@services/youtubeApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
@@ -28,12 +28,15 @@ interface ProfileProps {
   title: string;
   youtubeSubscribers: number;
   description: string;
-  categories: string[];
+  tags: string[];
   youtubeChannelId: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   videos: any[];
   isOwner: boolean;
   handle: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  categories: any[];
+  categoryName: string;
 }
 
 export default function Index({
@@ -41,11 +44,13 @@ export default function Index({
   title,
   youtubeSubscribers,
   description,
-  categories,
+  tags,
   youtubeChannelId,
   videos,
   isOwner,
   handle,
+  categories,
+  categoryName,
 }: ProfileProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -135,10 +140,12 @@ export default function Index({
         isOpen={editProfileModalIsOpen}
         setIsOpen={setEditProfileModalIsOpen}
         description={description}
-        categories={categories}
+        tags={tags}
         handle={handle}
         setIsLoading={setIsLoading}
         setIsError={setIsError}
+        categories={categories}
+        categoryName={categoryName}
       />
       <Loading isLoading={isLoading} />
       <ErrorModal isOpen={isError} setIsOpen={setIsError} />
@@ -172,7 +179,7 @@ export default function Index({
         <MobileProfileChannelBanner
           title={title}
           youtubeSubscribers={youtubeSubscribers}
-          categories={categories}
+          tags={tags}
           openStakeStepsModals={openStakeStepsModals}
           bannerImage={bannerImage}
         />
@@ -180,7 +187,7 @@ export default function Index({
         <div className="w-full pt-[62px] px-[147px] hidden sm:flex justify-between items-start">
           <ProfileAbout
             description={description}
-            categories={categories}
+            tags={tags}
             youtubeChannelId={youtubeChannelId}
             isOwner={isOwner}
             openEditProfileModal={openEditProfileModal}
@@ -230,19 +237,23 @@ export const getServerSideProps: GetServerSideProps = async ({
     profile.attributes.youtube_channel_id,
   );
 
+  const categories = await readCategories();
+
   return {
     props: {
       bannerImage: profile.attributes.banner_image,
       title: profile.attributes.title,
       youtubeSubscribers: profile.attributes.youtube_subscribers,
       description: profile.attributes.description,
-      categories: profile.attributes.categories.split(','),
+      tags: profile.attributes.categories.split(','),
       youtubeChannelId: profile.attributes.youtube_channel_id,
       videos,
       isOwner:
         session.user['id'] ===
         profile.attributes.accounts.data[0].attributes.youtube_account_id,
       handle: profile.attributes.handle,
+      categories,
+      categoryName: profile.attributes.category.data.attributes.name,
     },
   };
 };

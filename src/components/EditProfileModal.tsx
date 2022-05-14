@@ -6,32 +6,39 @@ import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 import Button from './Button';
-import Categories from './Categories';
-import CategoriesInput from './CategoriesInput';
+import CategoriesSelect from './CategoriesSelect';
 import ErrorLabel from './ErrorLabel';
+import Tags from './Tags';
+import TagsInput from './TagsInput';
 
 interface EditProfileModalProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
   description: string;
-  categories: string[];
+  tags: string[];
   handle: string;
   setIsLoading: (value: boolean) => void;
   setIsError: (value: boolean) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  categories: any[];
+  categoryName: string;
 }
 
 export default function EditProfileModal({
   isOpen,
   setIsOpen,
   description,
-  categories,
+  tags,
   handle,
   setIsLoading,
   setIsError,
+  categories,
+  categoryName,
 }: EditProfileModalProps) {
-  const [categoriesList, setCategoriesList] = useState<string[]>([]);
-  const [input, setInput] = useState('');
+  const [tagsList, setTagsList] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState('');
   const [handleError, setHandleError] = useState('');
+  const [categoryValue, setCategoryValue] = useState('');
   const { push } = useRouter();
 
   function closeModal() {
@@ -70,8 +77,9 @@ export default function EditProfileModal({
           .post('/api/cobogo/updateProfile', {
             description: values.description,
             handle: values.handle,
-            categories: categoriesList.toString(),
+            categories: tagsList.toString(),
             queryRef: queryRef || null,
+            category: categoryValue,
           })
           .then((response) => {
             if (response.data.error) {
@@ -94,8 +102,9 @@ export default function EditProfileModal({
           .post('/api/cobogo/updateProfile', {
             description: values.description,
             handle: values.handle,
-            categories: categoriesList.toString(),
+            categories: tagsList.toString(),
             queryRef: queryRef || null,
+            category: categoryValue,
           })
           .then((response) => {
             if (response.data.error) {
@@ -110,30 +119,30 @@ export default function EditProfileModal({
     },
   });
 
-  function handleChangeCategories(event: {
+  function changeTags(event: {
     target: { value: SetStateAction<string> };
     key: string;
   }) {
-    setInput(event.target.value);
+    setTagInput(event.target.value);
 
     if (event.key === 'Enter') {
-      if (categoriesList.length === 5) {
+      if (tagsList.length === 5) {
         return;
       }
 
-      if (input) {
-        const isDuplicated = categoriesList.filter((c) => c === input);
+      if (tagInput) {
+        const isDuplicated = tagsList.filter((c) => c === tagInput);
 
         if (isDuplicated.length === 0) {
-          setCategoriesList([...categoriesList, input]);
-          setInput('');
+          setTagsList([...tagsList, tagInput]);
+          setTagInput('');
         }
       }
     }
   }
 
-  function handleRemoveCategory(category: string) {
-    setCategoriesList(categoriesList.filter((c) => c !== category));
+  function removeTag(tag: string) {
+    setTagsList(tagsList.filter((c) => c !== tag));
   }
 
   function handleRequest(event: { key: string }) {
@@ -162,11 +171,18 @@ export default function EditProfileModal({
     }
   }
 
+  function changeCategory(event: {
+    target: { value: SetStateAction<string> };
+    key: string;
+  }) {
+    setCategoryValue(event.target.value);
+  }
+
   const setCurrentValues = useCallback(() => {
     formik.values.description = description;
     formik.values.handle = handle;
-    setCategoriesList(categories);
-  }, [categories, description, formik.values, handle]);
+    setTagsList(tags);
+  }, [tags, description, handle]);
 
   useEffect(() => {
     setCurrentValues();
@@ -174,7 +190,7 @@ export default function EditProfileModal({
 
   return isOpen ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="relative bg-primary w-full h-full sm:w-[550px] sm:h-[745px] flex flex-col justify-center border-[1.5px] border-gray5 px-[40px] sm:px-[70px]">
+      <div className="relative bg-primary w-full h-full sm:w-[550px] sm:h-[858px] flex flex-col justify-center border-[1.5px] border-gray5 px-[40px] sm:px-[70px]">
         <div className="flex flex-col items-start justify-center">
           <div
             onClick={closeModal}
@@ -252,20 +268,21 @@ export default function EditProfileModal({
 
             <p className="mb-4 text-[22px] text-white">choose tag's</p>
 
-            <CategoriesInput
-              input={input}
-              handleChangeCategories={handleChangeCategories}
-            />
+            <TagsInput input={tagInput} changeTags={changeTags} />
 
-            <Categories
-              categories={categoriesList}
-              removeCategory={handleRemoveCategory}
+            <Tags tags={tagsList} removeTag={removeTag} />
+
+            <p className="mb-4 text-[22px]">choose a category</p>
+
+            <CategoriesSelect
+              categories={categories}
+              changeCategory={changeCategory}
+              categoryName={categoryName}
             />
 
             <Button
               text="save"
               color="bg-blue"
-              hoverColor="brightness-90"
               width="w-[76px]"
               height="h-[38px]"
               onClick={handleRequest}

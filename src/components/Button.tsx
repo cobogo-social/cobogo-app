@@ -3,7 +3,6 @@ import Image from 'next/image';
 interface ButtonProps {
   text: string;
   color: string;
-  hoverColor?: string;
   width?: string;
   height?: string;
   fontSize?: string;
@@ -18,7 +17,6 @@ interface ButtonProps {
 export default function Button({
   text,
   color,
-  hoverColor,
   width,
   height,
   fontSize,
@@ -30,11 +28,10 @@ export default function Button({
   icon,
 }: ButtonProps) {
   return (
-    // TODO: remove hoverColor on props
     <button
       className={`${width} ${
         height || 'h-[38px]'
-      } ${color} hover:${hoverColor} font-bold ${fontSize} ${textColor} ${borderColor} ${borderSize} flex justify-center items-center px-[20px] hover:brightness-90`}
+      } ${color} font-bold ${fontSize} ${textColor} ${borderColor} ${borderSize} flex justify-center items-center px-[20px] hover:brightness-90`}
       onClick={onClick}
       onKeyDown={onKeyDown}
     >

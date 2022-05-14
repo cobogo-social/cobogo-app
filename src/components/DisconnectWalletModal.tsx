@@ -59,7 +59,6 @@ export default function DisconnectWalletModal({
           <Button
             text="disconnect wallet"
             color="bg-gray6"
-            hoverColor="brightness-90"
             width="w-[202px]"
             height="h-[38px]"
             onClick={disconnectWallet}

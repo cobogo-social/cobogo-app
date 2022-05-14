@@ -88,7 +88,6 @@ export default function StakeStepFourModal({
         <Button
           text="approve"
           color="bg-blue"
-          hoverColor="brightness-90"
           width="w-[103px]"
           height="h-[38px]"
           onClick={nextStep}

@@ -1,6 +1,4 @@
 import Button from '@components/Button';
-import Categories from '@components/Categories';
-import CategoriesInput from '@components/CategoriesInput';
 import ChannelBox from '@components/ChannelBox';
 import ErrorLabel from '@components/ErrorLabel';
 import ErrorModal from '@components/ErrorModal';
@@ -15,6 +13,8 @@ import { SetStateAction, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 import CategoriesSelect from './CategoriesSelect';
+import Tags from './Tags';
+import TagsInput from './TagsInput';
 
 interface CreateProfileProps {
   bannerImage: string;
@@ -30,7 +30,7 @@ export default function CreateProfile({
   youtubeDescription,
   categories,
 }: CreateProfileProps) {
-  const [categoriesList, setCategoriesList] = useState<string[]>([]);
+  const [tagsList, setTagsList] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [categoryValue, setCategoryValue] = useState('');
   const [createdProfile, setCreatedProfile] = useState(false);
@@ -71,7 +71,7 @@ export default function CreateProfile({
           .post('/api/cobogo/updateProfile', {
             description: values.description,
             handle: values.handle,
-            categories: categoriesList.toString(),
+            categories: tagsList.toString(),
             queryRef: queryRef || null,
             category: categoryValue,
           })
@@ -90,22 +90,22 @@ export default function CreateProfile({
     },
   });
 
-  function handleChangeCategories(event: {
+  function changeTags(event: {
     target: { value: SetStateAction<string> };
     key: string;
   }) {
     setTagInput(event.target.value);
 
     if (event.key === 'Enter') {
-      if (categoriesList.length === 5) {
+      if (tagsList.length === 5) {
         return;
       }
 
       if (tagInput) {
-        const isDuplicated = categoriesList.filter((c) => c === tagInput);
+        const isDuplicated = tagsList.filter((c) => c === tagInput);
 
         if (isDuplicated.length === 0) {
-          setCategoriesList([...categoriesList, tagInput]);
+          setTagsList([...tagsList, tagInput]);
           setTagInput('');
         }
       }
@@ -119,8 +119,8 @@ export default function CreateProfile({
     setCategoryValue(event.target.value);
   }
 
-  function handleRemoveCategory(category: string) {
-    setCategoriesList(categoriesList.filter((c) => c !== category));
+  function removeTag(tag: string) {
+    setTagsList(tagsList.filter((c) => c !== tag));
   }
 
   function handleRequest(event: { key: string }) {
@@ -228,17 +228,9 @@ export default function CreateProfile({
 
             <p className="mb-4 text-lg">choose tag's</p>
 
-            {/* TODO: update all components with this name to "TagsInput" and "handleChangeCategories" to "handleChangeTags" */}
-            <CategoriesInput
-              input={tagInput}
-              handleChangeCategories={handleChangeCategories}
-            />
+            <TagsInput input={tagInput} changeTags={changeTags} />
 
-            {/* TODO: update all components with this name to "Tags", "categories" to "tags" and "removeCategory" to "removeTag" */}
-            <Categories
-              categories={categoriesList}
-              removeCategory={handleRemoveCategory}
-            />
+            <Tags tags={tagsList} removeTag={removeTag} />
 
             <p className="mb-4 text-lg">choose a category</p>
 

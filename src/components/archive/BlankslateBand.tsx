@@ -38,7 +38,6 @@ export default function BlankslateBand({
               <Button
                 text="join waitlist"
                 color="bg-purple"
-                hoverColor="brightness-90"
                 width="w-[129px]"
                 height="h-[38px]"
                 onClick={() => setIsLoading(true)}
@@ -56,7 +55,6 @@ export default function BlankslateBand({
               <Button
                 text="connect wallet"
                 color="bg-blue"
-                hoverColor="brightness-90"
                 width="w-[152px]"
                 height="h-[38px]"
                 onClick={connectWallet}
@@ -66,7 +64,6 @@ export default function BlankslateBand({
                 <Button
                   text="view my referral link"
                   color="bg-gray2"
-                  hoverColor="brightness-90"
                   width="w-[196px]"
                   height="h-[38px]"
                 />

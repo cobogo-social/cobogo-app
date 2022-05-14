@@ -140,7 +140,6 @@ export default function Video({
                 width="w-[131px]"
                 height="h-[38px]"
                 color="bg-blue"
-                hoverColor="brightness-90"
                 text="verify video"
                 onClick={handleVerifyVideo}
               />
@@ -151,7 +150,6 @@ export default function Video({
                 width="w-[131px]"
                 height="h-[38px]"
                 color="bg-blue"
-                hoverColor="brightness-90"
                 text="verify again"
                 onClick={handleVerifyVideo}
               />
@@ -162,7 +160,6 @@ export default function Video({
                 width="w-[131px]"
                 height="h-[38px]"
                 color="bg-blue"
-                hoverColor="brightness-90"
                 text="next step"
                 onClick={handlePushToNextStep}
               />

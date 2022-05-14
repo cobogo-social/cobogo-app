@@ -48,7 +48,6 @@ export default function ProfileStatsBand({
           <Button
             text="withdraw"
             color="bg-gray7"
-            hoverColor="brightness-90"
             width="w-[114px]"
             height="h-[38px]"
             borderColor="border-purple"
@@ -59,7 +58,6 @@ export default function ProfileStatsBand({
         <Button
           text="stake"
           color="bg-blue"
-          hoverColor="brightness-90"
           width="w-[100px]"
           height="h-[38px]"
           onClick={openStakeStepsModals}

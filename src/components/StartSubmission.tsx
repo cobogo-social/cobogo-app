@@ -31,7 +31,6 @@ export default function StartSubmission() {
             <Button
               text="join now"
               color="bg-purple"
-              hoverColor="brightness-90"
               width="w-[147px]"
               height="h-[50px]"
               fontSize="text-xl"

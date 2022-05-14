@@ -1,14 +1,11 @@
 import Image from 'next/image';
 
-interface CategoriesInputProps {
+interface TagsInputProps {
   input?: string;
-  handleChangeCategories?: (event: unknown) => void;
+  changeTags?: (event: unknown) => void;
 }
 
-export default function CategoriesInput({
-  input,
-  handleChangeCategories,
-}: CategoriesInputProps) {
+export default function TagsInput({ input, changeTags }: TagsInputProps) {
   function handleValidateKeyPressed(event) {
     event.key === 'Enter' && event.preventDefault();
   }
@@ -29,9 +26,9 @@ export default function CategoriesInput({
         type="text"
         placeholder="type a tag and press enter"
         value={input}
-        onChange={handleChangeCategories}
+        onChange={changeTags}
         onKeyPress={handleValidateKeyPressed}
-        onKeyDown={handleChangeCategories}
+        onKeyDown={changeTags}
       />
 
       <input
@@ -39,9 +36,9 @@ export default function CategoriesInput({
         type="text"
         placeholder="type a tag"
         value={input}
-        onChange={handleChangeCategories}
+        onChange={changeTags}
         onKeyPress={handleValidateKeyPressed}
-        onKeyDown={handleChangeCategories}
+        onKeyDown={changeTags}
       />
     </div>
   );

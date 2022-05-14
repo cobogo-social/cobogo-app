@@ -76,7 +76,6 @@ export default function ChannelsChannelBox({
             <Button
               text="more info"
               color="bg-blue"
-              hoverColor="brightness-90"
               width="w-[114px]"
               height="h-[38px]"
             />

@@ -84,7 +84,6 @@ export default function ChannelsChannelBanner({
                 <Button
                   text="visit channel"
                   color="bg-gray2"
-                  hoverColor="brightness-90"
                   width="w-[139px]"
                   height="h-[38px]"
                 />
@@ -95,7 +94,6 @@ export default function ChannelsChannelBanner({
               <Button
                 text="more info"
                 color="bg-blue"
-                hoverColor="brightness-90"
                 width="w-[114px]"
                 height="h-[38px]"
               />

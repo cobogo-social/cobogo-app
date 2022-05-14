@@ -143,7 +143,11 @@ export default function Index({
 
   return (
     <div className="flex flex-col">
-      <MainTopBar />
+      <MainTopBar
+        connectWallet={connectMetaMaskWallet}
+        currentAccount={currentAccount}
+        setCurrentAccount={setCurrentAccount}
+      />
 
       <MobileMainMenu
         connectWallet={connectMetaMaskWallet}

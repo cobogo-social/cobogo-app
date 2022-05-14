@@ -12,7 +12,6 @@ export default function VerifiedVideo() {
           width="w-28"
           height="h-9"
           color="bg-blue"
-          hoverColor="brightness-90"
           text="next step"
         />
       </Link> */}

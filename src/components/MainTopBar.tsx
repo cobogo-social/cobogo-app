@@ -49,7 +49,6 @@ export default function MainTopBar({
               <Button
                 text="submit a channel"
                 color="bg-purple"
-                hoverColor="brightness-90"
                 width="w-[174px]"
                 height="h-[38px]"
               />

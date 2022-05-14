@@ -1,11 +1,11 @@
 import Image from 'next/image';
 
 import Button from './Button';
-import Categories from './Categories';
+import Tags from './Tags';
 
 interface ProfileAboutProps {
   description: string;
-  categories: string[];
+  tags: string[];
   youtubeChannelId: string;
   isOwner: boolean;
   openEditProfileModal: () => void;
@@ -13,7 +13,7 @@ interface ProfileAboutProps {
 
 export default function ProfileAbout({
   description,
-  categories,
+  tags,
   youtubeChannelId,
   isOwner,
   openEditProfileModal,
@@ -50,7 +50,6 @@ export default function ProfileAbout({
             <Button
               text="visit channel"
               color="bg-primary"
-              hoverColor="brightness-90"
               width="w-[159px]"
               height="h-[38px]"
               borderColor="border-gray4"
@@ -64,7 +63,6 @@ export default function ProfileAbout({
         <Button
           text="Twitter"
           color="bg-primary"
-          hoverColor="brightness-90"
           width="w-[115px]"
           height="h-[38px]"
           borderColor="border-gray4"
@@ -74,7 +72,7 @@ export default function ProfileAbout({
         />
       </div>
 
-      <Categories categories={categories} />
+      <Tags tags={tags} />
     </div>
   );
 }
