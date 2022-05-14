@@ -120,6 +120,29 @@ export default function StakeStepTwoModal({
           color="bg-blue"
           onClick={addOrChangePolygonToMetaMaskWallet}
         />
+
+        <div className="w-[249px] h-[274px] flex flex-col items-start sm:hidden mt-[20px]">
+          <Image
+            src="/images/polygon.svg"
+            width={161}
+            height={73}
+            alt="polygon image"
+          />
+          <p>
+            Polygon believes in Web3 for all. Polygon is a decentralised
+            Ethereum scaling platform that enables developers to build scalable
+            user-friendly dApps with low transaction fees without ever
+            sacrificing on security.
+          </p>
+          <a
+            href="https://polygon.technology/"
+            className="font-bold text-blue"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            learn more
+          </a>{' '}
+        </div>
       </div>
 
       <div className="h-full bg-black w-[300px] border-l-[1.5px] border-gray5 hidden sm:block">
