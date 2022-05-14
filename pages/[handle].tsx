@@ -1,29 +1,67 @@
-import Blankslate from '@components/Blankslate';
-import BlankslateContainer from '@components/BlankslateContainer';
-import BlankslateTopBar from '@components/BlankslateTopBar';
+import EditProfileModal from '@components/EditProfileModal';
+import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
+import Loading from '@components/Loading';
+import MainTopBar from '@components/MainTopBar';
 import MobileMainMenu from '@components/MobileMainMenu';
+import MobileProfileAbout from '@components/MobileProfileAbout';
+import MobileProfileChannelBanner from '@components/MobileProfileChannelBanner';
+import MobileProfileTopStakers from '@components/MobileProfileTopStakers';
+import MobileProfileVideos from '@components/MobileProfileVideos';
+import ProfileAbout from '@components/ProfileAbout';
+import ProfileChannelBanner from '@components/ProfileChannelBanner';
+import ProfileStatsBand from '@components/ProfileStatsBand';
+import ProfileTopStakers from '@components/ProfileTopStakers';
+import ProfileVideos from '@components/ProfileVideos';
+import StakeStepsModals from '@components/StakeStepsModals';
 import { readProfileByHandle } from '@services/cobogoApi';
+import { readVideosByChannelId } from '@services/youtubeApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
-interface BlankslateProps {
-  title: string;
+interface ProfileProps {
   bannerImage: string;
-  referralCode: string;
+  title: string;
+  youtubeSubscribers: number;
+  description: string;
+  categories: string[];
+  youtubeChannelId: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  videos: any[];
+  isOwner: boolean;
+  handle: string;
 }
 
 export default function Index({
-  title,
   bannerImage,
-  referralCode,
-}: BlankslateProps) {
-  const [currentAccount, setCurrentAccount] = useState('');
+  title,
+  youtubeSubscribers,
+  description,
+  categories,
+  youtubeChannelId,
+  videos,
+  isOwner,
+  handle,
+}: ProfileProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
+  const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
+  const [currentAccount, setCurrentAccount] = useState('');
   const { push } = useRouter();
+
+  function openStakeStepsModals() {
+    setStakeStepsModalsOpen(true);
+  }
+
+  // TODO: remove duplicated functions based this
+  function openEditProfileModal() {
+    setEditProfileModalIsOpen(true);
+  }
 
   async function connectMetaMaskWallet() {
     try {
@@ -85,15 +123,35 @@ export default function Index({
   }, [checkIfWalletIsConnected]);
 
   return (
-    <div className="w-full">
-      <Head>
-        <title>cobogo - {title}</title>
-      </Head>
+    <>
+      <StakeStepsModals
+        isOpen={stakeStepsModalsIsOpen}
+        setIsOpen={setStakeStepsModalsOpen}
+        title={title}
+        description={description}
+        bannerImage={bannerImage}
+      />
+      <EditProfileModal
+        isOpen={editProfileModalIsOpen}
+        setIsOpen={setEditProfileModalIsOpen}
+        description={description}
+        categories={categories}
+        handle={handle}
+        setIsLoading={setIsLoading}
+        setIsError={setIsError}
+      />
+      <Loading isLoading={isLoading} />
+      <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
-      <BlankslateContainer>
-        <BlankslateTopBar
-          setCurrentAccount={setCurrentAccount}
+      <div className="flex flex-col">
+        <Head>
+          <title>cobogo - {title}</title>
+        </Head>
+
+        <MainTopBar
+          connectWallet={connectMetaMaskWallet}
           currentAccount={currentAccount}
+          setCurrentAccount={setCurrentAccount}
         />
 
         <MobileMainMenu
@@ -101,23 +159,60 @@ export default function Index({
           currentAccount={currentAccount}
         />
 
-        <Blankslate
-          bannerImage={bannerImage}
-          title={title}
-          referralCode={referralCode}
-          connectWallet={connectMetaMaskWallet}
-          isError={isError}
-          setIsError={setIsError}
-          currentAccount={currentAccount}
-        />
-      </BlankslateContainer>
+        <div className="h-[299px] w-full hidden sm:flex flex-col">
+          <ProfileChannelBanner
+            bannerImage={bannerImage}
+            title={title}
+            youtubeSubscribers={youtubeSubscribers}
+          />
 
-      <Footer />
-    </div>
+          <ProfileStatsBand openStakeStepsModals={openStakeStepsModals} />
+        </div>
+
+        <MobileProfileChannelBanner
+          title={title}
+          youtubeSubscribers={youtubeSubscribers}
+          categories={categories}
+          openStakeStepsModals={openStakeStepsModals}
+          bannerImage={bannerImage}
+        />
+
+        <div className="w-full pt-[62px] px-[147px] hidden sm:flex justify-between items-start">
+          <ProfileAbout
+            description={description}
+            categories={categories}
+            youtubeChannelId={youtubeChannelId}
+            isOwner={isOwner}
+            openEditProfileModal={openEditProfileModal}
+          />
+
+          <ProfileTopStakers />
+        </div>
+
+        <MobileProfileAbout
+          isOwner={isOwner}
+          description={description}
+          youtubeChannelId={youtubeChannelId}
+          openEditProfileModal={openEditProfileModal}
+        />
+
+        <MobileProfileTopStakers />
+
+        <ProfileVideos videos={videos} title={title} />
+
+        <MobileProfileVideos videos={videos} title={title} />
+
+        <Footer />
+      </div>
+    </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  params,
+}) => {
+  const session = await getSession({ req });
   const { handle } = params;
 
   const profile = await readProfileByHandle(handle);
@@ -131,12 +226,23 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   }
 
+  const videos = await readVideosByChannelId(
+    profile.attributes.youtube_channel_id,
+  );
+
   return {
     props: {
-      title: profile.attributes.title,
       bannerImage: profile.attributes.banner_image,
-      referralCode:
-        profile.attributes.accounts.data[0].attributes.referral_code,
+      title: profile.attributes.title,
+      youtubeSubscribers: profile.attributes.youtube_subscribers,
+      description: profile.attributes.description,
+      categories: profile.attributes.categories.split(','),
+      youtubeChannelId: profile.attributes.youtube_channel_id,
+      videos,
+      isOwner:
+        session.user['id'] ===
+        profile.attributes.accounts.data[0].attributes.youtube_account_id,
+      handle: profile.attributes.handle,
     },
   };
 };
