@@ -71,7 +71,7 @@ export default function StakeStepFourModal({
           type an amount and submit.
         </p>
 
-        <div className="flex flex-col file:sm:flex-row mb-[20px]">
+        <div className="flex flex-col sm:flex-row mb-[20px]">
           <div className="mb-[12px] sm:mr-[20px]">
             <p className="font-bold mb-[10px]">CBG (ERC-721)</p>
 
