@@ -13,6 +13,8 @@ export default function ChannelsFilterSelect() {
       </div>
 
       <select className="w-[262px] sm:w-[223px] h-[48px] bg-black border-[1.5px] border-l-0 border-gray5 mb-8 px-2 outline-none hover:cursor-pointer">
+        <option value="most staked">most viewed</option>
+        <option value="most staked">most recent</option>
         <option value="most staked">most staked</option>
       </select>
     </div>
