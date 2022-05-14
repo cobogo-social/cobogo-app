@@ -78,7 +78,7 @@ export default function EditProfileModal({
               setIsError(true);
             }
 
-            push(`/profiles/${values.handle}`);
+            push(`/${values.handle}`);
             setIsLoading(false);
             setIsOpen(false);
           });
@@ -102,7 +102,7 @@ export default function EditProfileModal({
               setIsError(true);
             }
 
-            push(`/profiles/${values.handle}`);
+            push(`/${values.handle}`);
             setIsLoading(false);
             setIsOpen(false);
           });

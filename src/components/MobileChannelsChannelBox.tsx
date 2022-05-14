@@ -76,7 +76,7 @@ export default function MobileChannelsChannelBox({
             </div>
           </div>
 
-          <Link href={`/profiles/${handle}`}>
+          <Link href={`/${handle}`}>
             <Button text="more info" color="bg-blue" width="w-full" />
           </Link>
         </div>

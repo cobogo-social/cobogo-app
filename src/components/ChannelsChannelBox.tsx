@@ -72,7 +72,7 @@ export default function ChannelsChannelBox({
         </div>
 
         <div className="flex">
-          <Link href={`/profiles/${handle}`}>
+          <Link href={`/${handle}`}>
             <Button
               text="more info"
               color="bg-blue"

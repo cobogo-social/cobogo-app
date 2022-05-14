@@ -91,7 +91,7 @@ export default function ChannelsChannelBanner({
               </a>
             </div>
 
-            <Link href={`/profiles/${handle}`}>
+            <Link href={`/${handle}`}>
               <Button
                 text="more info"
                 color="bg-blue"
