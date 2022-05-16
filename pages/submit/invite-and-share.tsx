@@ -1,8 +1,16 @@
+import ChannelBox from '@components/ChannelBox';
+import Earn1000CBGNotification from '@components/Earn1000CBGNotification';
+import Earn50CBGNotification from '@components/Earn50CBGNotification';
 import Footer from '@components/Footer';
-import Invite from '@components/Invite';
+import Link from '@components/Link';
 import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
+import ShareLinks from '@components/ShareLinks';
+import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
+import StepSubContainer from '@components/StepSubContainer';
+import SubmitStatsTopBar from '@components/SubmitStatsTopBar';
+import WaitlistNotification from '@components/WaitlistNotification';
 import {
   readAccountByYoutubeAccountId,
   readAccountsByReferralId,
@@ -43,14 +51,45 @@ export default function Index({
 
         <MobileSubmitMenu />
 
-        <Invite
-          bannerImage={bannerImage}
-          title={title}
-          youtubeDescription={youtubeDescription}
-          referralCode={referralCode}
-          onboardedFriends={onboardedFriends}
-          tokens={tokens}
-        />
+        <StepContainer>
+          <SubmitStatsTopBar
+            onboardedFriends={onboardedFriends}
+            tokens={tokens}
+          />
+
+          <StepSubContainer>
+            <div className="flex flex-col">
+              <p className="mb-4 text-4xl">congrats!</p>
+
+              <p className="sm:text-lg mb-8 sm:w-[408px]">
+                you are now whitelisted for the Content Creator NFT and have
+                guaranteed <span className="font-bold">100 CBG tokens</span>
+              </p>
+
+              <WaitlistNotification />
+
+              <Earn1000CBGNotification />
+
+              <Earn50CBGNotification referralCode={referralCode} />
+
+              <div className="mb-8">
+                <ShareLinks referralCode={referralCode} />
+              </div>
+
+              <Link href="/submit/success">
+                <button className="font-bold text-gray3 hover:cursor-pointer">
+                  skip
+                </button>
+              </Link>
+            </div>
+
+            <ChannelBox
+              banner={bannerImage}
+              title={title}
+              description={youtubeDescription}
+            />
+          </StepSubContainer>
+        </StepContainer>
 
         <Footer />
       </PageContainer>
@@ -77,15 +116,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     return {
       redirect: {
         destination: '/submit/create-profile',
-        permanent: false,
-      },
-    };
-  }
-
-  if (!profile.attributes.waitlist) {
-    return {
-      redirect: {
-        destination: '/submit/video',
         permanent: false,
       },
     };

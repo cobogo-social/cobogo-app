@@ -76,7 +76,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   if (profile.attributes.waitlist) {
     return {
       redirect: {
-        destination: '/submit/invite',
+        destination: '/submit/invite-and-share',
         permanent: false,
       },
     };

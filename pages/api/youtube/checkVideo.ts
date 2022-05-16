@@ -49,7 +49,7 @@ export default async function handler(
           await createVideo(validVideo, account, profile);
 
           await updateWaitlistProfile(profile);
-          await updateTokensAccount(account, 100);
+          await updateTokensAccount(account, 1000);
 
           if (account.attributes.referral.data) {
             await updateTokensAccount(account.attributes.referral.data, 50);

@@ -86,15 +86,15 @@ export default function MobileSubmitMenu({
 
           <MobileStepItem
             number="3"
-            text="video"
-            href="/submit/video"
+            text="connect wallet"
+            href="/submit/connect-wallet"
             open={open}
           />
 
           <MobileStepItem
             number="4"
-            text="invite"
-            href="/submit/invite"
+            text="invite and share"
+            href="/submit/invite-and-share"
             open={open}
           />
 

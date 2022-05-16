@@ -40,7 +40,7 @@ export default function Success({
         <StepSubContainer>
           <div className="flex flex-col mb-8">
             <p className="flex mb-4 text-4xl">
-              waitlist{' '}
+              whitelisted{' '}
               <span className="flex ml-4">
                 <Image
                   src="/images/success-icon.svg"
@@ -69,12 +69,12 @@ export default function Success({
 
             <JoinChannel />
 
-            <Link href="/submit/invite">
+            <Link href="/submit/invite-and-share">
               <button
                 onClick={() => setIsLoading(true)}
                 className="font-bold text-gray3 hover:cursor-pointer"
               >
-                back to invite
+                back to invite and share
               </button>
             </Link>
           </div>

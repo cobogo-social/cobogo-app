@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Image from 'next/image';
 import { useCallback, useEffect } from 'react';
 
@@ -32,11 +33,29 @@ export default function StakeStepOneModal({
         return;
       }
 
-      await ethereum.request({
+      const accounts = await ethereum.request({
         method: 'eth_requestAccounts',
       });
 
-      setStep(2);
+      const address = accounts[0];
+
+      const createAccount = await axios.post(
+        '/api/cobogo/createAccountToFanOrYoutuber',
+        {
+          name: address,
+        },
+      );
+
+      if (createAccount.data.data) {
+        await axios.post('/api/cobogo/createWallet', {
+          address,
+          account: createAccount.data.data.id,
+        });
+
+        setStep(2);
+      } else {
+        setStep(2);
+      }
     } catch (error) {
       console.error(error);
     }

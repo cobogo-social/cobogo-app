@@ -100,6 +100,20 @@ export default function Index({
       const address = accounts[0];
 
       setCurrentAccount(address);
+
+      const createAccount = await axios.post(
+        '/api/cobogo/createAccountToFanOrYoutuber',
+        {
+          name: address,
+        },
+      );
+
+      if (createAccount.data.data) {
+        await axios.post('/api/cobogo/createWallet', {
+          address,
+          account: createAccount.data.data.id,
+        });
+      }
     } catch (error) {
       console.error(error);
     }

@@ -79,15 +79,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  if (!profile.attributes.waitlist) {
-    return {
-      redirect: {
-        destination: '/submit/video',
-        permanent: false,
-      },
-    };
-  }
-
   let onboardedFriends = 0;
 
   const accountsByReferralId = await readAccountsByReferralId(account.id);

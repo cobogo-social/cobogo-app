@@ -49,7 +49,7 @@ export default function Index() {
         });
       }
     } catch (error) {
-      setIsError(true);
+      console.error(error);
     }
   }
 
