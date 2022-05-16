@@ -2,7 +2,6 @@ import {
   createVideo,
   readAccountByYoutubeAccountId,
   updateTokensAccount,
-  updateWaitlistProfile,
 } from '@services/cobogoApi';
 import { readVideoById, readVideos } from '@services/youtubeApi';
 import moment from 'moment';
@@ -48,12 +47,7 @@ export default async function handler(
         if (!profile.attributes.waitlist) {
           await createVideo(validVideo, account, profile);
 
-          await updateWaitlistProfile(profile);
           await updateTokensAccount(account, 1000);
-
-          if (account.attributes.referral.data) {
-            await updateTokensAccount(account.attributes.referral.data, 50);
-          }
 
           res.status(200).json({ status: 200, data: { validVideo: 1 } });
         } else {

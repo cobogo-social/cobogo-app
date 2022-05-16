@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function YouWillBeNotified() {
+export default function WhitelistedNotification() {
   return (
     <div className="flex h-[60px] justify-center items-center mb-8">
       <div className="w-[60px] h-[60px] sm:border-l-4 border-gray5 flex justify-center items-center">

@@ -151,7 +151,7 @@ export default function CreateProfile({
 
   useEffect(() => {
     if (createdProfile) {
-      push('/submit/video');
+      push('/submit/connect-wallet');
     }
   }, [push, createdProfile]);
 

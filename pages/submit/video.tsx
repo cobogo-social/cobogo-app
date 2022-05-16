@@ -64,7 +64,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const account = await readAccountByYoutubeAccountId(session.user['id']);
   const profile = account.attributes.profiles.data[0];
 
-  if (!profile) {
+  if (!profile.attributes.handle) {
     return {
       redirect: {
         destination: '/submit/create-profile',

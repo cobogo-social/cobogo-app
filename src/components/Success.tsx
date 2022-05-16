@@ -4,11 +4,11 @@ import Link from '@components/Link';
 import Loading from '@components/Loading';
 import StepContainer from '@components/StepContainer';
 import StepSubContainer from '@components/StepSubContainer';
-import YouWillBeNotified from '@components/YouWillBeNotified';
 import Image from 'next/image';
 import { useState } from 'react';
 
 import SubmitStatsTopBar from './SubmitStatsTopBar';
+import WhitelistedNotification from './WhitelistedNotification';
 
 interface SuccessProps {
   bannerImage: string;
@@ -65,7 +65,7 @@ export default function Success({
               waitlist.
             </p>
 
-            <YouWillBeNotified />
+            <WhitelistedNotification />
 
             <JoinChannel />
 

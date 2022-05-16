@@ -80,7 +80,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   if (profile.attributes.handle) {
     return {
       redirect: {
-        destination: '/submit/video',
+        destination: '/submit/connect-wallet',
         permanent: false,
       },
     };

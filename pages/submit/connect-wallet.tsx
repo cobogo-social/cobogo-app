@@ -5,8 +5,10 @@ import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
 import TopBar from '@components/TopBar';
+import { readAccountByYoutubeAccountId } from '@services/cobogoApi';
 import axios from 'axios';
-import { signIn, useSession } from 'next-auth/react';
+import { GetServerSideProps } from 'next';
+import { getSession, signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect } from 'react';
@@ -44,6 +46,8 @@ export default function Index() {
         });
       }
 
+      await axios.put('/api/cobogo/updateWaitlistProfile');
+
       push('/submit/invite-and-share');
     } catch (error) {
       console.error(error);
@@ -58,6 +62,8 @@ export default function Index() {
       const accounts = await ethereum.request({ method: 'eth_accounts' });
 
       if (accounts.length !== 0) {
+        await axios.put('/api/cobogo/updateWaitlistProfile');
+
         push('/submit/invite-and-share');
       }
     } catch (error) {
@@ -103,12 +109,14 @@ export default function Index() {
               />
             </div>
 
-            <Image
-              src="/images/metamask-icon.svg"
-              width={406}
-              height={406}
-              alt="metamask icon"
-            />
+            <div className="hidden sm:block">
+              <Image
+                src="/images/metamask-icon.svg"
+                width={406}
+                height={406}
+                alt="metamask icon"
+              />
+            </div>
           </div>
         </StepContainer>
 
@@ -117,3 +125,41 @@ export default function Index() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  if (!session?.user) {
+    return {
+      redirect: {
+        destination: '/submit/connect',
+        permanent: false,
+      },
+    };
+  }
+
+  const account = await readAccountByYoutubeAccountId(session.user['id']);
+  const profile = account.attributes.profiles.data[0];
+
+  if (!profile.attributes.handle) {
+    return {
+      redirect: {
+        destination: '/submit/create-profile',
+        permanent: false,
+      },
+    };
+  }
+
+  if (profile.attributes.waitlist) {
+    return {
+      redirect: {
+        destination: '/submit/invite-and-share',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

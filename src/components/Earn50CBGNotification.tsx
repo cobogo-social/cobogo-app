@@ -7,7 +7,7 @@ export default function Earn50CBGNotification({
 }: Earn50CBGNotificationProps) {
   return (
     <div className="flex h-[130px] justify-start items-center mb-8">
-      <div className="w-[30px] h-[130px] sm:border-l-4 border-gray3 flex justify-center items-center" />
+      <div className="w-[30px] h-[130px] border-l-4 border-gray3 hidden sm:flex justify-center items-center" />
 
       <div>
         <p className="sm:w-[326px] font-bold text-xs sm:text-base">

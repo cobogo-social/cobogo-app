@@ -1,9 +1,9 @@
 import ChannelNotFound from '@components/ChannelNotFound';
 import Connect from '@components/Connect';
 import Footer from '@components/Footer';
+import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
-import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import {
   createAccount,
   createProfile,
@@ -95,7 +95,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
           },
         };
       }
-      // TODO: add treatment to if not create profile
     }
   }
 
