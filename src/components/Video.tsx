@@ -67,9 +67,9 @@ export default function Video({
             <p className="mb-4 text-4xl">video</p>
 
             <p className="sm:text-xl sm:w-[408px] mb-8">
-              {`to join the waitlist and earn CBG, you'll have to make a video
-          presenting cobogo to your community, so they'll be ready to support
-          you when the time comes!`}
+              want to earn one{' '}
+              <span className="font-bold">thousand CBG Tokens</span>? Record and
+              post a video of:
             </p>
 
             <div className="mb-4">
