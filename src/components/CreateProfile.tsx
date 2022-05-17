@@ -9,7 +9,7 @@ import TopBar from '@components/TopBar';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import { SetStateAction, useEffect, useState } from 'react';
+import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 import CategoriesSelect from './CategoriesSelect';
@@ -149,11 +149,19 @@ export default function CreateProfile({
     }
   }
 
+  const setCurrentValues = useCallback(() => {
+    formik.values.description = youtubeDescription;
+  }, [youtubeDescription]);
+
   useEffect(() => {
     if (createdProfile) {
       push('/submit/connect-wallet');
     }
   }, [push, createdProfile]);
+
+  useEffect(() => {
+    setCurrentValues();
+  }, [setCurrentValues]);
 
   return (
     <>
