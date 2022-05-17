@@ -28,7 +28,7 @@ export default function ChannelBox({
     <>
       <Loading isLoading={isLoading} />
 
-      <div className="w-[275px] max-h-[400px] bg-black border-[1.5px] border-gray5 pb-6 hidden sm:block">
+      <div className="w-[275px] max-h-[400px] bg-black border-[1.5px] border-gray5 pb-6 hidden sm:block shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
         {banner ? (
           <Image
             src={banner}

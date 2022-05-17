@@ -203,7 +203,7 @@ export default function MobileMainMenu({
       </div>
 
       {openCategoriesMenu && (
-        <div className="fixed z-10 flex-col items-center justify-start w-[193px] h-screen bg-secondary sm:hidden px-[10px] pb-8 pt-20">
+        <div className="fixed z-10 flex-col items-center justify-start w-[193px] h-screen bg-secondary sm:hidden px-[10px] pb-8 pt-20 shadow-[0_0px_10px_15px_rgba(0,0,0,0.3)]">
           <p className="text-[22px] mb-[31px]">categories</p>
 
           <div className="flex flex-col items-start text-gray3">

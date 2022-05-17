@@ -8,7 +8,7 @@ export default function ProfileStatsBand({
   openStakeStepsModals,
 }: ProfileStatsBandProps) {
   return (
-    <div className="h-[92px] w-full bg-gray7 flex justify-between items-center px-[145px]">
+    <div className="h-[92px] w-full bg-gray7 flex justify-between items-center px-[145px] shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
       <div className="flex">
         <div className="flex flex-col mr-[30px]">
           <p className="font-bold">your stake</p>

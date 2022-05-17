@@ -30,7 +30,7 @@ export default function StakeStepThreeModal({
   }
 
   return (
-    <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[680px] flex justify-between border-[1.5px] border-gray5 pl-[50px] pr-[50px] sm:pr-0">
+    <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[680px] flex justify-between border-[1.5px] border-gray5 pl-[50px] pr-[50px] sm:pr-0 shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
       <div className="flex flex-col items-start justify-start py-[96px] sm:py-[46px]">
         <div
           onClick={closeModal}

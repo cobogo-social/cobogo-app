@@ -10,7 +10,7 @@ export default function ChannelsSearchInput({
   setSearch,
 }: ChannelsSearchInputProps) {
   return (
-    <div className="flex">
+    <div className="flex shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
       <div className="w-[48px] h-[48px] border-[1.5px] bg-black border-r-0 border-gray5 flex justify-center items-center">
         <Image
           src="/images/search-icon.svg"

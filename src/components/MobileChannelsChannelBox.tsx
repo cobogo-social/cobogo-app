@@ -17,7 +17,7 @@ export default function MobileChannelsChannelBox({
   handle,
 }: MobileChannelsChannelBoxProps) {
   return (
-    <div className="flex sm:hidden flex-col w-[310px] h-[429px] bg-black justify-start border-[1.5px] border-gray5 mt-[30px]">
+    <div className="flex sm:hidden flex-col w-[310px] h-[429px] bg-black justify-start border-[1.5px] border-gray5 mt-[30px] shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
       {bannerImage ? (
         <Image
           src={bannerImage}
