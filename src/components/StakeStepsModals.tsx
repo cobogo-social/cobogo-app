@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import StakeStepFiveModal from './StakeStepFiveModal';
 import StakeStepFourModal from './StakeStepFourModal';
@@ -22,6 +22,14 @@ export default function StakeStepsModals({
   bannerImage,
 }: StakeStepsModalsProps) {
   const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('active-modal');
+    } else {
+      document.body.classList.remove('active-modal');
+    }
+  }, [isOpen]);
 
   return isOpen ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">

@@ -75,3 +75,7 @@ select {
   font-family: 'ProximaNova';
   box-sizing: border-box;
 }
+
+.active-modal {
+  overflow: hidden;
+}
