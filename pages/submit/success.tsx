@@ -1,15 +1,23 @@
+import ChannelBox from '@components/ChannelBox';
 import Footer from '@components/Footer';
+import JoinChannel from '@components/JoinChannel';
+import Link from '@components/Link';
+import Loading from '@components/Loading';
 import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
+import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
-import Success from '@components/Success';
+import StepSubContainer from '@components/StepSubContainer';
+import SubmitStatsTopBar from '@components/SubmitStatsTopBar';
+import WhitelistedNotification from '@components/WhitelistedNotification';
 import {
   readAccountByYoutubeAccountId,
   readAccountsByReferralId,
 } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 interface SuccessProps {
   bannerImage: string;
@@ -27,6 +35,7 @@ export default function Index({
   tokens,
 }: SuccessProps) {
   const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
@@ -35,23 +44,75 @@ export default function Index({
   }, [session]);
 
   return (
-    <div className="w-full">
-      <PageContainer>
-        <StepsMenu />
+    <>
+      <Loading isLoading={isLoading} />
 
-        <MobileSubmitMenu />
+      <div className="w-full">
+        <PageContainer>
+          <StepsMenu />
 
-        <Success
-          bannerImage={bannerImage}
-          title={title}
-          youtubeDescription={youtubeDescription}
-          onboardedFriends={onboardedFriends}
-          tokens={tokens}
-        />
+          <MobileSubmitMenu />
 
-        <Footer />
-      </PageContainer>
-    </div>
+          <StepContainer>
+            <SubmitStatsTopBar
+              onboardedFriends={onboardedFriends}
+              tokens={tokens}
+            />
+
+            <StepSubContainer>
+              <div className="flex flex-col mb-8">
+                <p className="flex mb-4 text-4xl">
+                  whitelisted{' '}
+                  <span className="flex ml-4">
+                    <Image
+                      src="/images/success-icon.svg"
+                      width={34}
+                      height={34}
+                      alt="success icon"
+                    />
+                  </span>
+                </p>
+
+                <p className="sm:text-xl sm:w-[408px] mb-8">
+                  now you are eligible to join an exclusive{' '}
+                  <span className="font-bold">channel</span> for Content
+                  Creators! Be a pioneer in the first Content Creator{' '}
+                  <span className="font-bold">DAO</span>!
+                </p>
+
+                <p className="text-xs sm:text-sm mb-8 sm:w-[408px]">
+                  <span className="font-bold">cobogo</span> is a dApp still in
+                  development, but the channel{' '}
+                  <span className="font-bold">{title}</span> has been added to
+                  the waitlist.
+                </p>
+
+                <WhitelistedNotification />
+
+                <JoinChannel />
+
+                <Link href="/submit/invite-and-share">
+                  <button
+                    onClick={() => setIsLoading(true)}
+                    className="font-bold text-gray3 hover:cursor-pointer"
+                  >
+                    back to invite and share
+                  </button>
+                </Link>
+              </div>
+
+              <ChannelBox
+                banner={bannerImage}
+                title={title}
+                description={youtubeDescription}
+              />
+            </StepSubContainer>
+          </StepContainer>
+
+          <Footer />
+        </PageContainer>
+      </div>
+    </>
   );
 }
 

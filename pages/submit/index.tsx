@@ -1,15 +1,21 @@
+import Button from '@components/Button';
 import Footer from '@components/Footer';
+import JoinOurWaitlist from '@components/JoinOurWaitlist';
+import Link from '@components/Link';
+import Loading from '@components/Loading';
 import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
-import StartSubmission from '@components/StartSubmission';
+import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
+import TopBar from '@components/TopBar';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Index() {
   const { query } = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (query.ref) {
@@ -18,18 +24,70 @@ export default function Index() {
   }, [query]);
 
   return (
-    <div className="w-full">
-      <PageContainer>
-        <StepsMenu />
+    <>
+      <Loading isLoading={isLoading} />
 
-        <MobileSubmitMenu noSteps noLogout />
+      <div className="w-full">
+        <PageContainer>
+          <StepsMenu />
 
-        {/* TODO: remove all first components equal to this */}
-        <StartSubmission />
+          <MobileSubmitMenu noSteps noLogout />
 
-        <Footer />
-      </PageContainer>
-    </div>
+          <StepContainer>
+            <TopBar />
+
+            <div className="flex flex-col items-center justify-center mt-32 sm:mt-0">
+              <p className="sm:text-2xl sm:w-[618px] text-center mb-[50px]">
+                revolutionize the way you{' '}
+                <span className="font-bold">monetize</span> your{' '}
+                <span className="font-bold">channel</span> using the tools made
+                possible by <span className="font-bold">blockchain</span> and{' '}
+                <span className="font-bold">cobogo</span>
+              </p>
+
+              <JoinOurWaitlist />
+
+              <Link href="/submit/connect" className=" mb-[100px]">
+                <Button
+                  text="join now"
+                  color="bg-purple"
+                  width="w-[147px]"
+                  height="h-[50px]"
+                  fontSize="text-xl"
+                  onClick={() => setIsLoading(true)}
+                />
+              </Link>
+
+              <p className="mb-2 text-center">
+                if you have any questions about the onboarding process:
+              </p>
+
+              <div className="flex flex-col items-center justify-center sm:flex-row">
+                <a
+                  href="https://docs.cobogo.social/youtubers/getting-started"
+                  className="font-bold text-blue sm:mr-8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  our documentation
+                </a>
+
+                <a
+                  href="https://t.me/cobogosocial"
+                  className="font-bold text-blue"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  talk to an expert
+                </a>
+              </div>
+            </div>
+          </StepContainer>
+
+          <Footer />
+        </PageContainer>
+      </div>
+    </>
   );
 }
 

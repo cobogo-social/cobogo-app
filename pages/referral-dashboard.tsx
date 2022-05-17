@@ -1,7 +1,11 @@
+import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
+import Loading from '@components/Loading';
 import MobileMainMenu from '@components/MobileMainMenu';
-import ReferralDashboard from '@components/ReferralDashboard';
+import MobileReferralLink from '@components/MobileReferralLink';
+import ReferralDashboardBand from '@components/ReferralDashboardBand';
 import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
+import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
 import ReferralDashboardTopBar from '@components/ReferralDashboardTopBar';
 import axios from 'axios';
 import Head from 'next/head';
@@ -140,40 +144,73 @@ export default function Index() {
   }, [checkIfWalletIsConnected]);
 
   return (
-    <div className="w-full">
-      <Head>
-        <title>cobogo - referral dashboard</title>
-      </Head>
+    <>
+      <Loading isLoading={isLoading} />
+      <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
-      <ReferralDashboardContainer>
-        <ReferralDashboardTopBar
-          setCurrentAccount={setCurrentAccount}
-          currentAccount={currentAccount}
-          connectWallet={connectMetaMaskWallet}
-          setOnboardedFriendsChannels={setOnboardedFriendsChannels}
-          setPendingFriendsChannels={setPendingFriendsChannels}
-        />
+      <div className="w-full">
+        <Head>
+          <title>cobogo - referral dashboard</title>
+        </Head>
 
-        <MobileMainMenu
-          connectWallet={connectMetaMaskWallet}
-          currentAccount={currentAccount}
-        />
+        <ReferralDashboardContainer>
+          <ReferralDashboardTopBar
+            setCurrentAccount={setCurrentAccount}
+            currentAccount={currentAccount}
+            connectWallet={connectMetaMaskWallet}
+            setOnboardedFriendsChannels={setOnboardedFriendsChannels}
+            setPendingFriendsChannels={setPendingFriendsChannels}
+          />
 
-        <ReferralDashboard
-          currentAccount={currentAccount}
-          isError={isError}
-          setIsError={setIsError}
-          isLoading={isLoading}
-          referralCode={referralCode}
-          onboardedFriends={onboardedFriends}
-          pendingFriends={pendingFriends}
-          onboardedFriendsChannels={onboardedFriendsChannels}
-          pendingFriendsChannels={pendingFriendsChannels}
-          tokens={tokens}
-        />
-      </ReferralDashboardContainer>
+          <MobileMainMenu
+            connectWallet={connectMetaMaskWallet}
+            currentAccount={currentAccount}
+          />
 
-      <Footer />
-    </div>
+          <div className="flex flex-col items-center w-full pt-[93px]">
+            <div className="flex w-full flex-col items-start px-[30px] sm:px-[204px]">
+              <p className="text-[26px] sm:text-[40px] mb-[14px] sm:mb-[31px]">
+                invite YouTubers
+              </p>
+
+              <p className="sm:text-[22px] mb-[14px] sm:mb-[44px]">
+                you can earn 50 CBG for each Creator that joins the waitlist
+                using your referral link!
+              </p>
+
+              <MobileReferralLink referralCode={referralCode} />
+
+              <ReferralDashboardReferralLink
+                referralCode={referralCode}
+                currentAccount={currentAccount}
+              />
+
+              <p className="mb-[80px] sm:text-lg">
+                <a
+                  href="https://docs.cobogo.social/youtubers/referral-program"
+                  className="font-bold text-blue"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  learn more
+                </a>{' '}
+                about our <span className="font-bold">Referral Program.</span>
+              </p>
+            </div>
+
+            <ReferralDashboardBand
+              onboardedFriends={onboardedFriends}
+              pendingFriends={pendingFriends}
+              onboardedFriendsChannels={onboardedFriendsChannels}
+              pendingFriendsChannels={pendingFriendsChannels}
+              currentAccount={currentAccount}
+              tokens={tokens}
+            />
+          </div>
+        </ReferralDashboardContainer>
+
+        <Footer />
+      </div>
+    </>
   );
 }
