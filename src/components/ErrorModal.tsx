@@ -1,27 +1,25 @@
+import { ErrorContext } from '@contexts/ErrorContext';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
-interface ErrorModalProps {
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
-}
+export default function ErrorModal() {
+  const { error, setError } = useContext(ErrorContext);
 
-export default function ErrorModal({ isOpen, setIsOpen }: ErrorModalProps) {
   function closeModal() {
-    setIsOpen(false);
+    setError('');
   }
 
   useEffect(() => {
-    if (isOpen) {
+    if (error) {
       document.body.classList.add('active-modal');
     } else {
       document.body.classList.remove('active-modal');
     }
-  }, [isOpen]);
+  }, [error]);
 
-  return isOpen ? (
+  return error ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="relative bg-primary w-[605px] h-[244px] flex flex-col justify-center items-center border-[1.5px] border-gray5 px-[70px] shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
+      <div className="relative bg-primary w-[605px] min-h-[244px] flex flex-col justify-center items-center border-[1.5px] border-gray5 px-[70px] shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
         <div className="flex flex-col items-start justify-center">
           <div
             onClick={closeModal}
@@ -37,9 +35,7 @@ export default function ErrorModal({ isOpen, setIsOpen }: ErrorModalProps) {
 
           <p className="text-red text-[40px]">error</p>
 
-          <p className="text-[22px] max-w-[425px]">
-            the server has encountered an unexpected error.
-          </p>
+          <p className="text-[22px] max-w-[425px]">{error}</p>
         </div>
       </div>
     </div>

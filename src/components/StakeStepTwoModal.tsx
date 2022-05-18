@@ -1,6 +1,7 @@
+import { ErrorContext } from '@contexts/ErrorContext';
 import { utils } from 'ethers';
 import Image from 'next/image';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 
 import Button from './Button';
 
@@ -19,6 +20,8 @@ export default function StakeStepTwoModal({
   description,
   bannerImage,
 }: StakeStepTwoModalProps) {
+  const { setError } = useContext(ErrorContext);
+
   function closeModal() {
     setIsOpen(false);
     setStep(1);
@@ -48,18 +51,22 @@ export default function StakeStepTwoModal({
 
       setStep(3);
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
   }
 
   const checkIfNetworkIsPolygon = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { ethereum } = window as any;
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { ethereum } = window as any;
 
-    if (ethereum.networkVersion === '137') {
-      setStep(3);
+      if (ethereum.networkVersion === '137') {
+        setStep(3);
+      }
+    } catch (error) {
+      setError(error.message);
     }
-  }, [setStep]);
+  }, [setError, setStep]);
 
   useEffect(() => {
     checkIfNetworkIsPolygon();

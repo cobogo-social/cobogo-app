@@ -5,6 +5,7 @@ import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
 import TopBar from '@components/TopBar';
+import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { readAccountByYoutubeAccountId } from '@services/cobogoApi';
 import axios from 'axios';
@@ -17,6 +18,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 export default function Index() {
   const { data: session } = useSession();
   const { setLoading } = useContext(LoadingContext);
+  const { setError } = useContext(ErrorContext);
   const [currentAccount, setCurrentAccount] = useState();
   const { push } = useRouter();
 
@@ -57,25 +59,25 @@ export default function Index() {
 
       setLoading(false);
     } catch (error) {
-      console.error(error);
+      setError(error.message);
       setLoading(false);
     }
   }
 
   const checkIfWalletIsConnected = useCallback(async () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { ethereum } = window as any;
-
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { ethereum } = window as any;
+
       const accounts = await ethereum.request({ method: 'eth_accounts' });
 
       if (accounts.length !== 0) {
         await axios.put('/api/cobogo/updateWaitlistProfile');
       }
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
-  }, []);
+  }, [setError]);
 
   async function pushToNextStep() {
     setLoading(true);
@@ -148,39 +150,43 @@ export default function Index() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+  try {
+    const session = await getSession({ req });
 
-  if (!session?.user) {
+    if (!session?.user) {
+      return {
+        redirect: {
+          destination: '/submit/connect',
+          permanent: false,
+        },
+      };
+    }
+
+    const account = await readAccountByYoutubeAccountId(session.user['id']);
+    const profile = account.attributes.profiles.data[0];
+
+    if (!profile.attributes.handle) {
+      return {
+        redirect: {
+          destination: '/submit/create-profile',
+          permanent: false,
+        },
+      };
+    }
+
+    if (profile.attributes.waitlist) {
+      return {
+        redirect: {
+          destination: '/submit/invite-and-share',
+          permanent: false,
+        },
+      };
+    }
+
     return {
-      redirect: {
-        destination: '/submit/connect',
-        permanent: false,
-      },
+      props: {},
     };
+  } catch (error) {
+    console.error(error.message);
   }
-
-  const account = await readAccountByYoutubeAccountId(session.user['id']);
-  const profile = account.attributes.profiles.data[0];
-
-  if (!profile.attributes.handle) {
-    return {
-      redirect: {
-        destination: '/submit/create-profile',
-        permanent: false,
-      },
-    };
-  }
-
-  if (profile.attributes.waitlist) {
-    return {
-      redirect: {
-        destination: '/submit/invite-and-share',
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
 };

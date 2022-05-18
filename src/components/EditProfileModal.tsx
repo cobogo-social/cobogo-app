@@ -1,3 +1,4 @@
+import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -24,7 +25,6 @@ interface EditProfileModalProps {
   description: string;
   tags: string[];
   handle: string;
-  setIsError: (value: boolean) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories: any[];
   categoryName: string;
@@ -36,7 +36,6 @@ export default function EditProfileModal({
   description,
   tags,
   handle,
-  setIsError,
   categories,
   categoryName,
 }: EditProfileModalProps) {
@@ -46,6 +45,7 @@ export default function EditProfileModal({
   const [categoryValue, setCategoryValue] = useState('');
   const { push } = useRouter();
   const { setLoading } = useContext(LoadingContext);
+  const { setError } = useContext(ErrorContext);
 
   function closeModal() {
     setIsOpen(false);
@@ -61,66 +61,70 @@ export default function EditProfileModal({
       handle: yup.string().required('handle required'),
     }),
     onSubmit: async (values) => {
-      const readProfileByHandle = await axios.get(
-        '/api/cobogo/readProfileByHandle',
-        {
-          params: {
-            handle: values.handle,
+      try {
+        const readProfileByHandle = await axios.get(
+          '/api/cobogo/readProfileByHandle',
+          {
+            params: {
+              handle: values.handle,
+            },
           },
-        },
-      );
+        );
 
-      if (readProfileByHandle.data.error) {
-        setIsError(true);
-      }
+        if (readProfileByHandle.data.error) {
+          setError(readProfileByHandle.data.error);
+        }
 
-      if (!readProfileByHandle.data.data) {
-        setLoading(true);
+        if (!readProfileByHandle.data.data) {
+          setLoading(true);
 
-        const queryRef = sessionStorage.getItem('queryRef');
+          const queryRef = sessionStorage.getItem('queryRef');
 
-        await axios
-          .post('/api/cobogo/updateProfile', {
-            description: values.description,
-            handle: values.handle,
-            categories: tagsList.toString(),
-            queryRef: queryRef || null,
-            category: categoryValue,
-          })
-          .then((response) => {
-            if (response.data.error) {
-              setIsError(true);
-            }
+          await axios
+            .post('/api/cobogo/updateProfile', {
+              description: values.description,
+              handle: values.handle,
+              categories: tagsList.toString(),
+              queryRef: queryRef || null,
+              category: categoryValue,
+            })
+            .then((response) => {
+              if (response.data.error) {
+                setError(response.data.error);
+              }
 
-            push(`/${values.handle}`);
-            setLoading(false);
-            setIsOpen(false);
-          });
-      } else if (formik.values.handle !== handle) {
-        setLoading(false);
-        setHandleError('handle already exists');
-      } else {
-        setLoading(true);
+              push(`/${values.handle}`);
+              setLoading(false);
+              setIsOpen(false);
+            });
+        } else if (formik.values.handle !== handle) {
+          setLoading(false);
+          setHandleError('handle already exists');
+        } else {
+          setLoading(true);
 
-        const queryRef = sessionStorage.getItem('queryRef');
+          const queryRef = sessionStorage.getItem('queryRef');
 
-        await axios
-          .post('/api/cobogo/updateProfile', {
-            description: values.description,
-            handle: values.handle,
-            categories: tagsList.toString(),
-            queryRef: queryRef || null,
-            category: categoryValue,
-          })
-          .then((response) => {
-            if (response.data.error) {
-              setIsError(true);
-            }
+          await axios
+            .post('/api/cobogo/updateProfile', {
+              description: values.description,
+              handle: values.handle,
+              categories: tagsList.toString(),
+              queryRef: queryRef || null,
+              category: categoryValue,
+            })
+            .then((response) => {
+              if (response.data.error) {
+                setError(response.data.error);
+              }
 
-            push(`/${values.handle}`);
-            setLoading(false);
-            setIsOpen(false);
-          });
+              push(`/${values.handle}`);
+              setLoading(false);
+              setIsOpen(false);
+            });
+        }
+      } catch (error) {
+        setError(error.message);
       }
     },
   });

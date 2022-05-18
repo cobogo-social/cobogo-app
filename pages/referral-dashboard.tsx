@@ -1,4 +1,3 @@
-import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
 import MobileMainMenu from '@components/MobileMainMenu';
 import MobileReferralLink from '@components/MobileReferralLink';
@@ -6,6 +5,7 @@ import ReferralDashboardBand from '@components/ReferralDashboardBand';
 import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
 import ReferralDashboardTopBar from '@components/ReferralDashboardTopBar';
+import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import axios from 'axios';
 import Head from 'next/head';
@@ -13,7 +13,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 
 export default function Index() {
   const [currentAccount, setCurrentAccount] = useState('');
-  const [isError, setIsError] = useState(false);
+  const { setError } = useContext(ErrorContext);
   const [onboardedFriends, setOnboardedFriends] = useState(0);
   const [pendingFriends, setPendingFriends] = useState(0);
   const [referralCode, setReferralCode] = useState('');
@@ -53,77 +53,82 @@ export default function Index() {
         });
       }
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
   }
 
   const getInfo = useCallback(async () => {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    if (currentAccount) {
-      await axios
-        .get('/api/cobogo/readAccountByNameOrYoutubeAccountId', {
-          params: {
-            name: currentAccount,
-          },
-        })
-        .then(async (response) => {
-          if (response.data.data) {
-            const account = response.data.data;
+      if (currentAccount) {
+        await axios
+          .get('/api/cobogo/readAccountByNameOrYoutubeAccountId', {
+            params: {
+              name: currentAccount,
+            },
+          })
+          .then(async (response) => {
+            if (response.data.data) {
+              const account = response.data.data;
 
-            const accountsByReferralId = await axios.get(
-              '/api/cobogo/readAccountsByReferralId',
-              {
-                params: {
-                  referralId: account.id,
+              const accountsByReferralId = await axios.get(
+                '/api/cobogo/readAccountsByReferralId',
+                {
+                  params: {
+                    referralId: account.id,
+                  },
                 },
-              },
-            );
+              );
 
-            accountsByReferralId.data.data.forEach((accountByReferralId) => {
-              if (
-                accountByReferralId.attributes.profiles.data[0].attributes
-                  .waitlist
-              ) {
-                setOnboardedFriendsChannels((c) => [
-                  ...c,
-                  accountByReferralId.attributes,
-                ]);
-              } else {
-                setPendingFriendsChannels((c) => [
-                  ...c,
-                  accountByReferralId.attributes,
-                ]);
-              }
+              accountsByReferralId.data.data.forEach((accountByReferralId) => {
+                if (
+                  accountByReferralId.attributes.profiles.data[0].attributes
+                    .waitlist
+                ) {
+                  setOnboardedFriendsChannels((c) => [
+                    ...c,
+                    accountByReferralId.attributes,
+                  ]);
+                } else {
+                  setPendingFriendsChannels((c) => [
+                    ...c,
+                    accountByReferralId.attributes,
+                  ]);
+                }
 
-              const waitlisted =
-                accountByReferralId.attributes.profiles.data[0].attributes
-                  .waitlist;
+                const waitlisted =
+                  accountByReferralId.attributes.profiles.data[0].attributes
+                    .waitlist;
 
-              if (waitlisted) {
-                setOnboardedFriends((c) => c + 1);
-              } else {
-                setPendingFriends((c) => c + 1);
-              }
-            });
-            setReferralCode(response.data.data.attributes.referral_code);
-            setTokens(response.data.data.attributes.tokens);
+                if (waitlisted) {
+                  setOnboardedFriends((c) => c + 1);
+                } else {
+                  setPendingFriends((c) => c + 1);
+                }
+              });
+              setReferralCode(response.data.data.attributes.referral_code);
+              setTokens(response.data.data.attributes.tokens);
 
-            setLoading(false);
-          } else {
-            setLoading(false);
-          }
-        });
-    } else {
+              setLoading(false);
+            } else {
+              setLoading(false);
+            }
+          });
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
       setLoading(false);
+      setError(error.message);
     }
-  }, [currentAccount, setLoading]);
+  }, [currentAccount, setError, setLoading]);
 
   const checkIfWalletIsConnected = useCallback(async () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { ethereum } = window as any;
-
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { ethereum } = window as any;
+
       const accounts = await ethereum.request({ method: 'eth_accounts' });
 
       if (accounts.length !== 0) {
@@ -131,9 +136,9 @@ export default function Index() {
         setCurrentAccount(account);
       }
     } catch (error) {
-      setIsError(true);
+      setError(error.message);
     }
-  }, []);
+  }, [setError]);
 
   useEffect(() => {
     getInfo();
@@ -144,72 +149,68 @@ export default function Index() {
   }, [checkIfWalletIsConnected]);
 
   return (
-    <>
-      <ErrorModal isOpen={isError} setIsOpen={setIsError} />
+    <div className="w-full">
+      <Head>
+        <title>cobogo - referral dashboard</title>
+      </Head>
 
-      <div className="w-full">
-        <Head>
-          <title>cobogo - referral dashboard</title>
-        </Head>
+      <ReferralDashboardContainer>
+        <ReferralDashboardTopBar
+          setCurrentAccount={setCurrentAccount}
+          currentAccount={currentAccount}
+          connectWallet={connectMetaMaskWallet}
+          setOnboardedFriendsChannels={setOnboardedFriendsChannels}
+          setPendingFriendsChannels={setPendingFriendsChannels}
+        />
 
-        <ReferralDashboardContainer>
-          <ReferralDashboardTopBar
-            setCurrentAccount={setCurrentAccount}
-            currentAccount={currentAccount}
-            connectWallet={connectMetaMaskWallet}
-            setOnboardedFriendsChannels={setOnboardedFriendsChannels}
-            setPendingFriendsChannels={setPendingFriendsChannels}
-          />
+        <MobileMainMenu
+          connectWallet={connectMetaMaskWallet}
+          currentAccount={currentAccount}
+        />
 
-          <MobileMainMenu
-            connectWallet={connectMetaMaskWallet}
-            currentAccount={currentAccount}
-          />
+        <div className="flex flex-col items-center w-full pt-[93px]">
+          <div className="flex w-full flex-col items-start px-[30px] sm:px-[204px]">
+            <p className="text-[26px] sm:text-[40px] mb-[14px] sm:mb-[31px]">
+              invite YouTubers
+            </p>
 
-          <div className="flex flex-col items-center w-full pt-[93px]">
-            <div className="flex w-full flex-col items-start px-[30px] sm:px-[204px]">
-              <p className="text-[26px] sm:text-[40px] mb-[14px] sm:mb-[31px]">
-                invite YouTubers
-              </p>
+            <p className="sm:text-[22px] mb-[14px] sm:mb-[44px]">
+              you can earn 50 CBG for each Creator that joins the waitlist using
+              your referral link!
+            </p>
 
-              <p className="sm:text-[22px] mb-[14px] sm:mb-[44px]">
-                you can earn 50 CBG for each Creator that joins the waitlist
-                using your referral link!
-              </p>
+            <MobileReferralLink referralCode={referralCode} />
 
-              <MobileReferralLink referralCode={referralCode} />
-
-              <ReferralDashboardReferralLink
-                referralCode={referralCode}
-                currentAccount={currentAccount}
-              />
-
-              <p className="mb-[80px] sm:text-lg">
-                <a
-                  href="https://docs.cobogo.social/youtubers/referral-program"
-                  className="font-bold text-blue"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  learn more
-                </a>{' '}
-                about our <span className="font-bold">Referral Program.</span>
-              </p>
-            </div>
-
-            <ReferralDashboardBand
-              onboardedFriends={onboardedFriends}
-              pendingFriends={pendingFriends}
-              onboardedFriendsChannels={onboardedFriendsChannels}
-              pendingFriendsChannels={pendingFriendsChannels}
+            <ReferralDashboardReferralLink
+              referralCode={referralCode}
               currentAccount={currentAccount}
-              tokens={tokens}
             />
-          </div>
-        </ReferralDashboardContainer>
 
-        <Footer />
-      </div>
-    </>
+            <p className="mb-[80px] sm:text-lg">
+              <a
+                href="https://docs.cobogo.social/youtubers/referral-program"
+                className="font-bold text-blue"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                learn more
+              </a>{' '}
+              about our <span className="font-bold">Referral Program.</span>
+            </p>
+          </div>
+
+          <ReferralDashboardBand
+            onboardedFriends={onboardedFriends}
+            pendingFriends={pendingFriends}
+            onboardedFriendsChannels={onboardedFriendsChannels}
+            pendingFriendsChannels={pendingFriendsChannels}
+            currentAccount={currentAccount}
+            tokens={tokens}
+          />
+        </div>
+      </ReferralDashboardContainer>
+
+      <Footer />
+    </div>
   );
 }

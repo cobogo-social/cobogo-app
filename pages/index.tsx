@@ -7,11 +7,12 @@ import Footer from '@components/Footer';
 import MainTopBar from '@components/MainTopBar';
 import MobileChannelsChannelBox from '@components/MobileChannelsChannelBox';
 import MobileMainMenu from '@components/MobileMainMenu';
+import { ErrorContext } from '@contexts/ErrorContext';
 import { readCategories, readProfiles } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 interface ChannelsProps {
   bannerImage: string;
@@ -39,6 +40,7 @@ export default function Index({
   const [page, setPage] = useState(1);
   const [updatedChannels, setUpdatedChannels] = useState(channels);
   const [currentAccount, setCurrentAccount] = useState('');
+  const { setError } = useContext(ErrorContext);
 
   const filteredChannels = useMemo(() => {
     const lowerSearch = search.toLowerCase();
@@ -49,39 +51,47 @@ export default function Index({
   }, [search, updatedChannels]);
 
   const readProfilesByPage = useCallback(async () => {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    if (page >= 2) {
+      if (page >= 2) {
+        await axios
+          .get('/api/cobogo/readProfiles', {
+            params: {
+              page,
+            },
+          })
+          .then((response) => {
+            response.data.data.forEach((channel) => {
+              setUpdatedChannels((c) => [...c, channel]);
+            });
+          });
+
+        setLoading(false);
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  }, [page, setError]);
+
+  async function searchByCategory(categoryId) {
+    try {
+      setLoading(true);
+
       await axios
-        .get('/api/cobogo/readProfiles', {
+        .get('/api/cobogo/readProfileByCategory', {
           params: {
-            page,
+            categoryId,
           },
         })
         .then((response) => {
-          response.data.data.forEach((channel) => {
-            setUpdatedChannels((c) => [...c, channel]);
-          });
+          setUpdatedChannels(response.data.data);
         });
 
       setLoading(false);
+    } catch (error) {
+      setError(error.message);
     }
-  }, [page]);
-
-  async function searchByCategory(categoryId) {
-    setLoading(true);
-
-    await axios
-      .get('/api/cobogo/readProfileByCategory', {
-        params: {
-          categoryId,
-        },
-      })
-      .then((response) => {
-        setUpdatedChannels(response.data.data);
-      });
-
-    setLoading(false);
   }
 
   async function connectMetaMaskWallet() {
@@ -115,15 +125,15 @@ export default function Index({
         });
       }
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
   }
 
   const checkIfWalletIsConnected = useCallback(async () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { ethereum } = window as any;
-
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { ethereum } = window as any;
+
       const accounts = await ethereum.request({ method: 'eth_accounts' });
 
       if (accounts.length !== 0) {
@@ -131,9 +141,9 @@ export default function Index({
         setCurrentAccount(account);
       }
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
-  }, []);
+  }, [setError]);
 
   useEffect(() => {
     const intersectionObserver = new IntersectionObserver(async (entries) => {
@@ -232,23 +242,27 @@ export default function Index({
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const profiles = await readProfiles(1);
+  try {
+    const profiles = await readProfiles(1);
 
-  const categories = await readCategories();
+    const categories = await readCategories();
 
-  return {
-    props: {
-      bannerImage: profiles[0] ? profiles[0].attributes.banner_image : null,
-      title: profiles[0] ? profiles[0].attributes.title : '',
-      description: profiles[0]
-        ? profiles[0].attributes.youtube_description
-        : '',
-      youtubeChannelId: profiles[0]
-        ? profiles[0].attributes.youtube_channel_id
-        : null,
-      handle: profiles[0] ? profiles[0].attributes.handle : null,
-      channels: profiles,
-      categories,
-    },
-  };
+    return {
+      props: {
+        bannerImage: profiles[0] ? profiles[0].attributes.banner_image : null,
+        title: profiles[0] ? profiles[0].attributes.title : '',
+        description: profiles[0]
+          ? profiles[0].attributes.youtube_description
+          : '',
+        youtubeChannelId: profiles[0]
+          ? profiles[0].attributes.youtube_channel_id
+          : null,
+        handle: profiles[0] ? profiles[0].attributes.handle : null,
+        channels: profiles,
+        categories,
+      },
+    };
+  } catch (error) {
+    console.error(error.message);
+  }
 };

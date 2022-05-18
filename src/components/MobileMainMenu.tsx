@@ -1,7 +1,8 @@
 import TokenInfo from '@components/TokenInfo';
+import { ErrorContext } from '@contexts/ErrorContext';
 import axios from 'axios';
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { IoCopySharp } from 'react-icons/io5';
 
@@ -28,6 +29,7 @@ export default function MobileMainMenu({
   const [referralCode, setReferralCode] = useState('');
   const [tokens, setTokens] = useState(0);
   const [openCategoriesMenu, setOpenCategoriesMenu] = useState(false);
+  const { setError } = useContext(ErrorContext);
 
   function openOrCloseCategoriesMenu() {
     setOpenCategoriesMenu(!openCategoriesMenu);
@@ -42,41 +44,45 @@ export default function MobileMainMenu({
   }
 
   const getInfoToReferralMenu = useCallback(async () => {
-    if (currentAccount) {
-      await axios
-        .get('/api/cobogo/readAccountByNameOrYoutubeAccountId', {
-          params: {
-            name: currentAccount,
-          },
-        })
-        .then(async (response) => {
-          if (response.data.data) {
-            const account = response.data.data;
+    try {
+      if (currentAccount) {
+        await axios
+          .get('/api/cobogo/readAccountByNameOrYoutubeAccountId', {
+            params: {
+              name: currentAccount,
+            },
+          })
+          .then(async (response) => {
+            if (response.data.data) {
+              const account = response.data.data;
 
-            const accountsByReferralId = await axios.get(
-              '/api/cobogo/readAccountsByReferralId',
-              {
-                params: {
-                  referralId: account.id,
+              const accountsByReferralId = await axios.get(
+                '/api/cobogo/readAccountsByReferralId',
+                {
+                  params: {
+                    referralId: account.id,
+                  },
                 },
-              },
-            );
+              );
 
-            accountsByReferralId.data.data.forEach((accountByReferralId) => {
-              const waitlisted =
-                accountByReferralId.attributes.profiles.data[0].attributes
-                  .waitlist;
+              accountsByReferralId.data.data.forEach((accountByReferralId) => {
+                const waitlisted =
+                  accountByReferralId.attributes.profiles.data[0].attributes
+                    .waitlist;
 
-              if (waitlisted) {
-                setOnboardedFriends((c) => c + 1);
-              }
-            });
-            setReferralCode(response.data.data.attributes.referral_code);
-            setTokens(response.data.data.attributes.tokens);
-          }
-        });
+                if (waitlisted) {
+                  setOnboardedFriends((c) => c + 1);
+                }
+              });
+              setReferralCode(response.data.data.attributes.referral_code);
+              setTokens(response.data.data.attributes.tokens);
+            }
+          });
+      }
+    } catch (error) {
+      setError(error.message);
     }
-  }, [currentAccount]);
+  }, [currentAccount, setError]);
 
   useEffect(() => {
     getInfoToReferralMenu();

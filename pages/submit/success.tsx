@@ -117,58 +117,62 @@ export default function Index({
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+  try {
+    const session = await getSession({ req });
 
-  if (!session?.user) {
-    return {
-      redirect: {
-        destination: '/submit/connect',
-        permanent: false,
-      },
-    };
-  }
-
-  const account = await readAccountByYoutubeAccountId(session.user['id']);
-  const profile = account.attributes.profiles.data[0];
-
-  if (!profile.attributes.handle) {
-    return {
-      redirect: {
-        destination: '/submit/create-profile',
-        permanent: false,
-      },
-    };
-  }
-
-  if (!profile.attributes.waitlist) {
-    return {
-      redirect: {
-        destination: '/submit/connect-wallet',
-        permanent: false,
-      },
-    };
-  }
-
-  let onboardedFriends = 0;
-
-  const accountsByReferralId = await readAccountsByReferralId(account.id);
-
-  accountsByReferralId.forEach((accountByReferralId) => {
-    const waitlisted =
-      accountByReferralId.attributes.profiles.data[0].attributes.waitlist;
-
-    if (waitlisted) {
-      onboardedFriends += 1;
+    if (!session?.user) {
+      return {
+        redirect: {
+          destination: '/submit/connect',
+          permanent: false,
+        },
+      };
     }
-  });
 
-  return {
-    props: {
-      bannerImage: profile.attributes.banner_image,
-      title: profile.attributes.title,
-      youtubeDescription: profile.attributes.youtube_description,
-      onboardedFriends,
-      tokens: account.attributes.tokens,
-    },
-  };
+    const account = await readAccountByYoutubeAccountId(session.user['id']);
+    const profile = account.attributes.profiles.data[0];
+
+    if (!profile.attributes.handle) {
+      return {
+        redirect: {
+          destination: '/submit/create-profile',
+          permanent: false,
+        },
+      };
+    }
+
+    if (!profile.attributes.waitlist) {
+      return {
+        redirect: {
+          destination: '/submit/connect-wallet',
+          permanent: false,
+        },
+      };
+    }
+
+    let onboardedFriends = 0;
+
+    const accountsByReferralId = await readAccountsByReferralId(account.id);
+
+    accountsByReferralId.forEach((accountByReferralId) => {
+      const waitlisted =
+        accountByReferralId.attributes.profiles.data[0].attributes.waitlist;
+
+      if (waitlisted) {
+        onboardedFriends += 1;
+      }
+    });
+
+    return {
+      props: {
+        bannerImage: profile.attributes.banner_image,
+        title: profile.attributes.title,
+        youtubeDescription: profile.attributes.youtube_description,
+        onboardedFriends,
+        tokens: account.attributes.tokens,
+      },
+    };
+  } catch (error) {
+    console.error(error.message);
+  }
 };

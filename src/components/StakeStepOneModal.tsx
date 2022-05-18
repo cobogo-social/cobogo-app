@@ -1,6 +1,7 @@
+import { ErrorContext } from '@contexts/ErrorContext';
 import axios from 'axios';
 import Image from 'next/image';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 
 import Button from './Button';
 
@@ -19,6 +20,8 @@ export default function StakeStepOneModal({
   description,
   bannerImage,
 }: StakeStepOneModalProps) {
+  const { setError } = useContext(ErrorContext);
+
   function closeModal() {
     setIsOpen(false);
     setStep(1);
@@ -57,24 +60,24 @@ export default function StakeStepOneModal({
         setStep(2);
       }
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
   }
 
   const checkIfWalletIsConnected = useCallback(async () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { ethereum } = window as any;
-
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { ethereum } = window as any;
+
       const accounts = await ethereum.request({ method: 'eth_accounts' });
 
       if (accounts.length !== 0) {
         setStep(2);
       }
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
-  }, [setStep]);
+  }, [setError, setStep]);
 
   useEffect(() => {
     checkIfWalletIsConnected();

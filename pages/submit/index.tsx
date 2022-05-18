@@ -88,18 +88,22 @@ export default function Index() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+  try {
+    const session = await getSession({ req });
 
-  if (session?.user) {
+    if (session?.user) {
+      return {
+        redirect: {
+          destination: '/submit/connect',
+          permanent: false,
+        },
+      };
+    }
+
     return {
-      redirect: {
-        destination: '/submit/connect',
-        permanent: false,
-      },
+      props: {},
     };
+  } catch (error) {
+    console.error(error.message);
   }
-
-  return {
-    props: {},
-  };
 };
