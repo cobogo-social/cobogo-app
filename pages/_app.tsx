@@ -1,5 +1,7 @@
 import '@styles/globals.css';
 
+import Loading from '@components/Loading';
+import { LoadingProvider } from '@contexts/LoadingContext';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
@@ -44,9 +46,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         ]}
       />
 
-      <SessionProvider session={pageProps.session}>
-        <Component {...pageProps} />
-      </SessionProvider>
+      <LoadingProvider>
+        <SessionProvider session={pageProps.session}>
+          <Loading />
+
+          <Component {...pageProps} />
+        </SessionProvider>
+      </LoadingProvider>
     </>
   );
 }

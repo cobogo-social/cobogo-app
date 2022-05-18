@@ -35,7 +35,7 @@ export default function Index({
   categories,
 }: ChannelsProps) {
   const [search, setSearch] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [updatedChannels, setUpdatedChannels] = useState(channels);
   const [currentAccount, setCurrentAccount] = useState('');
@@ -49,7 +49,7 @@ export default function Index({
   }, [search, updatedChannels]);
 
   const readProfilesByPage = useCallback(async () => {
-    setIsLoading(true);
+    setLoading(true);
 
     if (page >= 2) {
       await axios
@@ -64,12 +64,12 @@ export default function Index({
           });
         });
 
-      setIsLoading(false);
+      setLoading(false);
     }
   }, [page]);
 
   async function searchByCategory(categoryId) {
-    setIsLoading(true);
+    setLoading(true);
 
     await axios
       .get('/api/cobogo/readProfileByCategory', {
@@ -81,7 +81,7 @@ export default function Index({
         setUpdatedChannels(response.data.data);
       });
 
-    setIsLoading(false);
+    setLoading(false);
   }
 
   async function connectMetaMaskWallet() {
@@ -214,7 +214,7 @@ export default function Index({
           ))}
 
           <div id="sentinel" className="mt-[30px]">
-            {isLoading && (
+            {loading && (
               <Image
                 src="/images/loading-icon.svg"
                 width={107}

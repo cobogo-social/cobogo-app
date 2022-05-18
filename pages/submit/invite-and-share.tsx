@@ -11,13 +11,15 @@ import StepsMenu from '@components/StepsMenu';
 import StepSubContainer from '@components/StepSubContainer';
 import SubmitStatsTopBar from '@components/SubmitStatsTopBar';
 import WaitlistNotification from '@components/WaitlistNotification';
+import { LoadingContext } from '@contexts/LoadingContext';
 import {
   readAccountByYoutubeAccountId,
   readAccountsByReferralId,
+  readProfileByHandle,
 } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 interface InviteProps {
   bannerImage: string;
@@ -26,6 +28,7 @@ interface InviteProps {
   referralCode: string;
   onboardedFriends: number;
   tokens: number;
+  verifiedVideo: boolean;
 }
 
 export default function Index({
@@ -35,8 +38,10 @@ export default function Index({
   referralCode,
   onboardedFriends,
   tokens,
+  verifiedVideo,
 }: InviteProps) {
   const { data: session } = useSession();
+  const { setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
@@ -68,7 +73,7 @@ export default function Index({
 
               <WaitlistNotification />
 
-              <Earn1000CBGNotification />
+              <Earn1000CBGNotification verifiedVideo={verifiedVideo} />
 
               <Earn50CBGNotification referralCode={referralCode} />
 
@@ -77,7 +82,10 @@ export default function Index({
               </div>
 
               <Link href="/submit/success">
-                <button className="font-bold text-gray3 hover:cursor-pointer">
+                <button
+                  onClick={() => setLoading(true)}
+                  className="font-bold text-gray3 hover:cursor-pointer"
+                >
                   skip
                 </button>
               </Link>
@@ -110,7 +118,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const account = await readAccountByYoutubeAccountId(session.user['id']);
-  const profile = account.attributes.profiles.data[0];
+  const { handle } = account.attributes.profiles.data[0].attributes;
+  const profile = await readProfileByHandle(handle);
 
   if (!profile.attributes.handle) {
     return {
@@ -151,6 +160,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       referralCode: account.attributes.referral_code,
       onboardedFriends,
       tokens: account.attributes.tokens,
+      verifiedVideo: profile.attributes.video.data,
     },
   };
 };

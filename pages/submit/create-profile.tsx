@@ -4,7 +4,6 @@ import ChannelBox from '@components/ChannelBox';
 import ErrorLabel from '@components/ErrorLabel';
 import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
-import Loading from '@components/Loading';
 import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
@@ -13,6 +12,7 @@ import StepSubContainer from '@components/StepSubContainer';
 import Tags from '@components/Tags';
 import TagsInput from '@components/TagsInput';
 import TopBar from '@components/TopBar';
+import { LoadingContext } from '@contexts/LoadingContext';
 import {
   readAccountByYoutubeAccountId,
   readCategories,
@@ -22,7 +22,13 @@ import { useFormik } from 'formik';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { SetStateAction, useCallback, useEffect, useState } from 'react';
+import {
+  SetStateAction,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import * as yup from 'yup';
 
 interface CreateProfileProps {
@@ -45,9 +51,9 @@ export default function Index({
   const [categoryValue, setCategoryValue] = useState('');
   const [createdProfile, setCreatedProfile] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [handleError, setHandleError] = useState('');
   const { push } = useRouter();
+  const { setLoading } = useContext(LoadingContext);
 
   const formik = useFormik({
     initialValues: {
@@ -73,7 +79,7 @@ export default function Index({
       }
 
       if (!readProfileByHandle.data.data) {
-        setIsLoading(true);
+        setLoading(true);
 
         const queryRef = sessionStorage.getItem('queryRef');
 
@@ -91,10 +97,10 @@ export default function Index({
             }
 
             setCreatedProfile(true);
-            setIsLoading(false);
+            setLoading(false);
           });
       } else {
-        setIsLoading(false);
+        setLoading(false);
         setHandleError('handle already exists');
       }
     },
@@ -181,7 +187,6 @@ export default function Index({
 
   return (
     <>
-      <Loading isLoading={isLoading} />
       <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
       <div className="w-full">
@@ -306,7 +311,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const account = await readAccountByYoutubeAccountId(session.user['id']);
-  const profile = account.attributes.profiles.data[0];
+  const profile = account?.attributes.profiles.data[0];
 
   if (!profile) {
     return {

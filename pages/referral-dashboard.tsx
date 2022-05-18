@@ -1,15 +1,15 @@
 import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
-import Loading from '@components/Loading';
 import MobileMainMenu from '@components/MobileMainMenu';
 import MobileReferralLink from '@components/MobileReferralLink';
 import ReferralDashboardBand from '@components/ReferralDashboardBand';
 import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
 import ReferralDashboardTopBar from '@components/ReferralDashboardTopBar';
+import { LoadingContext } from '@contexts/LoadingContext';
 import axios from 'axios';
 import Head from 'next/head';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 export default function Index() {
   const [currentAccount, setCurrentAccount] = useState('');
@@ -20,7 +20,7 @@ export default function Index() {
   const [tokens, setTokens] = useState(0);
   const [onboardedFriendsChannels, setOnboardedFriendsChannels] = useState([]);
   const [pendingFriendsChannels, setPendingFriendsChannels] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { setLoading } = useContext(LoadingContext);
 
   async function connectMetaMaskWallet() {
     try {
@@ -58,7 +58,7 @@ export default function Index() {
   }
 
   const getInfo = useCallback(async () => {
-    setIsLoading(true);
+    setLoading(true);
 
     if (currentAccount) {
       await axios
@@ -109,15 +109,15 @@ export default function Index() {
             setReferralCode(response.data.data.attributes.referral_code);
             setTokens(response.data.data.attributes.tokens);
 
-            setIsLoading(false);
+            setLoading(false);
           } else {
-            setIsLoading(false);
+            setLoading(false);
           }
         });
     } else {
-      setIsLoading(false);
+      setLoading(false);
     }
-  }, [currentAccount]);
+  }, [currentAccount, setLoading]);
 
   const checkIfWalletIsConnected = useCallback(async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -145,7 +145,6 @@ export default function Index() {
 
   return (
     <>
-      <Loading isLoading={isLoading} />
       <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
       <div className="w-full">

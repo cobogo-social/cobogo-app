@@ -5,20 +5,25 @@ import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
 import TopBar from '@components/TopBar';
+import { LoadingContext } from '@contexts/LoadingContext';
 import { readAccountByYoutubeAccountId } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 export default function Index() {
   const { data: session } = useSession();
+  const { setLoading } = useContext(LoadingContext);
+  const [currentAccount, setCurrentAccount] = useState();
   const { push } = useRouter();
 
   async function connectMetaMaskWallet() {
     try {
+      setLoading(true);
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
@@ -31,6 +36,8 @@ export default function Index() {
       });
 
       const address = accounts[0];
+
+      setCurrentAccount(address);
 
       const createAccount = await axios.post(
         '/api/cobogo/createAccountToFanOrYoutuber',
@@ -48,9 +55,10 @@ export default function Index() {
 
       await axios.put('/api/cobogo/updateWaitlistProfile');
 
-      push('/submit/invite-and-share');
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   }
 
@@ -63,13 +71,17 @@ export default function Index() {
 
       if (accounts.length !== 0) {
         await axios.put('/api/cobogo/updateWaitlistProfile');
-
-        push('/submit/invite-and-share');
       }
     } catch (error) {
       console.error(error);
     }
-  }, [push]);
+  }, []);
+
+  async function pushToNextStep() {
+    setLoading(true);
+    await connectMetaMaskWallet();
+    push('/submit/success');
+  }
 
   useEffect(() => {
     checkIfWalletIsConnected();
@@ -91,7 +103,7 @@ export default function Index() {
         <StepContainer>
           <TopBar />
 
-          <div className="flex flex-row justify-between items-center pl-16 sm:px-16 2xl:px-64 mt-16 sm:mt-0">
+          <div className="flex flex-row items-center justify-between pl-16 mt-16 sm:px-16 2xl:px-64 sm:mt-0">
             <div className="flex flex-col">
               <p className="mb-4 text-4xl">connect wallet</p>
 
@@ -101,12 +113,21 @@ export default function Index() {
                 available as a browser extension and as a mobile app
               </p>
 
-              <Button
-                text="connect to MetaMask"
-                color="bg-blue"
-                width="w-[206px]"
-                onClick={connectMetaMaskWallet}
-              />
+              {currentAccount ? (
+                <Button
+                  text="connect to MetaMask"
+                  color="bg-blue"
+                  width="w-[206px]"
+                  onClick={connectMetaMaskWallet}
+                />
+              ) : (
+                <Button
+                  text="next step"
+                  color="bg-blue"
+                  width="w-[206px]"
+                  onClick={pushToNextStep}
+                />
+              )}
             </div>
 
             <div className="hidden sm:block">

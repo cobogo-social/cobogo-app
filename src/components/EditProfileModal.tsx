@@ -1,8 +1,15 @@
+import { LoadingContext } from '@contexts/LoadingContext';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { SetStateAction, useCallback, useEffect, useState } from 'react';
+import {
+  SetStateAction,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import * as yup from 'yup';
 
 import Button from './Button';
@@ -17,7 +24,6 @@ interface EditProfileModalProps {
   description: string;
   tags: string[];
   handle: string;
-  setIsLoading: (value: boolean) => void;
   setIsError: (value: boolean) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories: any[];
@@ -30,7 +36,6 @@ export default function EditProfileModal({
   description,
   tags,
   handle,
-  setIsLoading,
   setIsError,
   categories,
   categoryName,
@@ -40,6 +45,7 @@ export default function EditProfileModal({
   const [handleError, setHandleError] = useState('');
   const [categoryValue, setCategoryValue] = useState('');
   const { push } = useRouter();
+  const { setLoading } = useContext(LoadingContext);
 
   function closeModal() {
     setIsOpen(false);
@@ -69,7 +75,7 @@ export default function EditProfileModal({
       }
 
       if (!readProfileByHandle.data.data) {
-        setIsLoading(true);
+        setLoading(true);
 
         const queryRef = sessionStorage.getItem('queryRef');
 
@@ -87,14 +93,14 @@ export default function EditProfileModal({
             }
 
             push(`/${values.handle}`);
-            setIsLoading(false);
+            setLoading(false);
             setIsOpen(false);
           });
       } else if (formik.values.handle !== handle) {
-        setIsLoading(false);
+        setLoading(false);
         setHandleError('handle already exists');
       } else {
-        setIsLoading(true);
+        setLoading(true);
 
         const queryRef = sessionStorage.getItem('queryRef');
 
@@ -112,7 +118,7 @@ export default function EditProfileModal({
             }
 
             push(`/${values.handle}`);
-            setIsLoading(false);
+            setLoading(false);
             setIsOpen(false);
           });
       }

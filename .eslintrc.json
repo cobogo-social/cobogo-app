@@ -24,6 +24,7 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
+    "react/jsx-no-constructed-context-values": "off",
     "consistent-return": "off",
     "react/button-has-type": "off",
     "no-console": ["error", { "allow": ["error"] }],

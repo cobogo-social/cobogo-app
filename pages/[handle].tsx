@@ -1,7 +1,6 @@
 import EditProfileModal from '@components/EditProfileModal';
 import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
-import Loading from '@components/Loading';
 import MainTopBar from '@components/MainTopBar';
 import MobileMainMenu from '@components/MobileMainMenu';
 import MobileProfileAbout from '@components/MobileProfileAbout';
@@ -52,7 +51,6 @@ export default function Index({
   categories,
   categoryName,
 }: ProfileProps) {
-  const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
   const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
@@ -142,12 +140,10 @@ export default function Index({
         description={description}
         tags={tags}
         handle={handle}
-        setIsLoading={setIsLoading}
         setIsError={setIsError}
         categories={categories}
         categoryName={categoryName}
       />
-      <Loading isLoading={isLoading} />
       <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
       <div className="flex flex-col">

@@ -3,7 +3,6 @@ import Button from '@components/Button';
 import ChannelBox from '@components/ChannelBox';
 import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
-import Loading from '@components/Loading';
 import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
@@ -12,12 +11,16 @@ import StepSubContainer from '@components/StepSubContainer';
 import SuccessBullet from '@components/SuccessBullet';
 import TopBar from '@components/TopBar';
 import WarningBullet from '@components/WarningBullet';
-import { readAccountByYoutubeAccountId } from '@services/cobogoApi';
+import { LoadingContext } from '@contexts/LoadingContext';
+import {
+  readAccountByYoutubeAccountId,
+  readProfileByHandle,
+} from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 interface VideoProps {
   bannerImage: string;
@@ -33,13 +36,13 @@ export default function Index({
   handle,
 }: VideoProps) {
   const { data: session } = useSession();
-  const [isLoading, setIsLoading] = useState(false);
+  const { setLoading } = useContext(LoadingContext);
   const [isError, setIsError] = useState(false);
   const [videoStatus, setVideoStatus] = useState(1);
   const { push } = useRouter();
 
   async function handleVerifyVideo() {
-    setIsLoading(true);
+    setLoading(true);
     setVideoStatus(1);
 
     const checkVideo = await axios.get(`/api/youtube/checkVideo`);
@@ -54,11 +57,11 @@ export default function Index({
       setVideoStatus(2);
     }
 
-    setIsLoading(false);
+    setLoading(false);
   }
 
-  function handlePushToNextStep() {
-    setIsLoading(true);
+  function pushToNextStep() {
+    setLoading(true);
     push('/submit/invite-and-share');
   }
 
@@ -70,7 +73,6 @@ export default function Index({
 
   return (
     <>
-      <Loading isLoading={isLoading} />
       <ErrorModal isOpen={isError} setIsOpen={setIsError} />
 
       <div className="w-full">
@@ -184,7 +186,7 @@ export default function Index({
                     height="h-[38px]"
                     color="bg-blue"
                     text="next step"
-                    onClick={handlePushToNextStep}
+                    onClick={pushToNextStep}
                   />
                 )}
               </div>
@@ -217,7 +219,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const account = await readAccountByYoutubeAccountId(session.user['id']);
-  const profile = account.attributes.profiles.data[0];
+  const { handle } = account.attributes.profiles.data[0].attributes;
+  const profile = await readProfileByHandle(handle);
 
   if (!profile.attributes.handle) {
     return {
@@ -228,7 +231,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  if (profile.attributes.waitlist) {
+  if (profile.attributes.video.data) {
     return {
       redirect: {
         destination: '/submit/invite-and-share',
