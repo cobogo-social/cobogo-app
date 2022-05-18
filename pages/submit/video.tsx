@@ -41,7 +41,7 @@ export default function Index({
   const [videoStatus, setVideoStatus] = useState(1);
   const { push } = useRouter();
 
-  async function handleVerifyVideo() {
+  async function verifyVideo() {
     try {
       setLoading(true);
       setVideoStatus(1);
@@ -164,7 +164,7 @@ export default function Index({
                   height="h-[38px]"
                   color="bg-blue"
                   text="verify video"
-                  onClick={handleVerifyVideo}
+                  onClick={verifyVideo}
                 />
               )}
 
@@ -174,7 +174,7 @@ export default function Index({
                   height="h-[38px]"
                   color="bg-blue"
                   text="verify again"
-                  onClick={handleVerifyVideo}
+                  onClick={verifyVideo}
                 />
               )}
 

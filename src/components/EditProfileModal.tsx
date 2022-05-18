@@ -155,13 +155,13 @@ export default function EditProfileModal({
     setTagsList(tagsList.filter((c) => c !== tag));
   }
 
-  function handleRequest(event: { key: string }) {
+  function request(event: { key: string }) {
     if (event.key === 'Enter') {
       return;
     }
   }
 
-  function handleValidateKeyPressedInDescription(event) {
+  function validateKeyPressedInDescription(event) {
     const keyPressed = event.key;
 
     if (keyPressed === 'Enter') {
@@ -169,7 +169,7 @@ export default function EditProfileModal({
     }
   }
 
-  function handleValidateKeyPressedInHandle(event) {
+  function validateKeyPressedInHandle(event) {
     const keyPressed = event.key;
 
     if (
@@ -243,7 +243,7 @@ export default function EditProfileModal({
                     : 'border-gray5'
                 }`}
                 onChange={formik.handleChange}
-                onKeyPress={handleValidateKeyPressedInDescription}
+                onKeyPress={validateKeyPressedInDescription}
                 value={formik.values.description}
               />
             </div>
@@ -278,7 +278,7 @@ export default function EditProfileModal({
                       : 'border-gray5'
                   }`}
                   onChange={formik.handleChange}
-                  onKeyPress={handleValidateKeyPressedInHandle}
+                  onKeyPress={validateKeyPressedInHandle}
                   value={formik.values.handle}
                 />
               </div>
@@ -303,8 +303,8 @@ export default function EditProfileModal({
               color="bg-blue"
               width="w-[76px]"
               height="h-[38px]"
-              onClick={handleRequest}
-              onKeyDown={handleRequest}
+              onClick={request}
+              onKeyDown={request}
             />
           </form>
         </div>

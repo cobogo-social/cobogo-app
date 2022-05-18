@@ -143,13 +143,13 @@ export default function Index({
     setTagsList(tagsList.filter((c) => c !== tag));
   }
 
-  function handleRequest(event: { key: string }) {
+  function request(event: { key: string }) {
     if (event.key === 'Enter') {
       return;
     }
   }
 
-  function handleValidateKeyPressedInDescription(event) {
+  function validateKeyPressedInDescription(event) {
     const keyPressed = event.key;
 
     if (keyPressed === 'Enter') {
@@ -157,7 +157,7 @@ export default function Index({
     }
   }
 
-  function handleValidateKeyPressedInHandle(event) {
+  function validateKeyPressedInHandle(event) {
     const keyPressed = event.key;
 
     if (
@@ -221,7 +221,7 @@ export default function Index({
                       : 'border-gray5'
                   } mb-8 p-2 outline-none`}
                   onChange={formik.handleChange}
-                  onKeyPress={handleValidateKeyPressedInDescription}
+                  onKeyPress={validateKeyPressedInDescription}
                   value={formik.values.description}
                 />
               </div>
@@ -250,7 +250,7 @@ export default function Index({
                     name="handle"
                     type="text"
                     onChange={formik.handleChange}
-                    onKeyPress={handleValidateKeyPressedInHandle}
+                    onKeyPress={validateKeyPressedInHandle}
                     value={formik.values.handle}
                     className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0 ${
                       (formik.touched.handle && formik.errors.handle) ||
@@ -279,8 +279,8 @@ export default function Index({
                 text="send to review"
                 color="bg-blue"
                 width="w-[155px]"
-                onClick={handleRequest}
-                onKeyDown={handleRequest}
+                onClick={request}
+                onKeyDown={request}
               />
             </form>
 

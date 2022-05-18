@@ -14,7 +14,7 @@ export default function ReferralDashboardReferralLink({
 }: ReferralDashboardReferralLinkProps) {
   const [copied, setCopied] = useState(false);
 
-  function handleSetCopy() {
+  function changeCopied() {
     setCopied(true);
   }
 
@@ -41,7 +41,7 @@ export default function ReferralDashboardReferralLink({
 
         {currentAccount && (
           <div
-            onClick={handleSetCopy}
+            onClick={changeCopied}
             className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-gray5 outline-none flex justify-center items-center"
           >
             <CopyToClipboard

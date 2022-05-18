@@ -10,7 +10,7 @@ interface ReferralLinkProps {
 export default function ReferralLink({ referralCode }: ReferralLinkProps) {
   const [copied, setCopied] = useState(false);
 
-  function handleSetCopy() {
+  function changeCopied() {
     setCopied(true);
   }
 
@@ -26,7 +26,7 @@ export default function ReferralLink({ referralCode }: ReferralLinkProps) {
         </div>
 
         <div
-          onClick={handleSetCopy}
+          onClick={changeCopied}
           className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-gray5 outline-none flex justify-center items-center"
         >
           <CopyToClipboard

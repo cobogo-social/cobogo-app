@@ -21,7 +21,7 @@ export default function Index() {
   const { setLoading } = useContext(LoadingContext);
 
   // TODO: remove "handle" on all functions
-  function handleSetHaveChannel() {
+  function changeHaveChannel() {
     setHaveChannel(true);
   }
 
@@ -45,7 +45,7 @@ export default function Index() {
         <MobileSubmitMenu noLogout />
 
         {!haveChannel ? (
-          <ChannelNotFound setHaveChannel={handleSetHaveChannel} />
+          <ChannelNotFound setHaveChannel={changeHaveChannel} />
         ) : (
           <Connect />
         )}

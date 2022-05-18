@@ -6,7 +6,7 @@ interface TagsInputProps {
 }
 
 export default function TagsInput({ input, changeTags }: TagsInputProps) {
-  function handleValidateKeyPressed(event) {
+  function validateKeyPressed(event) {
     event.key === 'Enter' && event.preventDefault();
   }
 
@@ -27,7 +27,7 @@ export default function TagsInput({ input, changeTags }: TagsInputProps) {
         placeholder="type a tag and press enter"
         value={input}
         onChange={changeTags}
-        onKeyPress={handleValidateKeyPressed}
+        onKeyPress={validateKeyPressed}
         onKeyDown={changeTags}
       />
 
@@ -37,7 +37,7 @@ export default function TagsInput({ input, changeTags }: TagsInputProps) {
         placeholder="type a tag"
         value={input}
         onChange={changeTags}
-        onKeyPress={handleValidateKeyPressed}
+        onKeyPress={validateKeyPressed}
         onKeyDown={changeTags}
       />
     </div>

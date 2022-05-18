@@ -18,7 +18,7 @@ export default function ChannelBox({
   const { push } = useRouter();
   const { setLoading } = useContext(LoadingContext);
 
-  function handleTryAnotherChannel() {
+  function tryAnotherChannel() {
     setLoading(true);
     signOut();
     push('/submit/connect');
@@ -41,7 +41,7 @@ export default function ChannelBox({
       <p className="px-4">{description.slice(0, 210)} (...)</p>
 
       <button
-        onClick={handleTryAnotherChannel}
+        onClick={tryAnotherChannel}
         className="px-4 font-bold text-blue hover:cursor-pointer"
       >
         try another account
