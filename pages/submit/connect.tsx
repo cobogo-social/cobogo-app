@@ -20,7 +20,6 @@ export default function Index() {
   const { data: session } = useSession();
   const { setLoading } = useContext(LoadingContext);
 
-  // TODO: remove "handle" on all functions
   function changeHaveChannel() {
     setHaveChannel(true);
   }
