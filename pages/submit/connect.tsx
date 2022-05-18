@@ -4,6 +4,7 @@ import Footer from '@components/Footer';
 import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
+import { LoadingContext } from '@contexts/LoadingContext';
 import {
   createAccount,
   createProfile,
@@ -12,11 +13,12 @@ import {
 import { readChannel } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 export default function Index() {
   const [haveChannel, setHaveChannel] = useState<boolean>();
   const { data: session } = useSession();
+  const { setLoading } = useContext(LoadingContext);
 
   // TODO: remove "handle" on all functions
   function handleSetHaveChannel() {
@@ -30,6 +32,10 @@ export default function Index() {
       setHaveChannel(true);
     }
   }, [session]);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [setLoading]);
 
   return (
     <div className="w-full">

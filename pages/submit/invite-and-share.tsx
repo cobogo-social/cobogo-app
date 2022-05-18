@@ -49,6 +49,10 @@ export default function Index({
     }
   }, [session]);
 
+  useEffect(() => {
+    setLoading(false);
+  }, [setLoading]);
+
   return (
     <div className="w-full">
       <PageContainer>
