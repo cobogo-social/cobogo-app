@@ -31,7 +31,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           },
           {
             property: 'twitter:url',
-            content: 'https://app.cobogo.social',
+            content: 'https://app.cobogo.social/',
+          },
+          {
+            property: 'twitter:domain',
+            content: 'app.cobogo.social',
           },
           {
             property: 'twitter:image:alt',

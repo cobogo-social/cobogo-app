@@ -7,8 +7,7 @@ const SEO = {
   description,
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://app.cobogo.social',
+    url: 'https://app.cobogo.social/',
     title,
     description,
     images: [
