@@ -17,6 +17,9 @@ const SEO = {
       },
     ],
   },
+  twitter: {
+    cardType: 'summary_large_image',
+  },
 };
 
 export default SEO;
