@@ -82,7 +82,7 @@ export default function Index() {
   async function pushToNextStep() {
     setLoading(true);
     await connectMetaMaskWallet();
-    push('/submit/success');
+    push('/submit/invite-and-share');
   }
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function Index() {
                 available as a browser extension and as a mobile app
               </p>
 
-              {currentAccount ? (
+              {!currentAccount ? (
                 <Button
                   text="connect to MetaMask"
                   color="bg-blue"
@@ -174,7 +174,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       };
     }
 
-    if (profile.attributes.waitlist) {
+    if (account.attributes.wallets.data.length && profile.attributes.waitlist) {
       return {
         redirect: {
           destination: '/submit/invite-and-share',
