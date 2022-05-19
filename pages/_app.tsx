@@ -29,6 +29,14 @@ function MyApp({ Component, pageProps }: AppProps) {
             property: 'twitter:image',
             content: '/images/open-graph.png',
           },
+          {
+            property: 'twitter:url',
+            content: 'https://app.cobogo.social',
+          },
+          {
+            property: 'twitter:image:alt',
+            content: 'cobogo logo',
+          },
         ]}
       />
 
