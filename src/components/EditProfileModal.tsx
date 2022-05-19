@@ -284,7 +284,7 @@ export default function EditProfileModal({
               </div>
             </div>
 
-            <p className="mb-4 text-[22px] text-white">choose tag's</p>
+            <p className="mb-4 text-[22px] text-white">choose up to 5 tags</p>
 
             <TagsInput input={tagInput} changeTags={changeTags} />
 

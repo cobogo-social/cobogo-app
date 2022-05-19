@@ -262,7 +262,7 @@ export default function Index({
                 </div>
               </div>
 
-              <p className="mb-4 text-lg">choose tag's</p>
+              <p className="mb-4 text-lg">choose up to 5 tags</p>
 
               <TagsInput input={tagInput} changeTags={changeTags} />
 

@@ -64,7 +64,7 @@ export default function Index({
     }
   }
 
-  function pushToNextStep() {
+  function backToInviteAndShare() {
     setLoading(true);
     push('/submit/invite-and-share');
   }
@@ -183,8 +183,8 @@ export default function Index({
                   width="w-[131px]"
                   height="h-[38px]"
                   color="bg-blue"
-                  text="next step"
-                  onClick={pushToNextStep}
+                  text="back to invite and share"
+                  onClick={backToInviteAndShare}
                 />
               )}
             </div>
