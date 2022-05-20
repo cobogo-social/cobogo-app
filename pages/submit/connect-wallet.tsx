@@ -106,7 +106,7 @@ export default function Index() {
           <TopBar />
 
           <div className="flex flex-row items-center justify-between pl-16 mt-16 sm:px-16 2xl:px-64 sm:mt-0">
-            <div className="flex flex-col">
+            <div>
               <p className="mb-4 text-4xl">connect wallet</p>
 
               <p className="sm:text-xl sm:w-[408px]">MetaMask</p>
@@ -119,14 +119,12 @@ export default function Index() {
                 <Button
                   text="connect to MetaMask"
                   color="bg-blue"
-                  width="w-[206px]"
                   onClick={connectMetaMaskWallet}
                 />
               ) : (
                 <Button
                   text="next step"
                   color="bg-blue"
-                  width="w-[206px]"
                   onClick={pushToNextStep}
                 />
               )}
