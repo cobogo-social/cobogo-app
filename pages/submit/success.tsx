@@ -141,7 +141,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       };
     }
 
-    if (!profile.attributes.waitlist) {
+    if (
+      !account.attributes.wallets.data.length ||
+      !profile.attributes.waitlist
+    ) {
       return {
         redirect: {
           destination: '/submit/connect-wallet',
