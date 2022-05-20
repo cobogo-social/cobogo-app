@@ -57,6 +57,7 @@ export default function Index() {
 
       await axios.put('/api/cobogo/updateWaitlistProfile');
 
+      push('/submit/invite-and-share');
       setLoading(false);
     } catch (error) {
       setError(error.message);
