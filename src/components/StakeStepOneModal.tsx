@@ -1,7 +1,7 @@
 import { ErrorContext } from '@contexts/ErrorContext';
 import axios from 'axios';
 import Image from 'next/image';
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 import Button from './Button';
 
@@ -21,6 +21,7 @@ export default function StakeStepOneModal({
   bannerImage,
 }: StakeStepOneModalProps) {
   const { setError } = useContext(ErrorContext);
+  const [currentAccount, setCurrentAccount] = useState('');
 
   function closeModal() {
     setIsOpen(false);
@@ -41,6 +42,8 @@ export default function StakeStepOneModal({
       });
 
       const address = accounts[0];
+
+      setCurrentAccount(address);
 
       const createAccount = await axios.post(
         '/api/cobogo/createAccountToFanOrYoutuber',
@@ -82,6 +85,19 @@ export default function StakeStepOneModal({
   useEffect(() => {
     checkIfWalletIsConnected();
   }, [checkIfWalletIsConnected]);
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { ethereum } = window as any;
+
+    ethereum.on('accountsChanged', (accounts) => {
+      if (accounts.length > 0) {
+        setCurrentAccount(accounts[0]);
+      } else {
+        setCurrentAccount('');
+      }
+    });
+  }, []);
 
   return (
     <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[412px] flex justify-between border-[1.5px] border-gray5 pl-[50px] pr-[50px] sm:pr-0 shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">

@@ -125,6 +125,19 @@ export default function Index({
     checkIfWalletIsConnected();
   }, [checkIfWalletIsConnected]);
 
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { ethereum } = window as any;
+
+    ethereum.on('accountsChanged', (accounts) => {
+      if (accounts.length > 0) {
+        setCurrentAccount(accounts[0]);
+      } else {
+        setCurrentAccount('');
+      }
+    });
+  }, []);
+
   return (
     <>
       <StakeStepsModals

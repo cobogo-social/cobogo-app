@@ -19,7 +19,7 @@ export default function Index() {
   const { data: session } = useSession();
   const { setLoading } = useContext(LoadingContext);
   const { setError } = useContext(ErrorContext);
-  const [currentAccount, setCurrentAccount] = useState();
+  const [currentAccount, setCurrentAccount] = useState('');
   const { push } = useRouter();
 
   async function connectMetaMaskWallet() {
@@ -89,6 +89,19 @@ export default function Index() {
   useEffect(() => {
     checkIfWalletIsConnected();
   }, [checkIfWalletIsConnected]);
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { ethereum } = window as any;
+
+    ethereum.on('accountsChanged', (accounts) => {
+      if (accounts.length > 0) {
+        setCurrentAccount(accounts[0]);
+      } else {
+        setCurrentAccount('');
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
