@@ -264,7 +264,11 @@ export default function Index({
 
               <p className="mb-4 text-lg">choose up to 5 tags</p>
 
-              <TagsInput input={tagInput} changeTags={changeTags} />
+              <TagsInput
+                input={tagInput}
+                changeTags={changeTags}
+                tags={tagsList}
+              />
 
               <Tags tags={tagsList} removeTag={removeTag} />
 

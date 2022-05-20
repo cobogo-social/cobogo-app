@@ -286,7 +286,11 @@ export default function EditProfileModal({
 
             <p className="mb-4 text-[22px] text-white">choose up to 5 tags</p>
 
-            <TagsInput input={tagInput} changeTags={changeTags} />
+            <TagsInput
+              input={tagInput}
+              changeTags={changeTags}
+              tags={tagsList}
+            />
 
             <Tags tags={tagsList} removeTag={removeTag} />
 

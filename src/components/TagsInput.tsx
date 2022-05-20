@@ -3,9 +3,10 @@ import Image from 'next/image';
 interface TagsInputProps {
   input?: string;
   changeTags?: (event: unknown) => void;
+  tags: string[];
 }
 
-export default function TagsInput({ input, changeTags }: TagsInputProps) {
+export default function TagsInput({ input, changeTags, tags }: TagsInputProps) {
   function validateKeyPressed(event) {
     event.key === 'Enter' && event.preventDefault();
   }
@@ -22,7 +23,9 @@ export default function TagsInput({ input, changeTags }: TagsInputProps) {
       </div>
 
       <input
-        className="w-full sm:w-96 h-12 bg-black border-[1.5px] border-l-0 border-gray5 mb-4 p-2 outline-none hidden sm:block"
+        className={`w-full sm:w-96 h-12 bg-black border-[1.5px] border-l-0 border-gray5 ${
+          tags.length ? 'mb-4' : 'mb-8'
+        } p-2 outline-none hidden sm:block`}
         type="text"
         placeholder="type a tag and press enter"
         value={input}
