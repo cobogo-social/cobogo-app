@@ -86,7 +86,7 @@ export default function Index({
           <TopBar />
 
           <StepSubContainer>
-            <div className="flex flex-col">
+            <div>
               <p className="mb-4 text-4xl">video</p>
 
               <p className="sm:text-xl sm:w-[408px] mb-8">
@@ -160,8 +160,6 @@ export default function Index({
               </div>
               {videoStatus === 1 && (
                 <Button
-                  width="w-[131px]"
-                  height="h-[38px]"
                   color="bg-blue"
                   text="verify video"
                   onClick={verifyVideo}
@@ -170,8 +168,6 @@ export default function Index({
 
               {videoStatus === 2 && (
                 <Button
-                  width="w-[131px]"
-                  height="h-[38px]"
                   color="bg-blue"
                   text="verify again"
                   onClick={verifyVideo}
@@ -180,8 +176,6 @@ export default function Index({
 
               {videoStatus === 3 && (
                 <Button
-                  width="w-[131px]"
-                  height="h-[38px]"
                   color="bg-blue"
                   text="back to invite and share"
                   onClick={backToInviteAndShare}
