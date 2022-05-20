@@ -79,7 +79,7 @@ export default function Index({
 
               <Earn1000CBGNotification verifiedVideo={verifiedVideo} />
 
-              <Earn50CBGNotification referralCode={referralCode} />
+              <Earn50CBGNotification />
 
               <div className="mb-8">
                 <ShareLinks referralCode={referralCode} />
