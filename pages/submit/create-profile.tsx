@@ -20,7 +20,7 @@ import {
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { GetServerSideProps } from 'next';
-import { getSession, signIn, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import {
   SetStateAction,
@@ -45,7 +45,6 @@ export default function Index({
   youtubeDescription,
   categories,
 }: CreateProfileProps) {
-  const { data: session } = useSession();
   const [tagsList, setTagsList] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [categoryValue, setCategoryValue] = useState('');
@@ -182,12 +181,6 @@ export default function Index({
   useEffect(() => {
     setCurrentValues();
   }, [setCurrentValues]);
-
-  useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      signIn('google');
-    }
-  }, [session]);
 
   return (
     <div className="w-full">
@@ -342,11 +335,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       props: {
         bannerImage: profile.attributes.banner_image,
         title: profile.attributes.title,
-        youtubeDescription: profile.attributes.youtube_description,
+        youtubeDescription:
+          profile.attributes.youtube_description ||
+          profile.attributes.twitch_description,
         categories,
       },
     };
   } catch (error) {
     console.error(error.message);
   }
+
+  return {
+    props: {},
+  };
 };

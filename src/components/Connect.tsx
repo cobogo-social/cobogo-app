@@ -1,7 +1,9 @@
-import SignInButton from '@components/SignInButton';
 import StepContainer from '@components/StepContainer';
 import TopBar from '@components/TopBar';
+import YoutubeSignInButton from '@components/YoutubeSignInButton';
 import Image from 'next/image';
+
+import TwitchSignInButton from './TwitchSignInButton';
 
 export default function Connect() {
   return (
@@ -26,7 +28,11 @@ export default function Connect() {
               connect your YouTube account and channel.
             </p>
 
-            <SignInButton />
+            <div className="mb-4">
+              <YoutubeSignInButton />
+            </div>
+
+            <TwitchSignInButton />
           </div>
 
           <div className="hidden sm:block">

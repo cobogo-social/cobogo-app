@@ -10,13 +10,12 @@ import { LoadingContext } from '@contexts/LoadingContext';
 import { readAccountByYoutubeAccountId } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
-import { getSession, signIn, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useCallback, useContext, useEffect, useState } from 'react';
 
 export default function Index() {
-  const { data: session } = useSession();
   const { setLoading } = useContext(LoadingContext);
   const { setError } = useContext(ErrorContext);
   const [currentAccount, setCurrentAccount] = useState('');
@@ -102,12 +101,6 @@ export default function Index() {
       }
     });
   }, []);
-
-  useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      signIn('google');
-    }
-  }, [session]);
 
   return (
     <div className="w-full">
@@ -201,4 +194,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   } catch (error) {
     console.error(error.message);
   }
+
+  return {
+    props: {},
+  };
 };

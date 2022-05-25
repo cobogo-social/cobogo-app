@@ -30,6 +30,7 @@ module.exports = {
       orange: '#F6851B',
       ocean: '#29354F',
       violet: '#6C63FF',
+      violettwitch: '#9146FF',
       green: '#80C660',
     },
     extend: {},

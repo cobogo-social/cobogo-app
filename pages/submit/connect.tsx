@@ -10,7 +10,8 @@ import {
   createProfile,
   readAccountByYoutubeAccountId,
 } from '@services/cobogoApi';
-import { readChannel } from '@services/youtubeApi';
+import { readChannel as readChannelFromTwitch } from '@services/twitchApi';
+import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import { useContext, useEffect, useState } from 'react';
@@ -68,29 +69,55 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         createdAccount = await createAccount(session.user);
       }
 
-      const channel = await readChannel(session);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const channel: any =
+        (await readChannelFromYoutube(session)) ||
+        (await readChannelFromTwitch(session));
 
       let profile = null;
 
       if (channel) {
         if (account) {
-          profile = account.attributes.profiles.data.find(
-            (profileFound) =>
-              profileFound.attributes.youtube_channel_id === channel.id,
-          );
+          if (channel.youtube) {
+            profile = account.attributes.profiles.data.find(
+              (profileFound) =>
+                profileFound.attributes.youtube_channel_id ===
+                channel.youtube.id,
+            );
+          }
+
+          if (channel.twitch) {
+            profile = account.attributes.profiles.data.find(
+              (profileFound) =>
+                profileFound.attributes.twitch_channel_id === channel.twitch.id,
+            );
+          }
         }
 
         if (!profile) {
           // TODO: update all methods to this pattern
-          profile = await createProfile({
-            accounts: createdAccount ? createdAccount.id : account.id,
-            title: channel.snippet.title,
-            youtube_description: channel.snippet.description,
-            youtube_channel_id: channel.id,
-            banner_image: channel.brandingSettings.image?.bannerExternalUrl,
-            profile_image: channel.snippet.thumbnails.high.url,
-            youtube_subscribers: channel.statistics.subscriberCount,
-          });
+          if (channel.youtube) {
+            profile = await createProfile({
+              accounts: createdAccount ? createdAccount.id : account.id,
+              title: channel.youtube.snippet.title,
+              youtube_description: channel.youtube.snippet.description,
+              youtube_channel_id: channel.youtube.id,
+              banner_image:
+                channel.youtube.brandingSettings.image?.bannerExternalUrl,
+              profile_image: channel.youtube.snippet.thumbnails.high.url,
+              youtube_subscribers: channel.youtube.statistics.subscriberCount,
+            });
+          }
+
+          if (channel.twitch) {
+            profile = await createProfile({
+              accounts: createdAccount ? createdAccount.id : account.id,
+              title: channel.twitch.display_name,
+              twitch_description: channel.twitch.description,
+              twitch_channel_id: channel.twitch.id,
+              profile_image: channel.twitch.profile_image_url,
+            });
+          }
         }
 
         if (profile.id) {
@@ -108,6 +135,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       props: {},
     };
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
   }
+
+  return {
+    props: {},
+  };
 };

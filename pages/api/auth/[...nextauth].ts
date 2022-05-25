@@ -1,41 +1,7 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-
-async function refreshAccessToken(token) {
-  try {
-    const url = `https://oauth2.googleapis.com/token?${new URLSearchParams({
-      client_id: process.env.GOOGLE_CLIENT_ID,
-      client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      grant_type: 'refresh_token',
-      refresh_token: token.refreshToken,
-    })}`;
-
-    const response = await fetch(url, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      method: 'POST',
-    });
-
-    const refreshedTokens = await response.json();
-
-    if (!response.ok) {
-      throw refreshedTokens;
-    }
-
-    return {
-      ...token,
-      accessToken: refreshedTokens.access_token,
-      accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
-      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken,
-    };
-  } catch (error) {
-    return {
-      ...token,
-      error: 'RefreshAccessTokenError',
-    };
-  }
-}
+import TwitchProvider from 'next-auth/providers/twitch';
+import { signOut } from 'next-auth/react';
 
 export default NextAuth({
   providers: [
@@ -52,6 +18,15 @@ export default NextAuth({
         },
       },
     }),
+    TwitchProvider({
+      clientId: process.env.TWITCH_CLIENT_ID,
+      clientSecret: process.env.TWITCH_CLIENT_SECRET,
+      authorization: {
+        params: {
+          scope: 'openid user:read:email',
+        },
+      },
+    }),
   ],
   secret: process.env.SECRET,
   callbacks: {
@@ -65,16 +40,18 @@ export default NextAuth({
         };
       }
 
-      if (Date.now() < token.accessTokenExpires) {
-        return token;
-      }
-
-      return refreshAccessToken(token);
+      return token;
     },
     async session({ session, token }) {
       session.user = token.user;
       session.accessToken = token.accessToken;
       session.error = token.error;
+
+      const expireDate = new Date(session.expires).getTime();
+
+      if (Date.now() >= expireDate) {
+        await signOut();
+      }
 
       return session;
     },

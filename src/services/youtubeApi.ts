@@ -16,7 +16,7 @@ export async function readChannel(session) {
       },
     );
 
-    return response.data.items ? response.data.items[0] : null;
+    return response.data.items ? { youtube: response.data.items[0] } : null;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);

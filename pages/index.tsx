@@ -221,7 +221,10 @@ export default function Index({
               key={channel.id}
               bannerImage={channel.attributes.banner_image}
               title={channel.attributes.title}
-              description={channel.attributes.youtube_description}
+              description={
+                channel.attributes.youtube_description ||
+                channel.attributes.twitch_description
+              }
               handle={channel.attributes.handle}
             />
           ))}
@@ -231,7 +234,10 @@ export default function Index({
               key={channel.id}
               bannerImage={channel.attributes.banner_image}
               title={channel.attributes.title}
-              description={channel.attributes.youtube_description}
+              description={
+                channel.attributes.youtube_description ||
+                channel.attributes.twitch_description
+              }
               handle={channel.attributes.handle}
             />
           ))}
@@ -265,10 +271,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
         bannerImage: profiles[0] ? profiles[0].attributes.banner_image : null,
         title: profiles[0] ? profiles[0].attributes.title : '',
         description: profiles[0]
-          ? profiles[0].attributes.youtube_description
+          ? profiles[0].attributes.youtube_description ||
+            profiles[0].attributes.twitch_description
           : '',
         youtubeChannelId: profiles[0]
-          ? profiles[0].attributes.youtube_channel_id
+          ? profiles[0].attributes.youtube_channel_id ||
+            profiles[0].attributes.twitch_channel_id
           : null,
         handle: profiles[0] ? profiles[0].attributes.handle : null,
         channels: profiles,
@@ -278,4 +286,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
   } catch (error) {
     console.error(error.message);
   }
+
+  return {
+    props: {},
+  };
 };
