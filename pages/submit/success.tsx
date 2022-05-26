@@ -165,7 +165,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         title: profile.attributes.title,
         youtubeDescription:
           profile.attributes.youtube_description ||
-          profile.attributes.twitch_description,
+          profile.attributes.twitch_description ||
+          profile.attributes.twitter_description,
         onboardedFriends,
         tokens: account.attributes.tokens,
       },

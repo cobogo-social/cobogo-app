@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import TwitchProvider from 'next-auth/providers/twitch';
+import TwitterProvider from 'next-auth/providers/twitter';
 import { signOut } from 'next-auth/react';
 
 export default NextAuth({
@@ -26,6 +27,11 @@ export default NextAuth({
           scope: 'openid user:read:email',
         },
       },
+    }),
+    TwitterProvider({
+      clientId: process.env.TWITTER_CLIENT_ID,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET,
+      version: '2.0',
     }),
   ],
   secret: process.env.SECRET,

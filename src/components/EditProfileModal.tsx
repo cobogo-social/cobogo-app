@@ -188,15 +188,9 @@ export default function EditProfileModal({
     setCategoryValue(event.target.value);
   }
 
-  const setCurrentValues = useCallback(() => {
-    formik.values.description = description;
-    formik.values.handle = handle;
-    setTagsList(tags);
-  }, [tags, description, handle]);
-
   useEffect(() => {
-    setCurrentValues();
-  }, [setCurrentValues]);
+    setTagsList(tags);
+  }, [tags]);
 
   useEffect(() => {
     if (isOpen) {
@@ -237,14 +231,18 @@ export default function EditProfileModal({
               <textarea
                 id="description"
                 name="description"
-                className={`w-full sm:w-[432px] h-32 bg-black border-[1.5px] mb-8 p-2 outline-none text-white ${
+                className={`w-full h-32 bg-black border-[1.5px] mb-8 p-2 outline-none text-white ${
                   formik.touched.description && formik.errors.description
                     ? 'border-red'
                     : 'border-gray5'
                 }`}
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressedInDescription}
-                value={formik.values.description}
+                value={
+                  !formik.values.description
+                    ? description
+                    : formik.values.description
+                }
               />
             </div>
 
@@ -279,7 +277,7 @@ export default function EditProfileModal({
                   }`}
                   onChange={formik.handleChange}
                   onKeyPress={validateKeyPressedInHandle}
-                  value={formik.values.handle}
+                  value={!formik.values.handle ? handle : formik.values.handle}
                 />
               </div>
             </div>

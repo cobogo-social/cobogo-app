@@ -272,11 +272,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
         title: profiles[0] ? profiles[0].attributes.title : '',
         description: profiles[0]
           ? profiles[0].attributes.youtube_description ||
-            profiles[0].attributes.twitch_description
+            profiles[0].attributes.twitch_description ||
+            profiles[0].attributes.twitter_description
           : '',
         youtubeChannelId: profiles[0]
           ? profiles[0].attributes.youtube_channel_id ||
-            profiles[0].attributes.twitch_channel_id
+            profiles[0].attributes.twitch_id ||
+            profiles[0].attributes.twitter_id
           : null,
         handle: profiles[0] ? profiles[0].attributes.handle : null,
         channels: profiles,

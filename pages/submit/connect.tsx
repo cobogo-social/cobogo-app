@@ -11,6 +11,7 @@ import {
   readAccountByYoutubeAccountId,
 } from '@services/cobogoApi';
 import { readChannel as readChannelFromTwitch } from '@services/twitchApi';
+import { readChannel as readChannelFromTwitter } from '@services/twitterApi';
 import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
@@ -72,7 +73,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const channel: any =
         (await readChannelFromYoutube(session)) ||
-        (await readChannelFromTwitch(session));
+        (await readChannelFromTwitch(session)) ||
+        (await readChannelFromTwitter(session));
 
       let profile = null;
 
@@ -89,7 +91,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
           if (channel.twitch) {
             profile = account.attributes.profiles.data.find(
               (profileFound) =>
-                profileFound.attributes.twitch_channel_id === channel.twitch.id,
+                profileFound.attributes.twitch_id === channel.twitch.id,
+            );
+          }
+
+          if (channel.twitter) {
+            profile = account.attributes.profiles.data.find(
+              (profileFound) =>
+                profileFound.attributes.twitter_id === channel.twitter.id,
             );
           }
         }
@@ -114,20 +123,30 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
               accounts: createdAccount ? createdAccount.id : account.id,
               title: channel.twitch.display_name,
               twitch_description: channel.twitch.description,
-              twitch_channel_id: channel.twitch.id,
+              twitch_id: channel.twitch.id,
               profile_image: channel.twitch.profile_image_url,
             });
           }
-        }
 
-        if (profile.id) {
-          return {
-            redirect: {
-              destination: '/submit/create-profile',
-              permanent: false,
-            },
-          };
+          if (channel.twitter) {
+            profile = await createProfile({
+              accounts: createdAccount ? createdAccount.id : account.id,
+              title: channel.twitter.name,
+              twitter_description: channel.twitter.description,
+              twitter_id: channel.twitter.id,
+              profile_image: channel.twitter.profile_image_url,
+            });
+          }
         }
+      }
+
+      if (profile.id) {
+        return {
+          redirect: {
+            destination: '/submit/create-profile',
+            permanent: false,
+          },
+        };
       }
     }
 

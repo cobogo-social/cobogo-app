@@ -4,6 +4,7 @@ import YoutubeSignInButton from '@components/YoutubeSignInButton';
 import Image from 'next/image';
 
 import TwitchSignInButton from './TwitchSignInButton';
+import TwitterSignInButton from './TwitterSignInButton';
 
 export default function Connect() {
   return (
@@ -32,7 +33,11 @@ export default function Connect() {
               <YoutubeSignInButton />
             </div>
 
-            <TwitchSignInButton />
+            <div className="mb-4">
+              <TwitchSignInButton />
+            </div>
+
+            <TwitterSignInButton />
           </div>
 
           <div className="hidden sm:block">

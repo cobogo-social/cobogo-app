@@ -168,19 +168,11 @@ export default function Index({
     }
   }
 
-  const setCurrentValues = useCallback(() => {
-    formik.values.description = youtubeDescription;
-  }, [youtubeDescription]);
-
   useEffect(() => {
     if (createdProfile) {
       push('/submit/connect-wallet');
     }
   }, [push, createdProfile]);
-
-  useEffect(() => {
-    setCurrentValues();
-  }, [setCurrentValues]);
 
   return (
     <div className="w-full">
@@ -215,7 +207,11 @@ export default function Index({
                   } mb-8 p-2 outline-none`}
                   onChange={formik.handleChange}
                   onKeyPress={validateKeyPressedInDescription}
-                  value={formik.values.description}
+                  value={
+                    !formik.values.description
+                      ? youtubeDescription
+                      : formik.values.description
+                  }
                 />
               </div>
 
@@ -337,7 +333,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         title: profile.attributes.title,
         youtubeDescription:
           profile.attributes.youtube_description ||
-          profile.attributes.twitch_description,
+          profile.attributes.twitch_description ||
+          profile.attributes.twitter_description,
         categories,
       },
     };
