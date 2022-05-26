@@ -223,7 +223,9 @@ export default function Index({
               title={channel.attributes.title}
               description={
                 channel.attributes.youtube_description ||
-                channel.attributes.twitch_description
+                channel.attributes.twitch_description ||
+                channel.attributes.twitter_description ||
+                ''
               }
               handle={channel.attributes.handle}
             />
@@ -236,7 +238,9 @@ export default function Index({
               title={channel.attributes.title}
               description={
                 channel.attributes.youtube_description ||
-                channel.attributes.twitch_description
+                channel.attributes.twitch_description ||
+                channel.attributes.twitter_description ||
+                ''
               }
               handle={channel.attributes.handle}
             />
@@ -273,7 +277,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
         description: profiles[0]
           ? profiles[0].attributes.youtube_description ||
             profiles[0].attributes.twitch_description ||
-            profiles[0].attributes.twitter_description
+            profiles[0].attributes.twitter_description ||
+            ''
           : '',
         youtubeChannelId: profiles[0]
           ? profiles[0].attributes.youtube_channel_id ||

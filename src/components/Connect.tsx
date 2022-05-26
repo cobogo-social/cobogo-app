@@ -3,6 +3,7 @@ import TopBar from '@components/TopBar';
 import YoutubeSignInButton from '@components/YoutubeSignInButton';
 import Image from 'next/image';
 
+import DiscordSignInButton from './DiscordSignInButton';
 import TwitchSignInButton from './TwitchSignInButton';
 import TwitterSignInButton from './TwitterSignInButton';
 
@@ -37,7 +38,11 @@ export default function Connect() {
               <TwitchSignInButton />
             </div>
 
-            <TwitterSignInButton />
+            <div className="mb-4">
+              <TwitterSignInButton />
+            </div>
+
+            <DiscordSignInButton />
           </div>
 
           <div className="hidden sm:block">

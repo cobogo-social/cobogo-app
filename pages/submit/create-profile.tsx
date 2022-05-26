@@ -22,13 +22,7 @@ import { useFormik } from 'formik';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import {
-  SetStateAction,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { SetStateAction, useContext, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 interface CreateProfileProps {
@@ -334,7 +328,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         youtubeDescription:
           profile.attributes.youtube_description ||
           profile.attributes.twitch_description ||
-          profile.attributes.twitter_description,
+          profile.attributes.twitter_description ||
+          '',
         categories,
       },
     };

@@ -10,6 +10,7 @@ import {
   createProfile,
   readAccountByYoutubeAccountId,
 } from '@services/cobogoApi';
+import { readChannel as readChannelFromDiscord } from '@services/discordApi';
 import { readChannel as readChannelFromTwitch } from '@services/twitchApi';
 import { readChannel as readChannelFromTwitter } from '@services/twitterApi';
 import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
@@ -74,7 +75,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       const channel: any =
         (await readChannelFromYoutube(session)) ||
         (await readChannelFromTwitch(session)) ||
-        (await readChannelFromTwitter(session));
+        (await readChannelFromTwitter(session)) ||
+        (await readChannelFromDiscord(session));
 
       let profile = null;
 
@@ -99,6 +101,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
             profile = account.attributes.profiles.data.find(
               (profileFound) =>
                 profileFound.attributes.twitter_id === channel.twitter.id,
+            );
+          }
+
+          if (channel.discord) {
+            profile = account.attributes.profiles.data.find(
+              (profileFound) =>
+                profileFound.attributes.discord_id === channel.discord.id,
             );
           }
         }
@@ -135,6 +144,16 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
               twitter_description: channel.twitter.description,
               twitter_id: channel.twitter.id,
               profile_image: channel.twitter.profile_image_url,
+            });
+          }
+
+          if (channel.discord) {
+            profile = await createProfile({
+              accounts: createdAccount ? createdAccount.id : account.id,
+              title: channel.discord.username,
+              discord_id: channel.discord.id,
+              banner_image: channel.discord.banner,
+              profile_image: channel.discord.avatar,
             });
           }
         }

@@ -31,6 +31,7 @@ module.exports = {
       ocean: '#29354F',
       violet: '#6C63FF',
       violettwitch: '#9146FF',
+      violetdiscord: '#5865F2',
       green: '#80C660',
     },
     extend: {},

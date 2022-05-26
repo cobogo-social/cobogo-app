@@ -4,13 +4,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import {
-  SetStateAction,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { SetStateAction, useContext, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 import Button from './Button';
