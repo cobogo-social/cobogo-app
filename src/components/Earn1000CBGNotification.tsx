@@ -8,7 +8,7 @@ export default function Earn1000CBGNotification({
   verifiedVideo,
 }: Earn1000CBGNotificationProps) {
   return (
-    <div className="flex h-[60px] justify-start items-center mb-[20px]">
+    <div className="flex h-[60px] justify-start items-center mb-8">
       <div
         className={`w-[30px] h-[60px] border-l-4 ${
           verifiedVideo ? 'border-green' : 'border-gray9'
@@ -16,18 +16,18 @@ export default function Earn1000CBGNotification({
       />
 
       <div>
-        <p className="sm:w-[326px] font-bold text-xs sm:text-base">
-          want to earn 1,000 more CBG tokens?
+        <p className="sm:w-[387px] font-bold text-xs sm:text-base">
+          earn 1,000 more CBG tokens recording a video
         </p>
 
         {verifiedVideo ? (
-          <p className="sm:w-[326px] font-bold text-xs sm:text-base text-green flex">
+          <p className="sm:w-[387px] font-bold text-xs sm:text-base text-green flex">
             done
           </p>
         ) : (
           <Link href="/submit/video">
-            <button className="sm:w-[326px] font-bold text-xs sm:text-base text-blue flex">
-              find out how
+            <button className="sm:w-[387px] font-bold text-xs sm:text-base text-blue flex">
+              view rules
             </button>
           </Link>
         )}

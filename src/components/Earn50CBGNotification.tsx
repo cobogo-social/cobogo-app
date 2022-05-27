@@ -2,8 +2,8 @@ import Link from './Link';
 
 export default function Earn50CBGNotification() {
   return (
-    <div className="flex h-[130px] justify-start items-center mb-8">
-      <div className="w-[30px] h-[130px] border-l-4 border-gray9 hidden sm:flex justify-center items-center" />
+    <div className="flex h-[99px] justify-start items-center mb-[20px]">
+      <div className="w-[30px] h-[99px] border-l-4 border-gray9 hidden sm:flex justify-center items-center" />
 
       <div>
         <p className="sm:w-[326px] font-bold text-xs sm:text-base">
@@ -13,7 +13,7 @@ export default function Earn50CBGNotification() {
 
         <Link href="/referral-dashboard">
           <button className="sm:w-[326px] font-bold text-xs sm:text-base text-blue flex">
-            find out how
+            view referral link
           </button>
         </Link>
       </div>
