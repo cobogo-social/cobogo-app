@@ -4,13 +4,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import {
-  SetStateAction,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { SetStateAction, useContext, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 import Button from './Button';
@@ -188,15 +182,9 @@ export default function EditProfileModal({
     setCategoryValue(event.target.value);
   }
 
-  const setCurrentValues = useCallback(() => {
-    formik.values.description = description;
-    formik.values.handle = handle;
-    setTagsList(tags);
-  }, [tags, description, handle]);
-
   useEffect(() => {
-    setCurrentValues();
-  }, [setCurrentValues]);
+    setTagsList(tags);
+  }, [tags]);
 
   useEffect(() => {
     if (isOpen) {
@@ -208,7 +196,7 @@ export default function EditProfileModal({
 
   return isOpen ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="relative bg-primary w-full h-full sm:w-[550px] sm:h-[858px] flex flex-col justify-center border-[1.5px] border-gray5 px-[40px] sm:px-[70px] shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
+      <div className="relative bg-primary w-full h-full sm:w-[550px] sm:h-[858px] flex flex-col justify-center border-[1.5px] border-gray10 px-[40px] sm:px-[70px] shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
         <div className="flex flex-col items-start justify-center">
           <div
             onClick={closeModal}
@@ -237,14 +225,18 @@ export default function EditProfileModal({
               <textarea
                 id="description"
                 name="description"
-                className={`w-full sm:w-[432px] h-32 bg-black border-[1.5px] mb-8 p-2 outline-none text-white ${
+                className={`w-full h-32 bg-gray7 border-[1.5px] mb-8 p-2 outline-none text-white ${
                   formik.touched.description && formik.errors.description
                     ? 'border-red'
-                    : 'border-gray5'
+                    : 'border-gray10'
                 }`}
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressedInDescription}
-                value={formik.values.description}
+                value={
+                  !formik.values.description
+                    ? description
+                    : formik.values.description
+                }
               />
             </div>
 
@@ -257,7 +249,7 @@ export default function EditProfileModal({
             </p>
 
             <div className="flex">
-              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-gray5">
+              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-gray10">
                 <p className="font-bold text-white">app.cobogo.social/</p>
               </div>
 
@@ -271,15 +263,15 @@ export default function EditProfileModal({
                   id="handle"
                   name="handle"
                   type="text"
-                  className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0  mb-8 p-2 outline-none text-white ${
+                  className={`w-full h-12 bg-gray7 border-[1.5px] sm:border-l-0  mb-8 p-2 outline-none text-white ${
                     (formik.touched.handle && formik.errors.handle) ||
                     handleError
                       ? 'border-red'
-                      : 'border-gray5'
+                      : 'border-gray10'
                   }`}
                   onChange={formik.handleChange}
                   onKeyPress={validateKeyPressedInHandle}
-                  value={formik.values.handle}
+                  value={!formik.values.handle ? handle : formik.values.handle}
                 />
               </div>
             </div>

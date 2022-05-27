@@ -17,7 +17,7 @@ export default function ChannelsChannelBox({
   handle,
 }: ChannelsChannelBoxProps) {
   return (
-    <div className="hidden sm:flex flex-col w-[768px] h-[340px] bg-black justify-between border-[1.5px] border-gray5 mt-[40px] shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
+    <div className="hidden sm:flex flex-col w-[768px] h-[340px] bg-black justify-between border-[1.5px] border-gray10 mt-[40px] shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
       {bannerImage ? (
         <Image
           src={bannerImage}

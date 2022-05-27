@@ -22,13 +22,7 @@ import { useFormik } from 'formik';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import {
-  SetStateAction,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { SetStateAction, useContext, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 interface CreateProfileProps {
@@ -169,19 +163,11 @@ export default function Index({
     }
   }
 
-  const setCurrentValues = useCallback(() => {
-    formik.values.description = youtubeDescription;
-  }, [youtubeDescription]);
-
   useEffect(() => {
     if (createdProfile) {
       push('/submit/connect-wallet');
     }
   }, [push, createdProfile]);
-
-  useEffect(() => {
-    setCurrentValues();
-  }, [setCurrentValues]);
 
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
@@ -215,14 +201,18 @@ export default function Index({
                 <textarea
                   id="description"
                   name="description"
-                  className={`w-full sm:w-[432px] h-32 bg-black border-[1.5px] ${
+                  className={`w-full sm:w-[432px] h-32 bg-gray7 border-[1.5px] ${
                     formik.touched.description && formik.errors.description
                       ? 'border-red'
-                      : 'border-gray5'
+                      : 'border-gray10'
                   } mb-8 p-2 outline-none`}
                   onChange={formik.handleChange}
                   onKeyPress={validateKeyPressedInDescription}
-                  value={formik.values.description}
+                  value={
+                    !formik.values.description
+                      ? youtubeDescription
+                      : formik.values.description
+                  }
                 />
               </div>
 
@@ -235,7 +225,7 @@ export default function Index({
               </p>
 
               <div className="flex">
-                <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-gray5">
+                <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-gray10">
                   <p className="font-bold">app.cobogo.social/</p>
                 </div>
 
@@ -252,11 +242,11 @@ export default function Index({
                     onChange={formik.handleChange}
                     onKeyPress={validateKeyPressedInHandle}
                     value={formik.values.handle}
-                    className={`w-full h-12 bg-black border-[1.5px] sm:border-l-0 ${
+                    className={`w-full h-12 bg-gray7 border-[1.5px] sm:border-l-0 ${
                       (formik.touched.handle && formik.errors.handle) ||
                       handleError
                         ? 'border-red'
-                        : 'border-gray5'
+                        : 'border-gray10'
                     } mb-8 p-2 outline-none`}
                   />
                 </div>

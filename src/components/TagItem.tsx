@@ -12,7 +12,7 @@ export default function TagItem({ tag, removeTag }: TagItemProps) {
 
   return (
     <div
-      className={`h-8 bg-black border-[1.5px] border-gray5 flex justify-center items-center p-2 mr-2 mb-2 ${
+      className={`h-8 bg-black border-[1.5px] border-gray10 flex justify-center items-center p-2 mr-2 mb-2 ${
         removeTag && 'hover:cursor-pointer'
       }`}
       onClick={removeTag ? removeATag : null}

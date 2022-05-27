@@ -15,7 +15,7 @@ export default function StakeStepFiveModal({
   }
 
   return (
-    <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[412px] flex justify-between border-[1.5px] border-gray5 shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
+    <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[412px] flex justify-between border-[1.5px] border-gray10 shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
       <div className="flex flex-col items-center justify-center py-[96px] sm:py-[57px] w-full">
         <div
           onClick={closeModal}

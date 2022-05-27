@@ -30,7 +30,7 @@ export default function StakeStepThreeModal({
   }
 
   return (
-    <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[680px] flex justify-between border-[1.5px] border-gray5 pl-[50px] pr-[50px] sm:pr-0 shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
+    <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[680px] flex justify-between border-[1.5px] border-gray10 pl-[50px] pr-[50px] sm:pr-0 shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
       <div className="flex flex-col items-start justify-start py-[96px] sm:py-[46px]">
         <div
           onClick={closeModal}
@@ -79,7 +79,7 @@ export default function StakeStepThreeModal({
         </div>
       </div>
 
-      <div className="h-full bg-black w-[300px] border-l-[1.5px] border-gray5 hidden sm:block">
+      <div className="h-full bg-black w-[300px] border-l-[1.5px] border-gray10 hidden sm:block">
         {bannerImage ? (
           <Image
             src={bannerImage}

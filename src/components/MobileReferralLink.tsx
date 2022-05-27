@@ -21,7 +21,7 @@ export default function MobileReferralLink({
       <p className="mb-2 font-bold">your referral link</p>
 
       <div className="flex">
-        <div className="px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] border-r-0 border-gray5">
+        <div className="px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] border-r-0 border-gray10">
           <p className="text-xs font-bold text-blue sm:text-sm">
             app.cobogo.social/submit?ref={referralCode}
           </p>
@@ -29,7 +29,7 @@ export default function MobileReferralLink({
 
         <div
           onClick={copyToClipboard}
-          className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-gray5 outline-none flex justify-center items-center"
+          className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-gray10 outline-none flex justify-center items-center"
         >
           <CopyToClipboard
             text={`https://app.cobogo.social/submit?ref=${referralCode}`}
