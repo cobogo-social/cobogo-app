@@ -125,7 +125,7 @@ export default function Index() {
 
               <p className="sm:text-xl sm:w-[408px]">MetaMask</p>
 
-              <p className="sm:text-lg sm:w-[408px] mb-8 text-gray3">
+              <p className="sm:text-lg sm:w-[420px] mb-8 text-gray3">
                 available as a browser extension and as a mobile app
               </p>
 
