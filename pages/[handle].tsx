@@ -2,8 +2,15 @@ import EditProfileModal from '@components/EditProfileModal';
 import Footer from '@components/Footer';
 import MainTopBar from '@components/MainTopBar';
 import MobileMainMenu from '@components/MobileMainMenu';
-import ProfileDistributions from '@components/ProfileDistributions';
-import ProfileMediaKit from '@components/ProfileMediaKit';
+import MobileProfileAbout from '@components/MobileProfileAbout';
+import MobileProfileChannelBanner from '@components/MobileProfileChannelBanner';
+import MobileProfileTopStakers from '@components/MobileProfileTopStakers';
+import MobileProfileVideos from '@components/MobileProfileVideos';
+import ProfileAbout from '@components/ProfileAbout';
+import ProfileChannelBanner from '@components/ProfileChannelBanner';
+import ProfileStatsBand from '@components/ProfileStatsBand';
+import ProfileTopStakers from '@components/ProfileTopStakers';
+import ProfileVideos from '@components/ProfileVideos';
 import StakeStepsModals from '@components/StakeStepsModals';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { readCategories, readProfileByHandle } from '@services/cobogoApi';
@@ -166,13 +173,48 @@ export default function Index({
           currentAccount={currentAccount}
         />
 
-        <ProfileMediaKit />
+        <div className="h-[299px] w-full hidden sm:flex flex-col">
+          <ProfileChannelBanner
+            bannerImage={bannerImage}
+            title={title}
+            youtubeSubscribers={youtubeSubscribers}
+          />
 
-        <ProfileDistributions />
+          <ProfileStatsBand openStakeStepsModals={openStakeStepsModals} />
+        </div>
 
-        {/* <ProfileVideos videos={videos} />
+        <MobileProfileChannelBanner
+          title={title}
+          youtubeSubscribers={youtubeSubscribers}
+          tags={tags}
+          openStakeStepsModals={openStakeStepsModals}
+          bannerImage={bannerImage}
+        />
 
-        <MobileProfileVideos videos={videos} /> */}
+        <div className="w-full pt-[62px] px-[147px] hidden sm:flex justify-between items-start">
+          <ProfileAbout
+            description={description}
+            tags={tags}
+            youtubeChannelId={youtubeChannelId}
+            isOwner={isOwner}
+            openEditProfileModal={openEditProfileModal}
+          />
+
+          <ProfileTopStakers />
+        </div>
+
+        <MobileProfileAbout
+          isOwner={isOwner}
+          description={description}
+          youtubeChannelId={youtubeChannelId}
+          openEditProfileModal={openEditProfileModal}
+        />
+
+        <MobileProfileTopStakers />
+
+        <ProfileVideos videos={videos} title={title} />
+
+        <MobileProfileVideos videos={videos} title={title} />
 
         <Footer />
       </div>
