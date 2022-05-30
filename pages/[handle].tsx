@@ -2,11 +2,8 @@ import EditProfileModal from '@components/EditProfileModal';
 import Footer from '@components/Footer';
 import MainTopBar from '@components/MainTopBar';
 import MobileMainMenu from '@components/MobileMainMenu';
-import MobileProfileVideos from '@components/MobileProfileVideos';
 import ProfileDistributions from '@components/ProfileDistributions';
 import ProfileMediaKit from '@components/ProfileMediaKit';
-import ProfileServices from '@components/ProfileServices';
-import ProfileVideos from '@components/ProfileVideos';
 import StakeStepsModals from '@components/StakeStepsModals';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { readCategories, readProfileByHandle } from '@services/cobogoApi';
@@ -173,11 +170,9 @@ export default function Index({
 
         <ProfileDistributions />
 
-        <ProfileServices />
+        {/* <ProfileVideos videos={videos} />
 
-        <ProfileVideos videos={videos} />
-
-        <MobileProfileVideos videos={videos} />
+        <MobileProfileVideos videos={videos} /> */}
 
         <Footer />
       </div>
