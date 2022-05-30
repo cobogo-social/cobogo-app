@@ -9,7 +9,7 @@ export default function MobileProfileVideos({
   videos,
 }: MobileProfileVideosProps) {
   return (
-    <div className="flex sm:hidden flex-col w-full px-[20px] py-[32px] bg-secondary overflow-x-auto">
+    <div className="flex sm:hidden flex-col w-full px-[20px] py-[32px] overflow-x-auto">
       <p className="text-[22px] mb-[26px]">latest videos</p>
 
       <div className="flex">
