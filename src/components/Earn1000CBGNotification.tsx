@@ -1,3 +1,6 @@
+import { LoadingContext } from '@contexts/LoadingContext';
+import { useContext } from 'react';
+
 import Link from './Link';
 
 interface Earn1000CBGNotificationProps {
@@ -7,6 +10,8 @@ interface Earn1000CBGNotificationProps {
 export default function Earn1000CBGNotification({
   verifiedVideo,
 }: Earn1000CBGNotificationProps) {
+  const { setLoading } = useContext(LoadingContext);
+
   return (
     <div className="flex h-[60px] justify-start items-center mb-[20px]">
       <div
@@ -26,7 +31,10 @@ export default function Earn1000CBGNotification({
           </p>
         ) : (
           <Link href="/submit/video">
-            <button className="sm:w-[387px] font-bold text-xs sm:text-base text-blue flex">
+            <button
+              onClick={() => setLoading(true)}
+              className="sm:w-[387px] font-bold text-xs sm:text-base text-blue flex"
+            >
               view rules
             </button>
           </Link>
