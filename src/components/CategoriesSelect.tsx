@@ -16,6 +16,8 @@ export default function CategoriesSelect({
         className="w-full sm:w-[432px] h-12 bg-gray7 border-[1.5px] border-gray10 mb-8 px-4 outline-none hover:cursor-pointer"
         onChange={changeCategory}
       >
+        <option selected>select category</option>
+
         {categories.map((category) => {
           if (categoryName === category.attributes.name) {
             return (
@@ -24,6 +26,7 @@ export default function CategoriesSelect({
               </option>
             );
           }
+
           return (
             <option key={category.id} value={category.id}>
               {category.attributes.name}
