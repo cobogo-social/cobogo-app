@@ -79,11 +79,17 @@ export default function Index({
 
               <WaitlistNotification />
 
+              {verifiedVideo && (
+                <Earn1000CBGNotification verifiedVideo={verifiedVideo} />
+              )}
+
               <Earn10CBGNotification referralCode={referralCode} />
 
               <Earn50CBGNotification />
 
-              <Earn1000CBGNotification verifiedVideo={verifiedVideo} />
+              {!verifiedVideo && (
+                <Earn1000CBGNotification verifiedVideo={verifiedVideo} />
+              )}
 
               <Earn50CBGNotification2 />
 
