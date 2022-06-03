@@ -13,6 +13,7 @@ import ProfileTopStakers from '@components/ProfileTopStakers';
 import ProfileVideos from '@components/ProfileVideos';
 import StakeStepsModals from '@components/StakeStepsModals';
 import { ErrorContext } from '@contexts/ErrorContext';
+import { LoadingContext } from '@contexts/LoadingContext';
 import { readCategories, readProfileByHandle } from '@services/cobogoApi';
 import { readVideosByChannelId } from '@services/youtubeApi';
 import axios from 'axios';
@@ -56,6 +57,7 @@ export default function Index({
   const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
   const [currentAccount, setCurrentAccount] = useState('');
   const { push } = useRouter();
+  const { setLoading } = useContext(LoadingContext);
 
   function openStakeStepsModals() {
     setStakeStepsModalsOpen(true);
@@ -137,6 +139,10 @@ export default function Index({
       }
     });
   }, []);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [setLoading]);
 
   return (
     <>

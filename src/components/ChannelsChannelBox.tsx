@@ -1,4 +1,6 @@
+import { LoadingContext } from '@contexts/LoadingContext';
 import Image from 'next/image';
+import { useContext } from 'react';
 
 import Button from './Button';
 import Link from './Link';
@@ -16,6 +18,8 @@ export default function ChannelsChannelBox({
   description,
   handle,
 }: ChannelsChannelBoxProps) {
+  const { setLoading } = useContext(LoadingContext);
+
   return (
     <div className="hidden sm:flex flex-col w-[768px] h-[340px] bg-black justify-between border-[1.5px] border-gray10 mt-[40px] shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
       {bannerImage ? (
@@ -78,6 +82,7 @@ export default function ChannelsChannelBox({
               color="bg-blue"
               width="w-[114px]"
               height="h-[38px]"
+              onClick={() => setLoading(true)}
             />
           </Link>
         </div>

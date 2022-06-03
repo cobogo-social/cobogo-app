@@ -1,4 +1,6 @@
+import { LoadingContext } from '@contexts/LoadingContext';
 import Image from 'next/image';
+import { useContext } from 'react';
 
 import Button from './Button';
 import Link from './Link';
@@ -16,6 +18,8 @@ export default function MobileChannelsChannelBox({
   description,
   handle,
 }: MobileChannelsChannelBoxProps) {
+  const { setLoading } = useContext(LoadingContext);
+
   return (
     <div className="flex sm:hidden flex-col w-[310px] h-[429px] bg-black justify-start border-[1.5px] border-gray10 mt-[30px] shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
       {bannerImage ? (
@@ -77,7 +81,12 @@ export default function MobileChannelsChannelBox({
           </div>
 
           <Link href={`/${handle}`}>
-            <Button text="more info" color="bg-blue" width="w-full" />
+            <Button
+              onClick={() => setLoading(true)}
+              text="more info"
+              color="bg-blue"
+              width="w-full"
+            />
           </Link>
         </div>
       </div>

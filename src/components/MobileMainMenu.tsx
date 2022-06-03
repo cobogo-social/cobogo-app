@@ -1,5 +1,6 @@
 import TokenInfo from '@components/TokenInfo';
 import { ErrorContext } from '@contexts/ErrorContext';
+import { LoadingContext } from '@contexts/LoadingContext';
 import axios from 'axios';
 import Image from 'next/image';
 import { useCallback, useContext, useEffect, useState } from 'react';
@@ -30,6 +31,7 @@ export default function MobileMainMenu({
   const [tokens, setTokens] = useState(0);
   const [openCategoriesMenu, setOpenCategoriesMenu] = useState(false);
   const { setError } = useContext(ErrorContext);
+  const { setLoading } = useContext(LoadingContext);
 
   function openOrCloseCategoriesMenu() {
     setOpenCategoriesMenu(!openCategoriesMenu);
@@ -119,6 +121,7 @@ export default function MobileMainMenu({
                   color="bg-purple"
                   width="w-[68px]"
                   height="h-[26px]"
+                  onClick={() => setLoading(true)}
                 />
               </Link>
             </div>

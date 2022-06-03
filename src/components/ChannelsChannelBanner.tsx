@@ -1,4 +1,6 @@
+import { LoadingContext } from '@contexts/LoadingContext';
 import Image from 'next/image';
+import { useContext } from 'react';
 
 import Button from './Button';
 import Link from './Link';
@@ -18,6 +20,8 @@ export default function ChannelsChannelBanner({
   youtubeChannelId,
   handle,
 }: ChannelsChannelBannerProps) {
+  const { setLoading } = useContext(LoadingContext);
+
   return (
     <div className="h-[467px] w-full bg-blue relative hidden sm:flex justify-center items-start">
       {bannerImage ? (
@@ -96,6 +100,7 @@ export default function ChannelsChannelBanner({
                 color="bg-blue"
                 width="w-[114px]"
                 height="h-[38px]"
+                onClick={() => setLoading(true)}
               />
             </Link>
           </div>

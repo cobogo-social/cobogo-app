@@ -1,6 +1,7 @@
+import { LoadingContext } from '@contexts/LoadingContext';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import Button from './Button';
 import DisconnectWalletModal from './DisconnectWalletModal';
@@ -21,6 +22,7 @@ export default function MainTopBar({
   const { asPath } = useRouter();
   const [disconnectWalletModalIsOpen, setDisconnectWalletModalIsOpen] =
     useState(false);
+  const { setLoading } = useContext(LoadingContext);
 
   function openDisconnectWalletModal() {
     setDisconnectWalletModalIsOpen(true);
@@ -51,6 +53,7 @@ export default function MainTopBar({
                 color="bg-purple"
                 width="w-[174px]"
                 height="h-[38px]"
+                onClick={() => setLoading(true)}
               />
             </Link>
           </div>
