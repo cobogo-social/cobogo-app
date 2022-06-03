@@ -31,7 +31,6 @@ interface InviteProps {
   onboardedFriends: number;
   tokens: number;
   verifiedVideo: boolean;
-  handle: string;
 }
 
 export default function Index({
@@ -42,7 +41,6 @@ export default function Index({
   onboardedFriends,
   tokens,
   verifiedVideo,
-  handle,
 }: InviteProps) {
   const { data: session } = useSession();
   const { setLoading } = useContext(LoadingContext);
@@ -83,11 +81,11 @@ export default function Index({
 
               <Earn10CBGNotification referralCode={referralCode} />
 
-              <Earn50CBGNotification2 handle={handle} />
-
               <Earn50CBGNotification />
 
               <Earn1000CBGNotification verifiedVideo={verifiedVideo} />
+
+              <Earn50CBGNotification2 />
 
               <div className="mb-8">
                 <ShareLinks referralCode={referralCode} />
@@ -177,7 +175,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         onboardedFriends,
         tokens: account.attributes.tokens,
         verifiedVideo: profile.attributes.video.data,
-        handle: profile.attributes.handle,
       },
     };
   } catch (error) {

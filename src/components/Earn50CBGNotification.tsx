@@ -1,5 +1,3 @@
-import Link from './Link';
-
 export default function Earn50CBGNotification() {
   return (
     <div className="flex h-[99px] justify-start items-center mb-[20px]">
@@ -11,11 +9,13 @@ export default function Earn50CBGNotification() {
           referral link
         </p>
 
-        <Link href="/referral-dashboard">
-          <button className="sm:w-[326px] font-bold text-xs sm:text-base text-blue flex">
-            view referral link
-          </button>
-        </Link>
+        <a
+          href="/referral-dashboard"
+          target="_blank"
+          className="sm:w-[326px] font-bold text-xs sm:text-base text-blue flex"
+        >
+          view referral link
+        </a>
       </div>
     </div>
   );
