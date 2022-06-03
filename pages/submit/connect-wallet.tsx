@@ -109,6 +109,10 @@ export default function Index() {
     }
   }, [session]);
 
+  useEffect(() => {
+    setLoading(false);
+  }, [setLoading]);
+
   return (
     <div className="w-full">
       <PageContainer>
@@ -200,5 +204,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   } catch (error) {
     console.error(error.message);
+
+    return {
+      props: {},
+    };
   }
 };

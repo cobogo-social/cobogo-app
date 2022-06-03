@@ -262,9 +262,10 @@ export const getServerSideProps: GetServerSideProps = async ({
         tags: profile.attributes.categories.split(','),
         youtubeChannelId: profile.attributes.youtube_channel_id,
         videos,
-        isOwner:
-          session.user['id'] ===
-          profile.attributes.accounts.data[0].attributes.youtube_account_id,
+        isOwner: session?.user
+          ? session.user['id'] ===
+            profile.attributes.accounts.data[0].attributes.youtube_account_id
+          : false,
         handle: profile.attributes.handle,
         categories,
         categoryName: profile.attributes.category.data.attributes.name,
@@ -272,5 +273,9 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
   } catch (error) {
     console.error(error.message);
+
+    return {
+      props: {},
+    };
   }
 };

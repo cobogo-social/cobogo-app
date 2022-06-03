@@ -246,5 +246,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   } catch (error) {
     console.error(error.message);
+
+    return {
+      props: {},
+    };
   }
 };
