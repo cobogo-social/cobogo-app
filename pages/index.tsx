@@ -13,6 +13,7 @@ import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { getSession } from 'next-auth/react';
 
 interface ChannelsProps {
   bannerImage: string;
@@ -254,7 +255,17 @@ export default function Index({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  if (session?.user) {
+    return {
+      redirect: {
+        destination: '/submit/connect',
+        permanent: false,
+      },
+    };
+  }
 
   return {
     redirect: {

@@ -21,7 +21,7 @@ export default function StakeStepOneModal({
   bannerImage,
 }: StakeStepOneModalProps) {
   const { setError } = useContext(ErrorContext);
-  const [currentAccount, setCurrentAccount] = useState('');
+  const [_currentAccount, setCurrentAccount] = useState('');
 
   function closeModal() {
     setIsOpen(false);

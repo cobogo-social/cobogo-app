@@ -45,9 +45,6 @@ interface ProfileProps {
 }
 
 export default function Index({
-  bannerImage,
-  title,
-  referralCode,
   // youtubeSubscribers,
   // description,
   // tags,
@@ -57,12 +54,14 @@ export default function Index({
   // handle,
   // categories,
   // categoryName,
+  bannerImage,
+  title,
+  referralCode,
 }: ProfileProps) {
   const { setError } = useContext(ErrorContext);
   // const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
   // const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
   const [currentAccount, setCurrentAccount] = useState('');
-  const [isError, setIsError] = useState(false);
   const { push } = useRouter();
   const { setLoading } = useContext(LoadingContext);
 
@@ -173,8 +172,6 @@ export default function Index({
           title={title}
           referralCode={referralCode}
           connectWallet={connectMetaMaskWallet}
-          isError={isError}
-          setIsError={setIsError}
           currentAccount={currentAccount}
         />
       </BlankslateContainer>
@@ -304,7 +301,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         videos,
         isOwner: session?.user
           ? session.user['id'] ===
-          profile.attributes.accounts.data[0].attributes.youtube_account_id
+            profile.attributes.accounts.data[0].attributes.youtube_account_id
           : false,
         handle: profile.attributes.handle,
         categories,

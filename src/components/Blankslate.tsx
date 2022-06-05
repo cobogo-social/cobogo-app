@@ -6,8 +6,6 @@ interface BlankslateProps {
   title: string;
   referralCode: string;
   connectWallet: () => void;
-  isError: boolean;
-  setIsError: (value: boolean) => void;
   currentAccount: string;
 }
 
@@ -16,8 +14,6 @@ export default function Blankslate({
   title,
   referralCode,
   connectWallet,
-  isError,
-  setIsError,
   currentAccount,
 }: BlankslateProps) {
   return (
@@ -27,8 +23,6 @@ export default function Blankslate({
       <BlankslateBand
         referralCode={referralCode}
         connectWallet={connectWallet}
-        isError={isError}
-        setIsError={setIsError}
         currentAccount={currentAccount}
       />
     </div>
