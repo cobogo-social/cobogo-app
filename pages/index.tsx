@@ -8,7 +8,7 @@ import MainTopBar from '@components/MainTopBar';
 import MobileChannelsChannelBox from '@components/MobileChannelsChannelBox';
 import MobileMainMenu from '@components/MobileMainMenu';
 import { ErrorContext } from '@contexts/ErrorContext';
-import { readCategories, readProfiles } from '@services/cobogoApi';
+// import { readCategories, readProfiles } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
@@ -255,31 +255,41 @@ export default function Index({
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    const profiles = await readProfiles(1);
 
-    const categories = await readCategories();
+  return {
+    redirect: {
+      destination: '/submit',
+      permanent: false,
+    },
+  };
 
-    return {
-      props: {
-        bannerImage: profiles[0] ? profiles[0].attributes.banner_image : null,
-        title: profiles[0] ? profiles[0].attributes.title : '',
-        description: profiles[0]
-          ? profiles[0].attributes.youtube_description
-          : '',
-        youtubeChannelId: profiles[0]
-          ? profiles[0].attributes.youtube_channel_id
-          : null,
-        handle: profiles[0] ? profiles[0].attributes.handle : null,
-        channels: profiles,
-        categories,
-      },
-    };
-  } catch (error) {
-    console.error(error.message);
+  // Comentado para poder fazer deploy pra produção e deixar a home redirecionando para o submit.
 
-    return {
-      props: {},
-    };
-  }
+  // try {
+  //   const profiles = await readProfiles(1);
+
+  //   const categories = await readCategories();
+
+  //   return {
+  //     props: {
+  //       bannerImage: profiles[0] ? profiles[0].attributes.banner_image : null,
+  //       title: profiles[0] ? profiles[0].attributes.title : '',
+  //       description: profiles[0]
+  //         ? profiles[0].attributes.youtube_description
+  //         : '',
+  //       youtubeChannelId: profiles[0]
+  //         ? profiles[0].attributes.youtube_channel_id
+  //         : null,
+  //       handle: profiles[0] ? profiles[0].attributes.handle : null,
+  //       channels: profiles,
+  //       categories,
+  //     },
+  //   };
+  // } catch (error) {
+  //   console.error(error.message);
+
+  //   return {
+  //     props: {},
+  //   };
+  // }
 };
