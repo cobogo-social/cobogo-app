@@ -1,17 +1,21 @@
-import EditProfileModal from '@components/EditProfileModal';
+import Blankslate from '@components/Blankslate';
+import BlankslateContainer from '@components/BlankslateContainer';
+import BlankslateTopBar from '@components/BlankslateTopBar';
+
 import Footer from '@components/Footer';
-import MainTopBar from '@components/MainTopBar';
+// import MainTopBar from '@components/MainTopBar';
 import MobileMainMenu from '@components/MobileMainMenu';
-import MobileProfileAbout from '@components/MobileProfileAbout';
-import MobileProfileChannelBanner from '@components/MobileProfileChannelBanner';
-import MobileProfileTopStakers from '@components/MobileProfileTopStakers';
-import MobileProfileVideos from '@components/MobileProfileVideos';
-import ProfileAbout from '@components/ProfileAbout';
-import ProfileChannelBanner from '@components/ProfileChannelBanner';
-import ProfileStatsBand from '@components/ProfileStatsBand';
-import ProfileTopStakers from '@components/ProfileTopStakers';
-import ProfileVideos from '@components/ProfileVideos';
-import StakeStepsModals from '@components/StakeStepsModals';
+// import MobileProfileAbout from '@components/MobileProfileAbout';
+// import MobileProfileChannelBanner from '@components/MobileProfileChannelBanner';
+// import MobileProfileTopStakers from '@components/MobileProfileTopStakers';
+// import MobileProfileVideos from '@components/MobileProfileVideos';
+// import ProfileAbout from '@components/ProfileAbout';
+// import ProfileChannelBanner from '@components/ProfileChannelBanner';
+// import ProfileStatsBand from '@components/ProfileStatsBand';
+// import ProfileTopStakers from '@components/ProfileTopStakers';
+// import ProfileVideos from '@components/ProfileVideos';
+// import StakeStepsModals from '@components/StakeStepsModals';
+// import EditProfileModal from '@components/EditProfileModal';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { readCategories, readProfileByHandle } from '@services/cobogoApi';
@@ -26,47 +30,50 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 interface ProfileProps {
   bannerImage: string;
   title: string;
-  youtubeSubscribers: number;
-  description: string;
-  tags: string[];
-  youtubeChannelId: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  videos: any[];
-  isOwner: boolean;
-  handle: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  categories: any[];
-  categoryName: string;
+  referralCode: string;
+  // youtubeSubscribers: number;
+  // description: string;
+  // tags: string[];
+  // youtubeChannelId: string;
+  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // videos: any[];
+  // isOwner: boolean;
+  // handle: string;
+  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // categories: any[];
+  // categoryName: string;
 }
 
 export default function Index({
   bannerImage,
   title,
-  youtubeSubscribers,
-  description,
-  tags,
-  youtubeChannelId,
-  videos,
-  isOwner,
-  handle,
-  categories,
-  categoryName,
+  referralCode,
+  // youtubeSubscribers,
+  // description,
+  // tags,
+  // youtubeChannelId,
+  // videos,
+  // isOwner,
+  // handle,
+  // categories,
+  // categoryName,
 }: ProfileProps) {
   const { setError } = useContext(ErrorContext);
-  const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
-  const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
+  // const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
+  // const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
   const [currentAccount, setCurrentAccount] = useState('');
+  const [isError, setIsError] = useState(false);
   const { push } = useRouter();
   const { setLoading } = useContext(LoadingContext);
 
-  function openStakeStepsModals() {
-    setStakeStepsModalsOpen(true);
-  }
+  // function openStakeStepsModals() {
+  //   setStakeStepsModalsOpen(true);
+  // }
 
-  // TODO: remove duplicated functions based this
-  function openEditProfileModal() {
-    setEditProfileModalIsOpen(true);
-  }
+  // // TODO: remove duplicated functions based this
+  // function openEditProfileModal() {
+  //   setEditProfileModalIsOpen(true);
+  // }
 
   async function connectMetaMaskWallet() {
     try {
@@ -145,33 +152,15 @@ export default function Index({
   }, [setLoading]);
 
   return (
-    <>
-      <StakeStepsModals
-        isOpen={stakeStepsModalsIsOpen}
-        setIsOpen={setStakeStepsModalsOpen}
-        title={title}
-        description={description}
-        bannerImage={bannerImage}
-      />
-      <EditProfileModal
-        isOpen={editProfileModalIsOpen}
-        setIsOpen={setEditProfileModalIsOpen}
-        description={description}
-        tags={tags}
-        handle={handle}
-        categories={categories}
-        categoryName={categoryName}
-      />
+    <div className="w-full">
+      <Head>
+        <title>cobogo - {title}</title>
+      </Head>
 
-      <div className="flex flex-col">
-        <Head>
-          <title>cobogo - {title}</title>
-        </Head>
-
-        <MainTopBar
-          connectWallet={connectMetaMaskWallet}
-          currentAccount={currentAccount}
+      <BlankslateContainer>
+        <BlankslateTopBar
           setCurrentAccount={setCurrentAccount}
+          currentAccount={currentAccount}
         />
 
         <MobileMainMenu
@@ -179,53 +168,103 @@ export default function Index({
           currentAccount={currentAccount}
         />
 
-        <div className="h-[299px] w-full hidden sm:flex flex-col">
-          <ProfileChannelBanner
-            bannerImage={bannerImage}
-            title={title}
-            youtubeSubscribers={youtubeSubscribers}
-          />
-
-          <ProfileStatsBand openStakeStepsModals={openStakeStepsModals} />
-        </div>
-
-        <MobileProfileChannelBanner
-          title={title}
-          youtubeSubscribers={youtubeSubscribers}
-          tags={tags}
-          openStakeStepsModals={openStakeStepsModals}
+        <Blankslate
           bannerImage={bannerImage}
+          title={title}
+          referralCode={referralCode}
+          connectWallet={connectMetaMaskWallet}
+          isError={isError}
+          setIsError={setIsError}
+          currentAccount={currentAccount}
         />
+      </BlankslateContainer>
 
-        <div className="w-full pt-[62px] px-[147px] hidden sm:flex justify-between items-start">
-          <ProfileAbout
-            description={description}
-            tags={tags}
-            youtubeChannelId={youtubeChannelId}
-            isOwner={isOwner}
-            openEditProfileModal={openEditProfileModal}
-          />
-
-          <ProfileTopStakers />
-        </div>
-
-        <MobileProfileAbout
-          isOwner={isOwner}
-          description={description}
-          youtubeChannelId={youtubeChannelId}
-          openEditProfileModal={openEditProfileModal}
-        />
-
-        <MobileProfileTopStakers />
-
-        <ProfileVideos videos={videos} title={title} />
-
-        <MobileProfileVideos videos={videos} title={title} />
-
-        <Footer />
-      </div>
-    </>
+      <Footer />
+    </div>
   );
+
+  // return (
+  //   <>
+  //     <StakeStepsModals
+  //       isOpen={stakeStepsModalsIsOpen}
+  //       setIsOpen={setStakeStepsModalsOpen}
+  //       title={title}
+  //       description={description}
+  //       bannerImage={bannerImage}
+  //     />
+  //     <EditProfileModal
+  //       isOpen={editProfileModalIsOpen}
+  //       setIsOpen={setEditProfileModalIsOpen}
+  //       description={description}
+  //       tags={tags}
+  //       handle={handle}
+  //       categories={categories}
+  //       categoryName={categoryName}
+  //     />
+
+  //     <div className="flex flex-col">
+  //       <Head>
+  //         <title>cobogo - {title}</title>
+  //       </Head>
+
+  //       <MainTopBar
+  //         connectWallet={connectMetaMaskWallet}
+  //         currentAccount={currentAccount}
+  //         setCurrentAccount={setCurrentAccount}
+  //       />
+
+  //       <MobileMainMenu
+  //         connectWallet={connectMetaMaskWallet}
+  //         currentAccount={currentAccount}
+  //       />
+
+  //       <div className="h-[299px] w-full hidden sm:flex flex-col">
+  //         <ProfileChannelBanner
+  //           bannerImage={bannerImage}
+  //           title={title}
+  //           youtubeSubscribers={youtubeSubscribers}
+  //         />
+
+  //         <ProfileStatsBand openStakeStepsModals={openStakeStepsModals} />
+  //       </div>
+
+  //       <MobileProfileChannelBanner
+  //         title={title}
+  //         youtubeSubscribers={youtubeSubscribers}
+  //         tags={tags}
+  //         openStakeStepsModals={openStakeStepsModals}
+  //         bannerImage={bannerImage}
+  //       />
+
+  //       <div className="w-full pt-[62px] px-[147px] hidden sm:flex justify-between items-start">
+  //         <ProfileAbout
+  //           description={description}
+  //           tags={tags}
+  //           youtubeChannelId={youtubeChannelId}
+  //           isOwner={isOwner}
+  //           openEditProfileModal={openEditProfileModal}
+  //         />
+
+  //         <ProfileTopStakers />
+  //       </div>
+
+  //       <MobileProfileAbout
+  //         isOwner={isOwner}
+  //         description={description}
+  //         youtubeChannelId={youtubeChannelId}
+  //         openEditProfileModal={openEditProfileModal}
+  //       />
+
+  //       <MobileProfileTopStakers />
+
+  //       <ProfileVideos videos={videos} title={title} />
+
+  //       <MobileProfileVideos videos={videos} title={title} />
+
+  //       <Footer />
+  //     </div>
+  //   </>
+  // );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({
@@ -257,6 +296,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       props: {
         bannerImage: profile.attributes.banner_image,
         title: profile.attributes.title,
+        referralCode: profile.attributes.referral_code,
         youtubeSubscribers: profile.attributes.youtube_subscribers,
         description: profile.attributes.description,
         tags: profile.attributes.categories.split(','),
@@ -264,7 +304,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         videos,
         isOwner: session?.user
           ? session.user['id'] ===
-            profile.attributes.accounts.data[0].attributes.youtube_account_id
+          profile.attributes.accounts.data[0].attributes.youtube_account_id
           : false,
         handle: profile.attributes.handle,
         categories,
