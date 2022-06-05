@@ -26,7 +26,7 @@ export default async function handler(
 
     const response = await updateWaitlistProfile(profile);
 
-    res.status(201).json({ status: 201, data: response });
+    res.status(200).json({ status: 200, data: response });
   } catch (error) {
     res.status(500).json({ status: 500, error: error.message });
   }

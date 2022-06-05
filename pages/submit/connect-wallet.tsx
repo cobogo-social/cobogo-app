@@ -19,99 +19,97 @@ export default function Index() {
   const { data: session } = useSession();
   const { setLoading } = useContext(LoadingContext);
   const { setError } = useContext(ErrorContext);
-  const [currentAccount, setCurrentAccount] = useState('');
+  const [currentWallet, setCurrentWallet] = useState('');
   const { push } = useRouter();
+
+  async function pushToNextStep() {
+    setLoading(true);
+    push('/submit/invite-and-share');
+  }
 
   async function connectMetaMaskWallet() {
     try {
-      setLoading(true);
-
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       if (!ethereum) {
+        setError(
+          'Metamask is not available in thie browser. Please install Metamask to continue.',
+        );
         return;
       }
+      setLoading(true);
 
-      const accounts = await ethereum.request({
+      const ethereumAccounts = await ethereum.request({
         method: 'eth_requestAccounts',
       });
 
-      const address = accounts[0];
+      if (ethereumAccounts.length !== 0) {
+        const address = ethereumAccounts[0];
 
-      setCurrentAccount(address);
-
-      const createAccount = await axios.post(
-        '/api/cobogo/createAccountToFanOrYoutuber',
-        {
-          name: address,
-        },
-      );
-
-      if (createAccount.data.data) {
         await axios.post('/api/cobogo/createWallet', {
           address,
-          account: createAccount.data.data.id,
         });
+
+        setCurrentWallet(address);
       }
 
       await axios.put('/api/cobogo/updateWaitlistProfile');
 
-      push('/submit/invite-and-share');
-      setLoading(false);
+      pushToNextStep();
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
   }
 
-  const checkIfWalletIsConnected = useCallback(async () => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
+  const checkWallets = useCallback(
+    async (ethereumWallets = null) => {
+      try {
+        let ethereumAccounts = ethereumWallets;
 
-      const accounts = await ethereum.request({ method: 'eth_accounts' });
+        if (!ethereumAccounts) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { ethereum } = window as any;
 
-      if (accounts.length !== 0) {
-        await axios.put('/api/cobogo/updateWaitlistProfile');
+          ethereumAccounts = await ethereum.request({
+            method: 'eth_accounts',
+          });
+        }
+
+        if (ethereumAccounts.length > 0) {
+          const walletAddress = ethereumAccounts[0];
+          await axios.post('/api/cobogo/createWallet', {
+            walletAddress,
+          });
+          setCurrentWallet(walletAddress);
+        } else {
+          setCurrentWallet('');
+        }
+      } catch (error) {
+        setError(error.message);
       }
-    } catch (error) {
-      setError(error.message);
-    }
-  }, [setError]);
-
-  async function pushToNextStep() {
-    setLoading(true);
-    await connectMetaMaskWallet();
-    push('/submit/invite-and-share');
-  }
-
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, [checkIfWalletIsConnected]);
+    },
+    [setError],
+  );
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { ethereum } = window as any;
-
-    ethereum.on('accountsChanged', (accounts) => {
-      if (accounts.length > 0) {
-        setCurrentAccount(accounts[0]);
-      } else {
-        setCurrentAccount('');
-      }
+    ethereum.on('accountsChanged', (ethereumAccounts) => {
+      checkWallets(ethereumAccounts);
     });
-  }, []);
 
+    checkWallets();
+  }, [checkWallets, setLoading]);
+
+  // TODO: Retirar isso dessa tela, deve ficar fora na checagem de todas as telas,
+  // mas não entendi o use case disso aqui.
   useEffect(() => {
     if (session?.error === 'RefreshAccessTokenError') {
       signIn('google');
     }
   }, [session]);
-
-  useEffect(() => {
-    setLoading(false);
-  }, [setLoading]);
 
   return (
     <div className="w-full">
@@ -133,7 +131,7 @@ export default function Index() {
                 available as a browser extension and as a mobile app
               </p>
 
-              {!currentAccount ? (
+              {!currentWallet ? (
                 <Button
                   text="connect to MetaMask"
                   color="bg-blue"
