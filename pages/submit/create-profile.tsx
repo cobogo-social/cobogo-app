@@ -13,10 +13,7 @@ import TagsInput from '@components/TagsInput';
 import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
-import {
-  readAccountByYoutubeAccountId,
-  readCategories,
-} from '@services/cobogoApi';
+import { readCategories, fetchSessionData } from '@services/cobogoApi';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { GetServerSideProps } from 'next';
@@ -274,7 +271,7 @@ export default function Index({
               />
 
               <Button
-                text="send to review"
+                text="next"
                 color="bg-blue"
                 width="w-[155px]"
                 onClick={request}
@@ -299,20 +296,9 @@ export default function Index({
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
     const session = await getSession({ req });
+    const { account, profile } = await fetchSessionData(session);
 
-    if (!session?.user) {
-      return {
-        redirect: {
-          destination: '/submit/connect',
-          permanent: false,
-        },
-      };
-    }
-
-    const account = await readAccountByYoutubeAccountId(session.user['id']);
-    const profile = account?.attributes.profiles.data[0];
-
-    if (!profile) {
+    if (!account || !profile) {
       return {
         redirect: {
           destination: '/submit/connect',

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import referralCodeGenerator from 'referral-code-generator';
+import { readChannel } from '@services/youtubeApi';
 
 const api = axios.create({
   baseURL: process.env.COBOGO_API_URL,
@@ -41,13 +42,122 @@ export async function readAccountsByReferralId(referralId) {
   }
 }
 
-export async function readAccountByYoutubeAccountId(youtubeAccountId) {
+export async function fetchSessionData(session) {
+  if (!session?.user) {
+    return { account: null, profile: null };
+  }
+
   try {
-    const response = await api.get(
-      `/api/accounts?populate=*&filters[youtube_account_id][$eq]=${youtubeAccountId}`,
+    const account = (
+      await api.get(`/api/accounts/${session.user.id}?populate=*`)
+    ).data.data;
+
+    let profile;
+
+    if (account && account.attributes.profiles.data[0]) {
+      profile = (
+        await api.get(
+          `/api/profiles/${account.attributes.profiles.data[0].id}?populate=*`,
+        )
+      ).data.data;
+    }
+
+    return { account, profile };
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+    return { account: null, profile: null };
+  }
+}
+
+export async function createAccount(oAuthUser) {
+  try {
+    const referralCode = await referralCodeGenerator.alphaNumeric(
+      'lowercase',
+      2,
+      2,
     );
 
-    return response.data.data[0] ? response.data.data[0] : null;
+    const response = await api.post('/api/accounts', {
+      data: {
+        name: oAuthUser.name,
+        email: oAuthUser.email,
+        image: oAuthUser.image,
+        youtube_account_id: oAuthUser.id,
+        referral_code: referralCode,
+      },
+    });
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function createProfile(data) {
+  try {
+    const response = await api.post('/api/profiles', { data });
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function readOrCreateAccountByOauth(oAuthUser, oAuthAccount) {
+  try {
+    const youtubeAccountId = oAuthUser['id'];
+    const filter = {
+      google: 'youtube_account_id',
+    };
+
+    const response = await api.get(
+      `/api/accounts?populate=*&filters[${
+        filter[oAuthAccount.provider]
+      }][$eq]=${youtubeAccountId}`,
+    );
+
+    let account = response.data.data[0];
+    if (!account) {
+      account = await createAccount(oAuthUser);
+    }
+
+    const channel = await readChannel(oAuthAccount.access_token);
+    if (channel) {
+      let profile;
+
+      if (account.attributes.profiles) {
+        profile = account.attributes.profiles.data.find(
+          (profileFound) =>
+            profileFound.attributes.youtube_channel_id === channel.id,
+        );
+      }
+
+      if (!profile) {
+        await createProfile({
+          accounts: account.id,
+          title: channel.snippet.title,
+          youtube_description: channel.snippet.description,
+          youtube_channel_id: channel.id,
+          banner_image: channel.brandingSettings.image?.bannerExternalUrl,
+          profile_image: channel.snippet.thumbnails.high.url,
+          youtube_subscribers: channel.statistics.subscriberCount,
+        });
+      }
+    }
+
+    return account;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);
@@ -151,34 +261,6 @@ export async function readWalletByAddress(address) {
   }
 }
 
-export async function createAccount(user) {
-  try {
-    const referralCode = await referralCodeGenerator.alphaNumeric(
-      'lowercase',
-      2,
-      2,
-    );
-
-    const response = await api.post('/api/accounts', {
-      data: {
-        name: user.name,
-        email: user.email,
-        image: user.image,
-        youtube_account_id: user.id,
-        referral_code: referralCode,
-      },
-    });
-
-    return response.data.data;
-  } catch (error) {
-    if (error.response) {
-      console.error(error.response.data);
-    } else {
-      console.error(error);
-    }
-  }
-}
-
 export async function createAccountToFan(name) {
   try {
     const referralCode = await referralCodeGenerator.alphaNumeric(
@@ -212,20 +294,6 @@ export async function createWallet(address, account) {
         account,
       },
     });
-  } catch (error) {
-    if (error.response) {
-      console.error(error.response.data);
-    } else {
-      console.error(error);
-    }
-  }
-}
-
-export async function createProfile(data) {
-  try {
-    const response = await api.post('/api/profiles', { data });
-
-    return response.data.data;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);

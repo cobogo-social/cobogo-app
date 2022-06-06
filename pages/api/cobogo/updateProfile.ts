@@ -1,6 +1,6 @@
 import {
   readAccountByReferralCode,
-  readAccountByYoutubeAccountId,
+  fetchSessionData,
   updateProfile,
   updateReferralAccount,
 } from '@services/cobogoApi';
@@ -16,11 +16,11 @@ export default async function handler(
   const { description, handle, categories, queryRef, category } = req.body;
 
   try {
-    const account = await readAccountByYoutubeAccountId(session.user['id']);
-    const referral = await readAccountByReferralCode(queryRef);
+    const { account } = await fetchSessionData(session);
+    const referralAccount = await readAccountByReferralCode(queryRef);
 
-    if (referral) {
-      await updateReferralAccount(account, referral);
+    if (referralAccount) {
+      await updateReferralAccount(account, referralAccount);
     }
 
     const profile = account.attributes.profiles.data[0];

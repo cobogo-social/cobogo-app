@@ -5,13 +5,13 @@ const api = axios.create({
 });
 
 // TODO: add types on all functions
-export async function readChannel(session) {
+export async function readChannel(accessToken) {
   try {
     const response = await api.get(
       `/channels?part=snippet%2CbrandingSettings%2Cstatistics&mine=true`,
       {
         headers: {
-          Authorization: `Bearer ${session.accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       },
     );

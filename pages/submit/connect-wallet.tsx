@@ -7,13 +7,13 @@ import StepsMenu from '@components/StepsMenu';
 import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
-import { readAccountByYoutubeAccountId } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useCallback, useContext, useEffect, useState } from 'react';
+import { fetchSessionData } from '@services/cobogoApi';
 
 export default function Index() {
   const { data: session } = useSession();
@@ -25,42 +25,6 @@ export default function Index() {
   async function pushToNextStep() {
     setLoading(true);
     push('/submit/invite-and-share');
-  }
-
-  async function connectMetaMaskWallet() {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
-
-      if (!ethereum) {
-        setError(
-          'Metamask is not available in thie browser. Please install Metamask to continue.',
-        );
-        return;
-      }
-      setLoading(true);
-
-      const ethereumAccounts = await ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-
-      if (ethereumAccounts.length !== 0) {
-        const address = ethereumAccounts[0];
-
-        await axios.post('/api/cobogo/createWallet', {
-          address,
-        });
-
-        setCurrentWallet(address);
-      }
-
-      await axios.put('/api/cobogo/updateWaitlistProfile');
-
-      pushToNextStep();
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
-    }
   }
 
   const checkWallets = useCallback(
@@ -82,6 +46,7 @@ export default function Index() {
           await axios.post('/api/cobogo/createWallet', {
             walletAddress,
           });
+          await axios.put('/api/cobogo/updateWaitlistProfile');
           setCurrentWallet(walletAddress);
         } else {
           setCurrentWallet('');
@@ -92,6 +57,29 @@ export default function Index() {
     },
     [setError],
   );
+
+  async function connectMetaMaskWallet() {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { ethereum } = window as any;
+
+      if (!ethereum) {
+        setError(
+          'Metamask is not available in thie browser. Please install Metamask to continue.',
+        );
+        return;
+      }
+      setLoading(true);
+
+      await checkWallets();
+      if (currentWallet) {
+        pushToNextStep();
+      }
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -166,8 +154,9 @@ export default function Index() {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
     const session = await getSession({ req });
+    const { account, profile } = await fetchSessionData(session);
 
-    if (!session?.user) {
+    if (!account) {
       return {
         redirect: {
           destination: '/submit/connect',
@@ -175,9 +164,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         },
       };
     }
-
-    const account = await readAccountByYoutubeAccountId(session.user['id']);
-    const profile = account.attributes.profiles.data[0];
 
     if (!profile.attributes.handle) {
       return {

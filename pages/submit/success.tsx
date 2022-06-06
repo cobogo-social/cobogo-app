@@ -11,8 +11,8 @@ import SubmitStatsTopBar from '@components/SubmitStatsTopBar';
 import WhitelistedNotification from '@components/WhitelistedNotification';
 import { LoadingContext } from '@contexts/LoadingContext';
 import {
-  readAccountByYoutubeAccountId,
   readAccountsByReferralId,
+  fetchSessionData,
 } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
@@ -119,8 +119,9 @@ export default function Index({
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
     const session = await getSession({ req });
+    const { account, profile } = await fetchSessionData(session);
 
-    if (!session?.user) {
+    if (!account || !profile) {
       return {
         redirect: {
           destination: '/submit/connect',
@@ -128,9 +129,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         },
       };
     }
-
-    const account = await readAccountByYoutubeAccountId(session.user['id']);
-    const profile = account.attributes.profiles.data[0];
 
     if (!profile.attributes.handle) {
       return {

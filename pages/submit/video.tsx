@@ -12,10 +12,7 @@ import TopBar from '@components/TopBar';
 import WarningBullet from '@components/WarningBullet';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
-import {
-  readAccountByYoutubeAccountId,
-  readProfileByHandle,
-} from '@services/cobogoApi';
+import { fetchSessionData } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
@@ -204,8 +201,9 @@ export default function Index({
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
     const session = await getSession({ req });
+    const { account, profile } = await fetchSessionData(session);
 
-    if (!session?.user) {
+    if (!account || !profile) {
       return {
         redirect: {
           destination: '/submit/connect',
@@ -213,10 +211,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         },
       };
     }
-
-    const account = await readAccountByYoutubeAccountId(session.user['id']);
-    const { handle } = account.attributes.profiles.data[0].attributes;
-    const profile = await readProfileByHandle(handle);
 
     if (!profile.attributes.handle) {
       return {

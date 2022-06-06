@@ -1,7 +1,7 @@
 import {
   createWallet,
   readWalletByAddress,
-  readAccountByYoutubeAccountId,
+  fetchSessionData,
   createAccountToFan,
 } from '@services/cobogoApi';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -19,7 +19,7 @@ export default async function handler(
     let account;
     if (!wallet) {
       if (session?.user) {
-        account = await readAccountByYoutubeAccountId(session.user['id']);
+        ({ account } = await fetchSessionData(session));
       } else {
         account = await createAccountToFan(walletAddress);
       }

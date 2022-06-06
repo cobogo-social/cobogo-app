@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { readOrCreateAccountByOauth } from '@services/cobogoApi';
 
 async function refreshAccessToken(token) {
   try {
@@ -55,13 +56,42 @@ export default NextAuth({
   ],
   secret: process.env.SECRET,
   callbacks: {
+    // token
+    // {
+    //   name: 'Rafael Lima',
+    //   email: 'rafaellimap-0513@pages.plusgoogle.com',
+    //   picture: 'https://lh3.googleusercontent.com/a-/AOh14GiOeE2zrw1Matu_PqPCu1alpNmAowBAYgJELsdq=s96-c',
+    //   sub: '107123731253517350373'
+    // }
+    // user
+    // {
+    //   id: '107123731253517350373',
+    //   name: 'Rafael Lima',
+    //   email: 'rafaellimap-0513@pages.plusgoogle.com',
+    //   image: 'https://lh3.googleusercontent.com/a-/AOh14GiOeE2zrw1Matu_PqPCu1alpNmAowBAYgJELsdq=s96-c'
+    // }
+    // account
+    // {
+    //   provider: 'google',
+    //   type: 'oauth',
+    //   providerAccountId: '107123731253517350373',
+    //   access_token: '',
+    //   expires_at: 1654475615,
+    //   refresh_token: '',
+    //   scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid https://www.googleapis.com/auth/youtube.readonly',
+    //   token_type: 'Bearer',
+    //   id_token: ''
+    // }
     async jwt({ token, user, account }) {
       if (account && user) {
+        const strapiAccount = await readOrCreateAccountByOauth(user, account);
+
         return {
+          provider: account.provider, // 'google'
           accessToken: account.access_token,
           accessTokenExpires: Date.now() + Number(account.expires_in) * 1000,
           refreshToken: account.refresh_token,
-          user,
+          user: { id: strapiAccount.id },
         };
       }
 

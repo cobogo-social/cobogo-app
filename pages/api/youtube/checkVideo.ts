@@ -1,6 +1,6 @@
 import {
   createVideo,
-  readAccountByYoutubeAccountId,
+  fetchSessionData,
   readProfileByHandle,
   updateTokensAccount,
 } from '@services/cobogoApi';
@@ -16,9 +16,7 @@ export default async function handler(
   const session = await getSession({ req });
 
   try {
-    const account = await readAccountByYoutubeAccountId(session.user['id']);
-    const { handle } = account.attributes.profiles.data[0].attributes;
-    const profile = await readProfileByHandle(handle);
+    const { account, profile } = await fetchSessionData(session);
     const videos = await readVideos(
       session,
       profile.attributes.youtube_channel_id,

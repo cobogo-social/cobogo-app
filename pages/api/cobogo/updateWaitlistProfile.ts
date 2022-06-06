@@ -1,5 +1,5 @@
 import {
-  readAccountByYoutubeAccountId,
+  fetchSessionData,
   updateTokensAccount,
   updateWaitlistProfile,
 } from '@services/cobogoApi';
@@ -13,8 +13,7 @@ export default async function handler(
   const session = await getSession({ req });
 
   try {
-    const account = await readAccountByYoutubeAccountId(session.user['id']);
-    const profile = account.attributes.profiles.data[0];
+    const { account, profile } = await fetchSessionData(session);
 
     if (!profile.attributes.waitlist) {
       await updateTokensAccount(account, 100);

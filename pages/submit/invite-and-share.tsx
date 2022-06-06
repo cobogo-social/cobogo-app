@@ -15,9 +15,8 @@ import SubmitStatsTopBar from '@components/SubmitStatsTopBar';
 import WaitlistNotification from '@components/WaitlistNotification';
 import { LoadingContext } from '@contexts/LoadingContext';
 import {
-  readAccountByYoutubeAccountId,
   readAccountsByReferralId,
-  readProfileByHandle,
+  fetchSessionData,
 } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
@@ -124,8 +123,9 @@ export default function Index({
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   try {
     const session = await getSession({ req });
+    const { account, profile } = await fetchSessionData(session);
 
-    if (!session?.user) {
+    if (!account || !profile) {
       return {
         redirect: {
           destination: '/submit/connect',
@@ -133,10 +133,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         },
       };
     }
-
-    const account = await readAccountByYoutubeAccountId(session.user['id']);
-    const { handle } = account.attributes.profiles.data[0].attributes;
-    const profile = await readProfileByHandle(handle);
 
     if (!profile.attributes.handle) {
       return {
@@ -186,6 +182,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   } catch (error) {
     console.error(error.message);
 
+    // TODO: Quando cai aqui está dando erro: TypeError: Cannot read properties of undefined (reading 'slice') porque as props vão todas vazias.
     return {
       props: {},
     };
