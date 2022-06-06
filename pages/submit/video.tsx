@@ -46,6 +46,7 @@ export default function Index({
       const checkVideo = await axios.get(`/api/youtube/checkVideo`);
 
       if (checkVideo.data.error) {
+        setLoading(false);
         setError(checkVideo.data.error);
       }
 
@@ -57,6 +58,7 @@ export default function Index({
 
       setLoading(false);
     } catch (error) {
+      setLoading(false);
       setError(error.message);
     }
   }

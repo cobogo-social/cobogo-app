@@ -16,8 +16,10 @@ export default async function handler(
 
   try {
     const wallet = await readWalletByAddress(walletAddress);
-    let account;
+
     if (!wallet) {
+      let account;
+
       if (session?.user) {
         ({ account } = await fetchSessionData(session));
       } else {
