@@ -1,19 +1,18 @@
 import Button from '@components/Button';
 import Footer from '@components/Footer';
-import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
 import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
+import { fetchSessionData } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { fetchSessionData } from '@services/cobogoApi';
 
 export default function Index() {
   const { data: session } = useSession();
@@ -117,8 +116,6 @@ export default function Index() {
     <div className="w-full">
       <PageContainer>
         <StepsMenu />
-
-        <MobileSubmitMenu />
 
         <StepContainer>
           <TopBar />

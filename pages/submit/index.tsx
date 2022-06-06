@@ -2,7 +2,6 @@ import Button from '@components/Button';
 import Footer from '@components/Footer';
 import JoinOurWaitlist from '@components/JoinOurWaitlist';
 import Link from '@components/Link';
-import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
@@ -30,9 +29,7 @@ export default function Index() {
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu />
-
-        <MobileSubmitMenu noSteps noLogout />
+        <StepsMenu noSteps noLogout />
 
         <StepContainer>
           <TopBar />

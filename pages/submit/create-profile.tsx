@@ -3,7 +3,6 @@ import CategoriesSelect from '@components/CategoriesSelect';
 import ChannelBox from '@components/ChannelBox';
 import ErrorLabel from '@components/ErrorLabel';
 import Footer from '@components/Footer';
-import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
@@ -180,8 +179,6 @@ export default function Index({
     <div className="w-full">
       <PageContainer>
         <StepsMenu />
-
-        <MobileSubmitMenu />
 
         <StepContainer>
           <TopBar />

@@ -5,16 +5,14 @@ import ChannelsFilterSelect from '@components/ChannelsFilterSelect';
 import ChannelsSearchInput from '@components/ChannelsSearchInput';
 import Footer from '@components/Footer';
 import MainTopBar from '@components/MainTopBar';
-import MobileChannelsChannelBox from '@components/MobileChannelsChannelBox';
-import MobileMainMenu from '@components/MobileMainMenu';
 import { ErrorContext } from '@contexts/ErrorContext';
-// import { readCategories, readProfiles } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { getSession } from 'next-auth/react';
 
+// import { readCategories, readProfiles } from '@services/cobogoApi';
 interface ChannelsProps {
   bannerImage: string;
   title: string;
@@ -191,11 +189,6 @@ export default function Index({
         connectWallet={connectMetaMaskWallet}
         currentWallet={currentWallet}
         setCurrentWallet={setCurrentWallet}
-      />
-
-      <MobileMainMenu
-        connectWallet={connectMetaMaskWallet}
-        currentWallet={currentWallet}
         categories={categories}
         searchByCategory={searchByCategory}
       />
@@ -225,16 +218,6 @@ export default function Index({
 
           {filteredChannels.map((channel) => (
             <ChannelsChannelBox
-              key={channel.id}
-              bannerImage={channel.attributes.banner_image}
-              title={channel.attributes.title}
-              description={channel.attributes.youtube_description}
-              handle={channel.attributes.handle}
-            />
-          ))}
-
-          {filteredChannels.map((channel) => (
-            <MobileChannelsChannelBox
               key={channel.id}
               bannerImage={channel.attributes.banner_image}
               title={channel.attributes.title}

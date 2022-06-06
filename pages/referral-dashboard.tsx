@@ -1,6 +1,4 @@
 import Footer from '@components/Footer';
-import MobileMainMenu from '@components/MobileMainMenu';
-import MobileReferralLink from '@components/MobileReferralLink';
 import ReferralDashboardBand from '@components/ReferralDashboardBand';
 import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
@@ -182,11 +180,6 @@ export default function Index() {
           setPendingFriendsChannels={setPendingFriendsChannels}
         />
 
-        <MobileMainMenu
-          connectWallet={connectMetaMaskWallet}
-          currentWallet={currentWallet}
-        />
-
         <div className="flex flex-col items-center w-full pt-[93px]">
           <div className="flex w-full flex-col items-start px-[30px] sm:px-[204px]">
             <p className="text-[26px] sm:text-[40px] mb-[14px] sm:mb-[31px]">
@@ -197,8 +190,6 @@ export default function Index() {
               you can earn 50 CBG for each Creator that joins the waitlist using
               your referral link!
             </p>
-
-            <MobileReferralLink referralCode={referralCode} />
 
             <ReferralDashboardReferralLink
               referralCode={referralCode}

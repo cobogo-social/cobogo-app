@@ -2,7 +2,6 @@ import ChannelBox from '@components/ChannelBox';
 import Footer from '@components/Footer';
 import JoinChannel from '@components/JoinChannel';
 import Link from '@components/Link';
-import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
@@ -11,8 +10,8 @@ import SubmitStatsTopBar from '@components/SubmitStatsTopBar';
 import WhitelistedNotification from '@components/WhitelistedNotification';
 import { LoadingContext } from '@contexts/LoadingContext';
 import {
-  readAccountsByReferralId,
   fetchSessionData,
+  readAccountsByReferralId,
 } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
@@ -51,8 +50,6 @@ export default function Index({
     <div className="w-full">
       <PageContainer>
         <StepsMenu />
-
-        <MobileSubmitMenu />
 
         <StepContainer>
           <SubmitStatsTopBar
