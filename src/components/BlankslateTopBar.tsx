@@ -88,7 +88,7 @@ export default function BlankslateTopBar({
 
               <div className="flex items-center justify-center">
                 <MetaMask
-                  currentAccount={currentWallet}
+                  currentWallet={currentWallet}
                   openDisconnectWalletModal={openDisconnectWalletModal}
                 />
               </div>

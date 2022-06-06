@@ -10,14 +10,14 @@ import MetaMask from './MetaMask';
 
 interface MainTopBarProps {
   connectWallet: () => void;
-  currentAccount: string;
-  setCurrentAccount: (value: string) => void;
+  currentWallet: string;
+  setCurrentWallet: (value: string) => void;
 }
 
 export default function MainTopBar({
   connectWallet,
-  currentAccount,
-  setCurrentAccount,
+  currentWallet,
+  setCurrentWallet,
 }: MainTopBarProps) {
   const { asPath } = useRouter();
   const [disconnectWalletModalIsOpen, setDisconnectWalletModalIsOpen] =
@@ -31,7 +31,7 @@ export default function MainTopBar({
   return (
     <>
       <DisconnectWalletModal
-        setCurrentAccount={setCurrentAccount}
+        setCurrentWallet={setCurrentWallet}
         isOpen={disconnectWalletModalIsOpen}
         setIsOpen={setDisconnectWalletModalIsOpen}
       />
@@ -59,9 +59,9 @@ export default function MainTopBar({
           </div>
 
           <div className="flex items-center justify-center hover:cursor-pointer">
-            {currentAccount ? (
+            {currentWallet ? (
               <MetaMask
-                currentAccount={currentAccount}
+                currentWallet={currentWallet}
                 openDisconnectWalletModal={openDisconnectWalletModal}
               />
             ) : (

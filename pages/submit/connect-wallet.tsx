@@ -84,8 +84,8 @@ export default function Index() {
       if (!checkEthereum(true)) return;
 
       setLoading(true);
-
       await checkWallets(null, 'eth_requestAccounts');
+      setLoading(false);
       if (currentWallet) {
         pushToNextStep();
       }

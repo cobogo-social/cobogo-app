@@ -2,6 +2,7 @@ import { ErrorContext } from '@contexts/ErrorContext';
 import axios from 'axios';
 import Image from 'next/image';
 import { useCallback, useContext, useEffect, useState } from 'react';
+import { LoadingContext } from '@contexts/LoadingContext';
 
 import Button from './Button';
 
@@ -21,81 +22,87 @@ export default function StakeStepOneModal({
   bannerImage,
 }: StakeStepOneModalProps) {
   const { setError } = useContext(ErrorContext);
-  const [_currentAccount, setCurrentAccount] = useState('');
+  const [currentWallet, setCurrentWallet] = useState('');
+  const { setLoading } = useContext(LoadingContext);
 
   function closeModal() {
     setIsOpen(false);
     setStep(1);
   }
 
-  async function connectMetaMaskWallet() {
-    try {
+  const checkEthereum = useCallback(
+    (showError = false) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       if (!ethereum) {
+        if (showError) {
+          setError(
+            'Metamask is not available in thie browser. Please install Metamask to continue.',
+          );
+        }
         return;
       }
 
-      const accounts = await ethereum.request({
-        method: 'eth_requestAccounts',
-      });
+      return ethereum;
+    },
+    [setError],
+  );
 
-      const address = accounts[0];
+  const checkWallets = useCallback(
+    async (ethereumWallets = null, method = 'eth_accounts') => {
+      try {
+        let ethereumAccounts = ethereumWallets;
 
-      setCurrentAccount(address);
+        if (!ethereumAccounts) {
+          const ethereum = checkEthereum();
+          if (!ethereum) return;
 
-      const createAccount = await axios.post(
-        '/api/cobogo/createAccountToFanOrYoutuber',
-        {
-          name: address,
-        },
-      );
+          ethereumAccounts = await ethereum.request({
+            method,
+          });
+        }
 
-      if (createAccount.data.data) {
+        if (ethereumAccounts.length <= 0) {
+          setCurrentWallet('');
+          return false;
+        }
+
+        const walletAddress = ethereumAccounts[0];
         await axios.post('/api/cobogo/createWallet', {
-          address,
-          account: createAccount.data.data.id,
+          walletAddress,
         });
-
-        setStep(2);
-      } else {
-        setStep(2);
+        setCurrentWallet(walletAddress);
+        return true;
+      } catch (error) {
+        setError(error.message);
       }
+    },
+    [setError, checkEthereum],
+  );
+
+  async function connectMetaMaskWallet() {
+    try {
+      if (!checkEthereum(true)) return;
+
+      setLoading(true);
+      await checkWallets(null, 'eth_requestAccounts');
+      setLoading(false);
     } catch (error) {
       setError(error.message);
     }
   }
 
-  const checkIfWalletIsConnected = useCallback(async () => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
-
-      const accounts = await ethereum.request({ method: 'eth_accounts' });
-
-      if (accounts.length !== 0) {
-        setStep(2);
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-  }, [setError, setStep]);
-
   useEffect(() => {
-    checkIfWalletIsConnected();
-  }, [checkIfWalletIsConnected]);
+    const ethereum = checkEthereum();
+    if (!ethereum) return;
 
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { ethereum } = window as any;
+    ethereum.on('accountsChanged', (ethereumAccounts) => {
+      checkWallets(ethereumAccounts);
+    });
 
-    if (ethereum) {
-      ethereum.on('accountsChanged', (ethereumAccounts) => {
-        checkWallets(ethereumAccounts);
-      });
-    }
-  }, []);
+    checkWallets();
+  }, [checkWallets, checkEthereum]);
 
   return (
     <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[412px] flex justify-between border-[1.5px] border-gray10 pl-[50px] pr-[50px] sm:pr-0 shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">

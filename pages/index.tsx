@@ -40,7 +40,7 @@ export default function Index({
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [updatedChannels, setUpdatedChannels] = useState(channels);
-  const [currentAccount, setCurrentAccount] = useState('');
+  const [currentWallet, setCurrentWallet] = useState('');
   const { setError } = useContext(ErrorContext);
 
   const filteredChannels = useMemo(() => {
@@ -95,56 +95,79 @@ export default function Index({
     }
   }
 
-  async function connectMetaMaskWallet() {
-    try {
+  const checkEthereum = useCallback(
+    (showError = false) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       if (!ethereum) {
+        if (showError) {
+          setError(
+            'Metamask is not available in thie browser. Please install Metamask to continue.',
+          );
+        }
         return;
       }
 
-      const accounts = await ethereum.request({
-        method: 'eth_requestAccounts',
-      });
+      return ethereum;
+    },
+    [setError],
+  );
 
-      const address = accounts[0];
+  const checkWallets = useCallback(
+    async (ethereumWallets = null, method = 'eth_accounts') => {
+      try {
+        let ethereumAccounts = ethereumWallets;
 
-      setCurrentAccount(address);
+        if (!ethereumAccounts) {
+          const ethereum = checkEthereum();
+          if (!ethereum) return;
 
-      const createAccount = await axios.post(
-        '/api/cobogo/createAccountToFanOrYoutuber',
-        {
-          name: address,
-        },
-      );
+          ethereumAccounts = await ethereum.request({
+            method,
+          });
+        }
 
-      if (createAccount.data.data) {
+        if (ethereumAccounts.length <= 0) {
+          setCurrentWallet('');
+          return false;
+        }
+
+        const walletAddress = ethereumAccounts[0];
         await axios.post('/api/cobogo/createWallet', {
-          address,
-          account: createAccount.data.data.id,
+          walletAddress,
         });
+        setCurrentWallet(walletAddress);
+        return true;
+      } catch (error) {
+        setError(error.message);
       }
+    },
+    [setError, checkEthereum],
+  );
+
+  async function connectMetaMaskWallet() {
+    try {
+      if (!checkEthereum(true)) return;
+
+      setLoading(true);
+      await checkWallets(null, 'eth_requestAccounts');
+      setLoading(false);
     } catch (error) {
       setError(error.message);
     }
   }
 
-  const checkIfWalletIsConnected = useCallback(async () => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
+  useEffect(() => {
+    const ethereum = checkEthereum();
+    if (!ethereum) return;
 
-      const accounts = await ethereum.request({ method: 'eth_accounts' });
+    ethereum.on('accountsChanged', (ethereumAccounts) => {
+      checkWallets(ethereumAccounts);
+    });
 
-      if (accounts.length !== 0) {
-        const account = accounts[0];
-        setCurrentAccount(account);
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-  }, [setError]);
+    checkWallets();
+  }, [checkWallets, checkEthereum]);
 
   useEffect(() => {
     const intersectionObserver = new IntersectionObserver(async (entries) => {
@@ -162,32 +185,17 @@ export default function Index({
     readProfilesByPage();
   }, [page, readProfilesByPage]);
 
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, [checkIfWalletIsConnected]);
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { ethereum } = window as any;
-
-    if (ethereum) {
-      ethereum.on('accountsChanged', (ethereumAccounts) => {
-        // checkWallets(ethereumAccounts);
-      });
-    }
-  }, []);
-
   return (
     <div className="flex flex-col">
       <MainTopBar
         connectWallet={connectMetaMaskWallet}
-        currentAccount={currentAccount}
-        setCurrentAccount={setCurrentAccount}
+        currentWallet={currentWallet}
+        setCurrentWallet={setCurrentWallet}
       />
 
       <MobileMainMenu
         connectWallet={connectMetaMaskWallet}
-        currentAccount={currentAccount}
+        currentWallet={currentWallet}
         categories={categories}
         searchByCategory={searchByCategory}
       />

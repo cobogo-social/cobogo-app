@@ -44,7 +44,7 @@ export default function ReferralDashboardTopBar({
             <div className="flex items-center justify-center">
               {currentWallet ? (
                 <MetaMask
-                  currentAccount={currentWallet}
+                  currentWallet={currentWallet}
                   openDisconnectWalletModal={openDisconnectWalletModal}
                 />
               ) : (

@@ -130,8 +130,8 @@ export default function Index({
       if (!checkEthereum(true)) return;
 
       setLoading(true);
-
       await checkWallets(null, 'eth_requestAccounts');
+      setLoading(false);
       push('/referral-dashboard');
     } catch (error) {
       setError(error.message);
@@ -209,13 +209,13 @@ export default function Index({
 
   //       <MainTopBar
   //         connectWallet={connectMetaMaskWallet}
-  //         currentAccount={currentAccount}
-  //         setCurrentAccount={setCurrentAccount}
+  //         currentWallet={currentWallet}
+  //         setCurrentWallet={setCurrentWallet}
   //       />
 
   //       <MobileMainMenu
   //         connectWallet={connectMetaMaskWallet}
-  //         currentAccount={currentAccount}
+  //         currentWallet={currentWallet}
   //       />
 
   //       <div className="h-[299px] w-full hidden sm:flex flex-col">
