@@ -2,12 +2,12 @@ import Bullet from '@components/Bullet';
 import Button from '@components/Button';
 import ChannelBox from '@components/ChannelBox';
 import Footer from '@components/Footer';
+import MainTopBar from '@components/MainTopBar';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
 import StepSubContainer from '@components/StepSubContainer';
 import SuccessBullet from '@components/SuccessBullet';
-import TopBar from '@components/TopBar';
 import WarningBullet from '@components/WarningBullet';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
@@ -83,7 +83,7 @@ export default function Index({
         <StepsMenu />
 
         <StepContainer>
-          <TopBar />
+          <MainTopBar noOnboardedFriends noLogo />
 
           <StepSubContainer>
             <div>
