@@ -1,5 +1,6 @@
 import ReferralLink from '@components/ReferralLink';
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 interface ReferralLinkModalProps {
   isOpen: boolean;
@@ -16,9 +17,17 @@ export default function ReferralLinkModal({
     setIsOpen(false);
   }
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('active-modal');
+    } else {
+      document.body.classList.remove('active-modal');
+    }
+  }, [isOpen]);
+
   return isOpen ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="relative bg-primary w-[605px] h-[449px] flex flex-col justify-center border-[1.5px] border-gray5 px-[70px]">
+      <div className="relative bg-primary w-[605px] h-[449px] flex flex-col justify-center border-[1.5px] border-gray10 px-[70px] shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
         <div className="flex flex-col items-start justify-center">
           <div
             onClick={closeModal}
@@ -43,7 +52,7 @@ export default function ReferralLinkModal({
 
           <p className="sm:text-lg">
             <a
-              href="https://docs.cobogo.social/overview/getting-started/referral-program"
+              href="https://docs.cobogo.social/youtubers/referral-program"
               className="font-bold text-blue"
               target="_blank"
               rel="noopener noreferrer"

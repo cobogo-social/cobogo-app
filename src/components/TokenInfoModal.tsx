@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 interface TokenInfoModalProps {
   isOpen: boolean;
@@ -13,9 +14,17 @@ export default function TokenInfoModal({
     setIsOpen(false);
   }
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('active-modal');
+    } else {
+      document.body.classList.remove('active-modal');
+    }
+  }, [isOpen]);
+
   return isOpen ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="relative bg-primary w-[605px] h-[466px] flex flex-col justify-center items-center border-[1.5px] border-gray5 px-[70px]">
+      <div className="relative bg-primary w-[605px] h-[466px] flex flex-col justify-center items-center border-[1.5px] border-gray10 px-[70px] shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
         <div className="flex flex-col items-center justify-center">
           <div
             onClick={closeModal}

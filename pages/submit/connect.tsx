@@ -1,25 +1,21 @@
 import ChannelNotFound from '@components/ChannelNotFound';
 import Connect from '@components/Connect';
-import PageContainer from '@components/PageContainer';
 import Footer from '@components/Footer';
-import MobileMenu from '@components/MobileMenu';
+import MobileSubmitMenu from '@components/MobileSubmitMenu';
+import PageContainer from '@components/PageContainer';
 import StepsMenu from '@components/StepsMenu';
-import {
-  createAccount,
-  createChannel,
-  readAccountByYoutubeAccountId,
-  readChannelByChannelId,
-} from '@services/cobogoApi';
-import { readChannel as readChannelFromYoutube } from '@services/youtubeApi';
+import { LoadingContext } from '@contexts/LoadingContext';
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { fetchSessionData } from '@services/cobogoApi';
 
 export default function Index() {
   const [haveChannel, setHaveChannel] = useState<boolean>();
   const { data: session } = useSession();
+  const { setLoading } = useContext(LoadingContext);
 
-  function handleSetHaveChannel() {
+  function changeHaveChannel() {
     setHaveChannel(true);
   }
 
@@ -31,15 +27,19 @@ export default function Index() {
     }
   }, [session]);
 
+  useEffect(() => {
+    setLoading(false);
+  }, [setLoading]);
+
   return (
     <div className="w-full">
       <PageContainer>
         <StepsMenu />
 
-        <MobileMenu noLogout />
+        <MobileSubmitMenu noLogout />
 
         {!haveChannel ? (
-          <ChannelNotFound setHaveChannel={handleSetHaveChannel} />
+          <ChannelNotFound setHaveChannel={changeHaveChannel} />
         ) : (
           <Connect />
         )}
@@ -51,25 +51,11 @@ export default function Index() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+  try {
+    const session = await getSession({ req });
+    const { account, profile } = await fetchSessionData(session);
 
-  if (session?.user) {
-    const account =
-      (await readAccountByYoutubeAccountId(session.user['id'])) ||
-      (await createAccount(session.user));
-
-    if (!account) {
-      return {
-        props: {},
-      };
-    }
-
-    const youtubeChannel = await readChannelFromYoutube(session);
-
-    if (youtubeChannel) {
-      (await readChannelByChannelId(youtubeChannel.id)) ||
-        (await createChannel(account, youtubeChannel));
-
+    if (account && profile) {
       return {
         redirect: {
           destination: '/submit/create-profile',
@@ -77,9 +63,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         },
       };
     }
-  }
 
-  return {
-    props: {},
-  };
+    return {
+      props: {},
+    };
+  } catch (error) {
+    console.error(error.message);
+
+    return {
+      props: {},
+    };
+  }
 };

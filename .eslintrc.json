@@ -24,9 +24,10 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
+    "react/jsx-no-constructed-context-values": "off",
     "consistent-return": "off",
     "react/button-has-type": "off",
-    "no-console": "off",
+    "no-console": ["error", { "allow": ["error"] }],
     "import/no-unresolved": "off",
     "no-useless-return": "off",
     "react/require-default-props": "off",
@@ -44,7 +45,13 @@
     "no-unused-expressions": ["error", { "allowShortCircuit": true }],
     "import/extensions": [
       "error",
-      { "js": "never", "jsx": "never", "ts": "never", "tsx": "never" }
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never",
+        "css": "all"
+      }
     ],
     "no-param-reassign": ["error", { "props": false }],
     "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],

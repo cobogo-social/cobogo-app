@@ -2,34 +2,28 @@ import BlankslateBand from '@components/BlankslateBand';
 import BlankslateChannelBox from '@components/BlankslateChannelBox';
 
 interface BlankslateProps {
-  banner: string;
+  bannerImage: string;
   title: string;
   referralCode: string;
   connectWallet: () => void;
-  isError: boolean;
-  setIsError: (value: boolean) => void;
-  currentAccount: string;
+  currentWallet: string;
 }
 
 export default function Blankslate({
-  banner,
+  bannerImage,
   title,
   referralCode,
   connectWallet,
-  isError,
-  setIsError,
-  currentAccount,
+  currentWallet,
 }: BlankslateProps) {
   return (
     <div className="flex flex-col items-center w-full pt-[93px]">
-      <BlankslateChannelBox banner={banner} title={title} />
+      <BlankslateChannelBox banner={bannerImage} title={title} />
 
       <BlankslateBand
         referralCode={referralCode}
         connectWallet={connectWallet}
-        isError={isError}
-        setIsError={setIsError}
-        currentAccount={currentAccount}
+        currentWallet={currentWallet}
       />
     </div>
   );

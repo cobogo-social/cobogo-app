@@ -10,7 +10,7 @@ interface ChannelNotFoundProps {
 export default function ChannelNotFound({
   setHaveChannel,
 }: ChannelNotFoundProps) {
-  async function handleTryAnotherAccount() {
+  async function tryAnotherAccount() {
     await signOut();
     setHaveChannel();
   }
@@ -48,7 +48,7 @@ export default function ChannelNotFound({
             </p>
 
             <button
-              onClick={handleTryAnotherAccount}
+              onClick={tryAnotherAccount}
               className="font-bold text-blue hover:cursor-pointer"
             >
               try another account

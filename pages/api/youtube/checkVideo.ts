@@ -1,16 +1,9 @@
 import {
   createVideo,
-  readAccountByYoutubeAccountId,
-  readChannelByAccount,
-  readProfileByChannel,
+  fetchSessionData,
   updateTokensAccount,
-  updateWaitlistProfile,
 } from '@services/cobogoApi';
-import {
-  readChannel as readChannelFromYoutube,
-  readVideoById,
-  readVideos,
-} from '@services/youtubeApi';
+import { readVideoById, readVideos } from '@services/youtubeApi';
 import moment from 'moment';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
@@ -21,17 +14,16 @@ export default async function handler(
 ) {
   const session = await getSession({ req });
 
-  const youtubeChannel = await readChannelFromYoutube(session);
-
   try {
-    const videos = await readVideos(session, youtubeChannel);
+    const { account, profile } = await fetchSessionData(session);
+    const videos = await readVideos(
+      session,
+      profile.attributes.youtube_channel_id,
+    );
+
     let validVideo = null;
 
     if (videos.length) {
-      const account = await readAccountByYoutubeAccountId(session.user['id']);
-      const channel = await readChannelByAccount(account);
-      const profile = await readProfileByChannel(channel);
-
       for (const video of videos) {
         const validTitle = video.snippet.title.toLowerCase().includes('cobogo');
         const validDescription = video.snippet.description
@@ -51,13 +43,10 @@ export default async function handler(
       }
 
       if (validVideo !== null) {
-        if (await createVideo(validVideo, account, channel, profile)) {
-          await updateWaitlistProfile(profile);
-          await updateTokensAccount(account, 100);
+        if (!profile.attributes.video.data) {
+          await createVideo(validVideo, account, profile);
 
-          if (profile.attributes.referral.data) {
-            await updateTokensAccount(profile.attributes.referral.data, 50);
-          }
+          await updateTokensAccount(account, 1000);
 
           res.status(200).json({ status: 200, data: { validVideo: 1 } });
         } else {

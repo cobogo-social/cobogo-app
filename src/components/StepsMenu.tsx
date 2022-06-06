@@ -18,9 +18,17 @@ export default function StepsMenu() {
         href="/submit/create-profile"
       />
 
-      <StepItem number="3" text="video" href="/submit/video" />
+      <StepItem
+        number="3"
+        text="connect wallet"
+        href="/submit/connect-wallet"
+      />
 
-      <StepItem number="4" text="invite" href="/submit/invite" />
+      <StepItem
+        number="4"
+        text="invite and share"
+        href="/submit/invite-and-share"
+      />
 
       <StepItem number="5" text="success" href="/submit/success" />
     </div>

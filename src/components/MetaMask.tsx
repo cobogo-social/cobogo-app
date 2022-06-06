@@ -1,12 +1,12 @@
 import Image from 'next/image';
 
 interface MetaMaskProps {
-  currentAccount: string;
+  currentWallet: string;
   openDisconnectWalletModal: () => void;
 }
 
 export default function MetaMask({
-  currentAccount,
+  currentWallet,
   openDisconnectWalletModal,
 }: MetaMaskProps) {
   return (
@@ -22,7 +22,7 @@ export default function MetaMask({
       />
 
       <p className="flex ml-2 font-bold">
-        {currentAccount.slice(0, 5)}...{currentAccount.slice(38)}
+        {currentWallet.slice(0, 5)}...{currentWallet.slice(38)}
       </p>
 
       <div className="flex w-[9px] h-[9px] bg-green ml-2 rounded-full" />

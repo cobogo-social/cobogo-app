@@ -5,17 +5,19 @@ import DisconnectWalletModal from './DisconnectWalletModal';
 import MetaMask from './MetaMask';
 
 interface ReferralDashboardTopBarProps {
-  currentAccount: string;
-  setCurrentAccount: (value: string) => void;
+  currentWallet: string;
+  setCurrentWallet: (value: string) => void;
   connectWallet: () => void;
-  setChannels: (value: []) => void;
+  setOnboardedFriendsChannels: (value: []) => void;
+  setPendingFriendsChannels: (value: []) => void;
 }
 
 export default function ReferralDashboardTopBar({
-  currentAccount,
-  setCurrentAccount,
+  currentWallet,
+  setCurrentWallet,
   connectWallet,
-  setChannels,
+  setOnboardedFriendsChannels,
+  setPendingFriendsChannels,
 }: ReferralDashboardTopBarProps) {
   const [disconnectWalletModalIsOpen, setDisconnectWalletModalIsOpen] =
     useState(false);
@@ -27,10 +29,11 @@ export default function ReferralDashboardTopBar({
   return (
     <>
       <DisconnectWalletModal
-        setCurrentAccount={setCurrentAccount}
+        setCurrentWallet={setCurrentWallet}
         isOpen={disconnectWalletModalIsOpen}
         setIsOpen={setDisconnectWalletModalIsOpen}
-        setChannels={setChannels}
+        setOnboardedFriendsChannels={setOnboardedFriendsChannels}
+        setPendingFriendsChannels={setPendingFriendsChannels}
       />
 
       <div className="hidden sm:flex w-full justify-between items-center mb-[70px] px-8 pt-8">
@@ -39,9 +42,9 @@ export default function ReferralDashboardTopBar({
         <div className="flex items-center justify-center">
           <div className="flex items-center justify-center">
             <div className="flex items-center justify-center">
-              {currentAccount ? (
+              {currentWallet ? (
                 <MetaMask
-                  currentAccount={currentAccount}
+                  currentWallet={currentWallet}
                   openDisconnectWalletModal={openDisconnectWalletModal}
                 />
               ) : (

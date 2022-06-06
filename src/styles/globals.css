@@ -17,6 +17,17 @@ a {
   text-decoration: none;
 }
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+  background-image: url("/images/open-icon.svg");
+  background-repeat: no-repeat;
+  background-position-x: 96%;
+  background-position-y: 50%;
+}
+
 @font-face {
   font-family: 'ProximaNova';
   src: url('/fonts/ProximaNova/ProximaNova-Light.ttf');
@@ -63,4 +74,8 @@ a {
 * {
   font-family: 'ProximaNova';
   box-sizing: border-box;
+}
+
+.active-modal {
+  overflow: hidden;
 }

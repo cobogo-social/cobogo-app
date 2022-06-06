@@ -1,5 +1,6 @@
 import axios from 'axios';
 import referralCodeGenerator from 'referral-code-generator';
+import { readChannel } from '@services/youtubeApi';
 
 const api = axios.create({
   baseURL: process.env.COBOGO_API_URL,
@@ -8,29 +9,14 @@ const api = axios.create({
   },
 });
 
-export async function readProfileByChannel(channel) {
-  try {
-    const response = await api.get(
-      `/api/profiles?populate=*&filters[channel][id][$eq]=${channel.id}`,
-    );
-
-    return response.data.data[0];
-  } catch (error) {
-    if (error.response) {
-      console.error(error.response.data);
-    } else {
-      console.error(error);
-    }
-  }
-}
-
+// TODO: add types on all functions
 export async function readAccountByReferralCode(referralCode) {
   try {
     const response = await api.get(
       `/api/accounts?filters[referral_code][$eq]=${referralCode}`,
     );
 
-    return response.data.data[0];
+    return response.data.data[0] ? response.data.data[0] : null;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);
@@ -40,10 +26,10 @@ export async function readAccountByReferralCode(referralCode) {
   }
 }
 
-export async function readProfilesByReferral(referral) {
+export async function readAccountsByReferralId(referralId) {
   try {
     const response = await api.get(
-      `/api/profiles?filters[referral][id][$eq]=${referral}&filters[waitlist][$eq]=true`,
+      `/api/accounts?populate=*&filters[referral][id][$eq]=${referralId}`,
     );
 
     return response.data.data;
@@ -56,13 +42,15 @@ export async function readProfilesByReferral(referral) {
   }
 }
 
-export async function readAccountByYoutubeAccountId(youtubeAccountId) {
+export async function readAccountById(accountId) {
   try {
-    const response = await api.get(
-      `/api/accounts?populate=*&filters[youtube_account_id][$eq]=${youtubeAccountId}`,
-    );
+    const account = (
+      await api.get(
+        `/api/accounts/${accountId}?populate[profiles][populate]=*&populate[referral][populate]=*&populate[affiliates][populate]=*&populate[wallets][populate]=*`,
+      )
+    ).data.data;
 
-    return response.data.data[0];
+    return account;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);
@@ -72,13 +60,130 @@ export async function readAccountByYoutubeAccountId(youtubeAccountId) {
   }
 }
 
-export async function readAccountByName(name) {
+export async function fetchSessionData(session) {
+  if (!session?.user) {
+    return { account: null, profile: null };
+  }
+
   try {
-    const response = await api.get(
-      `/api/accounts?populate=*&filters[name][$eq]=${name}`,
+    const account = await readAccountById(session.user.id);
+    const profile = account.attributes.profiles.data[0];
+
+    return { account, profile };
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+    return { account: null, profile: null };
+  }
+}
+
+export async function createAccount(oAuthUser) {
+  try {
+    const referralCode = await referralCodeGenerator.alphaNumeric(
+      'lowercase',
+      2,
+      2,
     );
 
-    return response.data.data[0] ? response.data.data[0] : null;
+    const response = await api.post('/api/accounts', {
+      data: {
+        name: oAuthUser.name,
+        email: oAuthUser.email,
+        image: oAuthUser.image,
+        youtube_account_id: oAuthUser.id,
+        referral_code: referralCode,
+      },
+    });
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function createProfile(data) {
+  try {
+    const response = await api.post('/api/profiles', { data });
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function readOrCreateAccountByOauth(oAuthUser, oAuthAccount) {
+  try {
+    const youtubeAccountId = oAuthUser['id'];
+    const filter = {
+      google: 'youtube_account_id',
+    };
+
+    const response = await api.get(
+      `/api/accounts?populate=*&filters[${
+        filter[oAuthAccount.provider]
+      }][$eq]=${youtubeAccountId}`,
+    );
+
+    let account = response.data.data[0];
+    if (!account) {
+      account = await createAccount(oAuthUser);
+    }
+
+    const channel = await readChannel(oAuthAccount.access_token);
+    if (channel) {
+      let profile;
+
+      if (account.attributes.profiles) {
+        profile = account.attributes.profiles.data.find(
+          (profileFound) =>
+            profileFound.attributes.youtube_channel_id === channel.id,
+        );
+      }
+
+      if (!profile) {
+        await createProfile({
+          accounts: account.id,
+          title: channel.snippet.title,
+          youtube_description: channel.snippet.description,
+          youtube_channel_id: channel.id,
+          banner_image: channel.brandingSettings.image?.bannerExternalUrl,
+          profile_image: channel.snippet.thumbnails.high.url,
+          youtube_subscribers: channel.statistics.subscriberCount,
+        });
+      }
+    }
+
+    return account;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function readAccountByWalletAddress(address) {
+  try {
+    const wallet = (
+      await api.get(
+        `/api/wallets?populate[account][populate]=*&filters[address][$eq]=${address}`,
+      )
+    ).data.data[0];
+
+    const account = wallet.attributes.account.data;
+    return account;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);
@@ -94,71 +199,53 @@ export async function readProfileByHandle(handle) {
       `/api/profiles?populate=*&filters[handle][$eq]=${handle}`,
     );
 
-    return response.data.data[0];
-  } catch (error) {
-    if (error.response) {
-      console.error(error.response.data);
-    } else {
-      console.error(error);
-    }
-  }
-}
-
-export async function readChannelByChannelId(channelId) {
-  try {
-    const response = await api.get(
-      `/api/channels?filters[channel_id][$eq]=${channelId}`,
-    );
-
-    return response.data.data[0];
-  } catch (error) {
-    if (error.response) {
-      console.error(error.response.data);
-    } else {
-      console.error(error);
-    }
-  }
-}
-
-export async function readChannelByAccount(account) {
-  try {
-    const response = await api.get(
-      `/api/channels?filters[account][id][$eq]=${account.id}`,
-    );
-
-    return response.data.data[0];
-  } catch (error) {
-    if (error.response) {
-      console.error(error.response.data);
-    } else {
-      console.error(error);
-    }
-  }
-}
-
-export async function readChannelByProfile(profile) {
-  try {
-    const response = await api.get(
-      `/api/channels?filters[profile][id][$eq]=${profile.id}`,
-    );
-
-    return response.data.data[0];
-  } catch (error) {
-    if (error.response) {
-      console.error(error.response.data);
-    } else {
-      console.error(error);
-    }
-  }
-}
-
-export async function readProfileById(id) {
-  try {
-    const response = await api.get(
-      `/api/profiles?populate=*&filters[id][$eq]=${id}`,
-    );
-
     return response.data.data[0] ? response.data.data[0] : null;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function readProfilesByCategory(categoryId) {
+  try {
+    const response = await api.get(
+      `/api/profiles?filters[category][id][$eq]=${categoryId}`,
+    );
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function readProfiles(page) {
+  try {
+    const response = await api.get(
+      `/api/profiles?sort[0]=id:DESC&pagination[page]=${page}&pagination[pageSize]=3`,
+    );
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function readCategories() {
+  try {
+    const response = await api.get(`/api/categories`);
+
+    return response.data.data;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);
@@ -175,34 +262,6 @@ export async function readWalletByAddress(address) {
     );
 
     return response.data.data[0] ? response.data.data[0] : null;
-  } catch (error) {
-    if (error.response) {
-      console.error(error.response.data);
-    } else {
-      console.error(error);
-    }
-  }
-}
-
-export async function createAccount(user) {
-  try {
-    const referralCode = await referralCodeGenerator.alphaNumeric(
-      'lowercase',
-      2,
-      2,
-    );
-
-    const response = await api.post('/api/accounts', {
-      data: {
-        name: user.name,
-        email: user.email,
-        image: user.image,
-        youtube_account_id: user.id,
-        referral_code: referralCode,
-      },
-    });
-
-    return response.data.data;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);
@@ -254,57 +313,7 @@ export async function createWallet(address, account) {
   }
 }
 
-export async function createChannel(account, youtubeChannel) {
-  try {
-    await api.post('/api/channels', {
-      data: {
-        title: youtubeChannel.snippet.title,
-        description: youtubeChannel.snippet.description,
-        channel_id: youtubeChannel.id,
-        account: account.id,
-        banner: youtubeChannel.brandingSettings.image
-          ? youtubeChannel.brandingSettings.image.bannerExternalUrl
-          : null,
-      },
-    });
-  } catch (error) {
-    if (error.response) {
-      console.error(error.response.data);
-    } else {
-      console.error(error);
-    }
-  }
-}
-
-export async function createProfile(
-  description,
-  handle,
-  categories,
-  account,
-  channel,
-  referral,
-) {
-  try {
-    await api.post('/api/profiles', {
-      data: {
-        description,
-        handle,
-        categories,
-        account,
-        channel,
-        referral,
-      },
-    });
-  } catch (error) {
-    if (error.response) {
-      console.error(error.response.data);
-    } else {
-      console.error(error);
-    }
-  }
-}
-
-export async function createVideo(validVideo, account, channel, profile) {
+export async function createVideo(validVideo, account, profile) {
   try {
     await api.post('/api/videos', {
       data: {
@@ -312,7 +321,6 @@ export async function createVideo(validVideo, account, channel, profile) {
         description: validVideo.snippet.description,
         video_id: validVideo.id.videoId,
         account: account.id,
-        channel: channel.id,
         profile: profile.id,
       },
     });
@@ -325,6 +333,31 @@ export async function createVideo(validVideo, account, channel, profile) {
     }
 
     return false;
+  }
+}
+
+export async function updateProfile(
+  description: string,
+  handle: string,
+  categories: string,
+  profileId: number,
+  category: number,
+) {
+  try {
+    await api.put(`/api/profiles/${profileId}`, {
+      data: {
+        description,
+        handle,
+        categories,
+        category,
+      },
+    });
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
   }
 }
 
@@ -349,6 +382,22 @@ export async function updateTokensAccount(account, tokens) {
     await api.put(`/api/accounts/${account.id}`, {
       data: {
         tokens: account.attributes.tokens + tokens,
+      },
+    });
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+export async function updateReferralAccount(account, referral) {
+  try {
+    await api.put(`/api/accounts/${account.id}`, {
+      data: {
+        referral: referral.id,
       },
     });
   } catch (error) {

@@ -1,12 +1,16 @@
 import '@styles/globals.css';
 
+import ErrorModal from '@components/ErrorModal';
+import Loading from '@components/Loading';
+import { ErrorProvider } from '@contexts/ErrorContext';
+import { LoadingProvider } from '@contexts/LoadingContext';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
 
 import SEO from '../next-seo-config';
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <DefaultSeo
@@ -44,11 +48,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         ]}
       />
 
-      <SessionProvider session={pageProps.session}>
-        <Component {...pageProps} />
-      </SessionProvider>
+      <LoadingProvider>
+        <ErrorProvider>
+          <SessionProvider session={pageProps.session}>
+            <Loading />
+            <ErrorModal />
+
+            <Component {...pageProps} />
+          </SessionProvider>
+        </ErrorProvider>
+      </LoadingProvider>
     </>
   );
 }
-
-export default MyApp;
