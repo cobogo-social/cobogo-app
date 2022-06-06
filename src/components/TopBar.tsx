@@ -81,7 +81,9 @@ export default function TopBar({
         } px-[39px]`}
       >
         {!noLogo && (
-          <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
+          <Link href="/">
+            <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
+          </Link>
         )}
 
         <div className="flex items-center justify-center">
