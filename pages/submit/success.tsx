@@ -2,11 +2,11 @@ import ChannelBox from '@components/ChannelBox';
 import Footer from '@components/Footer';
 import JoinChannel from '@components/JoinChannel';
 import Link from '@components/Link';
+import MainTopBar from '@components/MainTopBar';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
 import StepSubContainer from '@components/StepSubContainer';
-import SubmitStatsTopBar from '@components/SubmitStatsTopBar';
 import WhitelistedNotification from '@components/WhitelistedNotification';
 import { LoadingContext } from '@contexts/LoadingContext';
 import {
@@ -22,6 +22,7 @@ interface SuccessProps {
   bannerImage: string;
   title: string;
   youtubeDescription: string;
+  referralCode: string;
   onboardedFriends: number;
   tokens: number;
 }
@@ -32,6 +33,7 @@ export default function Index({
   youtubeDescription,
   onboardedFriends,
   tokens,
+  referralCode,
 }: SuccessProps) {
   const { data: session } = useSession();
   const { setLoading } = useContext(LoadingContext);
@@ -52,9 +54,11 @@ export default function Index({
         <StepsMenu />
 
         <StepContainer>
-          <SubmitStatsTopBar
+          <MainTopBar
             onboardedFriends={onboardedFriends}
             tokens={tokens}
+            referralCode={referralCode}
+            noLogo
           />
 
           <StepSubContainer>
@@ -166,6 +170,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         bannerImage: profile.attributes.banner_image,
         title: profile.attributes.title,
         youtubeDescription: profile.attributes.youtube_description,
+        referralCode: account.attributes.referral_code,
         onboardedFriends,
         tokens: account.attributes.tokens,
       },

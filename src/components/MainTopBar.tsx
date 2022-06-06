@@ -1,9 +1,7 @@
-import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
-import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { IoCopySharp } from 'react-icons/io5';
 
@@ -14,12 +12,17 @@ import MetaMask from './MetaMask';
 import TokenInfo from './TokenInfo';
 
 interface MainTopBarProps {
-  connectWallet: () => void;
-  currentWallet: string;
-  setCurrentWallet: (value: string) => void;
+  connectWallet?: () => void;
+  currentWallet?: string;
+  setCurrentWallet?: (value: string) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories?: any[];
   searchByCategory?: (categoryId: number) => void;
+  onboardedFriends?: number;
+  tokens?: number;
+  referralCode?: string;
+  noLogo?: boolean;
+  noOnboardedFriends?: boolean;
 }
 
 export default function MainTopBar({
@@ -28,6 +31,11 @@ export default function MainTopBar({
   setCurrentWallet,
   categories,
   searchByCategory,
+  onboardedFriends,
+  tokens,
+  referralCode,
+  noLogo,
+  noOnboardedFriends,
 }: MainTopBarProps) {
   const { asPath } = useRouter();
   const [disconnectWalletModalIsOpen, setDisconnectWalletModalIsOpen] =
@@ -35,11 +43,7 @@ export default function MainTopBar({
   const { setLoading } = useContext(LoadingContext);
   const [openReferralMenu, setOpenReferralMenu] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [onboardedFriends, setOnboardedFriends] = useState(0);
-  const [referralCode, setReferralCode] = useState('');
-  const [tokens, setTokens] = useState(0);
   const [openCategoriesMenu, setOpenCategoriesMenu] = useState(false);
-  const { setError } = useContext(ErrorContext);
 
   function openDisconnectWalletModal() {
     setDisconnectWalletModalIsOpen(true);
@@ -57,51 +61,6 @@ export default function MainTopBar({
     setCopied(true);
   }
 
-  const getInfoToReferralMenu = useCallback(async () => {
-    try {
-      if (currentWallet) {
-        await axios
-          .get('/api/cobogo/readAccountByWallet', {
-            params: {
-              walletAddress: currentWallet,
-            },
-          })
-          .then(async (response) => {
-            if (response.data.data) {
-              const account = response.data.data;
-
-              const accountsByReferralId = await axios.get(
-                '/api/cobogo/readAccountsByReferralId',
-                {
-                  params: {
-                    referralId: account.id,
-                  },
-                },
-              );
-
-              accountsByReferralId.data.data.forEach((accountByReferralId) => {
-                const waitlisted =
-                  accountByReferralId.attributes.profiles.data[0].attributes
-                    .waitlist;
-
-                if (waitlisted) {
-                  setOnboardedFriends((c) => c + 1);
-                }
-              });
-              setReferralCode(response.data.data.attributes.referral_code);
-              setTokens(response.data.data.attributes.tokens);
-            }
-          });
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-  }, [currentWallet, setError]);
-
-  useEffect(() => {
-    getInfoToReferralMenu();
-  }, [currentWallet, getInfoToReferralMenu]);
-
   return (
     <>
       <DisconnectWalletModal
@@ -110,40 +69,53 @@ export default function MainTopBar({
         setIsOpen={setDisconnectWalletModalIsOpen}
       />
 
-      <div className="h-[100px] w-full hidden sm:flex justify-between items-center px-[39px]">
-        <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
+      <div
+        className={`h-[100px] w-full hidden sm:flex ${
+          noLogo ? 'justify-end items-start' : 'justify-between items-center'
+        } px-[39px]`}
+      >
+        {!noLogo && (
+          <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
+        )}
 
         <div className="flex items-center justify-center">
-          {asPath !== '/' && (
+          {/* {asPath !== '/' && (
             <Link href="/">
               <button className="font-bold mr-[40px]">back to home</button>
             </Link>
+          )} */}
+
+          {!asPath.includes('submit') && (
+            <div className="mr-[40px]">
+              <Link href="/submit">
+                <Button
+                  text="submit a channel"
+                  color="bg-purple"
+                  width="w-[174px]"
+                  height="h-[38px]"
+                  onClick={() => setLoading(true)}
+                />
+              </Link>
+            </div>
           )}
 
-          <div className="mr-[40px]">
-            <Link href="/submit">
-              <Button
-                text="submit a channel"
-                color="bg-purple"
-                width="w-[174px]"
-                height="h-[38px]"
-                onClick={() => setLoading(true)}
-              />
-            </Link>
-          </div>
-
-          <div className="flex items-center justify-center hover:cursor-pointer">
-            {currentWallet ? (
+          {connectWallet ? (
+            <div className="flex items-center justify-center hover:cursor-pointer mr-[40px]">
               <MetaMask
                 currentWallet={currentWallet}
                 openDisconnectWalletModal={openDisconnectWalletModal}
               />
-            ) : (
-              <button onClick={connectWallet} className="font-bold">
-                connect wallet
-              </button>
-            )}
-          </div>
+            </div>
+          ) : null}
+
+          {!noOnboardedFriends && (
+            <p className="mr-[40px]">
+              onboarded friends:{' '}
+              <span className="font-bold text-green">{onboardedFriends}</span>
+            </p>
+          )}
+
+          {tokens && <TokenInfo tokens={tokens} />}
         </div>
       </div>
 

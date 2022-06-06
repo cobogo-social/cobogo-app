@@ -21,9 +21,13 @@ export default function MetaMask({
         alt="metamask small icon"
       />
 
-      <p className="flex ml-2 font-bold">
-        {currentWallet.slice(0, 5)}...{currentWallet.slice(38)}
-      </p>
+      {currentWallet ? (
+        <p className="flex ml-2 font-bold">
+          {currentWallet.slice(0, 5)}...{currentWallet.slice(38)}
+        </p>
+      ) : (
+        'connect wallet'
+      )}
 
       <div className="flex w-[9px] h-[9px] bg-green ml-2 rounded-full" />
     </div>
