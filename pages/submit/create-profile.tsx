@@ -13,7 +13,7 @@ import TagsInput from '@components/TagsInput';
 import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
-import { readCategories, fetchSessionData } from '@services/cobogoApi';
+import { fetchSessionData, readCategories } from '@services/cobogoApi';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { GetServerSideProps } from 'next';
@@ -270,13 +270,14 @@ export default function Index({
                 changeCategory={changeCategory}
               />
 
-              <Button
-                text="next"
-                color="bg-blue"
-                width="w-[155px]"
-                onClick={request}
-                onKeyDown={request}
-              />
+              <div>
+                <Button
+                  text="next"
+                  color="bg-blue"
+                  onClick={request}
+                  onKeyDown={request}
+                />
+              </div>
             </form>
 
             <ChannelBox
