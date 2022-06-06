@@ -23,6 +23,8 @@ interface MainTopBarProps {
   referralCode?: string;
   noLogo?: boolean;
   noOnboardedFriends?: boolean;
+  setOnboardedFriendsChannels?: (value: []) => void;
+  setPendingFriendsChannels?: (value: []) => void;
 }
 
 export default function MainTopBar({
@@ -36,6 +38,8 @@ export default function MainTopBar({
   referralCode,
   noLogo,
   noOnboardedFriends,
+  setOnboardedFriendsChannels,
+  setPendingFriendsChannels,
 }: MainTopBarProps) {
   const { asPath } = useRouter();
   const [disconnectWalletModalIsOpen, setDisconnectWalletModalIsOpen] =
@@ -67,6 +71,8 @@ export default function MainTopBar({
         setCurrentWallet={setCurrentWallet}
         isOpen={disconnectWalletModalIsOpen}
         setIsOpen={setDisconnectWalletModalIsOpen}
+        setOnboardedFriendsChannels={setOnboardedFriendsChannels}
+        setPendingFriendsChannels={setPendingFriendsChannels}
       />
 
       <div

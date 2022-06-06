@@ -1,8 +1,8 @@
 import Footer from '@components/Footer';
+import MainTopBar from '@components/MainTopBar';
 import ReferralDashboardBand from '@components/ReferralDashboardBand';
 import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
-import ReferralDashboardTopBar from '@components/ReferralDashboardTopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import axios from 'axios';
@@ -172,12 +172,13 @@ export default function Index() {
       </Head>
 
       <ReferralDashboardContainer>
-        <ReferralDashboardTopBar
+        <MainTopBar
           setCurrentWallet={setCurrentWallet}
           currentWallet={currentWallet}
           connectWallet={connectMetaMaskWallet}
           setOnboardedFriendsChannels={setOnboardedFriendsChannels}
           setPendingFriendsChannels={setPendingFriendsChannels}
+          noOnboardedFriends
         />
 
         <div className="flex flex-col items-center w-full pt-[93px]">
