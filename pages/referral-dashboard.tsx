@@ -22,47 +22,60 @@ export default function Index() {
   const [pendingFriendsChannels, setPendingFriendsChannels] = useState([]);
   const { setLoading } = useContext(LoadingContext);
 
+  const checkEthereum = useCallback(
+    (showError = false) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { ethereum } = window as any;
+
+      if (!ethereum) {
+        if (showError) {
+          setError(
+            'Metamask is not available in thie browser. Please install Metamask to continue.',
+          );
+        }
+        return;
+      }
+
+      return ethereum;
+    },
+    [setError],
+  );
+
   const checkWallets = useCallback(
     async (ethereumWallets = null, method = 'eth_accounts') => {
       try {
         let ethereumAccounts = ethereumWallets;
 
         if (!ethereumAccounts) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const { ethereum } = window as any;
+          const ethereum = checkEthereum();
+          if (!ethereum) return;
 
           ethereumAccounts = await ethereum.request({
             method,
           });
         }
 
-        if (ethereumAccounts.length > 0) {
-          const walletAddress = ethereumAccounts[0];
-          await axios.post('/api/cobogo/createWallet', {
-            walletAddress,
-          });
-          setCurrentWallet(walletAddress);
-        } else {
+        if (ethereumAccounts.length <= 0) {
           setCurrentWallet('');
+          return false;
         }
+
+        const walletAddress = ethereumAccounts[0];
+        await axios.post('/api/cobogo/createWallet', {
+          walletAddress,
+        });
+        setCurrentWallet(walletAddress);
+        return true;
       } catch (error) {
         setError(error.message);
       }
     },
-    [setError],
+    [setError, checkEthereum],
   );
 
   async function connectMetaMaskWallet() {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
-
-      if (!ethereum) {
-        setError(
-          'Metamask is not available in thie browser. Please install Metamask to continue.',
-        );
-        return;
-      }
+      if (!checkEthereum(true)) return;
 
       setLoading(true);
 
@@ -71,6 +84,17 @@ export default function Index() {
       setError(error.message);
     }
   }
+
+  useEffect(() => {
+    const ethereum = checkEthereum();
+    if (!ethereum) return;
+
+    ethereum.on('accountsChanged', (ethereumAccounts) => {
+      checkWallets(ethereumAccounts);
+    });
+
+    checkWallets();
+  }, [checkWallets, checkEthereum]);
 
   const getInfo = useCallback(async () => {
     try {
@@ -140,16 +164,8 @@ export default function Index() {
   }, [currentWallet, setError, setLoading]);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { ethereum } = window as any;
-    ethereum.on('accountsChanged', (ethereumAccounts) => {
-      checkWallets(ethereumAccounts);
-    });
-
-    checkWallets();
-
     getInfo();
-  }, [checkWallets, getInfo]);
+  }, [getInfo]);
 
   return (
     <div className="w-full">

@@ -61,7 +61,7 @@ export default function Index({
   const { setError } = useContext(ErrorContext);
   // const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
   // const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
-  const [currentAccount, setCurrentAccount] = useState('');
+  const [currentWallet, setCurrentWallet] = useState('');
   const { push } = useRouter();
   const { setLoading } = useContext(LoadingContext);
 
@@ -74,77 +74,80 @@ export default function Index({
   //   setEditProfileModalIsOpen(true);
   // }
 
-  async function connectMetaMaskWallet() {
-    try {
+  const checkEthereum = useCallback(
+    (showError = false) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       if (!ethereum) {
+        if (showError) {
+          setError(
+            'Metamask is not available in thie browser. Please install Metamask to continue.',
+          );
+        }
         return;
       }
 
-      const accounts = await ethereum.request({
-        method: 'eth_requestAccounts',
-      });
+      return ethereum;
+    },
+    [setError],
+  );
 
-      const address = accounts[0];
+  const checkWallets = useCallback(
+    async (ethereumWallets = null, method = 'eth_accounts') => {
+      try {
+        let ethereumAccounts = ethereumWallets;
 
-      setCurrentAccount(address);
+        if (!ethereumAccounts) {
+          const ethereum = checkEthereum();
+          if (!ethereum) return;
 
-      const createAccount = await axios.post(
-        '/api/cobogo/createAccountToFanOrYoutuber',
-        {
-          name: address,
-        },
-      );
+          ethereumAccounts = await ethereum.request({
+            method,
+          });
+        }
 
-      if (createAccount.data.data) {
+        if (ethereumAccounts.length <= 0) {
+          setCurrentWallet('');
+          return false;
+        }
+
+        const walletAddress = ethereumAccounts[0];
         await axios.post('/api/cobogo/createWallet', {
-          address,
-          account: createAccount.data.data.id,
+          walletAddress,
         });
-
-        push('/referral-dashboard');
-      } else {
-        push('/referral-dashboard');
+        setCurrentWallet(walletAddress);
+        return true;
+      } catch (error) {
+        setError(error.message);
       }
+    },
+    [setError, checkEthereum],
+  );
+
+  async function connectMetaMaskWallet() {
+    try {
+      if (!checkEthereum(true)) return;
+
+      setLoading(true);
+
+      await checkWallets(null, 'eth_requestAccounts');
+      push('/referral-dashboard');
     } catch (error) {
       setError(error.message);
     }
   }
 
-  const checkIfWalletIsConnected = useCallback(async () => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
-
-      const accounts = await ethereum.request({ method: 'eth_accounts' });
-
-      if (accounts.length !== 0) {
-        const account = accounts[0];
-        setCurrentAccount(account);
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-  }, [setError]);
-
   useEffect(() => {
-    checkIfWalletIsConnected();
-  }, [checkIfWalletIsConnected]);
+    const ethereum = checkEthereum();
+    if (!ethereum) return;
 
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { ethereum } = window as any;
-
-    ethereum.on('accountsChanged', (accounts) => {
-      if (accounts.length > 0) {
-        setCurrentAccount(accounts[0]);
-      } else {
-        setCurrentAccount('');
-      }
+    ethereum.on('accountsChanged', (ethereumAccounts) => {
+      checkWallets(ethereumAccounts);
     });
-  }, []);
+
+    checkWallets();
+  }, [checkWallets, checkEthereum]);
 
   useEffect(() => {
     setLoading(false);
@@ -158,13 +161,13 @@ export default function Index({
 
       <BlankslateContainer>
         <BlankslateTopBar
-          setCurrentAccount={setCurrentAccount}
-          currentAccount={currentAccount}
+          setCurrentWallet={setCurrentWallet}
+          currentWallet={currentWallet}
         />
 
         <MobileMainMenu
           connectWallet={connectMetaMaskWallet}
-          currentAccount={currentAccount}
+          currentWallet={currentWallet}
         />
 
         <Blankslate
@@ -172,7 +175,7 @@ export default function Index({
           title={title}
           referralCode={referralCode}
           connectWallet={connectMetaMaskWallet}
-          currentAccount={currentAccount}
+          currentWallet={currentWallet}
         />
       </BlankslateContainer>
 
@@ -283,6 +286,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       };
     }
 
+    // TODO: Criar relação entre Video e Profile e pegar os videos automaticamente pelo Profile sem precisar fazer essa chamada adicional.
     const videos = await readVideosByChannelId(
       profile.attributes.youtube_channel_id,
     );

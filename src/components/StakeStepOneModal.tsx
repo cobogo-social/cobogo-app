@@ -90,13 +90,11 @@ export default function StakeStepOneModal({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { ethereum } = window as any;
 
-    ethereum.on('accountsChanged', (accounts) => {
-      if (accounts.length > 0) {
-        setCurrentAccount(accounts[0]);
-      } else {
-        setCurrentAccount('');
-      }
-    });
+    if (ethereum) {
+      ethereum.on('accountsChanged', (ethereumAccounts) => {
+        checkWallets(ethereumAccounts);
+      });
+    }
   }, []);
 
   return (

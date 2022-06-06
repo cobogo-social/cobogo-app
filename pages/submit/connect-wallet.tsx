@@ -27,69 +27,83 @@ export default function Index() {
     push('/submit/invite-and-share');
   }
 
-  const checkWallets = useCallback(
-    async (ethereumWallets = null) => {
-      try {
-        let ethereumAccounts = ethereumWallets;
-
-        if (!ethereumAccounts) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const { ethereum } = window as any;
-
-          ethereumAccounts = await ethereum.request({
-            method: 'eth_accounts',
-          });
-        }
-
-        if (ethereumAccounts.length > 0) {
-          const walletAddress = ethereumAccounts[0];
-          await axios.post('/api/cobogo/createWallet', {
-            walletAddress,
-          });
-          await axios.put('/api/cobogo/updateWaitlistProfile');
-          setCurrentWallet(walletAddress);
-        } else {
-          setCurrentWallet('');
-        }
-      } catch (error) {
-        setError(error.message);
-      }
-    },
-    [setError],
-  );
-
-  async function connectMetaMaskWallet() {
-    try {
+  const checkEthereum = useCallback(
+    (showError = false) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       if (!ethereum) {
-        setError(
-          'Metamask is not available in thie browser. Please install Metamask to continue.',
-        );
+        if (showError) {
+          setError(
+            'Metamask is not available in thie browser. Please install Metamask to continue.',
+          );
+        }
         return;
       }
+
+      return ethereum;
+    },
+    [setError],
+  );
+
+  const checkWallets = useCallback(
+    async (ethereumWallets = null, method = 'eth_accounts') => {
+      try {
+        let ethereumAccounts = ethereumWallets;
+
+        if (!ethereumAccounts) {
+          const ethereum = checkEthereum();
+          if (!ethereum) return;
+
+          ethereumAccounts = await ethereum.request({
+            method,
+          });
+        }
+
+        if (ethereumAccounts.length <= 0) {
+          setCurrentWallet('');
+          return false;
+        }
+
+        const walletAddress = ethereumAccounts[0];
+        await axios.post('/api/cobogo/createWallet', {
+          walletAddress,
+        });
+        await axios.put('/api/cobogo/updateWaitlistProfile');
+        setCurrentWallet(walletAddress);
+        return true;
+      } catch (error) {
+        setError(error.message);
+      }
+    },
+    [setError, checkEthereum],
+  );
+
+  async function connectMetaMaskWallet() {
+    try {
+      if (!checkEthereum(true)) return;
+
       setLoading(true);
 
-      await checkWallets();
+      await checkWallets(null, 'eth_requestAccounts');
       if (currentWallet) {
         pushToNextStep();
       }
     } catch (error) {
       setError(error.message);
-      setLoading(false);
     }
   }
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { ethereum } = window as any;
+    const ethereum = checkEthereum();
+    if (!ethereum) return;
+
     ethereum.on('accountsChanged', (ethereumAccounts) => {
       checkWallets(ethereumAccounts);
     });
 
     checkWallets();
-  }, [checkWallets]);
+  }, [checkWallets, checkEthereum]);
 
   // TODO: Retirar isso dessa tela, deve ficar fora na checagem de todas as telas,
   // mas não entendi o use case disso aqui.

@@ -6,7 +6,7 @@ interface BlankslateProps {
   title: string;
   referralCode: string;
   connectWallet: () => void;
-  currentAccount: string;
+  currentWallet: string;
 }
 
 export default function Blankslate({
@@ -14,7 +14,7 @@ export default function Blankslate({
   title,
   referralCode,
   connectWallet,
-  currentAccount,
+  currentWallet,
 }: BlankslateProps) {
   return (
     <div className="flex flex-col items-center w-full pt-[93px]">
@@ -23,7 +23,7 @@ export default function Blankslate({
       <BlankslateBand
         referralCode={referralCode}
         connectWallet={connectWallet}
-        currentAccount={currentAccount}
+        currentWallet={currentWallet}
       />
     </div>
   );

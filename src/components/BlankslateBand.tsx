@@ -6,13 +6,13 @@ import { useContext } from 'react';
 interface BlankslateBandProps {
   referralCode: string;
   connectWallet: () => void;
-  currentAccount: string;
+  currentWallet: string;
 }
 
 export default function BlankslateBand({
   referralCode,
   connectWallet,
-  currentAccount,
+  currentWallet,
 }: BlankslateBandProps) {
   const { setLoading } = useContext(LoadingContext);
 
@@ -25,7 +25,7 @@ export default function BlankslateBand({
             first in this new Creator Economy.
           </p>
 
-          <Link href={`/submit?ref=${referralCode}`}>
+          <Link href={`/submit?ref=${referralCode || ''}`}>
             <Button
               text="join waitlist"
               color="bg-purple"
@@ -42,7 +42,7 @@ export default function BlankslateBand({
             and get your own referral link to invite YouTubers
           </p>
 
-          {!currentAccount ? (
+          {!currentWallet ? (
             <Button
               text="connect wallet"
               color="bg-blue"
