@@ -11,7 +11,7 @@ import Link from './Link';
 import MetaMask from './MetaMask';
 import TokenInfo from './TokenInfo';
 
-interface MainTopBarProps {
+interface TopBarProps {
   connectWallet?: () => void;
   currentWallet?: string;
   setCurrentWallet?: (value: string) => void;
@@ -27,7 +27,7 @@ interface MainTopBarProps {
   setPendingFriendsChannels?: (value: []) => void;
 }
 
-export default function MainTopBar({
+export default function TopBar({
   connectWallet,
   currentWallet,
   setCurrentWallet,
@@ -40,7 +40,7 @@ export default function MainTopBar({
   noOnboardedFriends,
   setOnboardedFriendsChannels,
   setPendingFriendsChannels,
-}: MainTopBarProps) {
+}: TopBarProps) {
   const { asPath } = useRouter();
   const [disconnectWalletModalIsOpen, setDisconnectWalletModalIsOpen] =
     useState(false);
@@ -105,15 +105,6 @@ export default function MainTopBar({
             </div>
           )}
 
-          {connectWallet ? (
-            <div className="flex items-center justify-center hover:cursor-pointer mr-[40px]">
-              <MetaMask
-                currentWallet={currentWallet}
-                openDisconnectWalletModal={openDisconnectWalletModal}
-              />
-            </div>
-          ) : null}
-
           {!noOnboardedFriends && (
             <p className="mr-[40px]">
               onboarded friends:{' '}
@@ -121,7 +112,20 @@ export default function MainTopBar({
             </p>
           )}
 
-          {tokens && <TokenInfo tokens={tokens} />}
+          {tokens && (
+            <div className="mr-[40px]">
+              <TokenInfo tokens={tokens} />
+            </div>
+          )}
+
+          {connectWallet || currentWallet ? (
+            <div className="flex items-center justify-center hover:cursor-pointer">
+              <MetaMask
+                currentWallet={currentWallet}
+                openDisconnectWalletModal={openDisconnectWalletModal}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
 

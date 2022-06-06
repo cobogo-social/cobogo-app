@@ -1,10 +1,15 @@
 import Blankslate from '@components/Blankslate';
 import BlankslateContainer from '@components/BlankslateContainer';
-import BlankslateTopBar from '@components/BlankslateTopBar';
 import Footer from '@components/Footer';
+import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
-import { readCategories, readProfileByHandle } from '@services/cobogoApi';
+import {
+  fetchSessionData,
+  readAccountsByReferralId,
+  readCategories,
+  readProfileByHandle,
+} from '@services/cobogoApi';
 import { readVideosByChannelId } from '@services/youtubeApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
@@ -13,7 +18,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useCallback, useContext, useEffect, useState } from 'react';
 
-// import MainTopBar from '@components/MainTopBar';
+// import TopBar from '@components/TopBar';
 // import ProfileAbout from '@components/ProfileAbout';
 // import ProfileChannelBanner from '@components/ProfileChannelBanner';
 // import ProfileStatsBand from '@components/ProfileStatsBand';
@@ -26,6 +31,8 @@ interface ProfileProps {
   bannerImage: string;
   title: string;
   referralCode: string;
+  onboardedFriends: number;
+  tokens: number;
   // youtubeSubscribers: number;
   // description: string;
   // tags: string[];
@@ -52,6 +59,8 @@ export default function Index({
   bannerImage,
   title,
   referralCode,
+  onboardedFriends,
+  tokens,
 }: ProfileProps) {
   const { setError } = useContext(ErrorContext);
   // const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
@@ -155,7 +164,9 @@ export default function Index({
       </Head>
 
       <BlankslateContainer>
-        <BlankslateTopBar
+        <TopBar
+          onboardedFriends={onboardedFriends}
+          tokens={tokens}
           setCurrentWallet={setCurrentWallet}
           currentWallet={currentWallet}
         />
@@ -197,7 +208,7 @@ export default function Index({
   //         <title>cobogo - {title}</title>
   //       </Head>
 
-  //       <MainTopBar
+  //       <TopBar
   //         connectWallet={connectMetaMaskWallet}
   //         currentWallet={currentWallet}
   //         setCurrentWallet={setCurrentWallet}
@@ -240,6 +251,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   try {
     const session = await getSession({ req });
     const { handle } = params;
+    const { account } = await fetchSessionData(session);
 
     const profile = await readProfileByHandle(handle);
 
@@ -259,11 +271,26 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     const categories = await readCategories();
 
+    let onboardedFriends = 0;
+
+    const accountsByReferralId = await readAccountsByReferralId(account.id);
+
+    accountsByReferralId.forEach((accountByReferralId) => {
+      const waitlisted =
+        accountByReferralId.attributes.profiles.data[0].attributes.waitlist;
+
+      if (waitlisted) {
+        onboardedFriends += 1;
+      }
+    });
+
     return {
       props: {
         bannerImage: profile.attributes.banner_image,
         title: profile.attributes.title,
         referralCode: profile.attributes.referral_code,
+        onboardedFriends,
+        tokens: account.attributes.tokens,
         youtubeSubscribers: profile.attributes.youtube_subscribers,
         description: profile.attributes.description,
         tags: profile.attributes.categories.split(','),

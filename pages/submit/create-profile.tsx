@@ -3,13 +3,13 @@ import CategoriesSelect from '@components/CategoriesSelect';
 import ChannelBox from '@components/ChannelBox';
 import ErrorLabel from '@components/ErrorLabel';
 import Footer from '@components/Footer';
-import MainTopBar from '@components/MainTopBar';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
 import StepSubContainer from '@components/StepSubContainer';
 import Tags from '@components/Tags';
 import TagsInput from '@components/TagsInput';
+import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { fetchSessionData, readCategories } from '@services/cobogoApi';
@@ -181,7 +181,7 @@ export default function Index({
         <StepsMenu />
 
         <StepContainer>
-          <MainTopBar noOnboardedFriends noLogo />
+          <TopBar noOnboardedFriends noLogo />
 
           <StepSubContainer>
             <form className="flex flex-col" onSubmit={formik.handleSubmit}>

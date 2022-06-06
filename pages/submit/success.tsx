@@ -2,11 +2,11 @@ import ChannelBox from '@components/ChannelBox';
 import Footer from '@components/Footer';
 import JoinChannel from '@components/JoinChannel';
 import Link from '@components/Link';
-import MainTopBar from '@components/MainTopBar';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
 import StepSubContainer from '@components/StepSubContainer';
+import TopBar from '@components/TopBar';
 import WhitelistedNotification from '@components/WhitelistedNotification';
 import { LoadingContext } from '@contexts/LoadingContext';
 import {
@@ -54,7 +54,7 @@ export default function Index({
         <StepsMenu />
 
         <StepContainer>
-          <MainTopBar
+          <TopBar
             onboardedFriends={onboardedFriends}
             tokens={tokens}
             referralCode={referralCode}

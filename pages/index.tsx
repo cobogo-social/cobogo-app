@@ -4,7 +4,7 @@ import ChannelsChannelBox from '@components/ChannelsChannelBox';
 import ChannelsFilterSelect from '@components/ChannelsFilterSelect';
 import ChannelsSearchInput from '@components/ChannelsSearchInput';
 import Footer from '@components/Footer';
-import MainTopBar from '@components/MainTopBar';
+import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
@@ -185,7 +185,7 @@ export default function Index({
 
   return (
     <div className="flex flex-col">
-      <MainTopBar
+      <TopBar
         connectWallet={connectMetaMaskWallet}
         currentWallet={currentWallet}
         setCurrentWallet={setCurrentWallet}

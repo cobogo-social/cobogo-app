@@ -1,8 +1,8 @@
 import Footer from '@components/Footer';
-import MainTopBar from '@components/MainTopBar';
 import ReferralDashboardBand from '@components/ReferralDashboardBand';
 import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
+import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import axios from 'axios';
@@ -172,7 +172,7 @@ export default function Index() {
       </Head>
 
       <ReferralDashboardContainer>
-        <MainTopBar
+        <TopBar
           setCurrentWallet={setCurrentWallet}
           currentWallet={currentWallet}
           connectWallet={connectMetaMaskWallet}

@@ -1,9 +1,9 @@
 import Button from '@components/Button';
 import Footer from '@components/Footer';
-import MainTopBar from '@components/MainTopBar';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import StepsMenu from '@components/StepsMenu';
+import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { fetchSessionData } from '@services/cobogoApi';
@@ -118,7 +118,7 @@ export default function Index() {
         <StepsMenu />
 
         <StepContainer>
-          <MainTopBar noOnboardedFriends noLogo />
+          <TopBar noOnboardedFriends noLogo />
 
           <div className="flex flex-row items-center justify-between pl-16 mt-16 sm:px-16 2xl:px-64 sm:mt-0">
             <div>
