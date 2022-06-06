@@ -1,7 +1,6 @@
 import {
   createVideo,
   fetchSessionData,
-  readProfileByHandle,
   updateTokensAccount,
 } from '@services/cobogoApi';
 import { readVideoById, readVideos } from '@services/youtubeApi';

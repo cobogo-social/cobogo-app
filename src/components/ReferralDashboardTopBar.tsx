@@ -5,16 +5,16 @@ import DisconnectWalletModal from './DisconnectWalletModal';
 import MetaMask from './MetaMask';
 
 interface ReferralDashboardTopBarProps {
-  currentAccount: string;
-  setCurrentAccount: (value: string) => void;
+  currentWallet: string;
+  setCurrentWallet: (value: string) => void;
   connectWallet: () => void;
   setOnboardedFriendsChannels: (value: []) => void;
   setPendingFriendsChannels: (value: []) => void;
 }
 
 export default function ReferralDashboardTopBar({
-  currentAccount,
-  setCurrentAccount,
+  currentWallet,
+  setCurrentWallet,
   connectWallet,
   setOnboardedFriendsChannels,
   setPendingFriendsChannels,
@@ -29,7 +29,7 @@ export default function ReferralDashboardTopBar({
   return (
     <>
       <DisconnectWalletModal
-        setCurrentAccount={setCurrentAccount}
+        setCurrentWallet={setCurrentWallet}
         isOpen={disconnectWalletModalIsOpen}
         setIsOpen={setDisconnectWalletModalIsOpen}
         setOnboardedFriendsChannels={setOnboardedFriendsChannels}
@@ -42,9 +42,9 @@ export default function ReferralDashboardTopBar({
         <div className="flex items-center justify-center">
           <div className="flex items-center justify-center">
             <div className="flex items-center justify-center">
-              {currentAccount ? (
+              {currentWallet ? (
                 <MetaMask
-                  currentAccount={currentAccount}
+                  currentAccount={currentWallet}
                   openDisconnectWalletModal={openDisconnectWalletModal}
                 />
               ) : (

@@ -89,7 +89,7 @@ export default function Index() {
     });
 
     checkWallets();
-  }, [checkWallets, setLoading]);
+  }, [checkWallets]);
 
   // TODO: Retirar isso dessa tela, deve ficar fora na checagem de todas as telas,
   // mas não entendi o use case disso aqui.

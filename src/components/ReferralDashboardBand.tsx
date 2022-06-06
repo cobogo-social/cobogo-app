@@ -8,7 +8,7 @@ interface ReferralDashboardBandProps {
   onboardedFriendsChannels: any[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pendingFriendsChannels: any[];
-  currentAccount: string;
+  currentWallet: string;
   tokens: number;
 }
 
@@ -17,26 +17,25 @@ export default function ReferralDashboardBand({
   pendingFriends,
   onboardedFriendsChannels,
   pendingFriendsChannels,
-  currentAccount,
+  currentWallet,
   tokens,
 }: ReferralDashboardBandProps) {
+  if (!currentWallet) {
+    return (
+      <div className="w-full min-h-[455px] bg-secondary flex flex-col justify-start items-start px-[30px] sm:px-[204px] pt-[85px]" />
+    );
+  }
   return (
     <div className="w-full min-h-[455px] bg-secondary flex flex-col justify-start items-start px-[30px] sm:px-[204px] pt-[85px]">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full mb-[31px]">
-        {currentAccount ? (
-          <p className="text-[26px] sm:text-[40px] flex">
-            onboarded friends (
-            <span className="text-green">{onboardedFriends}</span>)
-          </p>
-        ) : (
-          <p className="text-[40px] flex">connect wallet to view information</p>
-        )}
+        <p className="text-[26px] sm:text-[40px] flex">
+          onboarded friends (
+          <span className="text-green">{onboardedFriends}</span>)
+        </p>
 
-        {currentAccount && (
-          <div className="mr-8">
-            <TokenInfo tokens={tokens} />
-          </div>
-        )}
+        <div className="mr-8">
+          <TokenInfo tokens={tokens} />
+        </div>
       </div>
 
       <div className="flex flex-wrap items-start justify-center sm:justify-start w-full mb-[95px]">
@@ -52,13 +51,9 @@ export default function ReferralDashboardBand({
       </div>
 
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full mb-[31px]">
-        {currentAccount ? (
-          <p className="text-[26px] sm:text-[40px] flex">
-            pending friends (<span className="text-red">{pendingFriends}</span>)
-          </p>
-        ) : (
-          <p className="text-[40px] flex">connect wallet to view information</p>
-        )}
+        <p className="text-[26px] sm:text-[40px] flex">
+          pending friends (<span className="text-red">{pendingFriends}</span>)
+        </p>
       </div>
 
       <div className="flex flex-wrap items-start justify-center sm:justify-start w-full mb-[95px]">

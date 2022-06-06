@@ -5,12 +5,12 @@ import { IoCopySharp } from 'react-icons/io5';
 
 interface ReferralDashboardReferralLinkProps {
   referralCode: string;
-  currentAccount?: string;
+  currentWallet?: string;
 }
 
 export default function ReferralDashboardReferralLink({
   referralCode,
-  currentAccount,
+  currentWallet,
 }: ReferralDashboardReferralLinkProps) {
   const [copied, setCopied] = useState(false);
 
@@ -25,10 +25,10 @@ export default function ReferralDashboardReferralLink({
 
         <div
           className={`px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] ${
-            currentAccount && 'border-r-0'
+            currentWallet && 'border-r-0'
           } border-gray10`}
         >
-          {currentAccount ? (
+          {currentWallet ? (
             <p className="text-xs font-bold text-blue sm:text-sm">
               app.cobogo.social/submit?ref={referralCode}
             </p>
@@ -39,7 +39,7 @@ export default function ReferralDashboardReferralLink({
           )}
         </div>
 
-        {currentAccount && (
+        {currentWallet && (
           <div
             onClick={changeCopied}
             className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-gray10 outline-none flex justify-center items-center"

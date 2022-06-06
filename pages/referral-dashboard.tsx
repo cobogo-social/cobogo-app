@@ -12,7 +12,7 @@ import Head from 'next/head';
 import { useCallback, useContext, useEffect, useState } from 'react';
 
 export default function Index() {
-  const [currentAccount, setCurrentAccount] = useState('');
+  const [currentWallet, setCurrentWallet] = useState('');
   const { setError } = useContext(ErrorContext);
   const [onboardedFriends, setOnboardedFriends] = useState(0);
   const [pendingFriends, setPendingFriends] = useState(0);
@@ -22,36 +22,51 @@ export default function Index() {
   const [pendingFriendsChannels, setPendingFriendsChannels] = useState([]);
   const { setLoading } = useContext(LoadingContext);
 
+  const checkWallets = useCallback(
+    async (ethereumWallets = null, method = 'eth_accounts') => {
+      try {
+        let ethereumAccounts = ethereumWallets;
+
+        if (!ethereumAccounts) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { ethereum } = window as any;
+
+          ethereumAccounts = await ethereum.request({
+            method,
+          });
+        }
+
+        if (ethereumAccounts.length > 0) {
+          const walletAddress = ethereumAccounts[0];
+          await axios.post('/api/cobogo/createWallet', {
+            walletAddress,
+          });
+          setCurrentWallet(walletAddress);
+        } else {
+          setCurrentWallet('');
+        }
+      } catch (error) {
+        setError(error.message);
+      }
+    },
+    [setError],
+  );
+
   async function connectMetaMaskWallet() {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       if (!ethereum) {
+        setError(
+          'Metamask is not available in thie browser. Please install Metamask to continue.',
+        );
         return;
       }
 
-      const accounts = await ethereum.request({
-        method: 'eth_requestAccounts',
-      });
+      setLoading(true);
 
-      const address = accounts[0];
-
-      setCurrentAccount(address);
-
-      const createAccount = await axios.post(
-        '/api/cobogo/createAccountToFanOrYoutuber',
-        {
-          name: address,
-        },
-      );
-
-      if (createAccount.data.data) {
-        await axios.post('/api/cobogo/createWallet', {
-          address,
-          account: createAccount.data.data.id,
-        });
-      }
+      await checkWallets(null, 'eth_requestAccounts');
     } catch (error) {
       setError(error.message);
     }
@@ -61,11 +76,11 @@ export default function Index() {
     try {
       setLoading(true);
 
-      if (currentAccount) {
+      if (currentWallet) {
         await axios
-          .get('/api/cobogo/readAccountByNameOrYoutubeAccountId', {
+          .get('/api/cobogo/readAccountByWallet', {
             params: {
-              name: currentAccount,
+              walletAddress: currentWallet,
             },
           })
           .then(async (response) => {
@@ -122,44 +137,19 @@ export default function Index() {
       setLoading(false);
       setError(error.message);
     }
-  }, [currentAccount, setError, setLoading]);
-
-  const checkIfWalletIsConnected = useCallback(async () => {
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
-
-      const accounts = await ethereum.request({ method: 'eth_accounts' });
-
-      if (accounts.length !== 0) {
-        const account = accounts[0];
-        setCurrentAccount(account);
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-  }, [setError]);
-
-  useEffect(() => {
-    getInfo();
-  }, [getInfo]);
-
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, [checkIfWalletIsConnected]);
+  }, [currentWallet, setError, setLoading]);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { ethereum } = window as any;
-
-    ethereum.on('accountsChanged', (accounts) => {
-      if (accounts.length > 0) {
-        setCurrentAccount(accounts[0]);
-      } else {
-        setCurrentAccount('');
-      }
+    ethereum.on('accountsChanged', (ethereumAccounts) => {
+      checkWallets(ethereumAccounts);
     });
-  }, []);
+
+    checkWallets();
+
+    getInfo();
+  }, [checkWallets, getInfo]);
 
   return (
     <div className="w-full">
@@ -169,8 +159,8 @@ export default function Index() {
 
       <ReferralDashboardContainer>
         <ReferralDashboardTopBar
-          setCurrentAccount={setCurrentAccount}
-          currentAccount={currentAccount}
+          setCurrentWallet={setCurrentWallet}
+          currentWallet={currentWallet}
           connectWallet={connectMetaMaskWallet}
           setOnboardedFriendsChannels={setOnboardedFriendsChannels}
           setPendingFriendsChannels={setPendingFriendsChannels}
@@ -178,7 +168,7 @@ export default function Index() {
 
         <MobileMainMenu
           connectWallet={connectMetaMaskWallet}
-          currentAccount={currentAccount}
+          currentWallet={currentWallet}
         />
 
         <div className="flex flex-col items-center w-full pt-[93px]">
@@ -196,7 +186,7 @@ export default function Index() {
 
             <ReferralDashboardReferralLink
               referralCode={referralCode}
-              currentAccount={currentAccount}
+              currentWallet={currentWallet}
             />
 
             <p className="mb-[80px] sm:text-lg">
@@ -217,7 +207,7 @@ export default function Index() {
             pendingFriends={pendingFriends}
             onboardedFriendsChannels={onboardedFriendsChannels}
             pendingFriendsChannels={pendingFriendsChannels}
-            currentAccount={currentAccount}
+            currentWallet={currentWallet}
             tokens={tokens}
           />
         </div>

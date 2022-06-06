@@ -11,7 +11,7 @@ import Button from './Button';
 import Link from './Link';
 
 interface MobileMainMenuProps {
-  currentAccount: string;
+  currentWallet: string;
   connectWallet: () => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories?: any[];
@@ -19,7 +19,7 @@ interface MobileMainMenuProps {
 }
 
 export default function MobileMainMenu({
-  currentAccount,
+  currentWallet,
   connectWallet,
   categories,
   searchByCategory,
@@ -47,11 +47,11 @@ export default function MobileMainMenu({
 
   const getInfoToReferralMenu = useCallback(async () => {
     try {
-      if (currentAccount) {
+      if (currentWallet) {
         await axios
-          .get('/api/cobogo/readAccountByNameOrYoutubeAccountId', {
+          .get('/api/cobogo/readAccountByWallet', {
             params: {
-              name: currentAccount,
+              walletAddress: currentWallet,
             },
           })
           .then(async (response) => {
@@ -84,11 +84,11 @@ export default function MobileMainMenu({
     } catch (error) {
       setError(error.message);
     }
-  }, [currentAccount, setError]);
+  }, [currentWallet, setError]);
 
   useEffect(() => {
     getInfoToReferralMenu();
-  }, [currentAccount, getInfoToReferralMenu]);
+  }, [currentWallet, getInfoToReferralMenu]);
 
   return (
     <>
@@ -126,7 +126,7 @@ export default function MobileMainMenu({
               </Link>
             </div>
 
-            {currentAccount ? (
+            {currentWallet ? (
               <div className="flex items-center justify-center">
                 <Image
                   src="/images/metamask-small-icon.svg"

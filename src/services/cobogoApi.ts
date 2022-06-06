@@ -42,25 +42,32 @@ export async function readAccountsByReferralId(referralId) {
   }
 }
 
+export async function readAccountById(accountId) {
+  try {
+    const account = (
+      await api.get(
+        `/api/accounts/${accountId}?populate[profiles][populate]=*&populate[referral][populate]=*&populate[affiliates][populate]=*&populate[wallets][populate]=*`,
+      )
+    ).data.data;
+
+    return account;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
 export async function fetchSessionData(session) {
   if (!session?.user) {
     return { account: null, profile: null };
   }
 
   try {
-    const account = (
-      await api.get(`/api/accounts/${session.user.id}?populate=*`)
-    ).data.data;
-
-    let profile;
-
-    if (account && account.attributes.profiles.data[0]) {
-      profile = (
-        await api.get(
-          `/api/profiles/${account.attributes.profiles.data[0].id}?populate=*`,
-        )
-      ).data.data;
-    }
+    const account = await readAccountById(session.user.id);
+    const profile = account.attributes.profiles.data[0];
 
     return { account, profile };
   } catch (error) {
@@ -167,13 +174,16 @@ export async function readOrCreateAccountByOauth(oAuthUser, oAuthAccount) {
   }
 }
 
-export async function readAccountByName(name) {
+export async function readAccountByWalletAddress(address) {
   try {
-    const response = await api.get(
-      `/api/accounts?populate=*&filters[name][$eq]=${name}`,
-    );
+    const wallet = (
+      await api.get(
+        `/api/wallets?populate[account][populate]=*&filters[address][$eq]=${address}`,
+      )
+    ).data.data[0];
 
-    return response.data.data[0] ? response.data.data[0] : null;
+    const account = wallet.attributes.account.data;
+    return account;
   } catch (error) {
     if (error.response) {
       console.error(error.response.data);

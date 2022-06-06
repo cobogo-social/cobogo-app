@@ -7,13 +7,13 @@ import DisconnectWalletModal from './DisconnectWalletModal';
 import MetaMask from './MetaMask';
 
 interface BlankslateTopBarProps {
-  currentAccount: string;
-  setCurrentAccount: (value: string) => void;
+  currentWallet: string;
+  setCurrentWallet: (value: string) => void;
 }
 
 export default function BlankslateTopBar({
-  currentAccount,
-  setCurrentAccount,
+  currentWallet,
+  setCurrentWallet,
 }: BlankslateTopBarProps) {
   const [disconnectWalletModalIsOpen, setDisconnectWalletModalIsOpen] =
     useState(false);
@@ -25,17 +25,16 @@ export default function BlankslateTopBar({
   }
 
   const getInfo = useCallback(async () => {
-    if (currentAccount) {
+    if (currentWallet) {
       await axios
-        .get('/api/cobogo/readAccountByNameOrYoutubeAccountId', {
+        .get('/api/cobogo/readAccountByWallet', {
           params: {
-            name: currentAccount,
+            walletAddress: currentWallet,
           },
         })
         .then(async (response) => {
           if (response.data.data) {
             const account = response.data.data;
-
             const accountsByReferralId = await axios.get(
               '/api/cobogo/readAccountsByReferralId',
               {
@@ -58,7 +57,7 @@ export default function BlankslateTopBar({
           }
         });
     }
-  }, [currentAccount]);
+  }, [currentWallet]);
 
   useEffect(() => {
     getInfo();
@@ -67,7 +66,7 @@ export default function BlankslateTopBar({
   return (
     <>
       <DisconnectWalletModal
-        setCurrentAccount={setCurrentAccount}
+        setCurrentWallet={setCurrentWallet}
         isOpen={disconnectWalletModalIsOpen}
         setIsOpen={setDisconnectWalletModalIsOpen}
       />
@@ -75,7 +74,7 @@ export default function BlankslateTopBar({
       <div className="hidden sm:flex w-full justify-between items-center mb-[70px] px-8 pt-8">
         <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
 
-        {currentAccount && (
+        {currentWallet && (
           <div className="flex items-center justify-center">
             <p className="mr-8">
               onboarded friends:{' '}
@@ -89,7 +88,7 @@ export default function BlankslateTopBar({
 
               <div className="flex items-center justify-center">
                 <MetaMask
-                  currentAccount={currentAccount}
+                  currentAccount={currentWallet}
                   openDisconnectWalletModal={openDisconnectWalletModal}
                 />
               </div>

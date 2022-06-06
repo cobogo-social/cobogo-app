@@ -6,7 +6,7 @@ import Button from './Button';
 interface DisconnectWalletModalProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
-  setCurrentAccount: (value: string) => void;
+  setCurrentWallet: (value: string) => void;
   setOnboardedFriendsChannels?: (value: []) => void;
   setPendingFriendsChannels?: (value: []) => void;
 }
@@ -14,7 +14,7 @@ interface DisconnectWalletModalProps {
 export default function DisconnectWalletModal({
   isOpen,
   setIsOpen,
-  setCurrentAccount,
+  setCurrentWallet,
   setOnboardedFriendsChannels,
   setPendingFriendsChannels,
 }: DisconnectWalletModalProps) {
@@ -23,7 +23,7 @@ export default function DisconnectWalletModal({
   }
 
   function disconnectWallet() {
-    setCurrentAccount('');
+    setCurrentWallet('');
     setIsOpen(false);
 
     if (setOnboardedFriendsChannels) {
