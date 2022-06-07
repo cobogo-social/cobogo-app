@@ -1,4 +1,5 @@
 import { LoadingContext } from '@contexts/LoadingContext';
+import { WalletContext } from '@contexts/WalletContext';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
@@ -6,15 +7,11 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { IoCopySharp } from 'react-icons/io5';
 
 import Button from './Button';
-import DisconnectWalletModal from './DisconnectWalletModal';
 import Link from './Link';
 import MetaMask from './MetaMask';
 import TokenInfo from './TokenInfo';
 
 interface TopBarProps {
-  connectWallet?: () => void;
-  currentWallet?: string;
-  setCurrentWallet?: (value: string) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories?: any[];
   searchByCategory?: (categoryId: number) => void;
@@ -28,9 +25,6 @@ interface TopBarProps {
 }
 
 export default function TopBar({
-  connectWallet,
-  currentWallet,
-  setCurrentWallet,
   categories,
   searchByCategory,
   onboardedFriends,
@@ -42,16 +36,11 @@ export default function TopBar({
   setPendingFriendsChannels,
 }: TopBarProps) {
   const { asPath } = useRouter();
-  const [disconnectWalletModalIsOpen, setDisconnectWalletModalIsOpen] =
-    useState(false);
   const { setLoading } = useContext(LoadingContext);
   const [openReferralMenu, setOpenReferralMenu] = useState(false);
   const [copied, setCopied] = useState(false);
   const [openCategoriesMenu, setOpenCategoriesMenu] = useState(false);
-
-  function openDisconnectWalletModal() {
-    setDisconnectWalletModalIsOpen(true);
-  }
+  const { currentWallet, connectMetaMaskWallet } = useContext(WalletContext);
 
   function openOrCloseCategoriesMenu() {
     setOpenCategoriesMenu(!openCategoriesMenu);
@@ -67,14 +56,6 @@ export default function TopBar({
 
   return (
     <>
-      <DisconnectWalletModal
-        setCurrentWallet={setCurrentWallet}
-        isOpen={disconnectWalletModalIsOpen}
-        setIsOpen={setDisconnectWalletModalIsOpen}
-        setOnboardedFriendsChannels={setOnboardedFriendsChannels}
-        setPendingFriendsChannels={setPendingFriendsChannels}
-      />
-
       <div
         className={`h-[100px] w-full hidden sm:flex ${
           noLogo ? 'justify-end items-start' : 'justify-between items-center'
@@ -114,20 +95,18 @@ export default function TopBar({
             </p>
           )}
 
-          {tokens && (
+          {tokens ? (
             <div className="mr-[40px]">
               <TokenInfo tokens={tokens} />
             </div>
-          )}
-
-          {connectWallet || currentWallet ? (
-            <div className="flex items-center justify-center hover:cursor-pointer">
-              <MetaMask
-                currentWallet={currentWallet}
-                openDisconnectWalletModal={openDisconnectWalletModal}
-              />
-            </div>
           ) : null}
+
+          <div className="flex items-center justify-center hover:cursor-pointer">
+            <MetaMask
+              setOnboardedFriendsChannels={setOnboardedFriendsChannels}
+              setPendingFriendsChannels={setPendingFriendsChannels}
+            />
+          </div>
         </div>
       </div>
 
@@ -190,7 +169,10 @@ export default function TopBar({
               </div>
             ) : (
               <div className="flex items-center justify-center">
-                <button onClick={connectWallet} className="flex mr-2 font-bold">
+                <button
+                  onClick={() => connectMetaMaskWallet()}
+                  className="flex mr-2 font-bold"
+                >
                   connect wallet
                 </button>
                 <div className="bg-white w-[9px] h-[9px] rounded-full" />

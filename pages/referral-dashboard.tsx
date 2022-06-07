@@ -5,12 +5,13 @@ import ReferralDashboardReferralLink from '@components/ReferralDashboardReferral
 import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
+import { WalletContext } from '@contexts/WalletContext';
 import axios from 'axios';
 import Head from 'next/head';
 import { useCallback, useContext, useEffect, useState } from 'react';
 
 export default function Index() {
-  const [currentWallet, setCurrentWallet] = useState('');
+  const { currentWallet } = useContext(WalletContext);
   const { setError } = useContext(ErrorContext);
   const [onboardedFriends, setOnboardedFriends] = useState(0);
   const [pendingFriends, setPendingFriends] = useState(0);
@@ -19,80 +20,6 @@ export default function Index() {
   const [onboardedFriendsChannels, setOnboardedFriendsChannels] = useState([]);
   const [pendingFriendsChannels, setPendingFriendsChannels] = useState([]);
   const { setLoading } = useContext(LoadingContext);
-
-  const checkEthereum = useCallback(
-    (showError = false) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
-
-      if (!ethereum) {
-        if (showError) {
-          setError(
-            'Metamask is not available in thie browser. Please install Metamask to continue.',
-          );
-        }
-        return;
-      }
-
-      return ethereum;
-    },
-    [setError],
-  );
-
-  const checkWallets = useCallback(
-    async (ethereumWallets = null, method = 'eth_accounts') => {
-      try {
-        let ethereumAccounts = ethereumWallets;
-
-        if (!ethereumAccounts) {
-          const ethereum = checkEthereum();
-          if (!ethereum) return;
-
-          ethereumAccounts = await ethereum.request({
-            method,
-          });
-        }
-
-        if (ethereumAccounts.length <= 0) {
-          setCurrentWallet('');
-          return false;
-        }
-
-        const walletAddress = ethereumAccounts[0];
-        await axios.post('/api/cobogo/createWallet', {
-          walletAddress,
-        });
-        setCurrentWallet(walletAddress);
-        return true;
-      } catch (error) {
-        setError(error.message);
-      }
-    },
-    [setError, checkEthereum],
-  );
-
-  async function connectMetaMaskWallet() {
-    try {
-      if (!checkEthereum(true)) return;
-
-      setLoading(true);
-      await checkWallets(null, 'eth_requestAccounts');
-      setLoading(false);
-    } catch (error) {
-      setError(error.message);
-    }
-  }
-
-  useEffect(() => {
-    const ethereum = checkEthereum();
-    if (!ethereum) return;
-
-    ethereum.on('accountsChanged', (ethereumAccounts) => {
-      checkWallets(ethereumAccounts);
-    });
-
-    checkWallets();
-  }, [checkWallets, checkEthereum]);
 
   const getInfo = useCallback(async () => {
     try {
@@ -173,9 +100,6 @@ export default function Index() {
 
       <ReferralDashboardContainer>
         <TopBar
-          setCurrentWallet={setCurrentWallet}
-          currentWallet={currentWallet}
-          connectWallet={connectMetaMaskWallet}
           setOnboardedFriendsChannels={setOnboardedFriendsChannels}
           setPendingFriendsChannels={setPendingFriendsChannels}
           noOnboardedFriends
@@ -192,10 +116,7 @@ export default function Index() {
               your referral link!
             </p>
 
-            <ReferralDashboardReferralLink
-              referralCode={referralCode}
-              currentWallet={currentWallet}
-            />
+            <ReferralDashboardReferralLink referralCode={referralCode} />
 
             <p className="mb-[80px] sm:text-lg">
               <a
@@ -215,7 +136,6 @@ export default function Index() {
             pendingFriends={pendingFriends}
             onboardedFriendsChannels={onboardedFriendsChannels}
             pendingFriendsChannels={pendingFriendsChannels}
-            currentWallet={currentWallet}
             tokens={tokens}
           />
         </div>

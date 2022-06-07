@@ -1,17 +1,17 @@
+import { WalletContext } from '@contexts/WalletContext';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { IoCopySharp } from 'react-icons/io5';
 
 interface ReferralDashboardReferralLinkProps {
   referralCode: string;
-  currentWallet?: string;
 }
 
 export default function ReferralDashboardReferralLink({
   referralCode,
-  currentWallet,
 }: ReferralDashboardReferralLinkProps) {
+  const { currentWallet } = useContext(WalletContext);
   const [copied, setCopied] = useState(false);
 
   function changeCopied() {

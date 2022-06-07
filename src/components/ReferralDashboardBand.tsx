@@ -1,5 +1,7 @@
 import ReferralDashboardChannelBox from '@components/ReferralDashboardChannelBox';
 import TokenInfo from '@components/TokenInfo';
+import { WalletContext } from '@contexts/WalletContext';
+import { useContext } from 'react';
 
 interface ReferralDashboardBandProps {
   onboardedFriends: number;
@@ -8,7 +10,6 @@ interface ReferralDashboardBandProps {
   onboardedFriendsChannels: any[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pendingFriendsChannels: any[];
-  currentWallet: string;
   tokens: number;
 }
 
@@ -17,9 +18,10 @@ export default function ReferralDashboardBand({
   pendingFriends,
   onboardedFriendsChannels,
   pendingFriendsChannels,
-  currentWallet,
   tokens,
 }: ReferralDashboardBandProps) {
+  const { currentWallet } = useContext(WalletContext);
+
   if (!currentWallet) {
     return (
       <div className="w-full min-h-[455px] bg-secondary flex flex-col justify-start items-start px-[30px] sm:px-[204px] pt-[85px]" />

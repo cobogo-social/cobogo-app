@@ -14,7 +14,7 @@ import { LoadingContext } from '@contexts/LoadingContext';
 import { fetchSessionData } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
-import { getSession, signIn, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 
@@ -31,7 +31,6 @@ export default function Index({
   youtubeDescription,
   handle,
 }: VideoProps) {
-  const { data: session } = useSession();
   const { setLoading } = useContext(LoadingContext);
   const { setError } = useContext(ErrorContext);
   const [videoStatus, setVideoStatus] = useState(1);
@@ -66,12 +65,6 @@ export default function Index({
     setLoading(true);
     push('/submit/invite-and-share');
   }
-
-  useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      signIn('google');
-    }
-  }, [session]);
 
   useEffect(() => {
     setLoading(false);

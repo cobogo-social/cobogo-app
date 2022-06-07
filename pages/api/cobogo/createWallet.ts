@@ -1,8 +1,9 @@
 import {
-  createWallet,
-  readWalletByAddress,
-  fetchSessionData,
   createAccountToFan,
+  createWallet,
+  fetchSessionData,
+  readWalletByAddress,
+  updateWaitlistProfile,
 } from '@services/cobogoApi';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
@@ -25,7 +26,11 @@ export default async function handler(
       } else {
         account = await createAccountToFan(walletAddress);
       }
+
+      const profile = account.attributes.profiles.data[0];
+
       await createWallet(walletAddress, account);
+      await updateWaitlistProfile(profile);
 
       res.status(201).json({ status: 201 });
     } else {

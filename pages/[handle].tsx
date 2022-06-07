@@ -2,7 +2,6 @@ import Blankslate from '@components/Blankslate';
 import BlankslateContainer from '@components/BlankslateContainer';
 import Footer from '@components/Footer';
 import TopBar from '@components/TopBar';
-import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import {
   fetchSessionData,
@@ -11,12 +10,10 @@ import {
   readProfileByHandle,
 } from '@services/cobogoApi';
 import { readVideosByChannelId } from '@services/youtubeApi';
-import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 
 // import TopBar from '@components/TopBar';
 // import ProfileAbout from '@components/ProfileAbout';
@@ -62,11 +59,8 @@ export default function Index({
   onboardedFriends,
   tokens,
 }: ProfileProps) {
-  const { setError } = useContext(ErrorContext);
   // const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
   // const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
-  const [currentWallet, setCurrentWallet] = useState('');
-  const { push } = useRouter();
   const { setLoading } = useContext(LoadingContext);
 
   // function openStakeStepsModals() {
@@ -77,81 +71,6 @@ export default function Index({
   // function openEditProfileModal() {
   //   setEditProfileModalIsOpen(true);
   // }
-
-  const checkEthereum = useCallback(
-    (showError = false) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
-
-      if (!ethereum) {
-        if (showError) {
-          setError(
-            'Metamask is not available in thie browser. Please install Metamask to continue.',
-          );
-        }
-        return;
-      }
-
-      return ethereum;
-    },
-    [setError],
-  );
-
-  const checkWallets = useCallback(
-    async (ethereumWallets = null, method = 'eth_accounts') => {
-      try {
-        let ethereumAccounts = ethereumWallets;
-
-        if (!ethereumAccounts) {
-          const ethereum = checkEthereum();
-          if (!ethereum) return;
-
-          ethereumAccounts = await ethereum.request({
-            method,
-          });
-        }
-
-        if (ethereumAccounts.length <= 0) {
-          setCurrentWallet('');
-          return false;
-        }
-
-        const walletAddress = ethereumAccounts[0];
-        await axios.post('/api/cobogo/createWallet', {
-          walletAddress,
-        });
-        setCurrentWallet(walletAddress);
-        return true;
-      } catch (error) {
-        setError(error.message);
-      }
-    },
-    [setError, checkEthereum],
-  );
-
-  async function connectMetaMaskWallet() {
-    try {
-      if (!checkEthereum(true)) return;
-
-      setLoading(true);
-      await checkWallets(null, 'eth_requestAccounts');
-      setLoading(false);
-      push('/referral-dashboard');
-    } catch (error) {
-      setError(error.message);
-    }
-  }
-
-  useEffect(() => {
-    const ethereum = checkEthereum();
-    if (!ethereum) return;
-
-    ethereum.on('accountsChanged', (ethereumAccounts) => {
-      checkWallets(ethereumAccounts);
-    });
-
-    checkWallets();
-  }, [checkWallets, checkEthereum]);
 
   useEffect(() => {
     setLoading(false);
@@ -164,19 +83,12 @@ export default function Index({
       </Head>
 
       <BlankslateContainer>
-        <TopBar
-          onboardedFriends={onboardedFriends}
-          tokens={tokens}
-          setCurrentWallet={setCurrentWallet}
-          currentWallet={currentWallet}
-        />
+        <TopBar onboardedFriends={onboardedFriends} tokens={tokens} />
 
         <Blankslate
           bannerImage={bannerImage}
           title={title}
           referralCode={referralCode}
-          connectWallet={connectMetaMaskWallet}
-          currentWallet={currentWallet}
         />
       </BlankslateContainer>
 
@@ -209,9 +121,6 @@ export default function Index({
   //       </Head>
 
   //       <TopBar
-  //         connectWallet={connectMetaMaskWallet}
-  //         currentWallet={currentWallet}
-  //         setCurrentWallet={setCurrentWallet}
   //       />
 
   //       <div className="h-[299px] w-full hidden sm:flex flex-col">

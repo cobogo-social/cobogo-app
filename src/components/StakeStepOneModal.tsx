@@ -1,8 +1,6 @@
-import { ErrorContext } from '@contexts/ErrorContext';
-import axios from 'axios';
+import { WalletContext } from '@contexts/WalletContext';
 import Image from 'next/image';
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { LoadingContext } from '@contexts/LoadingContext';
+import { useContext } from 'react';
 
 import Button from './Button';
 
@@ -21,88 +19,17 @@ export default function StakeStepOneModal({
   description,
   bannerImage,
 }: StakeStepOneModalProps) {
-  const { setError } = useContext(ErrorContext);
-  const [currentWallet, setCurrentWallet] = useState('');
-  const { setLoading } = useContext(LoadingContext);
+  const { connectMetaMaskWallet } = useContext(WalletContext);
 
   function closeModal() {
     setIsOpen(false);
     setStep(1);
   }
 
-  const checkEthereum = useCallback(
-    (showError = false) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
-
-      if (!ethereum) {
-        if (showError) {
-          setError(
-            'Metamask is not available in thie browser. Please install Metamask to continue.',
-          );
-        }
-        return;
-      }
-
-      return ethereum;
-    },
-    [setError],
-  );
-
-  const checkWallets = useCallback(
-    async (ethereumWallets = null, method = 'eth_accounts') => {
-      try {
-        let ethereumAccounts = ethereumWallets;
-
-        if (!ethereumAccounts) {
-          const ethereum = checkEthereum();
-          if (!ethereum) return;
-
-          ethereumAccounts = await ethereum.request({
-            method,
-          });
-        }
-
-        if (ethereumAccounts.length <= 0) {
-          setCurrentWallet('');
-          return false;
-        }
-
-        const walletAddress = ethereumAccounts[0];
-        await axios.post('/api/cobogo/createWallet', {
-          walletAddress,
-        });
-        setCurrentWallet(walletAddress);
-        return true;
-      } catch (error) {
-        setError(error.message);
-      }
-    },
-    [setError, checkEthereum],
-  );
-
-  async function connectMetaMaskWallet() {
-    try {
-      if (!checkEthereum(true)) return;
-
-      setLoading(true);
-      await checkWallets(null, 'eth_requestAccounts');
-      setLoading(false);
-    } catch (error) {
-      setError(error.message);
-    }
+  async function connectWallet() {
+    await connectMetaMaskWallet();
+    setStep(2);
   }
-
-  useEffect(() => {
-    const ethereum = checkEthereum();
-    if (!ethereum) return;
-
-    ethereum.on('accountsChanged', (ethereumAccounts) => {
-      checkWallets(ethereumAccounts);
-    });
-
-    checkWallets();
-  }, [checkWallets, checkEthereum]);
 
   return (
     <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[412px] flex justify-between border-[1.5px] border-gray10 pl-[50px] pr-[50px] sm:pr-0 shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
@@ -142,7 +69,7 @@ export default function StakeStepOneModal({
         <Button
           text="connect to MetaMask"
           color="bg-blue"
-          onClick={connectMetaMaskWallet}
+          onClick={connectWallet}
         />
       </div>
 

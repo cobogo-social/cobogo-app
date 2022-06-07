@@ -1,12 +1,12 @@
+import { WalletContext } from '@contexts/WalletContext';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 import Button from './Button';
 
 interface DisconnectWalletModalProps {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
-  setCurrentWallet: (value: string) => void;
   setOnboardedFriendsChannels?: (value: []) => void;
   setPendingFriendsChannels?: (value: []) => void;
 }
@@ -14,10 +14,11 @@ interface DisconnectWalletModalProps {
 export default function DisconnectWalletModal({
   isOpen,
   setIsOpen,
-  setCurrentWallet,
   setOnboardedFriendsChannels,
   setPendingFriendsChannels,
 }: DisconnectWalletModalProps) {
+  const { setCurrentWallet } = useContext(WalletContext);
+
   function closeModal() {
     setIsOpen(false);
   }
