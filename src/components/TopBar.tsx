@@ -1,8 +1,10 @@
+import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { WalletContext } from '@contexts/WalletContext';
+import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { IoCopySharp } from 'react-icons/io5';
 
@@ -15,9 +17,6 @@ interface TopBarProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories?: any[];
   searchByCategory?: (categoryId: number) => void;
-  onboardedFriends?: number;
-  tokens?: number;
-  referralCode?: string;
   noLogo?: boolean;
   noOnboardedFriends?: boolean;
   setOnboardedFriendsChannels?: (value: []) => void;
@@ -27,9 +26,6 @@ interface TopBarProps {
 export default function TopBar({
   categories,
   searchByCategory,
-  onboardedFriends,
-  tokens,
-  referralCode,
   noLogo,
   noOnboardedFriends,
   setOnboardedFriendsChannels,
@@ -37,10 +33,14 @@ export default function TopBar({
 }: TopBarProps) {
   const { asPath } = useRouter();
   const { setLoading } = useContext(LoadingContext);
+  const { setError } = useContext(ErrorContext);
   const [openReferralMenu, setOpenReferralMenu] = useState(false);
   const [copied, setCopied] = useState(false);
   const [openCategoriesMenu, setOpenCategoriesMenu] = useState(false);
   const { currentWallet, connectMetaMaskWallet } = useContext(WalletContext);
+  const [onboardedFriends, setOnboardedFriends] = useState<number>(0);
+  const [referralCode, setReferralCode] = useState<string>('');
+  const [tokens, setTokens] = useState<number>(0);
 
   function openOrCloseCategoriesMenu() {
     setOpenCategoriesMenu(!openCategoriesMenu);
@@ -53,6 +53,51 @@ export default function TopBar({
   function copyToClipboard() {
     setCopied(true);
   }
+
+  const getInfo = useCallback(async () => {
+    try {
+      if (currentWallet) {
+        await axios
+          .get('/api/cobogo/readAccountByWallet', {
+            params: {
+              walletAddress: currentWallet,
+            },
+          })
+          .then(async (response) => {
+            if (response.data.data) {
+              const account = response.data.data;
+
+              const accountsByReferralId = await axios.get(
+                '/api/cobogo/readAccountsByReferralId',
+                {
+                  params: {
+                    referralId: account.id,
+                  },
+                },
+              );
+
+              accountsByReferralId.data.data.forEach((accountByReferralId) => {
+                const waitlisted =
+                  accountByReferralId.attributes.profiles.data[0].attributes
+                    .waitlist;
+
+                if (waitlisted) {
+                  setOnboardedFriends((c) => c + 1);
+                }
+              });
+              setReferralCode(response.data.data.attributes.referral_code);
+              setTokens(response.data.data.attributes.tokens);
+            }
+          });
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  }, [currentWallet, setError]);
+
+  useEffect(() => {
+    getInfo();
+  }, [getInfo]);
 
   return (
     <>

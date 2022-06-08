@@ -47,12 +47,7 @@ export default function Index({
         <StepsMenu />
 
         <StepContainer>
-          <TopBar
-            onboardedFriends={onboardedFriends}
-            tokens={tokens}
-            referralCode={referralCode}
-            noLogo
-          />
+          <TopBar noLogo />
 
           <StepSubContainer>
             <div className="flex flex-col mb-8">

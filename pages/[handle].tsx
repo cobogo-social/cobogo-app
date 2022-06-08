@@ -83,7 +83,7 @@ export default function Index({
       </Head>
 
       <BlankslateContainer>
-        <TopBar onboardedFriends={onboardedFriends} tokens={tokens} />
+        <TopBar />
 
         <Blankslate
           bannerImage={bannerImage}
