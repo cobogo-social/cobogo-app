@@ -28,8 +28,6 @@ interface ProfileProps {
   bannerImage: string;
   title: string;
   referralCode: string;
-  onboardedFriends: number;
-  tokens: number;
   // youtubeSubscribers: number;
   // description: string;
   // tags: string[];
@@ -56,8 +54,6 @@ export default function Index({
   bannerImage,
   title,
   referralCode,
-  onboardedFriends,
-  tokens,
 }: ProfileProps) {
   // const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
   // const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);

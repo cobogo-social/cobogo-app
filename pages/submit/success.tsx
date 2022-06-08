@@ -22,18 +22,12 @@ interface SuccessProps {
   bannerImage: string;
   title: string;
   youtubeDescription: string;
-  referralCode: string;
-  onboardedFriends: number;
-  tokens: number;
 }
 
 export default function Index({
   bannerImage,
   title,
   youtubeDescription,
-  onboardedFriends,
-  tokens,
-  referralCode,
 }: SuccessProps) {
   const { setLoading } = useContext(LoadingContext);
 

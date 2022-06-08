@@ -26,8 +26,6 @@ interface InviteProps {
   title: string;
   youtubeDescription: string;
   referralCode: string;
-  onboardedFriends: number;
-  tokens: number;
   verifiedVideo: boolean;
 }
 
@@ -36,8 +34,6 @@ export default function Index({
   title,
   youtubeDescription,
   referralCode,
-  onboardedFriends,
-  tokens,
   verifiedVideo,
 }: InviteProps) {
   const { setLoading } = useContext(LoadingContext);
