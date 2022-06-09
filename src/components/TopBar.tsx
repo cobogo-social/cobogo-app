@@ -128,18 +128,12 @@ export default function TopBar({
         } px-[39px]`}
       >
         {!noLogo && (
-          <Link href="/">
+          <Link href="/" className="flex">
             <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
           </Link>
         )}
 
         <div className="flex items-center justify-center">
-          {/* {asPath !== '/' && (
-            <Link href="/">
-              <button className="font-bold mr-[40px]">back to home</button>
-            </Link>
-          )} */}
-
           {!asPath.includes('submit') && (
             <div className="ml-[40px]">
               <Link href="/submit">
@@ -192,12 +186,15 @@ export default function TopBar({
                   />
                 </div>
               )}
-              <Image
-                src="/images/logo.svg"
-                width={100}
-                height={22}
-                alt="cobogo logo"
-              />
+
+              <Link href="/" className="flex">
+                <Image
+                  src="/images/logo.svg"
+                  width={100}
+                  height={22}
+                  alt="cobogo logo"
+                />
+              </Link>
             </div>
 
             <div className="flex items-center justify-center">
@@ -314,12 +311,14 @@ export default function TopBar({
                 </div>
               )}
 
-              <Image
-                src="/images/logo.svg"
-                width={100}
-                height={22}
-                alt="cobogo logo"
-              />
+              <Link href="/" className="flex">
+                <Image
+                  src="/images/logo.svg"
+                  width={100}
+                  height={22}
+                  alt="cobogo logo"
+                />
+              </Link>
             </div>
 
             <div className="flex items-center justify-center">

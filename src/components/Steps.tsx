@@ -1,11 +1,14 @@
 import StepItem from '@components/StepItem';
 import Image from 'next/image';
+import Link from './Link';
 
 export default function Steps() {
   return (
     <div className="hidden w-full h-[945px] p-8 bg-secondary sm:block">
       <div className="mb-16">
-        <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
+        <Link href="/" className="flex">
+          <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
+        </Link>
       </div>
 
       <p className="mb-8 text-2xl">submit a channel</p>
