@@ -55,6 +55,10 @@ export default function TopBar({
   const [open, setOpen] = useState(false);
   const { push } = useRouter();
 
+  function load() {
+    setLoading(true);
+  }
+
   function changeBackAndChangeOpen() {
     setBack(!back);
     setOpen(!open);
@@ -130,9 +134,16 @@ export default function TopBar({
         } px-[39px]`}
       >
         {!noLogo && (
-          <Link href="/" className="flex">
-            <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
-          </Link>
+          <div className="flex" onClick={load}>
+            <Link href="/" className="flex">
+              <Image
+                src="/images/logo.svg"
+                width={120}
+                height={27}
+                alt="logo"
+              />
+            </Link>
+          </div>
         )}
 
         <div className="flex items-center justify-center">
@@ -144,7 +155,7 @@ export default function TopBar({
                   color="bg-purple"
                   width="w-[174px]"
                   height="h-[38px]"
-                  onClick={() => setLoading(true)}
+                  onClick={load}
                 />
               </Link>
             </div>
@@ -189,14 +200,16 @@ export default function TopBar({
                 </div>
               )}
 
-              <Link href="/" className="flex">
-                <Image
-                  src="/images/logo.svg"
-                  width={100}
-                  height={22}
-                  alt="cobogo logo"
-                />
-              </Link>
+              <div className="flex" onClick={load}>
+                <Link href="/" className="flex">
+                  <Image
+                    src="/images/logo.svg"
+                    width={100}
+                    height={22}
+                    alt="cobogo logo"
+                  />
+                </Link>
+              </div>
             </div>
 
             <div className="flex items-center justify-center">
@@ -207,7 +220,7 @@ export default function TopBar({
                     color="bg-purple"
                     width="w-[68px]"
                     height="h-[26px]"
-                    onClick={() => setLoading(true)}
+                    onClick={load}
                   />
                 </Link>
               </div>
@@ -313,14 +326,16 @@ export default function TopBar({
                 </div>
               )}
 
-              <Link href="/" className="flex">
-                <Image
-                  src="/images/logo.svg"
-                  width={100}
-                  height={22}
-                  alt="cobogo logo"
-                />
-              </Link>
+              <div className="flex" onClick={load}>
+                <Link href="/" className="flex">
+                  <Image
+                    src="/images/logo.svg"
+                    width={100}
+                    height={22}
+                    alt="cobogo logo"
+                  />
+                </Link>
+              </div>
             </div>
 
             <div className="flex items-center justify-center">

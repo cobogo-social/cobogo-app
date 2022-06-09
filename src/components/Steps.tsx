@@ -1,11 +1,20 @@
 import StepItem from '@components/StepItem';
+import { LoadingContext } from '@contexts/LoadingContext';
 import Image from 'next/image';
+import { useContext } from 'react';
+
 import Link from './Link';
 
 export default function Steps() {
+  const { setLoading } = useContext(LoadingContext);
+
+  function load() {
+    setLoading(true);
+  }
+
   return (
     <div className="hidden w-full h-[945px] p-8 bg-secondary sm:block">
-      <div className="mb-16">
+      <div className="mb-16" onClick={load}>
         <Link href="/" className="flex">
           <Image src="/images/logo.svg" width={120} height={27} alt="logo" />
         </Link>
