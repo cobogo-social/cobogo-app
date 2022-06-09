@@ -8,7 +8,7 @@ import Link from '@components/Link';
 import PageContainer from '@components/PageContainer';
 import ShareLinks from '@components/ShareLinks';
 import StepContainer from '@components/StepContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import StepSubContainer from '@components/StepSubContainer';
 import TopBar from '@components/TopBar';
 import WaitlistNotification from '@components/WaitlistNotification';
@@ -45,7 +45,7 @@ export default function Index({
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu />
+        <Steps />
 
         <StepContainer>
           <TopBar noLogo />

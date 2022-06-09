@@ -2,7 +2,7 @@ import Button from '@components/Button';
 import Footer from '@components/Footer';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import TopBar from '@components/TopBar';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { WalletContext } from '@contexts/WalletContext';
@@ -26,7 +26,7 @@ export default function Index() {
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu />
+        <Steps />
 
         <StepContainer>
           <TopBar noOnboardedFriends noLogo />

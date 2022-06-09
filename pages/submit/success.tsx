@@ -4,7 +4,7 @@ import JoinChannel from '@components/JoinChannel';
 import Link from '@components/Link';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import StepSubContainer from '@components/StepSubContainer';
 import TopBar from '@components/TopBar';
 import WhitelistedNotification from '@components/WhitelistedNotification';
@@ -38,7 +38,7 @@ export default function Index({
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu />
+        <Steps />
 
         <StepContainer>
           <TopBar noLogo />

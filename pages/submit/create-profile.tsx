@@ -5,7 +5,7 @@ import ErrorLabel from '@components/ErrorLabel';
 import Footer from '@components/Footer';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import StepSubContainer from '@components/StepSubContainer';
 import Tags from '@components/Tags';
 import TagsInput from '@components/TagsInput';
@@ -171,7 +171,7 @@ export default function Index({
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu />
+        <Steps />
 
         <StepContainer>
           <TopBar noOnboardedFriends noLogo />

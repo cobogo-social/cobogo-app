@@ -4,7 +4,7 @@ import JoinOurWaitlist from '@components/JoinOurWaitlist';
 import Link from '@components/Link';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import TopBar from '@components/TopBar';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { GetServerSideProps } from 'next';
@@ -29,10 +29,10 @@ export default function Index() {
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu noSteps noLogout />
+        <Steps />
 
         <StepContainer>
-          <TopBar noOnboardedFriends noLogo />
+          <TopBar noOnboardedFriends noLogo noSteps noLogout />
 
           <div className="flex flex-col items-center justify-center mt-32 sm:mt-0">
             <p className="sm:text-2xl sm:w-[618px] text-center mb-[50px]">

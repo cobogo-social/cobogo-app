@@ -4,7 +4,7 @@ import ChannelBox from '@components/ChannelBox';
 import Footer from '@components/Footer';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import StepSubContainer from '@components/StepSubContainer';
 import SuccessBullet from '@components/SuccessBullet';
 import TopBar from '@components/TopBar';
@@ -73,7 +73,7 @@ export default function Index({
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu />
+        <Steps />
 
         <StepContainer>
           <TopBar noOnboardedFriends noLogo />

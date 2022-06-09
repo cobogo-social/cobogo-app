@@ -2,7 +2,7 @@ import ChannelNotFound from '@components/ChannelNotFound';
 import Connect from '@components/Connect';
 import Footer from '@components/Footer';
 import PageContainer from '@components/PageContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { fetchSessionData } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
@@ -33,7 +33,7 @@ export default function Index() {
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu noLogout />
+        <Steps />
 
         {!haveChannel ? (
           <ChannelNotFound setHaveChannel={changeHaveChannel} />
