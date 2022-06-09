@@ -159,7 +159,11 @@ export default function TopBar({
             <div className="ml-[40px]">
               <TokenInfo tokens={tokens} />
             </div>
-          ) : null}
+          ) : (
+            <div className="ml-[40px]">
+              <TokenInfo tokens={0} />
+            </div>
+          )}
 
           {!noConnectWallet && (
             <div className="flex items-center justify-center hover:cursor-pointer ml-[40px]">
