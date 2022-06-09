@@ -26,6 +26,7 @@ interface TopBarProps {
   noSteps?: boolean;
   noLogout?: boolean;
   noConnectWallet?: boolean;
+  noTokens?: boolean;
 }
 
 export default function TopBar({
@@ -38,6 +39,7 @@ export default function TopBar({
   noSteps,
   noLogout,
   noConnectWallet,
+  noTokens,
 }: TopBarProps) {
   const { asPath } = useRouter();
   const { setLoading } = useContext(LoadingContext);
@@ -155,15 +157,11 @@ export default function TopBar({
             </p>
           )}
 
-          {tokens ? (
+          {!noTokens && tokens ? (
             <div className="ml-[40px]">
               <TokenInfo tokens={tokens} />
             </div>
-          ) : (
-            <div className="ml-[40px]">
-              <TokenInfo tokens={0} />
-            </div>
-          )}
+          ) : null}
 
           {!noConnectWallet && (
             <div className="flex items-center justify-center hover:cursor-pointer ml-[40px]">

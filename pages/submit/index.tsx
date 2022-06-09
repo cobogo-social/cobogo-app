@@ -32,7 +32,14 @@ export default function Index() {
         <Steps />
 
         <StepContainer>
-          <TopBar noOnboardedFriends noLogo noSteps noLogout noConnectWallet />
+          <TopBar
+            noOnboardedFriends
+            noLogo
+            noSteps
+            noLogout
+            noConnectWallet
+            noTokens
+          />
 
           <div className="flex flex-col items-center justify-center mt-32 sm:mt-0">
             <p className="sm:text-2xl sm:w-[618px] text-center mb-[50px]">

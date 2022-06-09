@@ -29,7 +29,7 @@ export default function Index() {
         <Steps />
 
         <StepContainer>
-          <TopBar noOnboardedFriends noLogo />
+          <TopBar noOnboardedFriends noLogo noTokens noConnectWallet />
 
           <div className="flex flex-row items-center justify-between pl-16 mt-16 sm:px-16 2xl:px-64 sm:mt-0">
             <div>
