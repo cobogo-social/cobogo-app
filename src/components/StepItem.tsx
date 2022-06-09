@@ -13,28 +13,18 @@ export default function StepItem({ number, text, href, open }: StepItemProps) {
   const selected = asPath === href ? 'border-blue' : 'border-gray5';
 
   return (
-    <>
-      <div className="hidden sm:flex items-center mb-[20px]">
-        <div
-          className={`border-[9px] ${selected} w-[47px] h-[41px] flex items-center justify-center mr-[13px] text-xl font-bold`}
-        >
-          {number}
-        </div>
-
-        <p className="font-bold">{text}</p>
+    <div className="flex items-center mb-[13px] sm:mb-[20px]">
+      <div
+        className={`border-[6px] sm:border-[9px] ${selected} w-[31px] sm:w-[47px] h-[28px] sm:h-[41px] flex items-center justify-center sm:mr-[13px] ${
+          open ? 'mr-[20px]' : 'mr-0'
+        } text-xs sm:text-xl font-bold`}
+      >
+        {number}
       </div>
 
-      <div className="flex sm:hidden items-center mb-[13px]">
-        <div
-          className={`border-[6px] ${selected} w-[31px] h-[28px] flex items-center justify-center ${
-            open ? 'mr-[20px]' : 'mr-0'
-          } text-xs font-bold`}
-        >
-          {number}
-        </div>
+      <p className="hidden sm:block font-bold">{text}</p>
 
-        {open ? <p className="font-bold">{text}</p> : null}
-      </div>
-    </>
+      {open ? <p className="font-bold">{text}</p> : null}
+    </div>
   );
 }
