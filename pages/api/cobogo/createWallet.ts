@@ -3,6 +3,7 @@ import {
   createWallet,
   fetchSessionData,
   readWalletByAddress,
+  updateTokensAccount,
   updateWaitlistProfile,
 } from '@services/cobogoApi';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -31,6 +32,10 @@ export default async function handler(
 
       await createWallet(walletAddress, account);
       await updateWaitlistProfile(profile);
+
+      if (!profile.attributes.waitlist) {
+        await updateTokensAccount(account, 100);
+      }
 
       res.status(201).json({ status: 201 });
     } else {

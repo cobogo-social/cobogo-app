@@ -76,7 +76,7 @@ export default function Index({
         <Steps />
 
         <StepContainer>
-          <TopBar noOnboardedFriends noLogo />
+          <TopBar noLogo />
 
           <StepSubContainer>
             <div>

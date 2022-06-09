@@ -174,7 +174,7 @@ export default function Index({
         <Steps />
 
         <StepContainer>
-          <TopBar noOnboardedFriends noLogo />
+          <TopBar noOnboardedFriends noLogo noConnectWallet />
 
           <StepSubContainer>
             <form className="flex flex-col" onSubmit={formik.handleSubmit}>
