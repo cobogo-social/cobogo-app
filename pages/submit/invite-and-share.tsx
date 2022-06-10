@@ -165,7 +165,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   } catch (error) {
     console.error(error.message);
 
-    // TODO: Quando cai aqui está dando erro: TypeError: Cannot read properties of undefined (reading 'slice') porque as props vão todas vazias.
     return {
       props: {},
     };

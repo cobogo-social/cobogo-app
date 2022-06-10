@@ -63,7 +63,6 @@ export default function Index({
   //   setStakeStepsModalsOpen(true);
   // }
 
-  // // TODO: remove duplicated functions based this
   // function openEditProfileModal() {
   //   setEditProfileModalIsOpen(true);
   // }

@@ -9,7 +9,6 @@ const api = axios.create({
   },
 });
 
-// TODO: add types on all functions
 export async function readAccountByReferralCode(referralCode) {
   try {
     const response = await api.get(
