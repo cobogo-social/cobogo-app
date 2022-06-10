@@ -103,6 +103,7 @@ export default function Index() {
           setOnboardedFriendsChannels={setOnboardedFriendsChannels}
           setPendingFriendsChannels={setPendingFriendsChannels}
           noOnboardedFriends
+          noTokens
         />
 
         <div className="flex flex-col items-center w-full pt-[93px]">
