@@ -213,7 +213,22 @@ export const getServerSideProps: GetServerSideProps = async ({
     console.error(error.message);
 
     return {
-      props: {},
+      props: {
+        bannerImage: '',
+        title: '',
+        referralCode: '',
+        onboardedFriends: 0,
+        tokens: 0,
+        youtubeSubscribers: 0,
+        description: '',
+        tags: [],
+        youtubeChannelId: '',
+        videos: [],
+        isOwner: false,
+        handle: '',
+        categories: [],
+        categoryName: '',
+      },
     };
   }
 };

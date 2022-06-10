@@ -161,7 +161,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     console.error(error.message);
 
     return {
-      props: {},
+      props: {
+        bannerImage: '',
+        title: '',
+        youtubeDescription: '',
+        referralCode: '',
+        onboardedFriends: 0,
+        tokens: 0,
+      },
     };
   }
 };
