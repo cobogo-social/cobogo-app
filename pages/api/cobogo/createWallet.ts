@@ -46,7 +46,11 @@ export default async function handler(
 
       res.status(201).json({ status: 201 });
     } else {
-      res.status(200).json({ status: 200 });
+      res.status(200).json({
+        status: 200,
+        error:
+          'This wallet is already being used by another account. Choose another wallet on MetaMask.',
+      });
     }
   } catch (error) {
     res.status(500).json({ status: 500, error: error.message });

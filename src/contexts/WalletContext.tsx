@@ -41,7 +41,7 @@ export function WalletProvider({ children }) {
       if (!ethereum) {
         if (showError) {
           setError(
-            'Metamask is not available in this browser. Please install Metamask to continue.',
+            'Metamask is not available in this browser. Please install MetaMask to continue.',
           );
         }
         return;
@@ -99,9 +99,15 @@ export function WalletProvider({ children }) {
 
       const walletAddress = ethereumAccounts[0];
 
-      await axios.post('/api/cobogo/createWallet', {
-        walletAddress,
-      });
+      await axios
+        .post('/api/cobogo/createWallet', {
+          walletAddress,
+        })
+        .then((response) => {
+          if (response.data.error) {
+            setError(response.data.error);
+          }
+        });
 
       setLoading(false);
 
