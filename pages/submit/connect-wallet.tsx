@@ -4,24 +4,15 @@ import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import Steps from '@components/Steps';
 import TopBar from '@components/TopBar';
-import { LoadingContext } from '@contexts/LoadingContext';
 import { WalletContext } from '@contexts/WalletContext';
 import { fetchSessionData } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useContext } from 'react';
 
 export default function Index() {
-  const { setLoading } = useContext(LoadingContext);
-  const { currentWallet, connectMetaMaskWallet } = useContext(WalletContext);
-  const { push } = useRouter();
-
-  async function pushToInviteAndShare() {
-    setLoading(true);
-    push('/submit/invite-and-share');
-  }
+  const { connectMetaMaskWallet } = useContext(WalletContext);
 
   return (
     <div className="w-full">
@@ -41,21 +32,13 @@ export default function Index() {
                 available as a browser extension and as a mobile app
               </p>
 
-              {!currentWallet ? (
-                <Button
-                  text="connect to MetaMask"
-                  color="bg-blue"
-                  onClick={() =>
-                    connectMetaMaskWallet('/submit/invite-and-share')
-                  }
-                />
-              ) : (
-                <Button
-                  text="next step"
-                  color="bg-blue"
-                  onClick={pushToInviteAndShare}
-                />
-              )}
+              <Button
+                text="connect to MetaMask"
+                color="bg-blue"
+                onClick={() =>
+                  connectMetaMaskWallet('/submit/invite-and-share')
+                }
+              />
             </div>
 
             <div className="hidden sm:block">

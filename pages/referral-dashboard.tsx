@@ -104,6 +104,7 @@ export default function Index() {
           setPendingFriendsChannels={setPendingFriendsChannels}
           noOnboardedFriends
           noTokens
+          referralCode={referralCode}
         />
 
         <div className="flex flex-col items-center w-full pt-[93px]">

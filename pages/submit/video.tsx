@@ -11,7 +11,10 @@ import TopBar from '@components/TopBar';
 import WarningBullet from '@components/WarningBullet';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
-import { fetchSessionData } from '@services/cobogoApi';
+import {
+  fetchSessionData,
+  readAccountsByReferralId,
+} from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -23,6 +26,9 @@ interface VideoProps {
   title: string;
   youtubeDescription: string;
   handle: string;
+  onboardedFriends?: number;
+  tokens?: number;
+  referralCode?: string;
 }
 
 export default function Index({
@@ -30,6 +36,9 @@ export default function Index({
   title,
   youtubeDescription,
   handle,
+  onboardedFriends,
+  tokens,
+  referralCode,
 }: VideoProps) {
   const { setLoading } = useContext(LoadingContext);
   const { setError } = useContext(ErrorContext);
@@ -76,7 +85,12 @@ export default function Index({
         <Steps />
 
         <StepContainer>
-          <TopBar noLogo />
+          <TopBar
+            noLogo
+            onboardedFriends={onboardedFriends}
+            tokens={tokens}
+            referralCode={referralCode}
+          />
 
           <StepSubContainer>
             <div>
@@ -222,12 +236,28 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       };
     }
 
+    let onboardedFriends = 0;
+
+    const accountsByReferralId = await readAccountsByReferralId(account.id);
+
+    accountsByReferralId.forEach((accountByReferralId) => {
+      const waitlisted =
+        accountByReferralId.attributes.profiles.data[0].attributes.waitlist;
+
+      if (waitlisted) {
+        onboardedFriends += 1;
+      }
+    });
+
     return {
       props: {
         bannerImage: profile.attributes.banner_image,
         title: profile.attributes.title,
         youtubeDescription: profile.attributes.youtube_description,
         handle: profile.attributes.handle,
+        referralCode: account.attributes.referral_code,
+        onboardedFriends,
+        tokens: account.attributes.tokens,
       },
     };
   } catch (error) {
@@ -239,6 +269,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         title: '',
         youtubeDescription: '',
         handle: '',
+        referralCode: '',
+        onboardedFriends: 0,
+        tokens: 0,
       },
     };
   }

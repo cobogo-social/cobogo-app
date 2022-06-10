@@ -27,6 +27,8 @@ interface InviteProps {
   youtubeDescription: string;
   referralCode: string;
   verifiedVideo: boolean;
+  tokens: number;
+  onboardedFriends: number;
 }
 
 export default function Index({
@@ -35,6 +37,8 @@ export default function Index({
   youtubeDescription,
   referralCode,
   verifiedVideo,
+  tokens,
+  onboardedFriends,
 }: InviteProps) {
   const { setLoading } = useContext(LoadingContext);
 
@@ -48,7 +52,12 @@ export default function Index({
         <Steps />
 
         <StepContainer>
-          <TopBar noLogo />
+          <TopBar
+            noLogo
+            onboardedFriends={onboardedFriends}
+            tokens={tokens}
+            referralCode={referralCode}
+          />
 
           <StepSubContainer>
             <div className="flex flex-col">

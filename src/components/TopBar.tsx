@@ -1,11 +1,9 @@
-import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { WalletContext } from '@contexts/WalletContext';
-import axios from 'axios';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { IoCopySharp } from 'react-icons/io5';
 
@@ -27,6 +25,9 @@ interface TopBarProps {
   noLogout?: boolean;
   noConnectWallet?: boolean;
   noTokens?: boolean;
+  onboardedFriends?: number;
+  tokens?: number;
+  referralCode?: string;
 }
 
 export default function TopBar({
@@ -40,17 +41,16 @@ export default function TopBar({
   noLogout,
   noConnectWallet,
   noTokens,
+  onboardedFriends,
+  tokens,
+  referralCode,
 }: TopBarProps) {
   const { asPath } = useRouter();
   const { setLoading } = useContext(LoadingContext);
-  const { setError } = useContext(ErrorContext);
   const [openReferralMenu, setOpenReferralMenu] = useState(false);
   const [copied, setCopied] = useState(false);
   const [openCategoriesMenu, setOpenCategoriesMenu] = useState(false);
   const { currentWallet, connectMetaMaskWallet } = useContext(WalletContext);
-  const [onboardedFriends, setOnboardedFriends] = useState<number>(0);
-  const [referralCode, setReferralCode] = useState<string>('');
-  const [tokens, setTokens] = useState<number>(0);
   const [back, setBack] = useState(false);
   const [open, setOpen] = useState(false);
   const { push } = useRouter();
@@ -80,51 +80,6 @@ export default function TopBar({
   function copyToClipboard() {
     setCopied(true);
   }
-
-  const getInfo = useCallback(async () => {
-    try {
-      if (currentWallet) {
-        await axios
-          .get('/api/cobogo/readAccountByWallet', {
-            params: {
-              walletAddress: currentWallet,
-            },
-          })
-          .then(async (response) => {
-            if (response.data.data) {
-              const account = response.data.data;
-
-              const accountsByReferralId = await axios.get(
-                '/api/cobogo/readAccountsByReferralId',
-                {
-                  params: {
-                    referralId: account.id,
-                  },
-                },
-              );
-
-              accountsByReferralId.data.data.forEach((accountByReferralId) => {
-                const waitlisted =
-                  accountByReferralId.attributes.profiles.data[0].attributes
-                    .waitlist;
-
-                if (waitlisted) {
-                  setOnboardedFriends((c) => c + 1);
-                }
-              });
-              setReferralCode(response.data.data.attributes.referral_code);
-              setTokens(response.data.data.attributes.tokens);
-            }
-          });
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-  }, [currentWallet, setError]);
-
-  useEffect(() => {
-    getInfo();
-  }, [getInfo]);
 
   return (
     <>

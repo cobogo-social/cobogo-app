@@ -73,10 +73,6 @@ export function WalletProvider({ children }) {
 
         const walletAddress = ethereumAccounts[0];
 
-        await axios.post('/api/cobogo/createWallet', {
-          walletAddress,
-        });
-
         setCurrentWallet(walletAddress);
 
         return true;
@@ -92,7 +88,21 @@ export function WalletProvider({ children }) {
       if (!checkEthereum(true)) return;
 
       setLoading(true);
+
       await checkWallets(null, 'eth_requestAccounts');
+
+      const ethereum = checkEthereum();
+
+      const ethereumAccounts = await ethereum.request({
+        method: 'eth_accounts',
+      });
+
+      const walletAddress = ethereumAccounts[0];
+
+      await axios.post('/api/cobogo/createWallet', {
+        walletAddress,
+      });
+
       setLoading(false);
 
       if (route) {

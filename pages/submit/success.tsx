@@ -22,12 +22,18 @@ interface SuccessProps {
   bannerImage: string;
   title: string;
   youtubeDescription: string;
+  onboardedFriends?: number;
+  tokens?: number;
+  referralCode?: string;
 }
 
 export default function Index({
   bannerImage,
   title,
   youtubeDescription,
+  onboardedFriends,
+  tokens,
+  referralCode,
 }: SuccessProps) {
   const { setLoading } = useContext(LoadingContext);
 
@@ -41,7 +47,12 @@ export default function Index({
         <Steps />
 
         <StepContainer>
-          <TopBar noLogo />
+          <TopBar
+            noLogo
+            onboardedFriends={onboardedFriends}
+            tokens={tokens}
+            referralCode={referralCode}
+          />
 
           <StepSubContainer>
             <div className="flex flex-col mb-8">

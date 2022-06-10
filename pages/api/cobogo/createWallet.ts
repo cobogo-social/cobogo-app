@@ -30,6 +30,10 @@ export default async function handler(
 
       await createWallet(walletAddress, account);
 
+      if (account.attributes.referral.data) {
+        await updateTokensAccount(account.attributes.referral.data, 50);
+      }
+
       if (account.attributes.profiles) {
         const profile = account.attributes.profiles.data[0];
 
@@ -37,10 +41,6 @@ export default async function handler(
 
         if (!profile.attributes.waitlist) {
           await updateTokensAccount(account, 100);
-
-          if (account.attributes.referral.data) {
-            await updateTokensAccount(account.attributes.referral.data, 50);
-          }
         }
       }
 
