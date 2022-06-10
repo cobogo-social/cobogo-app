@@ -28,13 +28,20 @@ export default async function handler(
         account = await createAccountToFan(walletAddress);
       }
 
-      const profile = account.attributes.profiles.data[0];
-
       await createWallet(walletAddress, account);
-      await updateWaitlistProfile(profile);
 
-      if (!profile.attributes.waitlist) {
-        await updateTokensAccount(account, 100);
+      if (account.attributes.profiles) {
+        const profile = account.attributes.profiles.data[0];
+
+        await updateWaitlistProfile(profile);
+
+        if (!profile.attributes.waitlist) {
+          await updateTokensAccount(account, 100);
+
+          if (account.attributes.referral.data) {
+            await updateTokensAccount(account.attributes.referral.data, 50);
+          }
+        }
       }
 
       res.status(201).json({ status: 201 });
