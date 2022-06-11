@@ -5,21 +5,20 @@ import Earn50CBGNotification from '@components/Earn50CBGNotification';
 import Earn50CBGNotification2 from '@components/Earn50CBGNotification2';
 import Footer from '@components/Footer';
 import Link from '@components/Link';
-import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import ShareLinks from '@components/ShareLinks';
 import StepContainer from '@components/StepContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import StepSubContainer from '@components/StepSubContainer';
-import SubmitStatsTopBar from '@components/SubmitStatsTopBar';
+import TopBar from '@components/TopBar';
 import WaitlistNotification from '@components/WaitlistNotification';
 import { LoadingContext } from '@contexts/LoadingContext';
 import {
-  readAccountsByReferralId,
   fetchSessionData,
+  readAccountsByReferralId,
 } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
-import { getSession, signIn, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { useContext, useEffect } from 'react';
 
 interface InviteProps {
@@ -27,9 +26,9 @@ interface InviteProps {
   title: string;
   youtubeDescription: string;
   referralCode: string;
-  onboardedFriends: number;
-  tokens: number;
   verifiedVideo: boolean;
+  tokens: number;
+  onboardedFriends: number;
 }
 
 export default function Index({
@@ -37,18 +36,11 @@ export default function Index({
   title,
   youtubeDescription,
   referralCode,
-  onboardedFriends,
-  tokens,
   verifiedVideo,
+  tokens,
+  onboardedFriends,
 }: InviteProps) {
-  const { data: session } = useSession();
   const { setLoading } = useContext(LoadingContext);
-
-  useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      signIn('google');
-    }
-  }, [session]);
 
   useEffect(() => {
     setLoading(false);
@@ -57,14 +49,14 @@ export default function Index({
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu />
-
-        <MobileSubmitMenu />
+        <Steps />
 
         <StepContainer>
-          <SubmitStatsTopBar
+          <TopBar
+            noLogo
             onboardedFriends={onboardedFriends}
             tokens={tokens}
+            referralCode={referralCode}
           />
 
           <StepSubContainer>
@@ -182,9 +174,16 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   } catch (error) {
     console.error(error.message);
 
-    // TODO: Quando cai aqui está dando erro: TypeError: Cannot read properties of undefined (reading 'slice') porque as props vão todas vazias.
     return {
-      props: {},
+      props: {
+        bannerImage: '',
+        title: '',
+        youtubeDescription: '',
+        referralCode: '',
+        onboardedFriends: 0,
+        tokens: 0,
+        verifiedVideo: false,
+      },
     };
   }
 };

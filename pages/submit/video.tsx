@@ -2,20 +2,22 @@ import Bullet from '@components/Bullet';
 import Button from '@components/Button';
 import ChannelBox from '@components/ChannelBox';
 import Footer from '@components/Footer';
-import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import StepSubContainer from '@components/StepSubContainer';
 import SuccessBullet from '@components/SuccessBullet';
 import TopBar from '@components/TopBar';
 import WarningBullet from '@components/WarningBullet';
 import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
-import { fetchSessionData } from '@services/cobogoApi';
+import {
+  fetchSessionData,
+  readAccountsByReferralId,
+} from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
-import { getSession, signIn, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 
@@ -24,6 +26,9 @@ interface VideoProps {
   title: string;
   youtubeDescription: string;
   handle: string;
+  onboardedFriends?: number;
+  tokens?: number;
+  referralCode?: string;
 }
 
 export default function Index({
@@ -31,8 +36,10 @@ export default function Index({
   title,
   youtubeDescription,
   handle,
+  onboardedFriends,
+  tokens,
+  referralCode,
 }: VideoProps) {
-  const { data: session } = useSession();
   const { setLoading } = useContext(LoadingContext);
   const { setError } = useContext(ErrorContext);
   const [videoStatus, setVideoStatus] = useState(1);
@@ -69,24 +76,21 @@ export default function Index({
   }
 
   useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      signIn('google');
-    }
-  }, [session]);
-
-  useEffect(() => {
     setLoading(false);
   }, [setLoading]);
 
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu />
-
-        <MobileSubmitMenu />
+        <Steps />
 
         <StepContainer>
-          <TopBar />
+          <TopBar
+            noLogo
+            onboardedFriends={onboardedFriends}
+            tokens={tokens}
+            referralCode={referralCode}
+          />
 
           <StepSubContainer>
             <div>
@@ -232,19 +236,43 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       };
     }
 
+    let onboardedFriends = 0;
+
+    const accountsByReferralId = await readAccountsByReferralId(account.id);
+
+    accountsByReferralId.forEach((accountByReferralId) => {
+      const waitlisted =
+        accountByReferralId.attributes.profiles.data[0].attributes.waitlist;
+
+      if (waitlisted) {
+        onboardedFriends += 1;
+      }
+    });
+
     return {
       props: {
         bannerImage: profile.attributes.banner_image,
         title: profile.attributes.title,
         youtubeDescription: profile.attributes.youtube_description,
         handle: profile.attributes.handle,
+        referralCode: account.attributes.referral_code,
+        onboardedFriends,
+        tokens: account.attributes.tokens,
       },
     };
   } catch (error) {
     console.error(error.message);
 
     return {
-      props: {},
+      props: {
+        bannerImage: '',
+        title: '',
+        youtubeDescription: '',
+        handle: '',
+        referralCode: '',
+        onboardedFriends: 0,
+        tokens: 0,
+      },
     };
   }
 };

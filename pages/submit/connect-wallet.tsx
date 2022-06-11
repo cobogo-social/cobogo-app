@@ -1,127 +1,26 @@
 import Button from '@components/Button';
 import Footer from '@components/Footer';
-import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import TopBar from '@components/TopBar';
-import { ErrorContext } from '@contexts/ErrorContext';
-import { LoadingContext } from '@contexts/LoadingContext';
-import axios from 'axios';
-import { GetServerSideProps } from 'next';
-import { getSession, signIn, useSession } from 'next-auth/react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { WalletContext } from '@contexts/WalletContext';
 import { fetchSessionData } from '@services/cobogoApi';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
+import Image from 'next/image';
+import { useContext } from 'react';
 
 export default function Index() {
-  const { data: session } = useSession();
-  const { setLoading } = useContext(LoadingContext);
-  const { setError } = useContext(ErrorContext);
-  const [currentWallet, setCurrentWallet] = useState('');
-  const { push } = useRouter();
-
-  async function pushToNextStep() {
-    setLoading(true);
-    push('/submit/invite-and-share');
-  }
-
-  const checkEthereum = useCallback(
-    (showError = false) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
-
-      if (!ethereum) {
-        if (showError) {
-          setError(
-            'Metamask is not available in thie browser. Please install Metamask to continue.',
-          );
-        }
-        return;
-      }
-
-      return ethereum;
-    },
-    [setError],
-  );
-
-  const checkWallets = useCallback(
-    async (ethereumWallets = null, method = 'eth_accounts') => {
-      try {
-        let ethereumAccounts = ethereumWallets;
-
-        if (!ethereumAccounts) {
-          const ethereum = checkEthereum();
-          if (!ethereum) return;
-
-          ethereumAccounts = await ethereum.request({
-            method,
-          });
-        }
-
-        if (ethereumAccounts.length <= 0) {
-          setCurrentWallet('');
-          return false;
-        }
-
-        const walletAddress = ethereumAccounts[0];
-        await axios.post('/api/cobogo/createWallet', {
-          walletAddress,
-        });
-        await axios.put('/api/cobogo/updateWaitlistProfile');
-        setCurrentWallet(walletAddress);
-        return true;
-      } catch (error) {
-        setError(error.message);
-      }
-    },
-    [setError, checkEthereum],
-  );
-
-  async function connectMetaMaskWallet() {
-    try {
-      if (!checkEthereum(true)) return;
-
-      setLoading(true);
-      await checkWallets(null, 'eth_requestAccounts');
-      setLoading(false);
-      if (currentWallet) {
-        pushToNextStep();
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-  }
-
-  useEffect(() => {
-    const ethereum = checkEthereum();
-    if (!ethereum) return;
-
-    ethereum.on('accountsChanged', (ethereumAccounts) => {
-      checkWallets(ethereumAccounts);
-    });
-
-    checkWallets();
-  }, [checkWallets, checkEthereum]);
-
-  // TODO: Retirar isso dessa tela, deve ficar fora na checagem de todas as telas,
-  // mas não entendi o use case disso aqui.
-  useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      signIn('google');
-    }
-  }, [session]);
+  const { connectMetaMaskWallet } = useContext(WalletContext);
 
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu />
-
-        <MobileSubmitMenu />
+        <Steps />
 
         <StepContainer>
-          <TopBar />
+          <TopBar noOnboardedFriends noLogo noTokens noConnectWallet />
 
           <div className="flex flex-row items-center justify-between pl-16 mt-16 sm:px-16 2xl:px-64 sm:mt-0">
             <div>
@@ -133,19 +32,13 @@ export default function Index() {
                 available as a browser extension and as a mobile app
               </p>
 
-              {!currentWallet ? (
-                <Button
-                  text="connect to MetaMask"
-                  color="bg-blue"
-                  onClick={connectMetaMaskWallet}
-                />
-              ) : (
-                <Button
-                  text="next step"
-                  color="bg-blue"
-                  onClick={pushToNextStep}
-                />
-              )}
+              <Button
+                text="connect to MetaMask"
+                color="bg-blue"
+                onClick={() =>
+                  connectMetaMaskWallet('/submit/invite-and-share')
+                }
+              />
             </div>
 
             <div className="hidden sm:block">

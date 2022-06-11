@@ -4,17 +4,15 @@ import ChannelsChannelBox from '@components/ChannelsChannelBox';
 import ChannelsFilterSelect from '@components/ChannelsFilterSelect';
 import ChannelsSearchInput from '@components/ChannelsSearchInput';
 import Footer from '@components/Footer';
-import MainTopBar from '@components/MainTopBar';
-import MobileChannelsChannelBox from '@components/MobileChannelsChannelBox';
-import MobileMainMenu from '@components/MobileMainMenu';
+import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
-// import { readCategories, readProfiles } from '@services/cobogoApi';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { getSession } from 'next-auth/react';
 
+// import { readCategories, readProfiles } from '@services/cobogoApi';
 interface ChannelsProps {
   bannerImage: string;
   title: string;
@@ -40,7 +38,6 @@ export default function Index({
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [updatedChannels, setUpdatedChannels] = useState(channels);
-  const [currentWallet, setCurrentWallet] = useState('');
   const { setError } = useContext(ErrorContext);
 
   const filteredChannels = useMemo(() => {
@@ -95,80 +92,6 @@ export default function Index({
     }
   }
 
-  const checkEthereum = useCallback(
-    (showError = false) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
-
-      if (!ethereum) {
-        if (showError) {
-          setError(
-            'Metamask is not available in thie browser. Please install Metamask to continue.',
-          );
-        }
-        return;
-      }
-
-      return ethereum;
-    },
-    [setError],
-  );
-
-  const checkWallets = useCallback(
-    async (ethereumWallets = null, method = 'eth_accounts') => {
-      try {
-        let ethereumAccounts = ethereumWallets;
-
-        if (!ethereumAccounts) {
-          const ethereum = checkEthereum();
-          if (!ethereum) return;
-
-          ethereumAccounts = await ethereum.request({
-            method,
-          });
-        }
-
-        if (ethereumAccounts.length <= 0) {
-          setCurrentWallet('');
-          return false;
-        }
-
-        const walletAddress = ethereumAccounts[0];
-        await axios.post('/api/cobogo/createWallet', {
-          walletAddress,
-        });
-        setCurrentWallet(walletAddress);
-        return true;
-      } catch (error) {
-        setError(error.message);
-      }
-    },
-    [setError, checkEthereum],
-  );
-
-  async function connectMetaMaskWallet() {
-    try {
-      if (!checkEthereum(true)) return;
-
-      setLoading(true);
-      await checkWallets(null, 'eth_requestAccounts');
-      setLoading(false);
-    } catch (error) {
-      setError(error.message);
-    }
-  }
-
-  useEffect(() => {
-    const ethereum = checkEthereum();
-    if (!ethereum) return;
-
-    ethereum.on('accountsChanged', (ethereumAccounts) => {
-      checkWallets(ethereumAccounts);
-    });
-
-    checkWallets();
-  }, [checkWallets, checkEthereum]);
-
   useEffect(() => {
     const intersectionObserver = new IntersectionObserver(async (entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
@@ -187,18 +110,7 @@ export default function Index({
 
   return (
     <div className="flex flex-col">
-      <MainTopBar
-        connectWallet={connectMetaMaskWallet}
-        currentWallet={currentWallet}
-        setCurrentWallet={setCurrentWallet}
-      />
-
-      <MobileMainMenu
-        connectWallet={connectMetaMaskWallet}
-        currentWallet={currentWallet}
-        categories={categories}
-        searchByCategory={searchByCategory}
-      />
+      <TopBar categories={categories} searchByCategory={searchByCategory} />
 
       <ChannelsChannelBanner
         bannerImage={bannerImage}
@@ -225,16 +137,6 @@ export default function Index({
 
           {filteredChannels.map((channel) => (
             <ChannelsChannelBox
-              key={channel.id}
-              bannerImage={channel.attributes.banner_image}
-              title={channel.attributes.title}
-              description={channel.attributes.youtube_description}
-              handle={channel.attributes.handle}
-            />
-          ))}
-
-          {filteredChannels.map((channel) => (
-            <MobileChannelsChannelBox
               key={channel.id}
               bannerImage={channel.attributes.banner_image}
               title={channel.attributes.title}
@@ -306,7 +208,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   //   console.error(error.message);
 
   //   return {
-  //     props: {},
+  //     props: {
+  //       bannerImage: '',
+  //       title: '',
+  //       description: '',
+  //       youtubeChannelId: '',
+  //       handle: '',
+  //       channels: [],
+  //       categories: [],
+  //     },
   //   };
   // }
 };

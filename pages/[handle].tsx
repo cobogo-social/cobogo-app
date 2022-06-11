@@ -1,14 +1,21 @@
 import Blankslate from '@components/Blankslate';
 import BlankslateContainer from '@components/BlankslateContainer';
-import BlankslateTopBar from '@components/BlankslateTopBar';
-
 import Footer from '@components/Footer';
-// import MainTopBar from '@components/MainTopBar';
-import MobileMainMenu from '@components/MobileMainMenu';
-// import MobileProfileAbout from '@components/MobileProfileAbout';
-// import MobileProfileChannelBanner from '@components/MobileProfileChannelBanner';
-// import MobileProfileTopStakers from '@components/MobileProfileTopStakers';
-// import MobileProfileVideos from '@components/MobileProfileVideos';
+import TopBar from '@components/TopBar';
+import { LoadingContext } from '@contexts/LoadingContext';
+import {
+  fetchSessionData,
+  readAccountsByReferralId,
+  readCategories,
+  readProfileByHandle,
+} from '@services/cobogoApi';
+import { readVideosByChannelId } from '@services/youtubeApi';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
+import Head from 'next/head';
+import { useContext, useEffect } from 'react';
+
+// import TopBar from '@components/TopBar';
 // import ProfileAbout from '@components/ProfileAbout';
 // import ProfileChannelBanner from '@components/ProfileChannelBanner';
 // import ProfileStatsBand from '@components/ProfileStatsBand';
@@ -16,16 +23,6 @@ import MobileMainMenu from '@components/MobileMainMenu';
 // import ProfileVideos from '@components/ProfileVideos';
 // import StakeStepsModals from '@components/StakeStepsModals';
 // import EditProfileModal from '@components/EditProfileModal';
-import { ErrorContext } from '@contexts/ErrorContext';
-import { LoadingContext } from '@contexts/LoadingContext';
-import { readCategories, readProfileByHandle } from '@services/cobogoApi';
-import { readVideosByChannelId } from '@services/youtubeApi';
-import axios from 'axios';
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useCallback, useContext, useEffect, useState } from 'react';
 
 interface ProfileProps {
   bannerImage: string;
@@ -58,96 +55,17 @@ export default function Index({
   title,
   referralCode,
 }: ProfileProps) {
-  const { setError } = useContext(ErrorContext);
   // const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
   // const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
-  const [currentWallet, setCurrentWallet] = useState('');
-  const { push } = useRouter();
   const { setLoading } = useContext(LoadingContext);
 
   // function openStakeStepsModals() {
   //   setStakeStepsModalsOpen(true);
   // }
 
-  // // TODO: remove duplicated functions based this
   // function openEditProfileModal() {
   //   setEditProfileModalIsOpen(true);
   // }
-
-  const checkEthereum = useCallback(
-    (showError = false) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { ethereum } = window as any;
-
-      if (!ethereum) {
-        if (showError) {
-          setError(
-            'Metamask is not available in thie browser. Please install Metamask to continue.',
-          );
-        }
-        return;
-      }
-
-      return ethereum;
-    },
-    [setError],
-  );
-
-  const checkWallets = useCallback(
-    async (ethereumWallets = null, method = 'eth_accounts') => {
-      try {
-        let ethereumAccounts = ethereumWallets;
-
-        if (!ethereumAccounts) {
-          const ethereum = checkEthereum();
-          if (!ethereum) return;
-
-          ethereumAccounts = await ethereum.request({
-            method,
-          });
-        }
-
-        if (ethereumAccounts.length <= 0) {
-          setCurrentWallet('');
-          return false;
-        }
-
-        const walletAddress = ethereumAccounts[0];
-        await axios.post('/api/cobogo/createWallet', {
-          walletAddress,
-        });
-        setCurrentWallet(walletAddress);
-        return true;
-      } catch (error) {
-        setError(error.message);
-      }
-    },
-    [setError, checkEthereum],
-  );
-
-  async function connectMetaMaskWallet() {
-    try {
-      if (!checkEthereum(true)) return;
-
-      setLoading(true);
-      await checkWallets(null, 'eth_requestAccounts');
-      setLoading(false);
-      push('/referral-dashboard');
-    } catch (error) {
-      setError(error.message);
-    }
-  }
-
-  useEffect(() => {
-    const ethereum = checkEthereum();
-    if (!ethereum) return;
-
-    ethereum.on('accountsChanged', (ethereumAccounts) => {
-      checkWallets(ethereumAccounts);
-    });
-
-    checkWallets();
-  }, [checkWallets, checkEthereum]);
 
   useEffect(() => {
     setLoading(false);
@@ -160,22 +78,12 @@ export default function Index({
       </Head>
 
       <BlankslateContainer>
-        <BlankslateTopBar
-          setCurrentWallet={setCurrentWallet}
-          currentWallet={currentWallet}
-        />
-
-        <MobileMainMenu
-          connectWallet={connectMetaMaskWallet}
-          currentWallet={currentWallet}
-        />
+        <TopBar />
 
         <Blankslate
           bannerImage={bannerImage}
           title={title}
           referralCode={referralCode}
-          connectWallet={connectMetaMaskWallet}
-          currentWallet={currentWallet}
         />
       </BlankslateContainer>
 
@@ -207,15 +115,7 @@ export default function Index({
   //         <title>cobogo - {title}</title>
   //       </Head>
 
-  //       <MainTopBar
-  //         connectWallet={connectMetaMaskWallet}
-  //         currentWallet={currentWallet}
-  //         setCurrentWallet={setCurrentWallet}
-  //       />
-
-  //       <MobileMainMenu
-  //         connectWallet={connectMetaMaskWallet}
-  //         currentWallet={currentWallet}
+  //       <TopBar
   //       />
 
   //       <div className="h-[299px] w-full hidden sm:flex flex-col">
@@ -227,14 +127,6 @@ export default function Index({
 
   //         <ProfileStatsBand openStakeStepsModals={openStakeStepsModals} />
   //       </div>
-
-  //       <MobileProfileChannelBanner
-  //         title={title}
-  //         youtubeSubscribers={youtubeSubscribers}
-  //         tags={tags}
-  //         openStakeStepsModals={openStakeStepsModals}
-  //         bannerImage={bannerImage}
-  //       />
 
   //       <div className="w-full pt-[62px] px-[147px] hidden sm:flex justify-between items-start">
   //         <ProfileAbout
@@ -248,18 +140,7 @@ export default function Index({
   //         <ProfileTopStakers />
   //       </div>
 
-  //       <MobileProfileAbout
-  //         isOwner={isOwner}
-  //         description={description}
-  //         youtubeChannelId={youtubeChannelId}
-  //         openEditProfileModal={openEditProfileModal}
-  //       />
-
-  //       <MobileProfileTopStakers />
-
   //       <ProfileVideos videos={videos} title={title} />
-
-  //       <MobileProfileVideos videos={videos} title={title} />
 
   //       <Footer />
   //     </div>
@@ -274,6 +155,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   try {
     const session = await getSession({ req });
     const { handle } = params;
+    const { account } = await fetchSessionData(session);
 
     const profile = await readProfileByHandle(handle);
 
@@ -293,11 +175,26 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     const categories = await readCategories();
 
+    let onboardedFriends = 0;
+
+    const accountsByReferralId = await readAccountsByReferralId(account.id);
+
+    accountsByReferralId.forEach((accountByReferralId) => {
+      const waitlisted =
+        accountByReferralId.attributes.profiles.data[0].attributes.waitlist;
+
+      if (waitlisted) {
+        onboardedFriends += 1;
+      }
+    });
+
     return {
       props: {
         bannerImage: profile.attributes.banner_image,
         title: profile.attributes.title,
         referralCode: profile.attributes.referral_code,
+        onboardedFriends,
+        tokens: account.attributes.tokens,
         youtubeSubscribers: profile.attributes.youtube_subscribers,
         description: profile.attributes.description,
         tags: profile.attributes.categories.split(','),
@@ -316,7 +213,22 @@ export const getServerSideProps: GetServerSideProps = async ({
     console.error(error.message);
 
     return {
-      props: {},
+      props: {
+        bannerImage: '',
+        title: '',
+        referralCode: '',
+        onboardedFriends: 0,
+        tokens: 0,
+        youtubeSubscribers: 0,
+        description: '',
+        tags: [],
+        youtubeChannelId: '',
+        videos: [],
+        isOwner: false,
+        handle: '',
+        categories: [],
+        categoryName: '',
+      },
     };
   }
 };

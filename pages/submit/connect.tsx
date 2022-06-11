@@ -1,14 +1,13 @@
 import ChannelNotFound from '@components/ChannelNotFound';
 import Connect from '@components/Connect';
 import Footer from '@components/Footer';
-import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import { LoadingContext } from '@contexts/LoadingContext';
+import { fetchSessionData } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import { useContext, useEffect, useState } from 'react';
-import { fetchSessionData } from '@services/cobogoApi';
 
 export default function Index() {
   const [haveChannel, setHaveChannel] = useState<boolean>();
@@ -34,9 +33,7 @@ export default function Index() {
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu />
-
-        <MobileSubmitMenu noLogout />
+        <Steps />
 
         {!haveChannel ? (
           <ChannelNotFound setHaveChannel={changeHaveChannel} />

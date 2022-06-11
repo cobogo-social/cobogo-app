@@ -1,20 +1,16 @@
 import Button from '@components/Button';
 import Link from '@components/Link';
 import { LoadingContext } from '@contexts/LoadingContext';
+import { WalletContext } from '@contexts/WalletContext';
 import { useContext } from 'react';
 
 interface BlankslateBandProps {
   referralCode: string;
-  connectWallet: () => void;
-  currentWallet: string;
 }
 
-export default function BlankslateBand({
-  referralCode,
-  connectWallet,
-  currentWallet,
-}: BlankslateBandProps) {
+export default function BlankslateBand({ referralCode }: BlankslateBandProps) {
   const { setLoading } = useContext(LoadingContext);
+  const { currentWallet, connectMetaMaskWallet } = useContext(WalletContext);
 
   return (
     <div className="w-full h-[446px] sm:h-[228px] bg-secondary sm:mb-[50px] flex justify-start sm:justify-center items-start sm:items-center">
@@ -48,7 +44,7 @@ export default function BlankslateBand({
               color="bg-blue"
               width="w-[152px]"
               height="h-[38px]"
-              onClick={connectWallet}
+              onClick={connectMetaMaskWallet}
             />
           ) : (
             <Link href="/referral-dashboard">

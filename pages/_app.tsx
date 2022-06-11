@@ -4,6 +4,8 @@ import ErrorModal from '@components/ErrorModal';
 import Loading from '@components/Loading';
 import { ErrorProvider } from '@contexts/ErrorContext';
 import { LoadingProvider } from '@contexts/LoadingContext';
+import { RefreshTokenProvider } from '@contexts/RefreshTokenContext';
+import { WalletProvider } from '@contexts/WalletContext';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
@@ -51,10 +53,14 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <LoadingProvider>
         <ErrorProvider>
           <SessionProvider session={pageProps.session}>
-            <Loading />
-            <ErrorModal />
+            <RefreshTokenProvider>
+              <WalletProvider>
+                <Loading />
+                <ErrorModal />
 
-            <Component {...pageProps} />
+                <Component {...pageProps} />
+              </WalletProvider>
+            </RefreshTokenProvider>
           </SessionProvider>
         </ErrorProvider>
       </LoadingProvider>

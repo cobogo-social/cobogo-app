@@ -3,10 +3,9 @@ import CategoriesSelect from '@components/CategoriesSelect';
 import ChannelBox from '@components/ChannelBox';
 import ErrorLabel from '@components/ErrorLabel';
 import Footer from '@components/Footer';
-import MobileSubmitMenu from '@components/MobileSubmitMenu';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
-import StepsMenu from '@components/StepsMenu';
+import Steps from '@components/Steps';
 import StepSubContainer from '@components/StepSubContainer';
 import Tags from '@components/Tags';
 import TagsInput from '@components/TagsInput';
@@ -17,7 +16,7 @@ import { fetchSessionData, readCategories } from '@services/cobogoApi';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { GetServerSideProps } from 'next';
-import { getSession, signIn, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { SetStateAction, useContext, useEffect, useState } from 'react';
 import * as yup from 'yup';
@@ -36,7 +35,6 @@ export default function Index({
   youtubeDescription,
   categories,
 }: CreateProfileProps) {
-  const { data: session } = useSession();
   const [tagsList, setTagsList] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [categoryValue, setCategoryValue] = useState('');
@@ -167,24 +165,16 @@ export default function Index({
   }, [push, createdProfile]);
 
   useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      signIn('google');
-    }
-  }, [session]);
-
-  useEffect(() => {
     setLoading(false);
   }, [setLoading]);
 
   return (
     <div className="w-full">
       <PageContainer>
-        <StepsMenu />
-
-        <MobileSubmitMenu />
+        <Steps />
 
         <StepContainer>
-          <TopBar />
+          <TopBar noOnboardedFriends noLogo noConnectWallet noTokens />
 
           <StepSubContainer>
             <form className="flex flex-col" onSubmit={formik.handleSubmit}>
@@ -331,7 +321,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     console.error(error.message);
 
     return {
-      props: {},
+      props: {
+        bannerImage: '',
+        title: '',
+        youtubeDescription: '',
+        categories: [],
+      },
     };
   }
 };
