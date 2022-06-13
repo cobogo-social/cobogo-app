@@ -89,7 +89,7 @@ export default function TopBar({
         } px-[39px]`}
       >
         {!noLogo && (
-          <div className="flex" onClick={load}>
+          <div className="flex">
             <Link href="/" className="flex">
               <Image
                 src="/images/logo.svg"
