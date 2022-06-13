@@ -3,8 +3,6 @@ import {
   createWallet,
   fetchSessionData,
   readWalletByAddress,
-  updateTokensAccount,
-  updateWaitlistProfile,
 } from '@services/cobogoApi';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
@@ -29,20 +27,6 @@ export default async function handler(
       }
 
       await createWallet(walletAddress, account);
-
-      if (account.attributes.referral.data) {
-        await updateTokensAccount(account.attributes.referral.data, 50);
-      }
-
-      if (account.attributes.profiles) {
-        const profile = account.attributes.profiles.data[0];
-
-        await updateWaitlistProfile(profile);
-
-        if (!profile.attributes.waitlist) {
-          await updateTokensAccount(account, 100);
-        }
-      }
 
       res.status(201).json({ status: 201 });
     } else {

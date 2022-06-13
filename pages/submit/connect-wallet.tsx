@@ -1,9 +1,11 @@
 import Button from '@components/Button';
 import Footer from '@components/Footer';
+import Link from '@components/Link';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import Steps from '@components/Steps';
 import TopBar from '@components/TopBar';
+import { LoadingContext } from '@contexts/LoadingContext';
 import { WalletContext } from '@contexts/WalletContext';
 import { fetchSessionData } from '@services/cobogoApi';
 import { GetServerSideProps } from 'next';
@@ -13,6 +15,7 @@ import { useContext } from 'react';
 
 export default function Index() {
   const { connectMetaMaskWallet } = useContext(WalletContext);
+  const { setLoading } = useContext(LoadingContext);
 
   return (
     <div className="w-full">
@@ -32,13 +35,24 @@ export default function Index() {
                 available as a browser extension and as a mobile app
               </p>
 
-              <Button
-                text="connect to MetaMask"
-                color="bg-blue"
-                onClick={() =>
-                  connectMetaMaskWallet('/submit/invite-and-share')
-                }
-              />
+              <div className="mb-4">
+                <Button
+                  text="connect to MetaMask"
+                  color="bg-blue"
+                  onClick={() =>
+                    connectMetaMaskWallet('/submit/invite-and-share')
+                  }
+                />
+              </div>
+
+              <Link href="/submit/invite-and-share">
+                <button
+                  onClick={() => setLoading(true)}
+                  className="font-bold text-gray3 hover:cursor-pointer"
+                >
+                  do it later
+                </button>
+              </Link>
             </div>
 
             <div className="hidden sm:block">
@@ -72,7 +86,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       };
     }
 
-    if (!profile.attributes.handle) {
+    if (!profile.attributes.handle || !profile.attributes.waitlist) {
       return {
         redirect: {
           destination: '/submit/create-profile',
@@ -81,7 +95,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       };
     }
 
-    if (account.attributes.wallets.data.length && profile.attributes.waitlist) {
+    if (account.attributes.wallets.data.length) {
       return {
         redirect: {
           destination: '/submit/invite-and-share',
