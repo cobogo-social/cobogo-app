@@ -99,15 +99,17 @@ export function WalletProvider({ children }) {
 
       const walletAddress = ethereumAccounts[0];
 
-      await axios
-        .post('/api/cobogo/createWallet', {
-          walletAddress,
-        })
-        .then((response) => {
-          if (response.data.error) {
-            setError(response.data.error);
-          }
-        });
+      if (route) {
+        await axios
+          .post('/api/cobogo/createWallet', {
+            walletAddress,
+          })
+          .then((response) => {
+            if (response.data.error) {
+              setError(response.data.error);
+            }
+          });
+      }
 
       setLoading(false);
 

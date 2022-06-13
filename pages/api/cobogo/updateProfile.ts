@@ -1,8 +1,9 @@
 import {
-  readAccountByReferralCode,
   fetchSessionData,
+  readAccountByReferralCode,
   updateProfile,
   updateReferralAccount,
+  updateTokensAccount,
 } from '@services/cobogoApi';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
@@ -17,13 +18,20 @@ export default async function handler(
 
   try {
     const { account } = await fetchSessionData(session);
-    const referralAccount = await readAccountByReferralCode(queryRef);
 
-    if (referralAccount) {
+    if (queryRef) {
+      const referralAccount = await readAccountByReferralCode(queryRef);
+
       await updateReferralAccount(account, referralAccount);
+
+      await updateTokensAccount(referralAccount, 50);
     }
 
     const profile = account.attributes.profiles.data[0];
+
+    if (!profile.attributes.waitlist) {
+      await updateTokensAccount(account, 100);
+    }
 
     const response = await updateProfile(
       description,

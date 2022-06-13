@@ -80,6 +80,7 @@ export default function Index({
               categories: tagsList.toString(),
               queryRef: queryRef || null,
               category: categoryValue,
+              waitlist: true,
             })
             .then((response) => {
               if (response.data.error) {
@@ -298,7 +299,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       };
     }
 
-    if (profile.attributes.handle) {
+    if (profile.attributes.handle && profile.attributes.waitlist) {
       return {
         redirect: {
           destination: '/submit/connect-wallet',

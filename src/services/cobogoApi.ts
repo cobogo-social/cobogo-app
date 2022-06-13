@@ -1,6 +1,6 @@
+import { readChannel } from '@services/youtubeApi';
 import axios from 'axios';
 import referralCodeGenerator from 'referral-code-generator';
-import { readChannel } from '@services/youtubeApi';
 
 const api = axios.create({
   baseURL: process.env.COBOGO_API_URL,
@@ -349,6 +349,7 @@ export async function updateProfile(
         handle,
         categories,
         category,
+        waitlist: true,
       },
     });
   } catch (error) {

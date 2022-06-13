@@ -72,14 +72,11 @@ export default function EditProfileModal({
         if (!readProfileByHandle.data.data) {
           setLoading(true);
 
-          const queryRef = sessionStorage.getItem('queryRef');
-
           await axios
             .post('/api/cobogo/updateProfile', {
               description: values.description,
               handle: values.handle,
               categories: tagsList.toString(),
-              queryRef: queryRef || null,
               category: categoryValue,
             })
             .then((response) => {
@@ -97,14 +94,11 @@ export default function EditProfileModal({
         } else {
           setLoading(true);
 
-          const queryRef = sessionStorage.getItem('queryRef');
-
           await axios
             .post('/api/cobogo/updateProfile', {
               description: values.description,
               handle: values.handle,
               categories: tagsList.toString(),
-              queryRef: queryRef || null,
               category: categoryValue,
             })
             .then((response) => {

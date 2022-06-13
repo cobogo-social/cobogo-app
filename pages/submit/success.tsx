@@ -124,22 +124,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       };
     }
 
-    if (!profile.attributes.handle) {
+    if (!profile.attributes.handle || !profile.attributes.waitlist) {
       return {
         redirect: {
           destination: '/submit/create-profile',
-          permanent: false,
-        },
-      };
-    }
-
-    if (
-      !account.attributes.wallets.data.length ||
-      !profile.attributes.waitlist
-    ) {
-      return {
-        redirect: {
-          destination: '/submit/connect-wallet',
           permanent: false,
         },
       };
