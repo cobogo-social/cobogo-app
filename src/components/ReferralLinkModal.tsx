@@ -44,7 +44,7 @@ export default function ReferralLinkModal({
           <p className="text-[40px]">invite YouTubers</p>
 
           <p className="text-[22px] max-w-[425px] mb-8">
-            you can earn 50 CBG for each Creator that joins the waitlist using
+            you can earn 50 CBG for each Creator that joins the whitelist using
             your referral link!
           </p>
 

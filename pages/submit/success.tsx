@@ -79,7 +79,7 @@ export default function Index({
                 <span className="font-bold">cobogo</span> is a dApp still in
                 development, but the channel{' '}
                 <span className="font-bold">{title}</span> has been added to the
-                waitlist.
+                whitelist.
               </p>
 
               <WhitelistedNotification />

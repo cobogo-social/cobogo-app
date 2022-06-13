@@ -22,7 +22,7 @@ export default function JoinOurWaitlist() {
       </div>
 
       <p className="text-center sm:text-left max-w-[402px]">
-        <span className="font-bold">join our waitlist</span> now and be one of
+        <span className="font-bold">join our whitelist</span> now and be one of
         the first to experience the new Creator Economy, while also earning the
         equivalent of <span className="font-bold">60 dollars</span> of our
         native token (<span className="font-bold">100 CBG</span>)!

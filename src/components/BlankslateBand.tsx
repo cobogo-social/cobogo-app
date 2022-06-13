@@ -23,7 +23,7 @@ export default function BlankslateBand({ referralCode }: BlankslateBandProps) {
 
           <Link href={`/submit?ref=${referralCode || ''}`}>
             <Button
-              text="join waitlist"
+              text="join whitelist"
               color="bg-purple"
               width="w-[129px]"
               height="h-[38px]"

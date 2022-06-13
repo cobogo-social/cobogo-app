@@ -114,8 +114,8 @@ export default function Index() {
             </p>
 
             <p className="sm:text-[22px] mb-[14px] sm:mb-[44px]">
-              you can earn 50 CBG for each Creator that joins the waitlist using
-              your referral link!
+              you can earn 50 CBG for each Creator that joins the whitelist
+              using your referral link!
             </p>
 
             <ReferralDashboardReferralLink referralCode={referralCode} />
