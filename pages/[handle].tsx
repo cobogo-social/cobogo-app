@@ -1,5 +1,6 @@
 import Button from '@components/Button';
 import ProfileMediaKitAnalytics from '@components/ProfileMediaKitAnalytics';
+import ProfileServices from '@components/ProfileServices';
 import ProfileVideos from '@components/ProfileVideos';
 import TopBar from '@components/TopBar';
 import Image from 'next/image';
@@ -159,6 +160,8 @@ export default function Index() {
         isOwner
         openEditDistributionsModal={() => {}}
       />
+
+      <ProfileServices services={[]} isOwner />
 
       <ProfileVideos title="teste" videos={[]} />
 

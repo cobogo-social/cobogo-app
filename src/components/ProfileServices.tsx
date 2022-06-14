@@ -13,7 +13,7 @@ export default function ProfileServices({
   isOwner,
 }: ProfileServicesProps) {
   return (
-    <div className="h-[652px] w-full hidden sm:flex flex-col items-center justify-start relative bg-gray7 py-[70px]">
+    <div className="h-[652px] w-full hidden sm:flex flex-col items-center justify-start relative bg-gray7 py-[70px] px-[150px]">
       {isOwner && (
         <div className="flex hover:cursor-pointer absolute top-[30px] left-[30px]">
           <Image
@@ -25,7 +25,7 @@ export default function ProfileServices({
         </div>
       )}
 
-      <div className="flex flex-col justify-between items-start w-full px-[155px]">
+      <div className="flex flex-col justify-between items-start w-full">
         <p className="text-[22px] mb-[20px]">services offered</p>
 
         <div className="flex w-full justify-between">
