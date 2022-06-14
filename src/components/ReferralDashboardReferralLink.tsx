@@ -27,7 +27,7 @@ export default function ReferralDashboardReferralLink({
 
         <div className="flex">
           <div
-            className={`px-4 h-[50px] bg-black flex justify-center items-center border-[1.5px] ${
+            className={`px-4 h-[50px] bg-black flex justify-center items-center border-[1px] ${
               currentWallet && 'border-r-0'
             } border-gray10`}
           >
@@ -45,7 +45,7 @@ export default function ReferralDashboardReferralLink({
           {currentWallet && (
             <div
               onClick={changeCopied}
-              className="pr-4 h-[50px] bg-black border-[1.5px] border-l-0 border-gray10 outline-none flex justify-center items-center"
+              className="pr-4 h-[50px] bg-black border-[1px] border-l-0 border-gray10 outline-none flex justify-center items-center"
             >
               <CopyToClipboard
                 text={`https://app.cobogo.social/submit?ref=${referralCode}`}

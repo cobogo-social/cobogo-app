@@ -193,7 +193,7 @@ export default function Index({
                 <textarea
                   id="description"
                   name="description"
-                  className={`w-full sm:w-[432px] h-32 bg-gray7 border-[1.5px] ${
+                  className={`w-full sm:w-[432px] h-32 bg-gray7 border-[1px] ${
                     formik.touched.description && formik.errors.description
                       ? 'border-red'
                       : 'border-gray10'
@@ -217,7 +217,7 @@ export default function Index({
               </p>
 
               <div className="flex">
-                <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1.5px] border-r-0 border-gray10">
+                <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1px] border-r-0 border-gray10">
                   <p className="font-bold">app.cobogo.social/</p>
                 </div>
 
@@ -234,7 +234,7 @@ export default function Index({
                     onChange={formik.handleChange}
                     onKeyPress={validateKeyPressedInHandle}
                     value={formik.values.handle}
-                    className={`w-full h-12 bg-gray7 border-[1.5px] sm:border-l-0 ${
+                    className={`w-full h-12 bg-gray7 border-[1px] sm:border-l-0 ${
                       (formik.touched.handle && formik.errors.handle) ||
                       handleError
                         ? 'border-red'

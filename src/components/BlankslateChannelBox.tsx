@@ -11,7 +11,7 @@ export default function BlankslateChannelBox({
   title,
 }: BlankslateChannelBoxProps) {
   return (
-    <div className="bg-black w-[310px] sm:w-[680px] border-[1.5px] border-gray5 mb-[50px] relative">
+    <div className="bg-black w-[310px] sm:w-[680px] border-[1px] border-gray5 mb-[50px] relative">
       <div className="hidden sm:flex">
         {banner ? (
           <Image
