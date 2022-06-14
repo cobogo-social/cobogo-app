@@ -14,7 +14,7 @@ export default function ProfileMediaKitAnalyticsDistributionsCountry({
   return (
     <div className="relative">
       <div className="h-full absolute flex justify-center items-center left-[-10px]">
-        <div className="bg-primary py-[10px]">
+        <div className="bg-black py-[10px]">
           <Image
             src="/images/country-icon.svg"
             width={22}

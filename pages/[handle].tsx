@@ -7,7 +7,7 @@ import Image from 'next/image';
 export default function Index() {
   return (
     <div>
-      <TopBar />
+      <TopBar noOnboardedFriends noTokens />
 
       <div className="w-full h-[308px] bg-blue" />
 

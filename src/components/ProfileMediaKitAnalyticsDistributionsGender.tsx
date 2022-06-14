@@ -12,7 +12,7 @@ export default function ProfileMediaKitAnalyticsDistributionsGender({
   return (
     <div className="relative">
       <div className="h-full absolute flex justify-center items-center left-[-20px]">
-        <div className="bg-primary py-[10px]">
+        <div className="bg-black py-[10px]">
           <Image
             src="/images/gender-icon.svg"
             width={45}
