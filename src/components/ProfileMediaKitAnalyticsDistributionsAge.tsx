@@ -29,7 +29,7 @@ export default function ProfileMediaKitAnalyticsDistributionsAge({
           <p className="font-bold">age distribution</p>
 
           <div className="flex items-center">
-            <div className="w-[138px] h-[7px] bg-gray11 mr-[15px]">
+            <div className="w-[138px] h-[7px] bg-gray10 mr-[15px]">
               <div
                 style={{
                   width: `${audienceGenderDistribution18}%`,
@@ -44,7 +44,7 @@ export default function ProfileMediaKitAnalyticsDistributionsAge({
           </div>
 
           <div className="flex items-center">
-            <div className="w-[138px] h-[7px] bg-gray11 mr-[15px]">
+            <div className="w-[138px] h-[7px] bg-gray10 mr-[15px]">
               <div
                 style={{
                   width: `${audienceGenderDistribution2534}%`,
@@ -59,7 +59,7 @@ export default function ProfileMediaKitAnalyticsDistributionsAge({
           </div>
 
           <div className="flex items-center">
-            <div className="w-[138px] h-[7px] bg-gray11 mr-[15px]">
+            <div className="w-[138px] h-[7px] bg-gray10 mr-[15px]">
               <div
                 style={{
                   width: `${audienceGenderDistribution35}%`,

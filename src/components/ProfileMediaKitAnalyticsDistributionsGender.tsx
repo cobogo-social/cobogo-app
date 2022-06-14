@@ -27,7 +27,7 @@ export default function ProfileMediaKitAnalyticsDistributionsGender({
           <p className="font-bold">gender distribution</p>
 
           <div className="flex items-center">
-            <div className="w-[138px] h-[7px] bg-gray11 mr-[15px]">
+            <div className="w-[138px] h-[7px] bg-gray10 mr-[15px]">
               <div
                 style={{
                   width: `${audienceGenderDistributionMen}%`,
@@ -42,7 +42,7 @@ export default function ProfileMediaKitAnalyticsDistributionsGender({
           </div>
 
           <div className="flex items-center">
-            <div className="w-[138px] h-[7px] bg-gray11 mr-[15px]">
+            <div className="w-[138px] h-[7px] bg-gray10 mr-[15px]">
               <div
                 style={{
                   width: `${audienceGenderDistributionWomen}%`,

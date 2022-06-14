@@ -29,7 +29,7 @@ export default function ProfileMediaKitAnalyticsDistributionsCountry({
           <p className="font-bold">top countries</p>
 
           <div className="flex items-center">
-            <div className="w-[138px] h-[7px] bg-gray11 mr-[15px]">
+            <div className="w-[138px] h-[7px] bg-gray10 mr-[15px]">
               <div
                 style={{
                   width: `${audienceTopCountries1}%`,
@@ -42,7 +42,7 @@ export default function ProfileMediaKitAnalyticsDistributionsCountry({
           </div>
 
           <div className="flex items-center">
-            <div className="w-[138px] h-[7px] bg-gray11 mr-[15px]">
+            <div className="w-[138px] h-[7px] bg-gray10 mr-[15px]">
               <div
                 style={{
                   width: `${audienceTopCountries2}%`,
@@ -55,7 +55,7 @@ export default function ProfileMediaKitAnalyticsDistributionsCountry({
           </div>
 
           <div className="flex items-center">
-            <div className="w-[138px] h-[7px] bg-gray11 mr-[15px]">
+            <div className="w-[138px] h-[7px] bg-gray10 mr-[15px]">
               <div
                 style={{
                   width: `${audienceTopCountries3}%`,
