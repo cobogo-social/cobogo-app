@@ -78,8 +78,8 @@ export default function TopBar({
   return (
     <>
       <div
-        className={`h-[100px] w-full hidden sm:flex ${
-          noLogo ? 'justify-end items-start' : 'justify-between items-center'
+        className={`h-[100px] w-full hidden sm:flex items-center ${
+          noLogo ? 'justify-end' : 'justify-between'
         } px-[39px]`}
       >
         {!noLogo && (
