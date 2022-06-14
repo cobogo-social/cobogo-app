@@ -1,230 +1,179 @@
-import Blankslate from '@components/Blankslate';
-import BlankslateContainer from '@components/BlankslateContainer';
+import Button from '@components/Button';
+import ProfileVideos from '@components/ProfileVideos';
 import TopBar from '@components/TopBar';
-import { LoadingContext } from '@contexts/LoadingContext';
-import {
-  fetchSessionData,
-  readAccountsByReferralId,
-  readCategories,
-  readProfileByHandle,
-} from '@services/cobogoApi';
-import { readVideosByChannelId } from '@services/youtubeApi';
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
-import Head from 'next/head';
-import { useContext, useEffect } from 'react';
+import Image from 'next/image';
 
-// import TopBar from '@components/TopBar';
-// import ProfileAbout from '@components/ProfileAbout';
-// import ProfileChannelBanner from '@components/ProfileChannelBanner';
-// import ProfileStatsBand from '@components/ProfileStatsBand';
-// import ProfileTopStakers from '@components/ProfileTopStakers';
-// import ProfileVideos from '@components/ProfileVideos';
-// import StakeStepsModals from '@components/StakeStepsModals';
-// import EditProfileModal from '@components/EditProfileModal';
-
-interface ProfileProps {
-  bannerImage: string;
-  title: string;
-  referralCode: string;
-  // youtubeSubscribers: number;
-  // description: string;
-  // tags: string[];
-  // youtubeChannelId: string;
-  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // videos: any[];
-  // isOwner: boolean;
-  // handle: string;
-  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // categories: any[];
-  // categoryName: string;
-}
-
-export default function Index({
-  // youtubeSubscribers,
-  // description,
-  // tags,
-  // youtubeChannelId,
-  // videos,
-  // isOwner,
-  // handle,
-  // categories,
-  // categoryName,
-  bannerImage,
-  title,
-  referralCode,
-}: ProfileProps) {
-  // const [editProfileModalIsOpen, setEditProfileModalIsOpen] = useState(false);
-  // const [stakeStepsModalsIsOpen, setStakeStepsModalsOpen] = useState(false);
-  const { setLoading } = useContext(LoadingContext);
-
-  // function openStakeStepsModals() {
-  //   setStakeStepsModalsOpen(true);
-  // }
-
-  // function openEditProfileModal() {
-  //   setEditProfileModalIsOpen(true);
-  // }
-
-  useEffect(() => {
-    setLoading(false);
-  }, [setLoading]);
-
+export default function Index() {
   return (
-    <div className="w-full">
-      <Head>
-        <title>cobogo - {title}</title>
-      </Head>
+    <div>
+      <TopBar />
 
-      <BlankslateContainer>
-        <TopBar />
+      <div className="w-full h-[308px] bg-blue" />
 
-        <Blankslate
-          bannerImage={bannerImage}
-          title={title}
-          referralCode={referralCode}
-        />
-      </BlankslateContainer>
+      <div className="flex w-full h-[482px] px-[150px] py-[70px] relative justify-between items-end bg-black">
+        <div className="flex justify-center items-center absolute top-[-30px]">
+          <div className="w-[140px] h-[140px] bg-red mr-[30px]" />
+
+          <div className="flex flex-col">
+            <p className="">username</p>
+
+            <p>channel</p>
+          </div>
+        </div>
+
+        <div>
+          <p className="text-[22px]">about</p>
+
+          <p className="w-[464px] mb-[30px]">
+            Follow the latest Rocket launch webcasts, Conferences & more
+            space-related Livestream events. SPACE (Official) provides a
+            Platform for Aerospace companies, nonprofit organizations &
+            scientists to communicate their work to the general public,
+            decreasing the knowledge gap between academia and society.
+          </p>
+
+          <Button
+            text="website"
+            color="bg-primary"
+            borderColor="border-gray4"
+            borderSize="border-[1px]"
+            textColor="text-blue"
+            icon="/images/link-icon.svg"
+          />
+        </div>
+
+        <div>
+          <div className="mb-[45px]">
+            <Image
+              src="/images/video.svg"
+              width={480}
+              height={268}
+              alt="video"
+            />
+          </div>
+
+          <div className="flex justify-around items-center">
+            <p className="font-bold text-violet">rocket</p>
+
+            <p className="font-bold text-pink">sky</p>
+
+            <p className="font-bold text-violet">rocket</p>
+
+            <p className="font-bold text-pink">sky</p>
+
+            <p className="font-bold text-violet">rocket</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex w-full h-[439px] px-[150px] py-[70px] relative justify-between items-center">
+        <div className="flex flex-col">
+          <div className="flex mb-[90px]">
+            <div className="mr-[27px] flex">
+              <Image src="/images/ytb-icon.svg" width={74} height={42} />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
+          </div>
+
+          <div className="flex">
+            <div className="mr-[27px] flex">
+              <Image src="/images/tiktok-icon.svg" width={74} height={56} />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col">
+          <div className="flex mb-[90px]">
+            <div className="mr-[27px] flex">
+              <Image src="/images/instagram-icon.svg" width={74} height={56} />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
+          </div>
+
+          <div className="flex">
+            <div className="mr-[27px] flex">
+              <Image src="/images/twitter-icon.svg" width={74} height={74} />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col">
+          <div className="flex mb-[90px]">
+            <div className="mr-[27px] flex">
+              <Image src="/images/twitch-icon.svg" width={74} height={58} />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
+          </div>
+
+          <div className="flex">
+            <div className="mr-[27px] flex">
+              <Image src="/images/discord-icon.svg" width={74} height={65} />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ProfileVideos title="teste" videos={[]} />
+
+      <div className="flex w-full h-[621px] px-[150px] py-[70px] relative justify-between items-end">
+        <Image src="/images/profile-bg.svg" objectFit="cover" layout="fill" />
+
+        <div className="z-10">
+          <p className="text-[40px] w-[370px]">
+            ut enim staking ad veniam quis
+          </p>
+
+          <p className="text-[22px] w-[438px]">
+            sed ut perspiciatis unde omnis iste natus error sit crypto
+            accusantium doloremque laudantium.
+          </p>
+        </div>
+
+        <div className="w-[345px] h-[481px] z-10 p-[30px]">
+          <div className="flex w-full justify-between items-center h-[97px]">
+            <Button
+              text="withdraw"
+              borderColor="border-violet"
+              borderSize="border-[1px]"
+            />
+
+            <Button text="stake" color="bg-blue" />
+          </div>
+        </div>
+      </div>
     </div>
   );
-
-  // return (
-  //   <>
-  //     <StakeStepsModals
-  //       isOpen={stakeStepsModalsIsOpen}
-  //       setIsOpen={setStakeStepsModalsOpen}
-  //       title={title}
-  //       description={description}
-  //       bannerImage={bannerImage}
-  //     />
-  //     <EditProfileModal
-  //       isOpen={editProfileModalIsOpen}
-  //       setIsOpen={setEditProfileModalIsOpen}
-  //       description={description}
-  //       tags={tags}
-  //       handle={handle}
-  //       categories={categories}
-  //       categoryName={categoryName}
-  //     />
-
-  //     <div className="flex flex-col">
-  //       <Head>
-  //         <title>cobogo - {title}</title>
-  //       </Head>
-
-  //       <TopBar
-  //       />
-
-  //       <div className="h-[299px] w-full hidden sm:flex flex-col">
-  //         <ProfileChannelBanner
-  //           bannerImage={bannerImage}
-  //           title={title}
-  //           youtubeSubscribers={youtubeSubscribers}
-  //         />
-
-  //         <ProfileStatsBand openStakeStepsModals={openStakeStepsModals} />
-  //       </div>
-
-  //       <div className="w-full pt-[62px] px-[147px] hidden sm:flex justify-between items-start">
-  //         <ProfileAbout
-  //           description={description}
-  //           tags={tags}
-  //           youtubeChannelId={youtubeChannelId}
-  //           isOwner={isOwner}
-  //           openEditProfileModal={openEditProfileModal}
-  //         />
-
-  //         <ProfileTopStakers />
-  //       </div>
-
-  //       <ProfileVideos videos={videos} title={title} />
-
-  //     </div>
-  //   </>
-  // );
 }
-
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  params,
-}) => {
-  try {
-    const session = await getSession({ req });
-    const { handle } = params;
-    const { account } = await fetchSessionData(session);
-
-    const profile = await readProfileByHandle(handle);
-
-    if (!profile) {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        },
-      };
-    }
-
-    // TODO: Criar relação entre Video e Profile e pegar os videos automaticamente pelo Profile sem precisar fazer essa chamada adicional.
-    const videos = await readVideosByChannelId(
-      profile.attributes.youtube_channel_id,
-    );
-
-    const categories = await readCategories();
-
-    let onboardedFriends = 0;
-
-    const accountsByReferralId = await readAccountsByReferralId(account.id);
-
-    accountsByReferralId.forEach((accountByReferralId) => {
-      const waitlisted =
-        accountByReferralId.attributes.profiles.data[0].attributes.waitlist;
-
-      if (waitlisted) {
-        onboardedFriends += 1;
-      }
-    });
-
-    return {
-      props: {
-        bannerImage: profile.attributes.banner_image,
-        title: profile.attributes.title,
-        referralCode: profile.attributes.referral_code,
-        onboardedFriends,
-        tokens: account.attributes.tokens,
-        youtubeSubscribers: profile.attributes.youtube_subscribers,
-        description: profile.attributes.description,
-        tags: profile.attributes.categories.split(','),
-        youtubeChannelId: profile.attributes.youtube_channel_id,
-        videos,
-        isOwner: session?.user
-          ? session.user['id'] ===
-            profile.attributes.accounts.data[0].attributes.youtube_account_id
-          : false,
-        handle: profile.attributes.handle,
-        categories,
-        categoryName: profile.attributes.category.data.attributes.name,
-      },
-    };
-  } catch (error) {
-    console.error(error.message);
-
-    return {
-      props: {
-        bannerImage: '',
-        title: '',
-        referralCode: '',
-        onboardedFriends: 0,
-        tokens: 0,
-        youtubeSubscribers: 0,
-        description: '',
-        tags: [],
-        youtubeChannelId: '',
-        videos: [],
-        isOwner: false,
-        handle: '',
-        categories: [],
-        categoryName: '',
-      },
-    };
-  }
-};

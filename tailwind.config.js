@@ -32,7 +32,7 @@ module.exports = {
       ocean: '#29354F',
       violet: '#B266FA',
       green: '#80C660',
-      pink3: '#D7ABFF',
+      pink: '#D7ABFF',
     },
     extend: {},
   },
