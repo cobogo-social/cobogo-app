@@ -16,9 +16,9 @@ export default function Index() {
           <div className="w-[140px] h-[140px] bg-red mr-[30px]" />
 
           <div className="flex flex-col">
-            <p className="">username</p>
+            <p className="text-[34px]">username</p>
 
-            <p>channel</p>
+            <p className="text-[20px]">channel</p>
           </div>
         </div>
 
