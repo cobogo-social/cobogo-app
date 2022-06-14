@@ -289,13 +289,11 @@ export default function TopBar({
               {!noLogout && (
                 <button
                   onClick={logout}
-                  className="mr-4 font-bold text-blue hover:cursor-pointer"
+                  className="font-bold text-blue hover:cursor-pointer"
                 >
                   logout
                 </button>
               )}
-
-              <div className="bg-white w-[9px] h-[9px] rounded-full" />
             </div>
           </div>
 
