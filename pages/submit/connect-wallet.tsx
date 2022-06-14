@@ -25,7 +25,7 @@ export default function Index() {
         <StepContainer>
           <TopBar noOnboardedFriends noLogo noTokens noConnectWallet />
 
-          <div className="flex flex-row items-center justify-between pl-16 mt-16 sm:px-16 2xl:px-64 sm:mt-0">
+          <div className="flex flex-row items-center justify-between pl-16 mt-16 sm:px-16 2xl:px-64 sm:mt-0 px-8 py-4">
             <div>
               <p className="mb-4 text-4xl">connect wallet</p>
 

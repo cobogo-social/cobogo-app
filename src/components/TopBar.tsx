@@ -301,7 +301,7 @@ export default function TopBar({
 
           {!noSteps && (
             <div
-              className={`bg-secondary z-10 px-[10px] pb-8 pt-20 h-screen fixed sm:hidden ${
+              className={`bg-secondary z-10 px-[10px] pb-8 pt-[72px] h-screen fixed sm:hidden ${
                 open ? 'w-[193px]' : 'w-[52px]'
               } ${open ? '' : 'flex'} flex-col justify-start items-center`}
             >

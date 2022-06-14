@@ -41,7 +41,7 @@ export default function Index() {
             noTokens
           />
 
-          <div className="flex flex-col items-center justify-center mt-32 sm:mt-0">
+          <div className="flex flex-col items-center justify-center mt-32 sm:mt-0 px-8 py-4">
             <p className="sm:text-2xl sm:w-[618px] text-center mb-[50px]">
               revolutionize the way you{' '}
               <span className="font-bold">monetize</span> your{' '}
