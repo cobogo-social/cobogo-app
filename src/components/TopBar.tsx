@@ -1,4 +1,3 @@
-import { LoadingContext } from '@contexts/LoadingContext';
 import { WalletContext } from '@contexts/WalletContext';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
@@ -46,7 +45,6 @@ export default function TopBar({
   referralCode,
 }: TopBarProps) {
   const { asPath } = useRouter();
-  const { setLoading } = useContext(LoadingContext);
   const [openReferralMenu, setOpenReferralMenu] = useState(false);
   const [copied, setCopied] = useState(false);
   const [openCategoriesMenu, setOpenCategoriesMenu] = useState(false);
@@ -54,10 +52,6 @@ export default function TopBar({
   const [back, setBack] = useState(false);
   const [open, setOpen] = useState(false);
   const { push } = useRouter();
-
-  function load() {
-    setLoading(true);
-  }
 
   function changeBackAndChangeOpen() {
     setBack(!back);
@@ -110,7 +104,6 @@ export default function TopBar({
                   color="bg-purple"
                   width="w-[174px]"
                   height="h-[38px]"
-                  onClick={load}
                 />
               </Link>
             </div>
@@ -155,7 +148,7 @@ export default function TopBar({
                 </div>
               )}
 
-              <div className="flex" onClick={load}>
+              <div className="flex">
                 <Link href="/" className="flex">
                   <Image
                     src="/images/logo.svg"
@@ -175,7 +168,6 @@ export default function TopBar({
                     color="bg-purple"
                     width="w-[68px]"
                     height="h-[26px]"
-                    onClick={load}
                   />
                 </Link>
               </div>
@@ -281,7 +273,7 @@ export default function TopBar({
                 </div>
               )}
 
-              <div className="flex" onClick={load}>
+              <div className="flex">
                 <Link href="/" className="flex">
                   <Image
                     src="/images/logo.svg"
