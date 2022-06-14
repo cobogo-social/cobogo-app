@@ -1,4 +1,5 @@
 import Button from '@components/Button';
+import ProfileMediaKitAnalytics from '@components/ProfileMediaKitAnalytics';
 import ProfileVideos from '@components/ProfileVideos';
 import TopBar from '@components/TopBar';
 import Image from 'next/image';
@@ -145,6 +146,19 @@ export default function Index() {
           </div>
         </div>
       </div>
+
+      <ProfileMediaKitAnalytics
+        audienceGenderDistribution18={25}
+        audienceGenderDistribution2534={50}
+        audienceGenderDistribution35={25}
+        audienceTopCountries1={20}
+        audienceTopCountries2={20}
+        audienceTopCountries3={40}
+        audienceGenderDistributionMen={50}
+        audienceGenderDistributionWomen={50}
+        isOwner
+        openEditDistributionsModal={() => {}}
+      />
 
       <ProfileVideos title="teste" videos={[]} />
 
