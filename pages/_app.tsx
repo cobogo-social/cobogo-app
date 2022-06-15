@@ -1,6 +1,7 @@
 import '@styles/globals.css';
 
 import ErrorModal from '@components/ErrorModal';
+import Footer from '@components/Footer';
 import Loading from '@components/Loading';
 import { ErrorProvider } from '@contexts/ErrorContext';
 import { LoadingProvider } from '@contexts/LoadingContext';
@@ -59,6 +60,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 <ErrorModal />
 
                 <Component {...pageProps} />
+
+                <Footer />
               </WalletProvider>
             </RefreshTokenProvider>
           </SessionProvider>

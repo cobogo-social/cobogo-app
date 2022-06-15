@@ -3,7 +3,6 @@ import Earn1000CBGNotification from '@components/Earn1000CBGNotification';
 import Earn10CBGNotification from '@components/Earn10CBGNotification';
 import Earn50CBGNotification from '@components/Earn50CBGNotification';
 import Earn50CBGNotification2 from '@components/Earn50CBGNotification2';
-import Footer from '@components/Footer';
 import Link from '@components/Link';
 import PageContainer from '@components/PageContainer';
 import ShareLinks from '@components/ShareLinks';
@@ -105,8 +104,6 @@ export default function Index({
             />
           </StepSubContainer>
         </StepContainer>
-
-        <Footer />
       </PageContainer>
     </div>
   );

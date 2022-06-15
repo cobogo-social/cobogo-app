@@ -1,4 +1,3 @@
-import Footer from '@components/Footer';
 import ReferralDashboardBand from '@components/ReferralDashboardBand';
 import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
@@ -142,8 +141,6 @@ export default function Index() {
           />
         </div>
       </ReferralDashboardContainer>
-
-      <Footer />
     </div>
   );
 }

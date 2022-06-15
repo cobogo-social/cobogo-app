@@ -1,6 +1,5 @@
 import ChannelNotFound from '@components/ChannelNotFound';
 import Connect from '@components/Connect';
-import Footer from '@components/Footer';
 import PageContainer from '@components/PageContainer';
 import Steps from '@components/Steps';
 import { LoadingContext } from '@contexts/LoadingContext';
@@ -40,8 +39,6 @@ export default function Index() {
         ) : (
           <Connect />
         )}
-
-        <Footer />
       </PageContainer>
     </div>
   );

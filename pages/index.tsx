@@ -3,7 +3,6 @@ import ChannelsChannelBanner from '@components/ChannelsChannelBanner';
 import ChannelsChannelBox from '@components/ChannelsChannelBox';
 import ChannelsFilterSelect from '@components/ChannelsFilterSelect';
 import ChannelsSearchInput from '@components/ChannelsSearchInput';
-import Footer from '@components/Footer';
 import TopBar from '@components/TopBar';
 import { ErrorContext } from '@contexts/ErrorContext';
 import axios from 'axios';
@@ -157,8 +156,6 @@ export default function Index({
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

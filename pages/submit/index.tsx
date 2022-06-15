@@ -1,5 +1,4 @@
 import Button from '@components/Button';
-import Footer from '@components/Footer';
 import JoinOurWaitlist from '@components/JoinOurWaitlist';
 import Link from '@components/Link';
 import PageContainer from '@components/PageContainer';
@@ -88,8 +87,6 @@ export default function Index() {
             </div>
           </div>
         </StepContainer>
-
-        <Footer />
       </PageContainer>
     </div>
   );

@@ -6,7 +6,7 @@ interface PageContainerProps {
 
 export default function PageContainer({ children }: PageContainerProps) {
   return (
-    <div className="grid grid-rows-1 sm:grid-rows-[1fr_70px] grid-cols-1 sm:grid-cols-[332px_1fr]">
+    <div className="grid grid-rows-1 grid-cols-1 sm:grid-cols-[332px_1fr]">
       {children}
     </div>
   );

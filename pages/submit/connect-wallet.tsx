@@ -1,5 +1,4 @@
 import Button from '@components/Button';
-import Footer from '@components/Footer';
 import Link from '@components/Link';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
@@ -65,8 +64,6 @@ export default function Index() {
             </div>
           </div>
         </StepContainer>
-
-        <Footer />
       </PageContainer>
     </div>
   );

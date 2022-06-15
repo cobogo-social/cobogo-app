@@ -1,7 +1,6 @@
 import Bullet from '@components/Bullet';
 import Button from '@components/Button';
 import ChannelBox from '@components/ChannelBox';
-import Footer from '@components/Footer';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import Steps from '@components/Steps';
@@ -197,8 +196,6 @@ export default function Index({
             />
           </StepSubContainer>
         </StepContainer>
-
-        <Footer />
       </PageContainer>
     </div>
   );

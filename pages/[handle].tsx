@@ -1,6 +1,5 @@
 import Blankslate from '@components/Blankslate';
 import BlankslateContainer from '@components/BlankslateContainer';
-import Footer from '@components/Footer';
 import TopBar from '@components/TopBar';
 import { LoadingContext } from '@contexts/LoadingContext';
 import {
@@ -86,8 +85,6 @@ export default function Index({
           referralCode={referralCode}
         />
       </BlankslateContainer>
-
-      <Footer />
     </div>
   );
 
@@ -142,7 +139,6 @@ export default function Index({
 
   //       <ProfileVideos videos={videos} title={title} />
 
-  //       <Footer />
   //     </div>
   //   </>
   // );

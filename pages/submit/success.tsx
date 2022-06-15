@@ -1,5 +1,4 @@
 import ChannelBox from '@components/ChannelBox';
-import Footer from '@components/Footer';
 import JoinChannel from '@components/JoinChannel';
 import Link from '@components/Link';
 import PageContainer from '@components/PageContainer';
@@ -103,8 +102,6 @@ export default function Index({
             />
           </StepSubContainer>
         </StepContainer>
-
-        <Footer />
       </PageContainer>
     </div>
   );
