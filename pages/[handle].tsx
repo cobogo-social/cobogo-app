@@ -24,7 +24,6 @@ export default function Index() {
         audienceTopCountries3={40}
         audienceGenderDistributionMen={50}
         audienceGenderDistributionWomen={50}
-        openEditDistributionsModal={() => {}}
       />
 
       <ProfileServices services={[]} />
