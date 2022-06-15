@@ -13,7 +13,6 @@ interface ProfileMediaKitAnalyticsProps {
   audienceTopCountries1: number;
   audienceTopCountries2: number;
   audienceTopCountries3: number;
-  isOwner: boolean;
   openEditDistributionsModal: () => void;
 }
 
@@ -26,24 +25,21 @@ export default function ProfileMediaKitAnalytics({
   audienceTopCountries1,
   audienceTopCountries2,
   audienceTopCountries3,
-  isOwner,
   openEditDistributionsModal,
 }: ProfileMediaKitAnalyticsProps) {
   return (
-    <div className="h-[348px] w-full flex items-center relative justify-between py-[70px] px-[150px] bg-black">
-      {isOwner && (
-        <div
-          onClick={openEditDistributionsModal}
-          className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
-        >
-          <Image
-            src="/images/edit-icon.svg"
-            width={21}
-            height={19}
-            alt="edit icon"
-          />
-        </div>
-      )}
+    <div className="w-full flex items-center relative justify-between py-[70px] px-[150px] bg-black">
+      <div
+        onClick={openEditDistributionsModal}
+        className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
+      >
+        <Image
+          src="/images/edit-icon.svg"
+          width={30}
+          height={28}
+          alt="edit icon"
+        />
+      </div>
 
       <ProfileMediaKitAnalyticsDistributionsGender
         audienceGenderDistributionMen={audienceGenderDistributionMen}

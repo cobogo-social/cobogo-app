@@ -70,15 +70,15 @@ export default function ProfileMediaKitAnalyticsDistributionsCountry({
           <div className="flex items-center">
             <div className="bg-purple2 w-[7px] h-[7px] mr-1" />
 
-            <p className="text-gray6 font-bold mr-[12px]">-</p>
+            <p className="text-gray6 font-bold mr-[12px]">US</p>
 
             <div className="bg-pink w-[7px] h-[7px] mr-1" />
 
-            <p className="text-gray6 font-bold mr-[12px]">-</p>
+            <p className="text-gray6 font-bold mr-[12px]">UK</p>
 
             <div className="bg-violet w-[7px] h-[7px] mr-1" />
 
-            <p className="text-gray6 font-bold mr-[12px]">-</p>
+            <p className="text-gray6 font-bold mr-[12px]">BR</p>
           </div>
         </div>
       </div>

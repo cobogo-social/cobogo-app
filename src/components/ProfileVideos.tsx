@@ -8,7 +8,7 @@ interface ProfileVideosProps {
 
 export default function ProfileVideos({ videos, title }: ProfileVideosProps) {
   return (
-    <div className="hidden sm:flex flex-col w-full px-[150px] py-[70px] h-[485px] bg-black">
+    <div className="hidden sm:flex flex-col w-full px-[150px] py-[70px] bg-black">
       <p className="text-[22px] mb-[26px]">{title}'s latest videos</p>
 
       <div className="flex">

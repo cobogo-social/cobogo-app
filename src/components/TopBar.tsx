@@ -27,6 +27,7 @@ interface TopBarProps {
   onboardedFriends?: number;
   tokens?: number;
   referralCode?: string;
+  transparent?: boolean;
 }
 
 export default function TopBar({
@@ -43,6 +44,7 @@ export default function TopBar({
   onboardedFriends,
   tokens,
   referralCode,
+  transparent,
 }: TopBarProps) {
   const { asPath } = useRouter();
   const [openReferralMenu, setOpenReferralMenu] = useState(false);
@@ -80,7 +82,7 @@ export default function TopBar({
       <div
         className={`h-[100px] w-full hidden sm:flex items-center ${
           noLogo ? 'justify-end' : 'justify-between'
-        } px-[39px]`}
+        } px-[39px] ${transparent && 'absolute'}`}
       >
         {!noLogo && (
           <div className="flex">
