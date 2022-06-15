@@ -79,7 +79,7 @@ export default function StakeStepThreeModal({
         </div>
       </div>
 
-      <div className="h-full bg-black w-[300px] border-l-[1.5px] border-gray10 hidden sm:block">
+      <div className="h-full bg-black w-[300px] border-l-[1px] border-gray10 hidden sm:block">
         {bannerImage ? (
           <Image
             src={bannerImage}
