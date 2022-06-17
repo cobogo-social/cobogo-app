@@ -27,7 +27,7 @@ export default function ProfileMediaKitSocial(): JSX.Element {
   }
 
   return singleOpen ? (
-    <div className="flex w-full px-[150px] py-[70px] relative justify-between items-center">
+    <div className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
       <div className="flex absolute top-[74px] right-[152px]">
         <div onClick={backStep} className="flex">
           <Image
@@ -57,7 +57,7 @@ export default function ProfileMediaKitSocial(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex w-full">
+      <div className="flex max-w-[1300px] w-full justify-between items-center">
         <div className="flex flex-col w-full">
           <div className="flex w-full">
             <div className="mr-[20px] flex">
@@ -111,7 +111,7 @@ export default function ProfileMediaKitSocial(): JSX.Element {
       </div>
     </div>
   ) : (
-    <div className="flex w-full px-[150px] py-[70px] relative justify-between items-center">
+    <div className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
       <div className="flex hover:cursor-pointer absolute top-[30px] left-[30px]">
         <Image
           src="/images/edit-icon.svg"
@@ -121,110 +121,112 @@ export default function ProfileMediaKitSocial(): JSX.Element {
         />
       </div>
 
-      <div className="flex flex-col">
-        <div className="flex mb-[90px]">
-          <div onClick={() => openStep(1)} className="mr-[27px] flex">
-            <Image
-              src="/images/ytb-icon.svg"
-              width={74}
-              height={42}
-              alt="youtube icon"
-            />
+      <div className="flex max-w-[1300px] w-full justify-between items-center">
+        <div className="flex flex-col">
+          <div className="flex mb-[90px]">
+            <div onClick={() => openStep(1)} className="mr-[27px] flex">
+              <Image
+                src="/images/ytb-icon.svg"
+                width={74}
+                height={42}
+                alt="youtube icon"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
           </div>
 
-          <div className="flex flex-col">
-            <p className="font-bold text-[45px]">3.87M</p>
-            <p className="font-bold text-gray6">subscribers</p>
-            <p className="font-bold text-blue">visit channel</p>
-          </div>
-        </div>
+          <div className="flex">
+            <div onClick={() => openStep(2)} className="mr-[27px] flex">
+              <Image
+                src="/images/tiktok-icon.svg"
+                width={74}
+                height={56}
+                alt="tiktok icon"
+              />
+            </div>
 
-        <div className="flex">
-          <div onClick={() => openStep(2)} className="mr-[27px] flex">
-            <Image
-              src="/images/tiktok-icon.svg"
-              width={74}
-              height={56}
-              alt="tiktok icon"
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <p className="font-bold text-[45px]">3.87M</p>
-            <p className="font-bold text-gray6">subscribers</p>
-            <p className="font-bold text-blue">visit channel</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col">
-        <div className="flex mb-[90px]">
-          <div onClick={() => openStep(3)} className="mr-[27px] flex">
-            <Image
-              src="/images/instagram-icon.svg"
-              width={74}
-              height={56}
-              alt="instagram icon"
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <p className="font-bold text-[45px]">3.87M</p>
-            <p className="font-bold text-gray6">subscribers</p>
-            <p className="font-bold text-blue">visit channel</p>
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
           </div>
         </div>
 
-        <div className="flex">
-          <div onClick={() => openStep(4)} className="mr-[27px] flex">
-            <Image
-              src="/images/twitter-icon.svg"
-              width={74}
-              height={74}
-              alt="twitter icon"
-            />
+        <div className="flex flex-col">
+          <div className="flex mb-[90px]">
+            <div onClick={() => openStep(3)} className="mr-[27px] flex">
+              <Image
+                src="/images/instagram-icon.svg"
+                width={74}
+                height={56}
+                alt="instagram icon"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
           </div>
 
-          <div className="flex flex-col">
-            <p className="font-bold text-[45px]">3.87M</p>
-            <p className="font-bold text-gray6">subscribers</p>
-            <p className="font-bold text-blue">visit channel</p>
+          <div className="flex">
+            <div onClick={() => openStep(4)} className="mr-[27px] flex">
+              <Image
+                src="/images/twitter-icon.svg"
+                width={74}
+                height={74}
+                alt="twitter icon"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="flex flex-col">
-        <div className="flex mb-[90px]">
-          <div onClick={() => openStep(5)} className="mr-[27px] flex">
-            <Image
-              src="/images/twitch-icon.svg"
-              width={74}
-              height={58}
-              alt="twitch icon"
-            />
+        <div className="flex flex-col">
+          <div className="flex mb-[90px]">
+            <div onClick={() => openStep(5)} className="mr-[27px] flex">
+              <Image
+                src="/images/twitch-icon.svg"
+                width={74}
+                height={58}
+                alt="twitch icon"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
           </div>
 
-          <div className="flex flex-col">
-            <p className="font-bold text-[45px]">3.87M</p>
-            <p className="font-bold text-gray6">subscribers</p>
-            <p className="font-bold text-blue">visit channel</p>
-          </div>
-        </div>
+          <div className="flex">
+            <div onClick={() => openStep(6)} className="mr-[27px] flex">
+              <Image
+                src="/images/discord-icon.svg"
+                width={74}
+                height={65}
+                alt="discord icon"
+              />
+            </div>
 
-        <div className="flex">
-          <div onClick={() => openStep(6)} className="mr-[27px] flex">
-            <Image
-              src="/images/discord-icon.svg"
-              width={74}
-              height={65}
-              alt="discord icon"
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <p className="font-bold text-[45px]">3.87M</p>
-            <p className="font-bold text-gray6">subscribers</p>
-            <p className="font-bold text-blue">visit channel</p>
+            <div className="flex flex-col">
+              <p className="font-bold text-[45px]">3.87M</p>
+              <p className="font-bold text-gray6">subscribers</p>
+              <p className="font-bold text-blue">visit channel</p>
+            </div>
           </div>
         </div>
       </div>

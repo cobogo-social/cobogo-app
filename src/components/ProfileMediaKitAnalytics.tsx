@@ -26,7 +26,7 @@ export default function ProfileMediaKitAnalytics({
   audienceTopCountries3,
 }: ProfileMediaKitAnalyticsProps) {
   return (
-    <div className="w-full flex items-center relative justify-between py-[70px] px-[150px] bg-black">
+    <div className="w-full flex items-center relative justify-center py-[70px] px-[150px] bg-black">
       <div className="flex hover:cursor-pointer absolute top-[30px] left-[30px]">
         <Image
           src="/images/edit-icon.svg"
@@ -36,22 +36,24 @@ export default function ProfileMediaKitAnalytics({
         />
       </div>
 
-      <ProfileMediaKitAnalyticsDistributionsGender
-        audienceGenderDistributionMen={audienceGenderDistributionMen}
-        audienceGenderDistributionWomen={audienceGenderDistributionWomen}
-      />
+      <div className="flex max-w-[1300px] w-full justify-between items-center">
+        <ProfileMediaKitAnalyticsDistributionsGender
+          audienceGenderDistributionMen={audienceGenderDistributionMen}
+          audienceGenderDistributionWomen={audienceGenderDistributionWomen}
+        />
 
-      <ProfileMediaKitAnalyticsDistributionsAge
-        audienceGenderDistribution18={audienceGenderDistribution18}
-        audienceGenderDistribution2534={audienceGenderDistribution2534}
-        audienceGenderDistribution35={audienceGenderDistribution35}
-      />
+        <ProfileMediaKitAnalyticsDistributionsAge
+          audienceGenderDistribution18={audienceGenderDistribution18}
+          audienceGenderDistribution2534={audienceGenderDistribution2534}
+          audienceGenderDistribution35={audienceGenderDistribution35}
+        />
 
-      <ProfileMediaKitAnalyticsDistributionsCountry
-        audienceTopCountries1={audienceTopCountries1}
-        audienceTopCountries2={audienceTopCountries2}
-        audienceTopCountries3={audienceTopCountries3}
-      />
+        <ProfileMediaKitAnalyticsDistributionsCountry
+          audienceTopCountries1={audienceTopCountries1}
+          audienceTopCountries2={audienceTopCountries2}
+          audienceTopCountries3={audienceTopCountries3}
+        />
+      </div>
     </div>
   );
 }

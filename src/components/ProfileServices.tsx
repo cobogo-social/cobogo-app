@@ -19,17 +19,19 @@ export default function ProfileServices({ services }: ProfileServicesProps) {
         />
       </div>
 
-      <div className="flex flex-col justify-between items-start w-full">
-        <p className="text-[22px] mb-[20px]">services offered</p>
+      <div className="flex max-w-[1300px] w-full justify-between items-center">
+        <div className="flex flex-col justify-between items-start w-full">
+          <p className="text-[22px] mb-[20px]">services offered</p>
 
-        <div className="flex w-full justify-between">
-          {services.map((service) => (
-            <ProfileService
-              key={service.id}
-              name={service.attributes.name}
-              description={service.attributes.description}
-            />
-          ))}
+          <div className="flex w-full justify-between">
+            {services.map((service) => (
+              <ProfileService
+                key={service.id}
+                name={service.attributes.name}
+                description={service.attributes.description}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
