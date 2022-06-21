@@ -1,6 +1,6 @@
+import MediaKitSocial from '@components/profile/MediaKitSocial';
 import ProfileAbout from '@components/ProfileAbout';
 import ProfileMediaKitAnalytics from '@components/ProfileMediaKitAnalytics';
-import ProfileMediaKitSocial from '@components/ProfileMediaKitSocial';
 import ProfileServices from '@components/ProfileServices';
 import ProfileStake from '@components/ProfileStake';
 import ProfileVideos from '@components/ProfileVideos';
@@ -133,7 +133,37 @@ export default function Index({
         tags={tags}
       />
 
-      <ProfileMediaKitSocial />
+      <MediaKitSocial
+        youtubeSubscribers={youtubeSubscribers}
+        youtubeId={youtubeId}
+        tiktokFollowers={tiktokFollowers}
+        tiktokHandle={tiktokHandle}
+        instagramFollowers={instagramFollowers}
+        instagramHandle={instagramHandle}
+        twitterFollowers={twitterFollowers}
+        twitterHandle={twitterHandle}
+        twitchSubscribers={twitchSubscribers}
+        twitchHandle={twitchHandle}
+        discordMembers={discordMembers}
+        discordHandle={discordHandle}
+        youtubeVideos={youtubeVideos}
+        youtubeViews={youtubeViews}
+        youtubeUniqueViewers={youtubeUniqueViewers}
+        youtubeWatchTimeHours={youtubeWatchTimeHours}
+        youtubeAvgViewDuration={youtubeAvgViewDuration}
+        tiktokViews={tiktokViews}
+        tiktokLikes={tiktokLikes}
+        tiktokComments={tiktokComments}
+        tiktokShares={tiktokShares}
+        instagramImpressions={instagramImpressions}
+        instagramStoriesAvgViews={instagramStoriesAvgViews}
+        instagramPostsAvgLikes={instagramPostsAvgLikes}
+        instagramReelsAvgViews={instagramReelsAvgViews}
+        twitchVideos={twitchVideos}
+        twitchAvgViewers={twitchAvgViewers}
+        twitchPeakViewers={twitchPeakViewers}
+        twitchWatchTimeHours={twitchWatchTimeHours}
+      />
 
       <ProfileMediaKitAnalytics
         audienceGenderDistribution18={audienceGenderDistribution18}
@@ -146,9 +176,9 @@ export default function Index({
         audienceGenderDistributionWomen={audienceGenderDistributionWomen}
       />
 
-      <ProfileServices services={[]} />
+      <ProfileServices services={services} />
 
-      <ProfileVideos title="teste" videos={[]} />
+      <ProfileVideos title={title} videos={videos} />
 
       <ProfileStake />
     </div>

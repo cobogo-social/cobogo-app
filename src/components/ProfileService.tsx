@@ -30,19 +30,21 @@ export default function ProfileService({
       <div className="w-[310px] h-[464px] border-[1px] border-gray10">
         <div className="bg-blue w-[310px] h-[204px]" />
 
-        <div className="px-[30px] py-[40px]">
+        <div className="px-[30px] py-[40px] flex flex-col h-[260px] justify-between">
           <p className="text-[22px]">{name}</p>
 
           <p className="mb-[30px]">{description.slice(0, 111)} (...)</p>
 
-          <Button
-            color="bg-gray7"
-            text="more info"
-            borderColor="border-gray2"
-            borderSize="border-[1px]"
-            textColor="text-blue"
-            onClick={openServiceModal}
-          />
+          <div>
+            <Button
+              color="bg-gray7"
+              text="more info"
+              borderColor="border-gray2"
+              borderSize="border-[1px]"
+              textColor="text-blue"
+              onClick={openServiceModal}
+            />
+          </div>
         </div>
       </div>
     </>
