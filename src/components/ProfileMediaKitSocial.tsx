@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -27,7 +28,12 @@ export default function ProfileMediaKitSocial(): JSX.Element {
   }
 
   return singleOpen ? (
-    <div className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="flex w-full px-[150px] py-[70px] relative justify-center items-center"
+    >
       <div className="flex absolute top-[74px] right-[152px]">
         <div
           onClick={backStep}
@@ -144,7 +150,7 @@ export default function ProfileMediaKitSocial(): JSX.Element {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   ) : (
     <div className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
       <div className="flex hover:cursor-pointer absolute top-[30px] left-[30px]">
