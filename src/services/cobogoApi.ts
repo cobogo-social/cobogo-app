@@ -145,8 +145,7 @@ export async function readOrCreateAccountByOauth(oAuthUser, oAuthAccount) {
 
       if (account.attributes.profiles) {
         profile = account.attributes.profiles.data.find(
-          (profileFound) =>
-            profileFound.attributes.youtube_channel_id === channel.id,
+          (profileFound) => profileFound.attributes.youtube_id === channel.id,
         );
       }
 
@@ -155,7 +154,7 @@ export async function readOrCreateAccountByOauth(oAuthUser, oAuthAccount) {
           accounts: account.id,
           title: channel.snippet.title,
           youtube_description: channel.snippet.description,
-          youtube_channel_id: channel.id,
+          youtube_id: channel.id,
           banner_image: channel.brandingSettings.image?.bannerExternalUrl,
           profile_image: channel.snippet.thumbnails.high.url,
           youtube_subscribers: channel.statistics.subscriberCount,

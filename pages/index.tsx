@@ -200,7 +200,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   //         ? profiles[0].attributes.youtube_description
   //         : '',
   //       youtubeChannelId: profiles[0]
-  //         ? profiles[0].attributes.youtube_channel_id
+  //         ? profiles[0].attributes.youtube_id
   //         : null,
   //       handle: profiles[0] ? profiles[0].attributes.handle : null,
   //       channels: profiles,
