@@ -57,7 +57,7 @@ export default function ProfileMediaKitSocial(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex max-w-[1300px] w-full justify-between items-center">
+      <div className="flex max-w-[1000px] w-full justify-between items-center">
         <div className="flex flex-col w-full">
           <div className="flex w-full">
             <div className="mr-[20px] flex">
@@ -121,7 +121,7 @@ export default function ProfileMediaKitSocial(): JSX.Element {
         />
       </div>
 
-      <div className="flex max-w-[1300px] w-full justify-between items-center">
+      <div className="flex max-w-[1000px] w-full justify-between items-center">
         <div className="flex flex-col">
           <div className="flex mb-[90px]">
             <div onClick={() => openStep(1)} className="mr-[27px] flex">

@@ -19,7 +19,7 @@ export default function ProfileServices({ services }: ProfileServicesProps) {
         />
       </div>
 
-      <div className="flex max-w-[1300px] w-full justify-between items-center">
+      <div className="flex max-w-[1000px] w-full justify-between items-center">
         <div className="flex flex-col justify-between items-start w-full">
           <p className="text-[22px] mb-[20px]">services offered</p>
 

@@ -17,13 +17,13 @@ export default function ProfileAbout(): JSX.Element {
           />
         </div>
 
-        <div className="flex max-w-[1300px] w-full justify-between items-end">
+        <div className="flex max-w-[1000px] w-full justify-between items-end">
           <div className="flex justify-center items-center absolute top-[-30px]">
             <div className="w-[140px] h-[140px] bg-blue mr-[30px] shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]" />
 
             <div className="flex flex-col">
               <p className="text-[34px]">
-                User name{' '}
+                Thiago Machado{' '}
                 <Image
                   src="/images/success-icon.svg"
                   width={22}
@@ -32,7 +32,7 @@ export default function ProfileAbout(): JSX.Element {
                 />
               </p>
 
-              <p className="text-[20px] text-gray6 font-bold">Channel name</p>
+              <p className="text-[20px] text-gray6 font-bold">@thiago0x01</p>
             </div>
           </div>
 

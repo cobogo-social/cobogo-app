@@ -5,7 +5,7 @@ import Button from './Button';
 export default function ProfileStake(): JSX.Element {
   return (
     <div className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
-      <div className="flex max-w-[1300px] w-full justify-between items-center">
+      <div className="flex max-w-[1000px] w-full justify-between items-center">
         <Image
           src="/images/profile-bg.svg"
           objectFit="cover"

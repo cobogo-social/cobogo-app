@@ -36,7 +36,7 @@ export default function ProfileMediaKitAnalytics({
         />
       </div>
 
-      <div className="flex max-w-[1300px] w-full justify-between items-center">
+      <div className="flex max-w-[1000px] w-full justify-between items-center">
         <ProfileMediaKitAnalyticsDistributionsGender
           audienceGenderDistributionMen={audienceGenderDistributionMen}
           audienceGenderDistributionWomen={audienceGenderDistributionWomen}
