@@ -4,7 +4,7 @@ import Button from './Button';
 
 export default function ProfileAbout(): JSX.Element {
   return (
-    <div>
+    <div className="shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
       <div className="w-full h-[308px] bg-gradient-to-t from-blue to-blue/[0.0]" />
 
       <div className="flex w-full px-[150px] py-[70px] relative justify-center items-end bg-black">
