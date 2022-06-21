@@ -29,7 +29,10 @@ export default function ProfileMediaKitSocial(): JSX.Element {
   return singleOpen ? (
     <div className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
       <div className="flex absolute top-[74px] right-[152px]">
-        <div onClick={backStep} className="flex">
+        <div
+          onClick={backStep}
+          className="flex hover:cursor-pointer w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5"
+        >
           <Image
             src="/images/back2-icon.svg"
             width={16}
@@ -38,7 +41,10 @@ export default function ProfileMediaKitSocial(): JSX.Element {
           />
         </div>
 
-        <div onClick={skipStep} className="flex ml-[40px]">
+        <div
+          onClick={skipStep}
+          className="flex ml-[40px] hover:cursor-pointer w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5"
+        >
           <Image
             src="/images/skip-icon.svg"
             width={16}
@@ -47,7 +53,10 @@ export default function ProfileMediaKitSocial(): JSX.Element {
           />
         </div>
 
-        <div onClick={closeStep} className="flex ml-[65px]">
+        <div
+          onClick={closeStep}
+          className="flex ml-[65px] hover:cursor-pointer w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5"
+        >
           <Image
             src="/images/x2-icon.svg"
             width={16}
@@ -72,37 +81,63 @@ export default function ProfileMediaKitSocial(): JSX.Element {
             <div className="flex flex-col">
               <p className="font-bold text-[22px]">YouTube</p>
 
-              <p className="font-bold text-blue">visit channel</p>
+              <p className="font-bold text-blue">
+                visit channel{' '}
+                <Image
+                  src="/images/link-icon.svg"
+                  width={15}
+                  height={15}
+                  alt="link icon"
+                />
+              </p>
             </div>
           </div>
 
-          <div className="flex justify-around items-center w-full">
+          <div className="flex justify-around items-center w-full mt-[70px]">
             <div className="flex flex-col justify-center items-center">
-              <p className="text-[60px] font-bold">3.87M</p>
+              <p className="text-[60px] font-bold leading-[25px] mb-[10px]">
+                3.87M
+              </p>
 
-              <p className="text-[18px] font-bold text-gray6">subscribers</p>
+              <p className="text-[18px] font-bold text-gray6 mb-[60px]">
+                subscribers
+              </p>
 
-              <p className="text-[60px] font-bold">3.87M</p>
+              <p className="text-[60px] font-bold leading-[25px] mb-[10px]">
+                3.87M
+              </p>
 
               <p className="text-[18px] font-bold text-gray6">subscribers</p>
             </div>
 
             <div className="flex flex-col justify-center items-center">
-              <p className="text-[60px] font-bold">3.87M</p>
+              <p className="text-[60px] font-bold leading-[25px] mb-[10px]">
+                3.87M
+              </p>
 
-              <p className="text-[18px] font-bold text-gray6">subscribers</p>
+              <p className="text-[18px] font-bold text-gray6 mb-[60px]">
+                subscribers
+              </p>
 
-              <p className="text-[60px] font-bold">3.87M</p>
+              <p className="text-[60px] font-bold leading-[25px] mb-[10px]">
+                3.87M
+              </p>
 
               <p className="text-[18px] font-bold text-gray6">subscribers</p>
             </div>
 
             <div className="flex flex-col justify-center items-center">
-              <p className="text-[60px] font-bold">3.87M</p>
+              <p className="text-[60px] font-bold leading-[25px] mb-[10px]">
+                3.87M
+              </p>
 
-              <p className="text-[18px] font-bold text-gray6">subscribers</p>
+              <p className="text-[18px] font-bold text-gray6 mb-[60px]">
+                subscribers
+              </p>
 
-              <p className="text-[60px] font-bold">3.87M</p>
+              <p className="text-[60px] font-bold leading-[25px] mb-[10px]">
+                3.87M
+              </p>
 
               <p className="text-[18px] font-bold text-gray6">subscribers</p>
             </div>
@@ -124,7 +159,10 @@ export default function ProfileMediaKitSocial(): JSX.Element {
       <div className="flex max-w-[1000px] w-full justify-between items-center">
         <div className="flex flex-col">
           <div className="flex mb-[90px]">
-            <div onClick={() => openStep(1)} className="mr-[27px] flex">
+            <div
+              onClick={() => openStep(1)}
+              className="mr-[27px] flex hover:cursor-pointer"
+            >
               <Image
                 src="/images/ytb-icon.svg"
                 width={74}
@@ -134,14 +172,27 @@ export default function ProfileMediaKitSocial(): JSX.Element {
             </div>
 
             <div className="flex flex-col">
-              <p className="font-bold text-[45px]">3.87M</p>
-              <p className="font-bold text-gray6">subscribers</p>
-              <p className="font-bold text-blue">visit channel</p>
+              <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                3.87M
+              </p>
+              <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
+              <p className="font-bold text-blue">
+                visit channel{' '}
+                <Image
+                  src="/images/link-icon.svg"
+                  width={15}
+                  height={15}
+                  alt="link icon"
+                />
+              </p>
             </div>
           </div>
 
           <div className="flex">
-            <div onClick={() => openStep(2)} className="mr-[27px] flex">
+            <div
+              onClick={() => openStep(2)}
+              className="mr-[27px] flex hover:cursor-pointer"
+            >
               <Image
                 src="/images/tiktok-icon.svg"
                 width={74}
@@ -151,16 +202,29 @@ export default function ProfileMediaKitSocial(): JSX.Element {
             </div>
 
             <div className="flex flex-col">
-              <p className="font-bold text-[45px]">3.87M</p>
-              <p className="font-bold text-gray6">subscribers</p>
-              <p className="font-bold text-blue">visit channel</p>
+              <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                3.87M
+              </p>
+              <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
+              <p className="font-bold text-blue">
+                visit channel{' '}
+                <Image
+                  src="/images/link-icon.svg"
+                  width={15}
+                  height={15}
+                  alt="link icon"
+                />
+              </p>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col">
           <div className="flex mb-[90px]">
-            <div onClick={() => openStep(3)} className="mr-[27px] flex">
+            <div
+              onClick={() => openStep(3)}
+              className="mr-[27px] flex hover:cursor-pointer"
+            >
               <Image
                 src="/images/instagram-icon.svg"
                 width={74}
@@ -170,14 +234,27 @@ export default function ProfileMediaKitSocial(): JSX.Element {
             </div>
 
             <div className="flex flex-col">
-              <p className="font-bold text-[45px]">3.87M</p>
-              <p className="font-bold text-gray6">subscribers</p>
-              <p className="font-bold text-blue">visit channel</p>
+              <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                3.87M
+              </p>
+              <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
+              <p className="font-bold text-blue">
+                visit channel{' '}
+                <Image
+                  src="/images/link-icon.svg"
+                  width={15}
+                  height={15}
+                  alt="link icon"
+                />
+              </p>
             </div>
           </div>
 
           <div className="flex">
-            <div onClick={() => openStep(4)} className="mr-[27px] flex">
+            <div
+              onClick={() => openStep(4)}
+              className="mr-[27px] flex hover:cursor-pointer"
+            >
               <Image
                 src="/images/twitter-icon.svg"
                 width={74}
@@ -187,16 +264,29 @@ export default function ProfileMediaKitSocial(): JSX.Element {
             </div>
 
             <div className="flex flex-col">
-              <p className="font-bold text-[45px]">3.87M</p>
-              <p className="font-bold text-gray6">subscribers</p>
-              <p className="font-bold text-blue">visit channel</p>
+              <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                3.87M
+              </p>
+              <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
+              <p className="font-bold text-blue">
+                visit channel{' '}
+                <Image
+                  src="/images/link-icon.svg"
+                  width={15}
+                  height={15}
+                  alt="link icon"
+                />
+              </p>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col">
           <div className="flex mb-[90px]">
-            <div onClick={() => openStep(5)} className="mr-[27px] flex">
+            <div
+              onClick={() => openStep(5)}
+              className="mr-[27px] flex hover:cursor-pointer"
+            >
               <Image
                 src="/images/twitch-icon.svg"
                 width={74}
@@ -206,14 +296,27 @@ export default function ProfileMediaKitSocial(): JSX.Element {
             </div>
 
             <div className="flex flex-col">
-              <p className="font-bold text-[45px]">3.87M</p>
-              <p className="font-bold text-gray6">subscribers</p>
-              <p className="font-bold text-blue">visit channel</p>
+              <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                3.87M
+              </p>
+              <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
+              <p className="font-bold text-blue">
+                visit channel{' '}
+                <Image
+                  src="/images/link-icon.svg"
+                  width={15}
+                  height={15}
+                  alt="link icon"
+                />
+              </p>
             </div>
           </div>
 
           <div className="flex">
-            <div onClick={() => openStep(6)} className="mr-[27px] flex">
+            <div
+              onClick={() => openStep(6)}
+              className="mr-[27px] flex hover:cursor-pointer"
+            >
               <Image
                 src="/images/discord-icon.svg"
                 width={74}
@@ -223,9 +326,19 @@ export default function ProfileMediaKitSocial(): JSX.Element {
             </div>
 
             <div className="flex flex-col">
-              <p className="font-bold text-[45px]">3.87M</p>
-              <p className="font-bold text-gray6">subscribers</p>
-              <p className="font-bold text-blue">visit channel</p>
+              <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                3.87M
+              </p>
+              <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
+              <p className="font-bold text-blue">
+                visit channel{' '}
+                <Image
+                  src="/images/link-icon.svg"
+                  width={15}
+                  height={15}
+                  alt="link icon"
+                />
+              </p>
             </div>
           </div>
         </div>
