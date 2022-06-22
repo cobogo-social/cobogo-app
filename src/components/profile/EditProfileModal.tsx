@@ -7,15 +7,15 @@ import { useRouter } from 'next/router';
 import { SetStateAction, useContext, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
-import Button from './Button';
-import CategoriesSelect from './CategoriesSelect';
-import ErrorLabel from './ErrorLabel';
-import Tags from './Tags';
-import TagsInput from './TagsInput';
+import Button from '../Button';
+import CategoriesSelect from '../CategoriesSelect';
+import ErrorLabel from '../ErrorLabel';
+import Tags from '../Tags';
+import TagsInput from '../TagsInput';
 
 interface EditProfileModalProps {
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
+  open: boolean;
+  setOpen: (value: boolean) => void;
   description: string;
   tags: string[];
   handle: string;
@@ -24,15 +24,7 @@ interface EditProfileModalProps {
   categoryName: string;
 }
 
-export default function EditProfileModal({
-  isOpen,
-  setIsOpen,
-  description,
-  tags,
-  handle,
-  categories,
-  categoryName,
-}: EditProfileModalProps) {
+export default function EditProfileModal(props: EditProfileModalProps) {
   const [tagsList, setTagsList] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [handleError, setHandleError] = useState('');
@@ -42,7 +34,7 @@ export default function EditProfileModal({
   const { setMessage } = useContext(MesssageContext);
 
   function closeModal() {
-    setIsOpen(false);
+    props.setOpen(false);
   }
 
   const formik = useFormik({
@@ -92,9 +84,9 @@ export default function EditProfileModal({
 
               push(`/${values.handle}`);
               setLoading(false);
-              setIsOpen(false);
+              props.setOpen(false);
             });
-        } else if (formik.values.handle !== handle) {
+        } else if (formik.values.handle !== props.handle) {
           setLoading(false);
           setHandleError('handle already exists');
         } else {
@@ -117,7 +109,7 @@ export default function EditProfileModal({
 
               push(`/${values.handle}`);
               setLoading(false);
-              setIsOpen(false);
+              props.setOpen(false);
             });
         }
       } catch (error) {
@@ -189,20 +181,20 @@ export default function EditProfileModal({
   }
 
   useEffect(() => {
-    setTagsList(tags);
-  }, [tags]);
+    setTagsList(props.tags);
+  }, [props.tags]);
 
   useEffect(() => {
-    if (isOpen) {
+    if (props.open) {
       document.body.classList.add('active-modal');
     } else {
       document.body.classList.remove('active-modal');
     }
-  }, [isOpen]);
+  }, [props.open]);
 
-  return isOpen ? (
-    <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="relative bg-primary w-full h-full sm:w-[550px] sm:h-[858px] flex flex-col justify-center border-[1px] border-gray10 px-[40px] sm:px-[70px] shadow-[0_0px_4px_10px_rgba(0,0,0,0.4)]">
+  return props.open ? (
+    <div className="w-screen h-screen fixed top-0 right-0 z-10 bg-black/[0.5]">
+      <div className="absolute top-0 right-0 bg-primary w-full h-screen sm:w-[550px] flex flex-col justify-start p-[40px] sm:p-[70px] shadow-[0_0px_4px_10px_rgba(0,0,0,0.4)] overflow-auto">
         <div className="flex flex-col items-start justify-center">
           <div
             onClick={closeModal}
@@ -240,7 +232,7 @@ export default function EditProfileModal({
                 onKeyPress={validateKeyPressedInDescription}
                 value={
                   !formik.values.description
-                    ? description
+                    ? props.description
                     : formik.values.description
                 }
               />
@@ -277,7 +269,9 @@ export default function EditProfileModal({
                   }`}
                   onChange={formik.handleChange}
                   onKeyPress={validateKeyPressedInHandle}
-                  value={!formik.values.handle ? handle : formik.values.handle}
+                  value={
+                    !formik.values.handle ? props.handle : formik.values.handle
+                  }
                 />
               </div>
             </div>
@@ -295,9 +289,9 @@ export default function EditProfileModal({
             <p className="mb-4 text-[22px]">choose a category</p>
 
             <CategoriesSelect
-              categories={categories}
+              categories={props.categories}
               changeCategory={changeCategory}
-              categoryName={categoryName}
+              categoryName={props.categoryName}
             />
 
             <Button

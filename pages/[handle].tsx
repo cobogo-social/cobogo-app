@@ -67,118 +67,71 @@ interface ProfileProps {
   services: any[];
 }
 
-export default function Index({
-  bannerImage,
-  profileImage,
-  title,
-  youtubeSubscribers,
-  description,
-  tags,
-  youtubeId,
-  videos,
-  isOwner,
-  handle,
-  categories,
-  categoryName,
-  youtubeVideos,
-  youtubeViews,
-  youtubeUniqueViewers,
-  youtubeWatchTimeHours,
-  youtubeAvgViewDuration,
-  website,
-  instagramFollowers,
-  instagramImpressions,
-  instagramStoriesAvgViews,
-  instagramPostsAvgLikes,
-  instagramReelsAvgViews,
-  twitchSubscribers,
-  twitchVideos,
-  twitchAvgViewers,
-  twitchPeakViewers,
-  twitchWatchTimeHours,
-  tiktokFollowers,
-  tiktokViews,
-  tiktokLikes,
-  tiktokComments,
-  tiktokShares,
-  discordMembers,
-  telegramMembers,
-  twitterFollowers,
-  instagramHandle,
-  twitchHandle,
-  tiktokHandle,
-  discordHandle,
-  telegramHandle,
-  twitterHandle,
-  audienceGenderDistributionMen,
-  audienceGenderDistributionWomen,
-  audienceGenderDistribution18,
-  audienceGenderDistribution2534,
-  audienceGenderDistribution35,
-  audienceTopCountries1,
-  audienceTopCountries2,
-  audienceTopCountries3,
-  services,
-}: ProfileProps) {
+export default function Index(props: ProfileProps) {
   return (
     <div>
       <TopBar noOnboardedFriends noTokens transparent />
 
       <ProfileAbout
-        bannerImage={bannerImage}
-        profileImage={profileImage}
-        title={title}
-        handle={handle}
-        description={description}
-        tags={tags}
+        bannerImage={props.bannerImage}
+        profileImage={props.profileImage}
+        title={props.title}
+        handle={props.handle}
+        description={props.description}
+        tags={props.tags}
+        isOwner={props.isOwner}
+        categories={props.categories}
+        categoryName={props.categoryName}
       />
 
       <MediaKitSocial
-        youtubeSubscribers={youtubeSubscribers}
-        youtubeId={youtubeId}
-        tiktokFollowers={tiktokFollowers}
-        tiktokHandle={tiktokHandle}
-        instagramFollowers={instagramFollowers}
-        instagramHandle={instagramHandle}
-        twitterFollowers={twitterFollowers}
-        twitterHandle={twitterHandle}
-        twitchSubscribers={twitchSubscribers}
-        twitchHandle={twitchHandle}
-        discordMembers={discordMembers}
-        discordHandle={discordHandle}
-        youtubeVideos={youtubeVideos}
-        youtubeViews={youtubeViews}
-        youtubeUniqueViewers={youtubeUniqueViewers}
-        youtubeWatchTimeHours={youtubeWatchTimeHours}
-        youtubeAvgViewDuration={youtubeAvgViewDuration}
-        tiktokViews={tiktokViews}
-        tiktokLikes={tiktokLikes}
-        tiktokComments={tiktokComments}
-        tiktokShares={tiktokShares}
-        instagramImpressions={instagramImpressions}
-        instagramStoriesAvgViews={instagramStoriesAvgViews}
-        instagramPostsAvgLikes={instagramPostsAvgLikes}
-        instagramReelsAvgViews={instagramReelsAvgViews}
-        twitchVideos={twitchVideos}
-        twitchAvgViewers={twitchAvgViewers}
-        twitchPeakViewers={twitchPeakViewers}
-        twitchWatchTimeHours={twitchWatchTimeHours}
+        youtubeSubscribers={props.youtubeSubscribers}
+        youtubeId={props.youtubeId}
+        tiktokFollowers={props.tiktokFollowers}
+        tiktokHandle={props.tiktokHandle}
+        instagramFollowers={props.instagramFollowers}
+        instagramHandle={props.instagramHandle}
+        twitterFollowers={props.twitterFollowers}
+        twitterHandle={props.twitterHandle}
+        twitchSubscribers={props.twitchSubscribers}
+        twitchHandle={props.twitchHandle}
+        discordMembers={props.discordMembers}
+        discordHandle={props.discordHandle}
+        youtubeVideos={props.youtubeVideos}
+        youtubeViews={props.youtubeViews}
+        youtubeUniqueViewers={props.youtubeUniqueViewers}
+        youtubeWatchTimeHours={props.youtubeWatchTimeHours}
+        youtubeAvgViewDuration={props.youtubeAvgViewDuration}
+        tiktokViews={props.tiktokViews}
+        tiktokLikes={props.tiktokLikes}
+        tiktokComments={props.tiktokComments}
+        tiktokShares={props.tiktokShares}
+        instagramImpressions={props.instagramImpressions}
+        instagramStoriesAvgViews={props.instagramStoriesAvgViews}
+        instagramPostsAvgLikes={props.instagramPostsAvgLikes}
+        instagramReelsAvgViews={props.instagramReelsAvgViews}
+        twitchVideos={props.twitchVideos}
+        twitchAvgViewers={props.twitchAvgViewers}
+        twitchPeakViewers={props.twitchPeakViewers}
+        twitchWatchTimeHours={props.twitchWatchTimeHours}
+        isOwner={props.isOwner}
       />
 
       <ProfileMediaKitAnalytics
-        audienceGenderDistribution18={audienceGenderDistribution18}
-        audienceGenderDistribution2534={audienceGenderDistribution2534}
-        audienceGenderDistribution35={audienceGenderDistribution35}
-        audienceTopCountries1={audienceTopCountries1}
-        audienceTopCountries2={audienceTopCountries2}
-        audienceTopCountries3={audienceTopCountries3}
-        audienceGenderDistributionMen={audienceGenderDistributionMen}
-        audienceGenderDistributionWomen={audienceGenderDistributionWomen}
+        audienceGenderDistribution18={props.audienceGenderDistribution18}
+        audienceGenderDistribution2534={props.audienceGenderDistribution2534}
+        audienceGenderDistribution35={props.audienceGenderDistribution35}
+        audienceTopCountries1={props.audienceTopCountries1}
+        audienceTopCountries2={props.audienceTopCountries2}
+        audienceTopCountries3={props.audienceTopCountries3}
+        audienceGenderDistributionMen={props.audienceGenderDistributionMen}
+        audienceGenderDistributionWomen={props.audienceGenderDistributionWomen}
+        isOwner={props.isOwner}
       />
 
-      <ProfileServices services={services} />
+      <ProfileServices services={props.services} isOwner={props.isOwner} />
 
-      <ProfileVideos title={title} videos={videos} />
+      <ProfileVideos title={props.title} videos={props.videos} />
 
       <ProfileStake />
     </div>
@@ -219,8 +172,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         youtubeId: profile.attributes.youtube_id,
         videos,
         isOwner: session?.user
-          ? session.user['id'] ===
-            profile.attributes.accounts.data[0].attributes.youtube_account_id
+          ? session.user['id'] === profile.attributes.accounts.data[0].id
           : false,
         handle: profile.attributes.handle,
         categories,

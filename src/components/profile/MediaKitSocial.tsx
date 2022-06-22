@@ -36,6 +36,7 @@ interface MediaKitSocialProps {
   twitchAvgViewers: number;
   twitchPeakViewers: number;
   twitchWatchTimeHours: number;
+  isOwner: boolean;
 }
 
 export default function MediaKitSocial({
@@ -68,6 +69,7 @@ export default function MediaKitSocial({
   twitchAvgViewers,
   twitchPeakViewers,
   twitchWatchTimeHours,
+  isOwner,
 }: MediaKitSocialProps): JSX.Element {
   const [singleOpen, setSingleOpen] = useState<boolean>(false);
   const [step, setStep] = useState<number>(1);
@@ -152,14 +154,16 @@ export default function MediaKitSocial({
     </>
   ) : (
     <div className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
-      <div className="flex hover:cursor-pointer absolute top-[30px] left-[30px]">
-        <Image
-          src="/images/edit-icon.svg"
-          width={30}
-          height={28}
-          alt="edit icon"
-        />
-      </div>
+      {isOwner && (
+        <div className="flex hover:cursor-pointer absolute top-[30px] left-[30px]">
+          <Image
+            src="/images/edit-icon.svg"
+            width={30}
+            height={28}
+            alt="edit icon"
+          />
+        </div>
+      )}
 
       <div className="flex max-w-[1000px] w-full justify-between items-center">
         <div className="flex flex-col">
