@@ -1,8 +1,12 @@
+import CopyIcon from '@components/icons/CopyIcon';
+import EditIcon from '@components/icons/EditIcon';
 import Image from 'next/image';
 import { useState } from 'react';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 import Button from '../Button';
 import EditAboutModal from './EditAboutModal';
+import ProfileImage from './ProfileImage';
 import VideoImage from './VideoImage';
 
 interface AboutProps {
@@ -39,7 +43,7 @@ export default function About(props: AboutProps): JSX.Element {
         categoryName={props.categoryName}
       />
 
-      <div className="shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
+      <section className="shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
         <div className="w-full h-[308px] bg-gradient-to-t from-blue to-blue/[0.0] relative">
           {props.bannerImage && (
             <Image
@@ -57,36 +61,26 @@ export default function About(props: AboutProps): JSX.Element {
               onClick={openEditAboutModal}
               className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
             >
-              <Image
-                src="/images/edit-icon.svg"
-                width={30}
-                height={28}
-                alt="edit icon"
-              />
+              <EditIcon size={30} />
             </div>
           )}
 
           <div className="flex max-w-[1000px] w-full justify-between items-end">
             <div className="flex justify-center items-center absolute top-[-30px]">
-              <div className="w-[140px] h-[140px] bg-blue mr-[30px] shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)] relative">
-                {props.profileImage && (
-                  <Image
-                    src={props.profileImage}
-                    objectFit="cover"
-                    layout="fill"
-                    alt="profile image"
-                  />
-                )}
-              </div>
+              <ProfileImage src={props.profileImage} />
 
               <div className="flex flex-col">
                 <p className="text-[34px] flex items-center gap-[10px]">
                   {props.title}
-                  {/* <CheckmarkIcon /> */}
+                  {/* <CheckmarkIcon size={22} /> */}
                 </p>
 
-                <p className="text-[20px] text-gray6 font-bold">
-                  @{props.handle}
+                <p className="text-[20px] text-gray6 font-bold gap-[10px] flex items-center">
+                  @{props.handle}{' '}
+                  <CopyIcon
+                    size={18}
+                    textToCopy={`https://app.cobogo.social/${props.handle}`}
+                  />
                 </p>
               </div>
             </div>
@@ -94,16 +88,18 @@ export default function About(props: AboutProps): JSX.Element {
             <div>
               <p className="text-[22px]">about</p>
 
-              <p className="w-[464px] mb-[30px]">{props.description}</p>
+              <p className="w-[464px]">{props.description}</p>
 
               {props.website && (
-                <Button
-                  text="website"
-                  borderColor="border-gray4"
-                  borderSize="border-[1px]"
-                  textColor="text-blue"
-                  icon="/images/link-icon.svg"
-                />
+                <div className="mt-[30px]">
+                  <Button
+                    text="website"
+                    borderColor="border-gray4"
+                    borderSize="border-[1px]"
+                    textColor="text-blue"
+                    icon="/images/link-icon.svg"
+                  />
+                </div>
               )}
             </div>
 
@@ -130,7 +126,7 @@ export default function About(props: AboutProps): JSX.Element {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

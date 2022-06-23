@@ -1,10 +1,13 @@
 interface CopyIconProps {
   size: number;
+  textToCopy: string;
 }
 
 export default function CopyIcon(props: CopyIconProps): JSX.Element {
   return (
     <svg
+      onClick={() => navigator.clipboard.writeText(props.textToCopy)}
+      className="hover:cursor-pointer"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       width={props.size}
