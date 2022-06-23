@@ -153,69 +153,33 @@ export default function MediaKitSocial(
         )}
 
         <div className="flex max-w-[1000px] w-full justify-between items-center">
-          <div className="flex flex-col">
-            <div className="flex mb-[90px]">
-              <div
-                onClick={() => openStep(1)}
-                className="mr-[27px] flex hover:cursor-pointer"
-              >
-                <Image
-                  src="/images/ytb-icon.svg"
-                  width={74}
-                  height={42}
-                  alt="youtube icon"
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                  {props.youtubeSubscribers}
-                </p>
-                <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
-                <a
-                  target="_blank"
-                  href={`https://youtube.com/channel/${props.youtubeId}`}
-                  className="font-bold text-blue"
-                  rel="noreferrer"
+          <div className="flex flex-col justify-between">
+            {props.youtubeSubscribers ? (
+              <div className="flex">
+                <div
+                  onClick={() => openStep(1)}
+                  className="mr-[27px] flex hover:cursor-pointer"
                 >
-                  visit channel{' '}
                   <Image
-                    src="/images/link-icon.svg"
-                    width={15}
-                    height={15}
-                    alt="link icon"
+                    src="/images/ytb-icon.svg"
+                    width={74}
+                    height={42}
+                    alt="youtube icon"
                   />
-                </a>
-              </div>
-            </div>
+                </div>
 
-            <div className="flex">
-              <div
-                onClick={() => openStep(2)}
-                className="mr-[27px] flex hover:cursor-pointer"
-              >
-                <Image
-                  src="/images/tiktok-icon.svg"
-                  width={74}
-                  height={56}
-                  alt="tiktok icon"
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                  {props.tiktokFollowers}
-                </p>
-                <p className="font-bold text-gray6 mb-[20px]">followers</p>
-
-                {props.tiktokHandle && (
+                <div className="flex flex-col">
+                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                    {props.youtubeSubscribers}
+                  </p>
+                  <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
                   <a
                     target="_blank"
-                    href={`https://tiktok.com/@${props.tiktokHandle}`}
+                    href={`https://youtube.com/channel/${props.youtubeId}`}
                     className="font-bold text-blue"
                     rel="noreferrer"
                   >
-                    @{props.tiktokHandle}{' '}
+                    visit channel{' '}
                     <Image
                       src="/images/link-icon.svg"
                       width={15}
@@ -223,159 +187,207 @@ export default function MediaKitSocial(
                       alt="link icon"
                     />
                   </a>
-                )}
+                </div>
               </div>
-            </div>
+            ) : null}
+
+            {props.tiktokFollowers ? (
+              <div className="flex">
+                <div
+                  onClick={() => openStep(2)}
+                  className="mr-[27px] flex hover:cursor-pointer"
+                >
+                  <Image
+                    src="/images/tiktok-icon.svg"
+                    width={74}
+                    height={56}
+                    alt="tiktok icon"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                    {props.tiktokFollowers}
+                  </p>
+                  <p className="font-bold text-gray6 mb-[20px]">followers</p>
+
+                  {props.tiktokHandle && (
+                    <a
+                      target="_blank"
+                      href={`https://tiktok.com/@${props.tiktokHandle}`}
+                      className="font-bold text-blue"
+                      rel="noreferrer"
+                    >
+                      @{props.tiktokHandle}{' '}
+                      <Image
+                        src="/images/link-icon.svg"
+                        width={15}
+                        height={15}
+                        alt="link icon"
+                      />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ) : null}
           </div>
 
           <div className="flex flex-col">
-            <div className="flex mb-[90px]">
-              <div
-                onClick={() => openStep(3)}
-                className="mr-[27px] flex hover:cursor-pointer"
-              >
-                <Image
-                  src="/images/instagram-icon.svg"
-                  width={74}
-                  height={56}
-                  alt="instagram icon"
-                />
+            {props.instagramFollowers ? (
+              <div className="flex mb-[90px]">
+                <div
+                  onClick={() => openStep(3)}
+                  className="mr-[27px] flex hover:cursor-pointer"
+                >
+                  <Image
+                    src="/images/instagram-icon.svg"
+                    width={74}
+                    height={56}
+                    alt="instagram icon"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                    {props.instagramFollowers}
+                  </p>
+                  <p className="font-bold text-gray6 mb-[20px]">followers</p>
+
+                  {props.instagramHandle && (
+                    <a
+                      target="_blank"
+                      href={`https://instagram.com/${props.instagramHandle}`}
+                      className="font-bold text-blue"
+                      rel="noreferrer"
+                    >
+                      @{props.instagramHandle}{' '}
+                      <Image
+                        src="/images/link-icon.svg"
+                        width={15}
+                        height={15}
+                        alt="link icon"
+                      />
+                    </a>
+                  )}
+                </div>
               </div>
+            ) : null}
 
-              <div className="flex flex-col">
-                <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                  {props.instagramFollowers}
-                </p>
-                <p className="font-bold text-gray6 mb-[20px]">followers</p>
+            {props.twitterFollowers ? (
+              <div className="flex">
+                <div className="mr-[27px] flex">
+                  <Image
+                    src="/images/twitter-icon.svg"
+                    width={74}
+                    height={74}
+                    alt="twitter icon"
+                  />
+                </div>
 
-                {props.instagramHandle && (
-                  <a
-                    target="_blank"
-                    href={`https://instagram.com/${props.instagramHandle}`}
-                    className="font-bold text-blue"
-                    rel="noreferrer"
-                  >
-                    @{props.instagramHandle}{' '}
-                    <Image
-                      src="/images/link-icon.svg"
-                      width={15}
-                      height={15}
-                      alt="link icon"
-                    />
-                  </a>
-                )}
+                <div className="flex flex-col">
+                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                    {props.twitterFollowers}
+                  </p>
+                  <p className="font-bold text-gray6 mb-[20px]">followers</p>
+
+                  {props.twitterHandle && (
+                    <a
+                      target="_blank"
+                      href={`https://twitter.com/${props.twitterHandle}`}
+                      className="font-bold text-blue"
+                      rel="noreferrer"
+                    >
+                      @{props.twitterHandle}{' '}
+                      <Image
+                        src="/images/link-icon.svg"
+                        width={15}
+                        height={15}
+                        alt="link icon"
+                      />
+                    </a>
+                  )}
+                </div>
               </div>
-            </div>
-
-            <div className="flex">
-              <div className="mr-[27px] flex">
-                <Image
-                  src="/images/twitter-icon.svg"
-                  width={74}
-                  height={74}
-                  alt="twitter icon"
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                  {props.twitterFollowers}
-                </p>
-                <p className="font-bold text-gray6 mb-[20px]">followers</p>
-
-                {props.twitterHandle && (
-                  <a
-                    target="_blank"
-                    href={`https://twitter.com/${props.twitterHandle}`}
-                    className="font-bold text-blue"
-                    rel="noreferrer"
-                  >
-                    @{props.twitterHandle}{' '}
-                    <Image
-                      src="/images/link-icon.svg"
-                      width={15}
-                      height={15}
-                      alt="link icon"
-                    />
-                  </a>
-                )}
-              </div>
-            </div>
+            ) : null}
           </div>
 
           <div className="flex flex-col">
-            <div className="flex mb-[90px]">
-              <div
-                onClick={() => openStep(4)}
-                className="mr-[27px] flex hover:cursor-pointer"
-              >
-                <Image
-                  src="/images/twitch-icon.svg"
-                  width={74}
-                  height={58}
-                  alt="twitch icon"
-                />
+            {props.twitchSubscribers ? (
+              <div className="flex mb-[90px]">
+                <div
+                  onClick={() => openStep(4)}
+                  className="mr-[27px] flex hover:cursor-pointer"
+                >
+                  <Image
+                    src="/images/twitch-icon.svg"
+                    width={74}
+                    height={58}
+                    alt="twitch icon"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                    {props.twitchSubscribers}
+                  </p>
+                  <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
+
+                  {props.twitchHandle && (
+                    <a
+                      target="_blank"
+                      href={`https://twitch.tv/${props.twitchHandle}`}
+                      className="font-bold text-blue"
+                      rel="noreferrer"
+                    >
+                      /{props.twitchHandle}{' '}
+                      <Image
+                        src="/images/link-icon.svg"
+                        width={15}
+                        height={15}
+                        alt="link icon"
+                      />
+                    </a>
+                  )}
+                </div>
               </div>
+            ) : null}
 
-              <div className="flex flex-col">
-                <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                  {props.twitchSubscribers}
-                </p>
-                <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
+            {props.discordMembers ? (
+              <div className="flex">
+                <div className="mr-[27px] flex">
+                  <Image
+                    src="/images/discord-icon.svg"
+                    width={74}
+                    height={65}
+                    alt="discord icon"
+                  />
+                </div>
 
-                {props.twitchHandle && (
-                  <a
-                    target="_blank"
-                    href={`https://twitch.tv/${props.twitchHandle}`}
-                    className="font-bold text-blue"
-                    rel="noreferrer"
-                  >
-                    /{props.twitchHandle}{' '}
-                    <Image
-                      src="/images/link-icon.svg"
-                      width={15}
-                      height={15}
-                      alt="link icon"
-                    />
-                  </a>
-                )}
+                <div className="flex flex-col">
+                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
+                    {props.discordMembers}
+                  </p>
+                  <p className="font-bold text-gray6 mb-[20px]">members</p>
+
+                  {props.discordHandle && (
+                    <a
+                      target="_blank"
+                      href={`https://discord.gg/${props.discordHandle}`}
+                      className="font-bold text-blue"
+                      rel="noreferrer"
+                    >
+                      join my Discord{' '}
+                      <Image
+                        src="/images/link-icon.svg"
+                        width={15}
+                        height={15}
+                        alt="link icon"
+                      />
+                    </a>
+                  )}
+                </div>
               </div>
-            </div>
-
-            <div className="flex">
-              <div className="mr-[27px] flex">
-                <Image
-                  src="/images/discord-icon.svg"
-                  width={74}
-                  height={65}
-                  alt="discord icon"
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                  {props.discordMembers}
-                </p>
-                <p className="font-bold text-gray6 mb-[20px]">members</p>
-
-                {props.discordHandle && (
-                  <a
-                    target="_blank"
-                    href={`https://discord.gg/${props.discordHandle}`}
-                    className="font-bold text-blue"
-                    rel="noreferrer"
-                  >
-                    join my Discord{' '}
-                    <Image
-                      src="/images/link-icon.svg"
-                      width={15}
-                      height={15}
-                      alt="link icon"
-                    />
-                  </a>
-                )}
-              </div>
-            </div>
+            ) : null}
           </div>
         </div>
       </div>

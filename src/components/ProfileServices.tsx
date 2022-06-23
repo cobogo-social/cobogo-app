@@ -12,7 +12,7 @@ export default function ProfileServices({
   services,
   isOwner,
 }: ProfileServicesProps) {
-  return (
+  return services.length ? (
     <div className="w-full hidden sm:flex flex-col items-center justify-start relative bg-gray7 py-[70px] px-[150px]">
       {isOwner && (
         <div className="flex hover:cursor-pointer absolute top-[30px] left-[30px]">
@@ -41,5 +41,5 @@ export default function ProfileServices({
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }

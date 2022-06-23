@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import Button from './Button';
-import EditAboutModal from './profile/EditAboutModal';
+import Button from '../Button';
+import EditAboutModal from './EditAboutModal';
+import VideoImage from './VideoImage';
 
-interface ProfileAboutProps {
+interface AboutProps {
   bannerImage: string;
   profileImage: string;
   title: string;
@@ -15,9 +16,10 @@ interface ProfileAboutProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories: any[];
   categoryName: string;
+  website: string;
 }
 
-export default function ProfileAbout(props: ProfileAboutProps): JSX.Element {
+export default function About(props: AboutProps): JSX.Element {
   const [editAboutModalIsOpen, setEditAboutModalIsOpen] =
     useState<boolean>(false);
 
@@ -78,14 +80,9 @@ export default function ProfileAbout(props: ProfileAboutProps): JSX.Element {
               </div>
 
               <div className="flex flex-col">
-                <p className="text-[34px]">
-                  {props.title}{' '}
-                  <Image
-                    src="/images/success-icon.svg"
-                    width={22}
-                    height={22}
-                    alt="success icon"
-                  />
+                <p className="text-[34px] flex items-center gap-[10px]">
+                  {props.title}
+                  {/* <CheckmarkIcon /> */}
                 </p>
 
                 <p className="text-[20px] text-gray6 font-bold">
@@ -99,17 +96,19 @@ export default function ProfileAbout(props: ProfileAboutProps): JSX.Element {
 
               <p className="w-[464px] mb-[30px]">{props.description}</p>
 
-              <Button
-                text="website"
-                borderColor="border-gray4"
-                borderSize="border-[1px]"
-                textColor="text-blue"
-                icon="/images/link-icon.svg"
-              />
+              {props.website && (
+                <Button
+                  text="website"
+                  borderColor="border-gray4"
+                  borderSize="border-[1px]"
+                  textColor="text-blue"
+                  icon="/images/link-icon.svg"
+                />
+              )}
             </div>
 
             <div>
-              <div className="mb-[45px] w-[480px] h-[268px] bg-blue" />
+              <VideoImage />
 
               <div className="flex justify-around items-center">
                 {props.tags.map((tag, index) => {

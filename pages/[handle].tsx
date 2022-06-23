@@ -1,5 +1,5 @@
+import About from '@components/profile/About';
 import MediaKitSocial from '@components/profile/MediaKitSocial';
-import ProfileAbout from '@components/ProfileAbout';
 import ProfileMediaKitAnalytics from '@components/ProfileMediaKitAnalytics';
 import ProfileServices from '@components/ProfileServices';
 import ProfileStake from '@components/ProfileStake';
@@ -72,7 +72,7 @@ export default function Index(props: ProfileProps) {
     <div>
       <TopBar noOnboardedFriends noTokens transparent />
 
-      <ProfileAbout
+      <About
         bannerImage={props.bannerImage}
         profileImage={props.profileImage}
         title={props.title}
@@ -82,6 +82,7 @@ export default function Index(props: ProfileProps) {
         isOwner={props.isOwner}
         categories={props.categories}
         categoryName={props.categoryName}
+        website={props.website}
       />
 
       <MediaKitSocial
