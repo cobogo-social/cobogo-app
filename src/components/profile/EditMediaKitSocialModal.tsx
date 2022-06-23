@@ -1,21 +1,21 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-import Button from './Button';
+import Button from '../Button';
 
 interface EditMediaKitSocialModalProps {
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
+  open: boolean;
+  setOpen: (value: boolean) => void;
 }
 
 export default function EditMediaKitSocialModal({
-  isOpen,
-  setIsOpen,
+  open,
+  setOpen,
 }: EditMediaKitSocialModalProps) {
   const [sectionIsOpen, setSectionIsOpen] = useState('');
 
   function closeModal() {
-    setIsOpen(false);
+    setOpen(false);
   }
 
   function request(event: { key: string }) {
@@ -33,16 +33,16 @@ export default function EditMediaKitSocialModal({
   }
 
   useEffect(() => {
-    if (isOpen) {
+    if (open) {
       document.body.classList.add('active-modal');
     } else {
       document.body.classList.remove('active-modal');
     }
-  }, [isOpen]);
+  }, [open]);
 
-  return isOpen ? (
-    <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="relative bg-primary w-full sm:w-[598px] h-full sm:h-auto flex flex-col border-[1px] border-gray10 p-[40px] sm:p-[70px] shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
+  return open ? (
+    <div className="w-screen h-screen fixed top-0 right-0 z-10 bg-black/[0.5]">
+      <div className="absolute top-0 right-0 bg-primary w-full h-screen sm:w-[550px] flex flex-col justify-start p-[40px] sm:p-[70px] shadow-[0_0px_4px_10px_rgba(0,0,0,0.4)] overflow-auto">
         <div className="flex flex-col items-start justify-center">
           <div
             onClick={closeModal}

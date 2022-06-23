@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import Button from './Button';
-import EditProfileModal from './profile/EditProfileModal';
+import EditAboutModal from './profile/EditAboutModal';
 
 interface ProfileAboutProps {
   bannerImage: string;
@@ -18,18 +18,18 @@ interface ProfileAboutProps {
 }
 
 export default function ProfileAbout(props: ProfileAboutProps): JSX.Element {
-  const [editProfileModalIsOpen, setEditProfileModalIsOpen] =
+  const [editAboutModalIsOpen, setEditAboutModalIsOpen] =
     useState<boolean>(false);
 
-  function openEditProfileModal() {
-    setEditProfileModalIsOpen(true);
+  function openEditAboutModal() {
+    setEditAboutModalIsOpen(true);
   }
 
   return (
     <>
-      <EditProfileModal
-        open={editProfileModalIsOpen}
-        setOpen={setEditProfileModalIsOpen}
+      <EditAboutModal
+        open={editAboutModalIsOpen}
+        setOpen={setEditAboutModalIsOpen}
         description={props.description}
         tags={props.tags}
         handle={props.handle}
@@ -52,7 +52,7 @@ export default function ProfileAbout(props: ProfileAboutProps): JSX.Element {
         <div className="flex w-full px-[150px] py-[70px] relative justify-center items-end bg-black">
           {props.isOwner && (
             <div
-              onClick={openEditProfileModal}
+              onClick={openEditAboutModal}
               className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
             >
               <Image
