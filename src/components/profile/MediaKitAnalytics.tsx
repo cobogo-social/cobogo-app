@@ -1,8 +1,9 @@
+import AgeIcon from '@components/icons/AgeIcon';
+import GenderIcon from '@components/icons/GenderIcon';
+import LocationIcon from '@components/icons/Location';
 import Image from 'next/image';
 
-import MediaKitAnalyticsDistributionsAge from './MediaKitAnalyticsDistributionsAge';
-import MediaKitAnalyticsDistributionsCountry from './MediaKitAnalyticsDistributionsCountry';
-import MediaKitAnalyticsDistributionsGender from './MediaKitAnalyticsDistributionsGender';
+import Distribution from './Distribution';
 
 interface MediaKitAnalyticsProps {
   audienceGenderDistributionMen: number;
@@ -41,21 +42,35 @@ export default function MediaKitAnalytics({
       )}
 
       <div className="flex max-w-[1000px] w-full justify-between items-center">
-        <MediaKitAnalyticsDistributionsGender
-          audienceGenderDistributionMen={audienceGenderDistributionMen}
-          audienceGenderDistributionWomen={audienceGenderDistributionWomen}
+        <Distribution
+          percent1={audienceGenderDistributionMen}
+          percent2={audienceGenderDistributionWomen}
+          placeholder1="men"
+          placeholder2="women"
+          title="gender distribution"
+          icon={<GenderIcon size={45} />}
         />
 
-        <MediaKitAnalyticsDistributionsAge
-          audienceGenderDistribution18={audienceGenderDistribution18}
-          audienceGenderDistribution2534={audienceGenderDistribution2534}
-          audienceGenderDistribution35={audienceGenderDistribution35}
+        <Distribution
+          percent1={audienceGenderDistribution18}
+          percent2={audienceGenderDistribution2534}
+          percent3={audienceGenderDistribution35}
+          placeholder1="-18"
+          placeholder2="18-34"
+          placeholder3="+35"
+          title="age distribution"
+          icon={<AgeIcon />}
         />
 
-        <MediaKitAnalyticsDistributionsCountry
-          audienceTopCountries1={audienceTopCountries1}
-          audienceTopCountries2={audienceTopCountries2}
-          audienceTopCountries3={audienceTopCountries3}
+        <Distribution
+          percent1={audienceTopCountries1}
+          percent2={audienceTopCountries2}
+          percent3={audienceTopCountries3}
+          placeholder1="US"
+          placeholder2="BR"
+          placeholder3="UK"
+          title="top countries"
+          icon={<LocationIcon size={22} />}
         />
       </div>
     </div>

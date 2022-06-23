@@ -90,7 +90,12 @@ export default function About(props: AboutProps): JSX.Element {
               <p className="w-[464px]">{props.description}</p>
 
               {props.website && (
-                <div className="mt-[30px]">
+                <a
+                  target="_blank"
+                  href={props.website}
+                  className="flex mt-[30px]"
+                  rel="noreferrer"
+                >
                   <Button
                     text="website"
                     borderColor="border-gray4"
@@ -98,7 +103,7 @@ export default function About(props: AboutProps): JSX.Element {
                     textColor="text-blue"
                     icon="/images/link-icon.svg"
                   />
-                </div>
+                </a>
               )}
             </div>
 

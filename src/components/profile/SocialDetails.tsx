@@ -39,7 +39,7 @@ export default function SocialDetails(props: SocialDetailsProps): JSX.Element {
       <div className="flex absolute top-[74px] right-[152px]">
         <div
           onClick={props.step !== 1 ? props.backStep : null}
-          className="flex w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5"
+          className="flex w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5 hover:cursor-pointer"
         >
           <BackIcon size={10} disabled={props.step === 1} />
         </div>
