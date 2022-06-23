@@ -1,9 +1,9 @@
 import About from '@components/profile/About';
 import MediaKitSocial from '@components/profile/MediaKitSocial';
-import ProfileMediaKitAnalytics from '@components/ProfileMediaKitAnalytics';
-import ProfileServices from '@components/ProfileServices';
-import ProfileStake from '@components/ProfileStake';
-import ProfileVideos from '@components/ProfileVideos';
+import MediaKitAnalytics from '@components/profile/MediaKitAnalytics';
+import Services from '@components/profile/Services';
+import Stake from '@components/profile/Stake';
+import Videos from '@components/profile/Videos';
 import TopBar from '@components/TopBar';
 import { readCategories, readProfileByHandle } from '@services/cobogoApi';
 import { readVideosByChannelId } from '@services/youtubeApi';
@@ -118,7 +118,7 @@ export default function Index(props: ProfileProps) {
         isOwner={props.isOwner}
       />
 
-      <ProfileMediaKitAnalytics
+      <MediaKitAnalytics
         audienceGenderDistribution18={props.audienceGenderDistribution18}
         audienceGenderDistribution2534={props.audienceGenderDistribution2534}
         audienceGenderDistribution35={props.audienceGenderDistribution35}
@@ -130,11 +130,11 @@ export default function Index(props: ProfileProps) {
         isOwner={props.isOwner}
       />
 
-      <ProfileServices services={props.services} isOwner={props.isOwner} />
+      <Services services={props.services} isOwner={props.isOwner} />
 
-      <ProfileVideos title={props.title} videos={props.videos} />
+      <Videos title={props.title} videos={props.videos} />
 
-      <ProfileStake />
+      <Stake />
     </div>
   );
 }

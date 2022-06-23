@@ -2,7 +2,6 @@ import CopyIcon from '@components/icons/CopyIcon';
 import EditIcon from '@components/icons/EditIcon';
 import Image from 'next/image';
 import { useState } from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
 
 import Button from '../Button';
 import EditAboutModal from './EditAboutModal';

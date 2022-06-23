@@ -1,16 +1,16 @@
 import Image from 'next/image';
 
-interface ProfileMediaKitAnalyticsDistributionsCountryProps {
+interface MediaKitAnalyticsDistributionsCountryProps {
   audienceTopCountries1: number;
   audienceTopCountries2: number;
   audienceTopCountries3: number;
 }
 
-export default function ProfileMediaKitAnalyticsDistributionsCountry({
+export default function MediaKitAnalyticsDistributionsCountry({
   audienceTopCountries1,
   audienceTopCountries2,
   audienceTopCountries3,
-}: ProfileMediaKitAnalyticsDistributionsCountryProps) {
+}: MediaKitAnalyticsDistributionsCountryProps) {
   return (
     <div className="relative">
       <div className="h-full absolute flex justify-center items-center left-[-10px]">

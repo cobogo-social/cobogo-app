@@ -1,14 +1,14 @@
 import Image from 'next/image';
 
-interface ProfileMediaKitAnalyticsDistributionsGenderProps {
+interface MediaKitAnalyticsDistributionsGenderProps {
   audienceGenderDistributionMen: number;
   audienceGenderDistributionWomen: number;
 }
 
-export default function ProfileMediaKitAnalyticsDistributionsGender({
+export default function MediaKitAnalyticsDistributionsGender({
   audienceGenderDistributionMen,
   audienceGenderDistributionWomen,
-}: ProfileMediaKitAnalyticsDistributionsGenderProps) {
+}: MediaKitAnalyticsDistributionsGenderProps) {
   return (
     <div className="relative">
       <div className="h-full absolute flex justify-center items-center left-[-20px]">

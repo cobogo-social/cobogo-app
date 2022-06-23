@@ -1,11 +1,10 @@
-import '@uniswap/widgets/fonts.css';
-
 import Image from 'next/image';
 
-import Button from './Button';
-import UniSwapWidget from './UniSwapWidget';
+import Button from '../Button';
+import StakeCBGAmountInput from '../StakeCBGAmountInput';
+import StakeERC721Input from '../StakeERC721Input';
 
-interface StakeStepThreeModalProps {
+interface StakeStepFourModalProps {
   setIsOpen: (value: boolean) => void;
   setStep: (value: number) => void;
   title: string;
@@ -13,25 +12,25 @@ interface StakeStepThreeModalProps {
   bannerImage: string;
 }
 
-export default function StakeStepThreeModal({
+export default function StakeStepFourModal({
   setIsOpen,
   setStep,
   title,
   description,
   bannerImage,
-}: StakeStepThreeModalProps) {
+}: StakeStepFourModalProps) {
   function closeModal() {
     setIsOpen(false);
     setStep(1);
   }
 
   function nextStep() {
-    setStep(4);
+    setStep(5);
   }
 
   return (
-    <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[680px] flex justify-between border-[1px] border-gray10 pl-[50px] pr-[50px] sm:pr-0 shadow-[0_0px_4px_10px_rgba(0,0,0,0.4)]">
-      <div className="flex flex-col items-start justify-start py-[96px] sm:py-[46px]">
+    <div className="relative bg-primary w-full sm:w-[858px] h-full sm:h-[412px] flex justify-between border-[1px] border-gray10 pl-[50px] pr-[50px] sm:pr-0 shadow-[0_0px_4px_10px_rgba(0,0,0,0.4)]">
+      <div className="flex flex-col items-start justify-start py-[96px] sm:py-[57px]">
         <div
           onClick={closeModal}
           className="absolute right-0 mt-[20px] mr-[20px] hover:cursor-pointer top-10 sm:top-0"
@@ -69,14 +68,30 @@ export default function StakeStepThreeModal({
         </div>
 
         <p className="text-white text-[22px] max-w-[438px] mb-[30px]">
-          ooops, it seems that you don't have CBG in your wallet. Swap now!
+          type an amount and submit.
         </p>
 
-        <UniSwapWidget />
+        <div className="flex flex-col sm:flex-row mb-[20px]">
+          <div className="mb-[12px] sm:mr-[20px]">
+            <p className="font-bold mb-[10px]">CBG (ERC-721)</p>
 
-        <div className="mt-[30px]">
-          <Button text="next step" color="bg-blue" onClick={nextStep} />
+            <StakeERC721Input />
+          </div>
+
+          <div>
+            <p className="font-bold mb-[10px]">amount</p>
+
+            <StakeCBGAmountInput />
+          </div>
         </div>
+
+        <Button
+          text="approve"
+          color="bg-blue"
+          width="w-[103px]"
+          height="h-[38px]"
+          onClick={nextStep}
+        />
       </div>
 
       <div className="h-full bg-black w-[300px] border-l-[1px] border-gray10 hidden sm:block">

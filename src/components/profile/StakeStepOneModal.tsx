@@ -2,7 +2,7 @@ import { WalletContext } from '@contexts/WalletContext';
 import Image from 'next/image';
 import { useContext } from 'react';
 
-import Button from './Button';
+import Button from '../Button';
 
 interface StakeStepOneModalProps {
   setIsOpen: (value: boolean) => void;

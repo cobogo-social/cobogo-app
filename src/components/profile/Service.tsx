@@ -1,17 +1,14 @@
 import { useState } from 'react';
 
-import Button from './Button';
+import Button from '../Button';
 import ServiceModal from './ServiceModal';
 
-interface ProfileServiceProps {
+interface ServiceProps {
   name: string;
   description: string;
 }
 
-export default function ProfileService({
-  name,
-  description,
-}: ProfileServiceProps) {
+export default function Service({ name, description }: ServiceProps) {
   const [serviceModalIsOpen, setServiceModalIsOpen] = useState(false);
 
   function openServiceModal() {

@@ -1,12 +1,12 @@
-import ProfileVideo from './ProfileVideo';
+import Video from './Video';
 
-interface ProfileVideosProps {
+interface VideosProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   videos: any[];
   title: string;
 }
 
-export default function ProfileVideos({ videos, title }: ProfileVideosProps) {
+export default function Videos({ videos, title }: VideosProps) {
   return (
     <div className="hidden sm:flex w-full px-[150px] py-[70px] bg-black justify-center items-center">
       <div className="flex-col w-full max-w-[1000px]">
@@ -16,7 +16,7 @@ export default function ProfileVideos({ videos, title }: ProfileVideosProps) {
 
         <div className="flex">
           {videos.map((video) => (
-            <ProfileVideo
+            <Video
               key={video.id.videoId}
               title={video.snippet.title}
               videoId={video.id.videoId}

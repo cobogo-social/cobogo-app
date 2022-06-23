@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-import Button from './Button';
-import RangeSlider from './RangeSlider';
+import Button from '../Button';
+import RangeSlider from '../RangeSlider';
 
 interface EditMediaKitAnalyticsModalProps {
   isOpen: boolean;

@@ -1,17 +1,14 @@
 import Image from 'next/image';
 
-import ProfileService from './ProfileService';
+import Service from './Service';
 
-interface ProfileServicesProps {
+interface ServicesProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   services: any[];
   isOwner: boolean;
 }
 
-export default function ProfileServices({
-  services,
-  isOwner,
-}: ProfileServicesProps) {
+export default function Services({ services, isOwner }: ServicesProps) {
   return services.length ? (
     <div className="w-full hidden sm:flex flex-col items-center justify-start relative bg-gray7 py-[70px] px-[150px]">
       {isOwner && (
@@ -31,7 +28,7 @@ export default function ProfileServices({
 
           <div className="flex w-full justify-between">
             {services.map((service) => (
-              <ProfileService
+              <Service
                 key={service.id}
                 name={service.attributes.name}
                 description={service.attributes.description}

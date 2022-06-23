@@ -6,7 +6,7 @@ interface ProfileVideoProps {
   thumbnail: string;
 }
 
-export default function ProfileVideo({
+export default function Video({
   title,
   videoId,
   thumbnail,

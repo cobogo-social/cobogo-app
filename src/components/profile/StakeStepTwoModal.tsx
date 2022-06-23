@@ -3,7 +3,7 @@ import { utils } from 'ethers';
 import Image from 'next/image';
 import { useCallback, useContext, useEffect } from 'react';
 
-import Button from './Button';
+import Button from '../Button';
 
 interface StakeStepTwoModalProps {
   setIsOpen: (value: boolean) => void;

@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
-import Button from './Button';
+import Button from '../Button';
 
-export default function ProfileStake(): JSX.Element {
+export default function Stake(): JSX.Element {
   return (
     <div className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
       <div className="flex max-w-[1000px] w-full justify-between items-center">

@@ -1,10 +1,10 @@
 import Image from 'next/image';
 
-import ProfileMediaKitAnalyticsDistributionsAge from './ProfileMediaKitAnalyticsDistributionsAge';
-import ProfileMediaKitAnalyticsDistributionsCountry from './ProfileMediaKitAnalyticsDistributionsCountry';
-import ProfileMediaKitAnalyticsDistributionsGender from './ProfileMediaKitAnalyticsDistributionsGender';
+import MediaKitAnalyticsDistributionsAge from './MediaKitAnalyticsDistributionsAge';
+import MediaKitAnalyticsDistributionsCountry from './MediaKitAnalyticsDistributionsCountry';
+import MediaKitAnalyticsDistributionsGender from './MediaKitAnalyticsDistributionsGender';
 
-interface ProfileMediaKitAnalyticsProps {
+interface MediaKitAnalyticsProps {
   audienceGenderDistributionMen: number;
   audienceGenderDistributionWomen: number;
   audienceGenderDistribution18: number;
@@ -16,7 +16,7 @@ interface ProfileMediaKitAnalyticsProps {
   isOwner: boolean;
 }
 
-export default function ProfileMediaKitAnalytics({
+export default function MediaKitAnalytics({
   audienceGenderDistributionMen,
   audienceGenderDistributionWomen,
   audienceGenderDistribution18,
@@ -26,7 +26,7 @@ export default function ProfileMediaKitAnalytics({
   audienceTopCountries2,
   audienceTopCountries3,
   isOwner,
-}: ProfileMediaKitAnalyticsProps) {
+}: MediaKitAnalyticsProps) {
   return (
     <div className="w-full flex items-center relative justify-center py-[70px] px-[150px] bg-black">
       {isOwner && (
@@ -41,18 +41,18 @@ export default function ProfileMediaKitAnalytics({
       )}
 
       <div className="flex max-w-[1000px] w-full justify-between items-center">
-        <ProfileMediaKitAnalyticsDistributionsGender
+        <MediaKitAnalyticsDistributionsGender
           audienceGenderDistributionMen={audienceGenderDistributionMen}
           audienceGenderDistributionWomen={audienceGenderDistributionWomen}
         />
 
-        <ProfileMediaKitAnalyticsDistributionsAge
+        <MediaKitAnalyticsDistributionsAge
           audienceGenderDistribution18={audienceGenderDistribution18}
           audienceGenderDistribution2534={audienceGenderDistribution2534}
           audienceGenderDistribution35={audienceGenderDistribution35}
         />
 
-        <ProfileMediaKitAnalyticsDistributionsCountry
+        <MediaKitAnalyticsDistributionsCountry
           audienceTopCountries1={audienceTopCountries1}
           audienceTopCountries2={audienceTopCountries2}
           audienceTopCountries3={audienceTopCountries3}
