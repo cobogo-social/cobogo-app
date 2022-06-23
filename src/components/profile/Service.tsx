@@ -30,7 +30,9 @@ export default function Service({ name, description }: ServiceProps) {
         <div className="px-[30px] py-[40px] flex flex-col h-[260px] justify-between">
           <p className="text-[22px]">{name}</p>
 
-          <p className="mb-[30px]">{description.slice(0, 111)} (...)</p>
+          <p className="mb-[30px] break-words">
+            {description.slice(0, 111)} (...)
+          </p>
 
           <div>
             <Button

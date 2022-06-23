@@ -116,6 +116,8 @@ export default function Index(props: ProfileProps) {
         twitchPeakViewers={props.twitchPeakViewers}
         twitchWatchTimeHours={props.twitchWatchTimeHours}
         isOwner={props.isOwner}
+        telegramMembers={props.telegramMembers}
+        telegramHandle={props.telegramHandle}
       />
 
       <MediaKitAnalytics

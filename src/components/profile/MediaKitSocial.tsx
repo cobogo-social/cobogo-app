@@ -1,11 +1,16 @@
-import Image from 'next/image';
+import DiscordIcon from '@components/icons/DiscordIcon';
+import EditIcon from '@components/icons/EditIcon';
+import InstagramIcon from '@components/icons/InstagramIcon';
+import TelegramIcon from '@components/icons/TelegramIcon';
+import TikTokIcon from '@components/icons/TikTokIcon';
+import TwitchIcon from '@components/icons/TwitchIcon';
+import TwitterIcon from '@components/icons/TwitterIcon';
+import YouTubeIcon from '@components/icons/YouTubeIcon';
 import { useState } from 'react';
 
 import EditMediaKitSocialModal from './EditMediaKitSocialModal';
-import MediaKitSocialInstagram from './MediaKitSocialInstagram';
-import MediaKitSocialTikTok from './MediaKitSocialTikTok';
-import MediaKitSocialTwitch from './MediaKitSocialTwitch';
-import MediaKitSocialYouTube from './MediaKitSocialYouTube';
+import Social from './Social';
+import SocialDetails from './SocialDetails';
 
 interface MediaKitSocialProps {
   youtubeSubscribers: number;
@@ -38,6 +43,8 @@ interface MediaKitSocialProps {
   twitchPeakViewers: number;
   twitchWatchTimeHours: number;
   isOwner: boolean;
+  telegramMembers: number;
+  telegramHandle: string;
 }
 
 export default function MediaKitSocial(
@@ -76,57 +83,112 @@ export default function MediaKitSocial(
   return singleOpen ? (
     <>
       {step === 1 && (
-        <MediaKitSocialYouTube
+        <SocialDetails
+          backStep={backStep}
           skipStep={skipStep}
           closeStep={closeStep}
-          youtubeSubscribers={props.youtubeSubscribers}
-          youtubeVideos={props.youtubeVideos}
-          youtubeViews={props.youtubeViews}
-          youtubeUniqueViewers={props.youtubeUniqueViewers}
-          youtubeWatchTimeHours={props.youtubeWatchTimeHours}
-          youtubeAvgViewDuration={props.youtubeAvgViewDuration}
-          youtubeId={props.youtubeId}
+          number1={props.youtubeSubscribers}
+          number2={props.youtubeVideos}
+          number3={props.youtubeViews}
+          number4={props.youtubeUniqueViewers}
+          number5={props.youtubeWatchTimeHours}
+          number6={props.youtubeAvgViewDuration}
+          placeholder1="subscribers"
+          placeholder2="videos"
+          placeholder3="views"
+          placeholder4="unique viewers"
+          placeholder5="watch time hours"
+          placeholder6="average view duration"
+          step={step}
+          title="YouTube"
+          linkPlaceholder="visit channel"
+          link={
+            props.youtubeId
+              ? `https://youtube.com/channel/${props.youtubeId}`
+              : null
+          }
+          icon={<YouTubeIcon size={60} />}
         />
       )}
 
       {step === 2 && (
-        <MediaKitSocialTikTok
+        <SocialDetails
           backStep={backStep}
           skipStep={skipStep}
           closeStep={closeStep}
-          tiktokFollowers={props.tiktokFollowers}
-          tiktokViews={props.tiktokViews}
-          tiktokLikes={props.tiktokLikes}
-          tiktokComments={props.tiktokComments}
-          tiktokShares={props.tiktokShares}
-          tiktokHandle={props.tiktokHandle}
+          number1={props.instagramFollowers}
+          number2={props.instagramImpressions}
+          number3={props.instagramStoriesAvgViews}
+          number4={props.instagramPostsAvgLikes}
+          number5={props.instagramReelsAvgViews}
+          placeholder1="followers"
+          placeholder2="impressions"
+          placeholder3="stories average views"
+          placeholder4="posts average views"
+          placeholder5="reels average views"
+          step={step}
+          title="Instagram"
+          linkPlaceholder={`@${props.instagramHandle}`}
+          link={
+            props.instagramHandle
+              ? `https://instagram/${props.instagramHandle}`
+              : null
+          }
+          icon={<InstagramIcon size={56} />}
         />
       )}
 
       {step === 3 && (
-        <MediaKitSocialInstagram
+        <SocialDetails
           backStep={backStep}
           skipStep={skipStep}
           closeStep={closeStep}
-          instagramFollowers={props.instagramFollowers}
-          instagramImpressions={props.instagramImpressions}
-          instagramStoriesAvgViews={props.instagramStoriesAvgViews}
-          instagramPostsAvgLikes={props.instagramPostsAvgLikes}
-          instagramReelsAvgViews={props.instagramReelsAvgViews}
-          instagramHandle={props.instagramHandle}
+          number1={props.twitchSubscribers}
+          number2={props.twitchVideos}
+          number3={props.twitchAvgViewers}
+          number4={props.twitchPeakViewers}
+          number5={props.twitchWatchTimeHours}
+          placeholder1="subscribers"
+          placeholder2="videos"
+          placeholder3="average viewers"
+          placeholder4="peak viewers"
+          placeholder5="watch time hours"
+          step={step}
+          title="Twitch"
+          linkPlaceholder={`@${props.twitchHandle}`}
+          link={
+            props.twitchHandle
+              ? `https://twitch.tv/${props.twitchHandle}`
+              : null
+          }
+          icon={<TwitchIcon size={54} />}
         />
       )}
 
       {step === 4 && (
-        <MediaKitSocialTwitch
+        <SocialDetails
           backStep={backStep}
+          skipStep={skipStep}
           closeStep={closeStep}
-          twitchSubscribers={props.twitchSubscribers}
-          twitchVideos={props.twitchVideos}
-          twitchAvgViewers={props.twitchAvgViewers}
-          twitchPeakViewers={props.twitchPeakViewers}
-          twitchWatchTimeHours={props.twitchWatchTimeHours}
-          twitchHandle={props.twitchHandle}
+          number1={props.tiktokFollowers}
+          number2={props.tiktokViews}
+          number3={props.tiktokLikes}
+          number4={props.tiktokComments}
+          number5={props.tiktokShares}
+          placeholder1="followers"
+          placeholder2="views"
+          placeholder3="likes"
+          placeholder4="comments"
+          placeholder5="shares"
+          step={step}
+          title="TikTok"
+          linkPlaceholder={`@${props.tiktokHandle}`}
+          link={
+            props.tiktokHandle
+              ? `https://tiktok.com/@${props.tiktokHandle}`
+              : null
+          }
+          icon={<TikTokIcon size={46} />}
         />
       )}
     </>
@@ -143,250 +205,112 @@ export default function MediaKitSocial(
             onClick={openEditMediaKitSocialModal}
             className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
           >
-            <Image
-              src="/images/edit-icon.svg"
-              width={30}
-              height={28}
-              alt="edit icon"
-            />
+            <EditIcon size={30} />
           </div>
         )}
 
-        <div className="flex max-w-[1000px] w-full justify-between items-center">
-          <div className="flex flex-col justify-between">
+        <div className="flex max-w-[1000px] w-full justify-center items-center">
+          <div className="flex flex-wrap items-center justify-between w-full gap-[90px]">
             {props.youtubeSubscribers ? (
-              <div className="flex">
-                <div
-                  onClick={() => openStep(1)}
-                  className="mr-[27px] flex hover:cursor-pointer"
-                >
-                  <Image
-                    src="/images/ytb-icon.svg"
-                    width={74}
-                    height={42}
-                    alt="youtube icon"
-                  />
-                </div>
+              <Social
+                onClick={() => openStep(1)}
+                icon={<YouTubeIcon size={60} />}
+                number={props.youtubeSubscribers}
+                placeholder="subscribers"
+                link={
+                  props.youtubeId
+                    ? `https://youtube.com/channel/${props.youtubeId}`
+                    : null
+                }
+                linkPlaceholder="visit channel"
+              />
+            ) : null}
 
-                <div className="flex flex-col">
-                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                    {props.youtubeSubscribers}
-                  </p>
-                  <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
-                  <a
-                    target="_blank"
-                    href={`https://youtube.com/channel/${props.youtubeId}`}
-                    className="font-bold text-blue"
-                    rel="noreferrer"
-                  >
-                    visit channel{' '}
-                    <Image
-                      src="/images/link-icon.svg"
-                      width={15}
-                      height={15}
-                      alt="link icon"
-                    />
-                  </a>
-                </div>
-              </div>
+            {props.instagramFollowers ? (
+              <Social
+                onClick={() => openStep(2)}
+                icon={<InstagramIcon size={56} />}
+                number={props.instagramFollowers}
+                placeholder="followers"
+                link={
+                  props.instagramHandle
+                    ? `https://instagram.com/${props.instagramHandle}`
+                    : null
+                }
+                linkPlaceholder={`@${props.instagramHandle}`}
+              />
+            ) : null}
+
+            {props.twitchSubscribers ? (
+              <Social
+                onClick={() => openStep(3)}
+                icon={<TwitchIcon size={54} />}
+                number={props.twitchSubscribers}
+                placeholder="subscribers"
+                link={
+                  props.twitchHandle
+                    ? `https://twitch.tv/${props.twitchHandle}`
+                    : null
+                }
+                linkPlaceholder={`/${props.twitchHandle}`}
+              />
             ) : null}
 
             {props.tiktokFollowers ? (
-              <div className="flex">
-                <div
-                  onClick={() => openStep(2)}
-                  className="mr-[27px] flex hover:cursor-pointer"
-                >
-                  <Image
-                    src="/images/tiktok-icon.svg"
-                    width={74}
-                    height={56}
-                    alt="tiktok icon"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                    {props.tiktokFollowers}
-                  </p>
-                  <p className="font-bold text-gray6 mb-[20px]">followers</p>
-
-                  {props.tiktokHandle && (
-                    <a
-                      target="_blank"
-                      href={`https://tiktok.com/@${props.tiktokHandle}`}
-                      className="font-bold text-blue"
-                      rel="noreferrer"
-                    >
-                      @{props.tiktokHandle}{' '}
-                      <Image
-                        src="/images/link-icon.svg"
-                        width={15}
-                        height={15}
-                        alt="link icon"
-                      />
-                    </a>
-                  )}
-                </div>
-              </div>
-            ) : null}
-          </div>
-
-          <div className="flex flex-col">
-            {props.instagramFollowers ? (
-              <div className="flex mb-[90px]">
-                <div
-                  onClick={() => openStep(3)}
-                  className="mr-[27px] flex hover:cursor-pointer"
-                >
-                  <Image
-                    src="/images/instagram-icon.svg"
-                    width={74}
-                    height={56}
-                    alt="instagram icon"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                    {props.instagramFollowers}
-                  </p>
-                  <p className="font-bold text-gray6 mb-[20px]">followers</p>
-
-                  {props.instagramHandle && (
-                    <a
-                      target="_blank"
-                      href={`https://instagram.com/${props.instagramHandle}`}
-                      className="font-bold text-blue"
-                      rel="noreferrer"
-                    >
-                      @{props.instagramHandle}{' '}
-                      <Image
-                        src="/images/link-icon.svg"
-                        width={15}
-                        height={15}
-                        alt="link icon"
-                      />
-                    </a>
-                  )}
-                </div>
-              </div>
+              <Social
+                onClick={() => openStep(4)}
+                icon={<TikTokIcon size={46} />}
+                number={props.tiktokFollowers}
+                placeholder="followers"
+                link={
+                  props.tiktokHandle
+                    ? `https://tiktok.com/@${props.tiktokHandle}`
+                    : null
+                }
+                linkPlaceholder={`@${props.tiktokHandle}`}
+              />
             ) : null}
 
             {props.twitterFollowers ? (
-              <div className="flex">
-                <div className="mr-[27px] flex">
-                  <Image
-                    src="/images/twitter-icon.svg"
-                    width={74}
-                    height={74}
-                    alt="twitter icon"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                    {props.twitterFollowers}
-                  </p>
-                  <p className="font-bold text-gray6 mb-[20px]">followers</p>
-
-                  {props.twitterHandle && (
-                    <a
-                      target="_blank"
-                      href={`https://twitter.com/${props.twitterHandle}`}
-                      className="font-bold text-blue"
-                      rel="noreferrer"
-                    >
-                      @{props.twitterHandle}{' '}
-                      <Image
-                        src="/images/link-icon.svg"
-                        width={15}
-                        height={15}
-                        alt="link icon"
-                      />
-                    </a>
-                  )}
-                </div>
-              </div>
-            ) : null}
-          </div>
-
-          <div className="flex flex-col">
-            {props.twitchSubscribers ? (
-              <div className="flex mb-[90px]">
-                <div
-                  onClick={() => openStep(4)}
-                  className="mr-[27px] flex hover:cursor-pointer"
-                >
-                  <Image
-                    src="/images/twitch-icon.svg"
-                    width={74}
-                    height={58}
-                    alt="twitch icon"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                    {props.twitchSubscribers}
-                  </p>
-                  <p className="font-bold text-gray6 mb-[20px]">subscribers</p>
-
-                  {props.twitchHandle && (
-                    <a
-                      target="_blank"
-                      href={`https://twitch.tv/${props.twitchHandle}`}
-                      className="font-bold text-blue"
-                      rel="noreferrer"
-                    >
-                      /{props.twitchHandle}{' '}
-                      <Image
-                        src="/images/link-icon.svg"
-                        width={15}
-                        height={15}
-                        alt="link icon"
-                      />
-                    </a>
-                  )}
-                </div>
-              </div>
+              <Social
+                icon={<TwitterIcon size={60} />}
+                number={props.twitterFollowers}
+                placeholder="followers"
+                link={
+                  props.twitterHandle
+                    ? `https://twitter.com/${props.twitterHandle}`
+                    : null
+                }
+                linkPlaceholder={`@${props.twitterHandle}`}
+              />
             ) : null}
 
             {props.discordMembers ? (
-              <div className="flex">
-                <div className="mr-[27px] flex">
-                  <Image
-                    src="/images/discord-icon.svg"
-                    width={74}
-                    height={65}
-                    alt="discord icon"
-                  />
-                </div>
+              <Social
+                icon={<DiscordIcon size={61} />}
+                number={props.discordMembers}
+                placeholder="members"
+                link={
+                  props.discordHandle
+                    ? `https://discord.gg/${props.discordHandle}`
+                    : null
+                }
+                linkPlaceholder="join my Discord"
+              />
+            ) : null}
 
-                <div className="flex flex-col">
-                  <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-                    {props.discordMembers}
-                  </p>
-                  <p className="font-bold text-gray6 mb-[20px]">members</p>
-
-                  {props.discordHandle && (
-                    <a
-                      target="_blank"
-                      href={`https://discord.gg/${props.discordHandle}`}
-                      className="font-bold text-blue"
-                      rel="noreferrer"
-                    >
-                      join my Discord{' '}
-                      <Image
-                        src="/images/link-icon.svg"
-                        width={15}
-                        height={15}
-                        alt="link icon"
-                      />
-                    </a>
-                  )}
-                </div>
-              </div>
+            {props.telegramMembers ? (
+              <Social
+                icon={<TelegramIcon size={54} />}
+                number={props.telegramMembers}
+                placeholder="members"
+                link={
+                  props.telegramHandle
+                    ? `https://t.me/${props.telegramHandle}`
+                    : null
+                }
+                linkPlaceholder="join my Telegram"
+              />
             ) : null}
           </div>
         </div>
