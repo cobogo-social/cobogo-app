@@ -4,7 +4,7 @@ import Button from '../Button';
 
 export default function Stake(): JSX.Element {
   return (
-    <div className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
+    <section className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
       <div className="flex max-w-[1000px] w-full justify-between items-center">
         <Image
           src="/images/profile-bg.svg"
@@ -38,7 +38,14 @@ export default function Stake(): JSX.Element {
               />
             </div>
 
-            <p className="font-bold">view docs</p>
+            <a
+              target="_blank"
+              href="https://docs.cobogo.social/"
+              className="font-bold"
+              rel="noreferrer"
+            >
+              view docs
+            </a>
           </div>
         </div>
 
@@ -158,6 +165,6 @@ export default function Stake(): JSX.Element {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
