@@ -10,7 +10,7 @@ export default function ShareLinks({ referralCode }: ShareLinksProps) {
       <a
         href={`https://t.me/share/url?url=app.cobogo.social/submit?ref=${referralCode}&text=Check this out!
 
-        cobogo is a dapp that helps YouTubers monetize themselves sustainably through their communities using blockchain.
+        @cobogosocial is a dapp that helps YouTubers monetize themselves sustainably through their communities using blockchain.
 
         Use my referral link when you sign up for free for the whitelist, and we both get rewards!`}
         target="_blank"
