@@ -199,7 +199,7 @@ export default function MediaKitSocial(
         setOpen={setEditMediaKitSocialModalIsOpen}
       />
 
-      <div className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
+      <section className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
         {props.isOwner && (
           <div
             onClick={openEditMediaKitSocialModal}
@@ -314,7 +314,7 @@ export default function MediaKitSocial(
             ) : null}
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

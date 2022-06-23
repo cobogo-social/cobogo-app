@@ -30,7 +30,7 @@ interface SocialDetailsProps {
 
 export default function SocialDetails(props: SocialDetailsProps): JSX.Element {
   return (
-    <motion.div
+    <motion.section
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -153,6 +153,6 @@ export default function SocialDetails(props: SocialDetailsProps): JSX.Element {
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.section>
   );
 }
