@@ -2,7 +2,7 @@ import '@styles/globals.css';
 
 import Footer from '@components/Footer';
 import Loading from '@components/Loading';
-import MessageModal from '@components/MessageModal';
+import MessageModal from '@components/modals/MessageModal';
 import { LoadingProvider } from '@contexts/LoadingContext';
 import { MessageProvider } from '@contexts/MessageContext';
 import { RefreshTokenProvider } from '@contexts/RefreshTokenContext';
