@@ -2,8 +2,8 @@ import ReferralDashboardBand from '@components/ReferralDashboardBand';
 import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
 import TopBar from '@components/TopBar';
-import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
+import { MesssageContext } from '@contexts/MessageContext';
 import { WalletContext } from '@contexts/WalletContext';
 import axios from 'axios';
 import Head from 'next/head';
@@ -11,7 +11,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 
 export default function Index() {
   const { currentWallet } = useContext(WalletContext);
-  const { setError } = useContext(ErrorContext);
+  const { setMessage } = useContext(MesssageContext);
   const [onboardedFriends, setOnboardedFriends] = useState(0);
   const [pendingFriends, setPendingFriends] = useState(0);
   const [referralCode, setReferralCode] = useState('');
@@ -83,9 +83,12 @@ export default function Index() {
       }
     } catch (error) {
       setLoading(false);
-      setError(error.message);
+      setMessage({
+        text: error.message,
+        type: 'error',
+      });
     }
-  }, [currentWallet, setError, setLoading]);
+  }, [currentWallet, setMessage, setLoading]);
 
   useEffect(() => {
     getInfo();

@@ -1,4 +1,4 @@
-import { ErrorContext } from '@contexts/ErrorContext';
+import { MesssageContext } from '@contexts/MessageContext';
 import { utils } from 'ethers';
 import Image from 'next/image';
 import { useCallback, useContext, useEffect } from 'react';
@@ -20,7 +20,7 @@ export default function StakeStepTwoModal({
   description,
   bannerImage,
 }: StakeStepTwoModalProps) {
-  const { setError } = useContext(ErrorContext);
+  const { setMessage } = useContext(MesssageContext);
 
   function closeModal() {
     setIsOpen(false);
@@ -51,7 +51,10 @@ export default function StakeStepTwoModal({
 
       setStep(3);
     } catch (error) {
-      setError(error.message);
+      setMessage({
+        text: error.message,
+        type: 'error',
+      });
     }
   }
 
@@ -64,9 +67,12 @@ export default function StakeStepTwoModal({
         setStep(3);
       }
     } catch (error) {
-      setError(error.message);
+      setMessage({
+        text: error.message,
+        type: 'error',
+      });
     }
-  }, [setError, setStep]);
+  }, [setMessage, setStep]);
 
   useEffect(() => {
     checkIfNetworkIsPolygon();

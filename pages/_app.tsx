@@ -1,10 +1,10 @@
 import '@styles/globals.css';
 
-import ErrorModal from '@components/ErrorModal';
 import Footer from '@components/Footer';
 import Loading from '@components/Loading';
-import { ErrorProvider } from '@contexts/ErrorContext';
+import MessageModal from '@components/MessageModal';
 import { LoadingProvider } from '@contexts/LoadingContext';
+import { MessageProvider } from '@contexts/MessageContext';
 import { RefreshTokenProvider } from '@contexts/RefreshTokenContext';
 import { WalletProvider } from '@contexts/WalletContext';
 import { SessionProvider } from 'next-auth/react';
@@ -52,12 +52,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       />
 
       <LoadingProvider>
-        <ErrorProvider>
+        <MessageProvider>
           <SessionProvider session={pageProps.session}>
             <RefreshTokenProvider>
               <WalletProvider>
                 <Loading />
-                <ErrorModal />
+                <MessageModal />
 
                 <Component {...pageProps} />
 
@@ -65,7 +65,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
               </WalletProvider>
             </RefreshTokenProvider>
           </SessionProvider>
-        </ErrorProvider>
+        </MessageProvider>
       </LoadingProvider>
     </>
   );

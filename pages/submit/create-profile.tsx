@@ -9,8 +9,8 @@ import StepSubContainer from '@components/StepSubContainer';
 import Tags from '@components/Tags';
 import TagsInput from '@components/TagsInput';
 import TopBar from '@components/TopBar';
-import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
+import { MesssageContext } from '@contexts/MessageContext';
 import { fetchSessionData, readCategories } from '@services/cobogoApi';
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -38,7 +38,7 @@ export default function Index({
   const [tagInput, setTagInput] = useState('');
   const [categoryValue, setCategoryValue] = useState('');
   const [createdProfile, setCreatedProfile] = useState(false);
-  const { setError } = useContext(ErrorContext);
+  const { setMessage } = useContext(MesssageContext);
   const [handleError, setHandleError] = useState('');
   const { push } = useRouter();
   const { setLoading } = useContext(LoadingContext);
@@ -64,7 +64,10 @@ export default function Index({
         );
 
         if (readProfileByHandle.data.error) {
-          setError(readProfileByHandle.data.error);
+          setMessage({
+            text: readProfileByHandle.data.error,
+            type: 'error',
+          });
         }
 
         if (!readProfileByHandle.data.data) {
@@ -83,7 +86,10 @@ export default function Index({
             })
             .then((response) => {
               if (response.data.error) {
-                setError(response.data.error);
+                setMessage({
+                  text: response.data.error,
+                  type: 'error',
+                });
               }
 
               setCreatedProfile(true);
@@ -94,7 +100,10 @@ export default function Index({
           setHandleError('handle already exists');
         }
       } catch (error) {
-        setError(error.message);
+        setMessage({
+          text: error.message,
+          type: 'error',
+        });
       }
     },
   });

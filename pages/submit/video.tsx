@@ -8,8 +8,8 @@ import StepSubContainer from '@components/StepSubContainer';
 import SuccessBullet from '@components/SuccessBullet';
 import TopBar from '@components/TopBar';
 import WarningBullet from '@components/WarningBullet';
-import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
+import { MesssageContext } from '@contexts/MessageContext';
 import {
   fetchSessionData,
   readAccountsByReferralId,
@@ -40,7 +40,7 @@ export default function Index({
   referralCode,
 }: VideoProps) {
   const { setLoading } = useContext(LoadingContext);
-  const { setError } = useContext(ErrorContext);
+  const { setMessage } = useContext(MesssageContext);
   const [videoStatus, setVideoStatus] = useState(1);
   const { push } = useRouter();
 
@@ -53,7 +53,10 @@ export default function Index({
 
       if (checkVideo.data.error) {
         setLoading(false);
-        setError(checkVideo.data.error);
+        setMessage({
+          text: checkVideo.data.error,
+          type: 'error',
+        });
       }
 
       if (checkVideo.data.data.validVideo) {
@@ -65,7 +68,10 @@ export default function Index({
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      setError(error.message);
+      setMessage({
+        text: error.message,
+        type: 'error',
+      });
     }
   }
 

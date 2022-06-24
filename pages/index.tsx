@@ -4,7 +4,7 @@ import ChannelsChannelBox from '@components/ChannelsChannelBox';
 import ChannelsFilterSelect from '@components/ChannelsFilterSelect';
 import ChannelsSearchInput from '@components/ChannelsSearchInput';
 import TopBar from '@components/TopBar';
-import { ErrorContext } from '@contexts/ErrorContext';
+import { MesssageContext } from '@contexts/MessageContext';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -37,7 +37,7 @@ export default function Index({
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [updatedChannels, setUpdatedChannels] = useState(channels);
-  const { setError } = useContext(ErrorContext);
+  const { setMessage } = useContext(MesssageContext);
 
   const filteredChannels = useMemo(() => {
     const lowerSearch = search.toLowerCase();
@@ -67,9 +67,12 @@ export default function Index({
         setLoading(false);
       }
     } catch (error) {
-      setError(error.message);
+      setMessage({
+        text: error.message,
+        type: 'error',
+      });
     }
-  }, [page, setError]);
+  }, [page, setMessage]);
 
   async function searchByCategory(categoryId) {
     try {
@@ -87,7 +90,10 @@ export default function Index({
 
       setLoading(false);
     } catch (error) {
-      setError(error.message);
+      setMessage({
+        text: error.message,
+        type: 'error',
+      });
     }
   }
 

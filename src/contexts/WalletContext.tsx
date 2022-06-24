@@ -10,8 +10,8 @@ import {
   useState,
 } from 'react';
 
-import { ErrorContext } from './ErrorContext';
 import { LoadingContext } from './LoadingContext';
+import { MesssageContext } from './MessageContext';
 
 interface IWalletContext {
   currentWallet: string;
@@ -29,7 +29,7 @@ export const WalletContext = createContext<IWalletContext>(
 
 export function WalletProvider({ children }) {
   const [currentWallet, setCurrentWallet] = useState<string>('');
-  const { setError } = useContext(ErrorContext);
+  const { setMessage } = useContext(MesssageContext);
   const { setLoading } = useContext(LoadingContext);
   const { push } = useRouter();
 
@@ -40,16 +40,17 @@ export function WalletProvider({ children }) {
 
       if (!ethereum) {
         if (showError) {
-          setError(
-            'Metamask is not available in this browser. Please install MetaMask to continue.',
-          );
+          setMessage({
+            text: "you don't have the MetaMask extension installed in your browser yet. Don't worry, you can always do it later.",
+            type: 'warning',
+          });
         }
         return;
       }
 
       return ethereum;
     },
-    [setError],
+    [setMessage],
   );
 
   const checkWallets = useCallback(
@@ -77,10 +78,13 @@ export function WalletProvider({ children }) {
 
         return true;
       } catch (error) {
-        setError(error.message);
+        setMessage({
+          text: error.message,
+          type: 'error',
+        });
       }
     },
-    [setCurrentWallet, checkEthereum, setError],
+    [setCurrentWallet, checkEthereum, setMessage],
   );
 
   async function connectMetaMaskWallet(route?: string) {
@@ -106,7 +110,10 @@ export function WalletProvider({ children }) {
           })
           .then((response) => {
             if (response.data.error) {
-              setError(response.data.error);
+              setMessage({
+                text: response.data.error,
+                type: 'error',
+              });
             }
           });
       }
@@ -117,7 +124,10 @@ export function WalletProvider({ children }) {
         push(route);
       }
     } catch (error) {
-      setError(error.message);
+      setMessage({
+        text: error.message,
+        type: 'error',
+      });
     }
   }
 

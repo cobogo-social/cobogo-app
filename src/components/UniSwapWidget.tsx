@@ -1,10 +1,10 @@
-import { ErrorContext } from '@contexts/ErrorContext';
+import { MesssageContext } from '@contexts/MessageContext';
 import { SwapWidget, Theme } from '@uniswap/widgets';
 import { useCallback, useContext, useEffect, useState } from 'react';
 
 export default function UniSwapWidget() {
   const [provider, setProvider] = useState(null);
-  const { setError } = useContext(ErrorContext);
+  const { setMessage } = useContext(MesssageContext);
 
   const theme: Theme = {
     primary: '#FFFFFF',
@@ -26,9 +26,12 @@ export default function UniSwapWidget() {
 
       await ethereum.request({ method: 'eth_accounts' });
     } catch (error) {
-      setError(error.message);
+      setMessage({
+        text: error.message,
+        type: 'error',
+      });
     }
-  }, [setError]);
+  }, [setMessage]);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

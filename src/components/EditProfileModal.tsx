@@ -1,5 +1,5 @@
-import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
+import { MesssageContext } from '@contexts/MessageContext';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
@@ -39,7 +39,7 @@ export default function EditProfileModal({
   const [categoryValue, setCategoryValue] = useState('');
   const { push } = useRouter();
   const { setLoading } = useContext(LoadingContext);
-  const { setError } = useContext(ErrorContext);
+  const { setMessage } = useContext(MesssageContext);
 
   function closeModal() {
     setIsOpen(false);
@@ -66,7 +66,10 @@ export default function EditProfileModal({
         );
 
         if (readProfileByHandle.data.error) {
-          setError(readProfileByHandle.data.error);
+          setMessage({
+            text: readProfileByHandle.data.error,
+            type: 'error',
+          });
         }
 
         if (!readProfileByHandle.data.data) {
@@ -81,7 +84,10 @@ export default function EditProfileModal({
             })
             .then((response) => {
               if (response.data.error) {
-                setError(response.data.error);
+                setMessage({
+                  text: response.data.error,
+                  type: 'error',
+                });
               }
 
               push(`/${values.handle}`);
@@ -103,7 +109,10 @@ export default function EditProfileModal({
             })
             .then((response) => {
               if (response.data.error) {
-                setError(response.data.error);
+                setMessage({
+                  text: response.data.error,
+                  type: 'error',
+                });
               }
 
               push(`/${values.handle}`);
@@ -112,7 +121,10 @@ export default function EditProfileModal({
             });
         }
       } catch (error) {
-        setError(error.message);
+        setMessage({
+          text: error.message,
+          type: 'error',
+        });
       }
     },
   });
