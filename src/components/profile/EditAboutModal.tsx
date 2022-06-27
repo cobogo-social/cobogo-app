@@ -1,4 +1,3 @@
-import { ErrorContext } from '@contexts/ErrorContext';
 import { LoadingContext } from '@contexts/LoadingContext';
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -31,7 +30,6 @@ export default function EditAboutModal(props: EditAboutModalProps) {
   const [categoryValue, setCategoryValue] = useState('');
   const { push } = useRouter();
   const { setLoading } = useContext(LoadingContext);
-  const { setError } = useContext(ErrorContext);
 
   function closeModal() {
     props.setOpen(false);
@@ -58,7 +56,6 @@ export default function EditAboutModal(props: EditAboutModalProps) {
         );
 
         if (readProfileByHandle.data.error) {
-          setError(readProfileByHandle.data.error);
         }
 
         if (!readProfileByHandle.data.data) {
@@ -73,7 +70,6 @@ export default function EditAboutModal(props: EditAboutModalProps) {
             })
             .then((response) => {
               if (response.data.error) {
-                setError(response.data.error);
               }
 
               push(`/${values.handle}`);
@@ -95,7 +91,6 @@ export default function EditAboutModal(props: EditAboutModalProps) {
             })
             .then((response) => {
               if (response.data.error) {
-                setError(response.data.error);
               }
 
               push(`/${values.handle}`);
@@ -103,9 +98,7 @@ export default function EditAboutModal(props: EditAboutModalProps) {
               props.setOpen(false);
             });
         }
-      } catch (error) {
-        setError(error.message);
-      }
+      } catch (error) {}
     },
   });
 
