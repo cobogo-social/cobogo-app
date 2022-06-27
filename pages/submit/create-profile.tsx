@@ -192,7 +192,7 @@ export default function Index({
             >
               <p className="mb-6 text-[40px]">create profile</p>
 
-              <label htmlFor="description" className="sm:text-xl mb-5">
+              <label htmlFor="description" className="text-xl mb-5">
                 write a description to be visible on your public profile.
               </label>
 
@@ -223,7 +223,7 @@ export default function Index({
                 choose a handle
               </label>
 
-              <p className="mb-4 text-sm break-words text-gray3 sm:hidden">
+              <p className="mb-5 text-sm break-words text-gray3 sm:hidden">
                 app.cobogo.social/{formik.values.handle}
               </p>
 
