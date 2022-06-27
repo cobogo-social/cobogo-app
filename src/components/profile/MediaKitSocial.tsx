@@ -208,7 +208,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
         )}
 
         <div className="flex max-w-[1000px] w-full justify-center items-center">
-          <div className="flex flex-row flex-wrap items-center justify-between w-full gap-10">
+          <div className="flex flex-row flex-wrap items-center justify-between w-full gap-x-10 gap-y-24">
             <Social
               onClick={() => openStep(1)}
               icon={<YouTubeIcon size={60} />}
