@@ -17,7 +17,7 @@ export default function WarningBullet({ text, link }: WarningBulletProps) {
         />
       </div>
 
-      <p className="text-sm font-bold sm:text-base">
+      <p className="text-lg font-bold sm:text-base">
         {text} <span className="text-blue">{link}</span>
       </p>
     </div>

@@ -26,15 +26,15 @@ export default function Index() {
 
           <div className="flex flex-row items-center justify-between pl-16 mt-16 sm:px-16 2xl:px-64 sm:mt-0 px-8 py-4">
             <div>
-              <p className="mb-4 text-4xl">connect wallet</p>
+              <p className="mb-6 text-[40px]">connect wallet</p>
 
-              <p className="sm:text-xl sm:w-[408px]">MetaMask</p>
+              <p className="text-xl sm:w-[408px]">MetaMask</p>
 
-              <p className="sm:text-lg sm:w-[420px] mb-8 text-gray3">
+              <p className="text-lg sm:w-[420px] mb-10 text-gray3">
                 available as a browser extension and as a mobile app
               </p>
 
-              <div className="mb-4">
+              <div className="mb-10">
                 <Button
                   text="connect to MetaMask"
                   color="bg-blue"

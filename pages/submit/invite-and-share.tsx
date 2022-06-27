@@ -1,16 +1,12 @@
 import ChannelBox from '@components/ChannelBox';
-import Earn1000CBGNotification from '@components/Earn1000CBGNotification';
-import Earn10CBGNotification from '@components/Earn10CBGNotification';
-import Earn50CBGNotification from '@components/Earn50CBGNotification';
-import Earn50CBGNotification2 from '@components/Earn50CBGNotification2';
 import Link from '@components/Link';
 import PageContainer from '@components/PageContainer';
 import ShareLinks from '@components/ShareLinks';
 import StepContainer from '@components/StepContainer';
 import Steps from '@components/Steps';
 import StepSubContainer from '@components/StepSubContainer';
+import Reward from '@components/submit/Reward';
 import TopBar from '@components/TopBar';
-import WaitlistNotification from '@components/WaitlistNotification';
 import { LoadingContext } from '@contexts/LoadingContext';
 import {
   fetchSessionData,
@@ -60,37 +56,91 @@ export default function Index({
 
           <StepSubContainer>
             <div className="flex flex-col">
-              <p className="mb-4 text-4xl">congrats!</p>
-
-              <p className="sm:text-lg mb-8 sm:w-[408px]">
+              <p className="mb-6 text-[40px]">congrats!</p>
+              <p className="text-xl mb-10 max-w-[441px]">
                 you are now whitelisted for the Content Creator NFT and have
                 guaranteed <span className="font-bold">100 CBG tokens</span>
               </p>
 
-              <WaitlistNotification />
+              <div className="flex flex-col gap-8 mb-12">
+                <Reward
+                  image="/images/4-rewards.png"
+                  description={
+                    <p>
+                      join whitelist and earn{' '}
+                      <strong className="text-pink3">100</strong> CBG tokens
+                    </p>
+                  }
+                  done
+                />
 
-              {verifiedVideo && (
-                <Earn1000CBGNotification verifiedVideo={verifiedVideo} />
-              )}
+                {verifiedVideo && (
+                  <Reward
+                    image="/images/full-rewards.png"
+                    description={
+                      <p>
+                        earn <strong className="text-pink3">1,000</strong> more
+                        CBG tokens recording a video{' '}
+                      </p>
+                    }
+                    link="/submit/video"
+                    linkText="view rules"
+                    done={verifiedVideo}
+                  />
+                )}
 
-              <Earn10CBGNotification referralCode={referralCode} />
+                <Reward
+                  image="/images/1-reward.png"
+                  description={
+                    <p>
+                      earn <strong className="text-pink3">10</strong> more CBG
+                      tokens by sharing on Twitter{' '}
+                    </p>
+                  }
+                  link={`https://twitter.com/intent/tweet?text=Check%20this%20out!%20%0A%0A@cobogosocial%20is%20a%20dapp%20that%20helps%20YouTubers%20monetize%20themselves%20sustainably%20through%20their%20communities%20using%20blockchain.%20%0A%0AUse%20my%20referral%20link%20when%20you%20sign%20up%20for%20free%20for%20the%20whitelist,%20and%20we%20both%20get%20rewards!%0Aapp.cobogo.social/submit?ref=${referralCode}`}
+                  linkText="share on Twitter"
+                />
 
-              <Earn50CBGNotification />
+                <Reward
+                  image="/images/infinite-rewards.png"
+                  description={
+                    <p>
+                      earn <strong className="text-pink3">50</strong> more CBG
+                      tokens for each Creator whitelisted using your referral
+                      link
+                    </p>
+                  }
+                  link="/referral-dashboard"
+                  linkText="view referral link"
+                />
 
-              {!verifiedVideo && (
-                <Earn1000CBGNotification verifiedVideo={verifiedVideo} />
-              )}
+                {!verifiedVideo && (
+                  <Reward
+                    image="/images/full-rewards.png"
+                    description="earn 1,000 more CBG tokens recording
+                  a video"
+                    link="/submit/video"
+                    linkText="view rules"
+                    done={verifiedVideo}
+                  />
+                )}
 
-              <Earn50CBGNotification2 />
+                <Reward
+                  image="/images/2-rewards.png"
+                  description="earn 50 more CBG tokens completing
+                your profile"
+                  linkText="coming soon..."
+                />
+              </div>
 
-              <div className="mb-8">
+              <div className="mb-10">
                 <ShareLinks referralCode={referralCode} />
               </div>
 
               <Link href="/submit/success">
                 <button
                   onClick={() => setLoading(true)}
-                  className="font-bold text-gray3 hover:cursor-pointer"
+                  className="font-bold text-gray3 hover:cursor-pointer mb-12"
                 >
                   skip
                 </button>

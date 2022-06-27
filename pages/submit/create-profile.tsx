@@ -186,10 +186,13 @@ export default function Index({
           <TopBar noOnboardedFriends noLogo noConnectWallet noTokens />
 
           <StepSubContainer>
-            <form className="flex flex-col" onSubmit={formik.handleSubmit}>
-              <p className="mb-4 text-4xl">create profile</p>
+            <form
+              className="flex flex-col max-w-[432px]"
+              onSubmit={formik.handleSubmit}
+            >
+              <p className="mb-6 text-[40px]">create profile</p>
 
-              <label htmlFor="description" className="mb-4 sm:text-lg">
+              <label htmlFor="description" className="sm:text-xl mb-5">
                 write a description to be visible on your public profile.
               </label>
 
@@ -205,7 +208,7 @@ export default function Index({
                     formik.touched.description && formik.errors.description
                       ? 'border-red'
                       : 'border-gray10'
-                  } mb-8 p-2 outline-none`}
+                  } mb-10 p-2 outline-none`}
                   onChange={formik.handleChange}
                   onKeyPress={validateKeyPressedInDescription}
                   value={
@@ -216,7 +219,7 @@ export default function Index({
                 />
               </div>
 
-              <label htmlFor="handle" className="text-lg sm:mb-4">
+              <label htmlFor="handle" className="text-lg sm:mb-5">
                 choose a handle
               </label>
 
@@ -247,12 +250,12 @@ export default function Index({
                       handleError
                         ? 'border-red'
                         : 'border-gray10'
-                    } mb-8 p-2 outline-none`}
+                    } mb-10 p-2 outline-none`}
                   />
                 </div>
               </div>
 
-              <p className="mb-4 text-lg">choose up to 5 tags</p>
+              <p className="mb-5 text-lg">choose up to 5 tags</p>
 
               <TagsInput
                 input={tagInput}
@@ -262,14 +265,14 @@ export default function Index({
 
               <Tags tags={tagsList} removeTag={removeTag} />
 
-              <p className="mb-4 text-lg">choose a category</p>
+              <p className="mb-5 text-lg">choose a category</p>
 
               <CategoriesSelect
                 categories={categories}
                 changeCategory={changeCategory}
               />
 
-              <div>
+              <div className="mb-12">
                 <Button
                   text="next"
                   color="bg-blue"

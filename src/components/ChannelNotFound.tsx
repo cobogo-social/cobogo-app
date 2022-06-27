@@ -32,7 +32,7 @@ export default function ChannelNotFound({
           </div>
 
           <div>
-            <p className="flex mb-4 text-4xl">
+            <p className="flex mb-6 text-[40px]">
               channel not found{' '}
               <span className="flex ml-4">
                 <Image
@@ -44,7 +44,7 @@ export default function ChannelNotFound({
               </span>
             </p>
 
-            <p className="mb-8 text-lg">
+            <p className="mb-10 text-xl">
               there is no channel associated with this account.
             </p>
 

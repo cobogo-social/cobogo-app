@@ -24,7 +24,7 @@ export default function TagsInput({ input, changeTags, tags }: TagsInputProps) {
 
       <input
         className={`w-full sm:w-96 h-12 bg-gray7 border-[1px] border-l-0 border-gray10 ${
-          tags.length ? 'mb-4' : 'mb-8'
+          tags.length ? 'mb-5' : 'mb-10'
         } p-2 outline-none hidden sm:block`}
         type="text"
         placeholder="type a tag and press enter"

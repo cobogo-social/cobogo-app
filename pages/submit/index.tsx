@@ -41,7 +41,7 @@ export default function Index() {
           />
 
           <div className="flex flex-col items-center justify-center mt-32 sm:mt-0 px-8 py-4">
-            <p className="sm:text-2xl sm:w-[618px] text-center mb-[50px]">
+            <p className="text-3xl max-w-[668px] text-center mb-12">
               revolutionize the way you{' '}
               <span className="font-bold">monetize</span> your{' '}
               <span className="font-bold">channel</span> using the tools made
@@ -51,10 +51,10 @@ export default function Index() {
 
             <JoinOurWaitlist />
 
-            <Link href="/submit/connect" className=" mb-[100px]">
+            <Link href="/submit/connect" className="mb-24">
               <Button
                 text="join now"
-                color="bg-purple"
+                color="bg-blue"
                 width="w-[147px]"
                 height="h-[50px]"
                 fontSize="text-xl"
@@ -62,11 +62,11 @@ export default function Index() {
               />
             </Link>
 
-            <p className="mb-2 text-center">
+            <p className="mb-2 text-center text-lg">
               if you have any questions about the onboarding process:
             </p>
 
-            <div className="flex flex-col items-center justify-center sm:flex-row">
+            <div className="flex flex-col items-center justify-center sm:flex-row mb-56">
               <a
                 href="https://docs.cobogo.social/youtubers/getting-started"
                 className="font-bold text-blue sm:mr-8"

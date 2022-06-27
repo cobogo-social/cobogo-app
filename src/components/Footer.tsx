@@ -1,26 +1,8 @@
-import getWindowAndDocumentHeight from '@utils/getWindowAndDocumentHeight';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 
 export default function Footer() {
-  const [haveScroll, setHaveScroll] = useState<boolean>();
-
-  useEffect(() => {
-    const { documentHeight, windowHeight } = getWindowAndDocumentHeight();
-
-    if (documentHeight > windowHeight) {
-      setHaveScroll(true);
-    } else {
-      setHaveScroll(false);
-    }
-  }, []);
-
   return (
-    <div
-      className={`items-center justify-between hidden w-full h-[70px] col-span-2 pl-8 bg-black sm:flex ${
-        !haveScroll && 'absolute bottom-0'
-      }`}
-    >
+    <div className="items-center justify-between hidden w-full h-[70px] col-span-2 pl-8 bg-black sm:flex">
       <div className="flex items-center justify-center h-full">
         <a
           href="mailto:hi@cobogo.social"

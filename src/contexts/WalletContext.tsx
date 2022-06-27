@@ -28,7 +28,7 @@ export const WalletContext = createContext<IWalletContext>(
 );
 
 export function WalletProvider({ children }) {
-  const [currentWallet, setCurrentWallet] = useState<string>('');
+  const [currentWallet, setCurrentWallet] = useState('');
   const { setMessage } = useContext(MesssageContext);
   const { setLoading } = useContext(LoadingContext);
   const { push } = useRouter();

@@ -20,10 +20,10 @@ export default function TokenInfo({ tokens }: TokenInfoProps) {
       <div onClick={openModal} className="flex hover:cursor-pointer">
         <div className="flex mr-2">
           <Image
-            src="/images/cbg-icon.svg"
+            src="/images/purple-cbg-flat-icon.svg"
             width={24}
             height={21}
-            alt="cbg icon"
+            alt="purple cbg flat icon"
           />
         </div>
 

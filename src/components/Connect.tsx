@@ -21,9 +21,9 @@ export default function Connect() {
           </div>
 
           <div>
-            <p className="mb-4 text-4xl">connect</p>
+            <p className="mb-6 text-[40px]">connect</p>
 
-            <p className="mb-8 text-lg">
+            <p className="mb-10 text-xl">
               connect your YouTube account and channel.
             </p>
 

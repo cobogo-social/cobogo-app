@@ -40,10 +40,10 @@ export default function TokenInfoModal({
 
           <div className="mb-[27px]">
             <Image
-              src="/images/cbg-icon.svg"
+              src="/images/purple-cbg-flat-icon.svg"
               width={73}
               height={65}
-              alt="cbg icon"
+              alt="purple cbg flat icon"
             />
           </div>
 
