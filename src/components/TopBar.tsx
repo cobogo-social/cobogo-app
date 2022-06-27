@@ -224,7 +224,7 @@ export default function TopBar({
                   <p className="mb-[7px] font-bold">your referral link</p>
 
                   <div className="flex">
-                    <div className="px-4 w-full h-[36px] bg-black flex justify-start items-center border-[1px] border-r-0 border-gray10">
+                    <div className="px-4 w-full h-[36px] bg-black flex justify-start items-center border border-r-0 border-gray10">
                       <p className="text-xs font-bold text-blue sm:text-sm">
                         app.cobogo.social/submit?ref={referralCode}
                       </p>
@@ -232,7 +232,7 @@ export default function TopBar({
 
                     <div
                       onClick={copyToClipboard}
-                      className="pr-4 h-[36px] bg-black border-[1px] border-l-0 border-gray10 outline-none flex justify-center items-center"
+                      className="pr-4 h-[36px] bg-black border border-l-0 border-gray10 outline-none flex justify-center items-center"
                     >
                       <CopyToClipboard
                         text={`https://app.cobogo.social/submit?ref=${referralCode}`}

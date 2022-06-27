@@ -1,4 +1,4 @@
-export default function VideoImage(): JSX.Element {
+export default function VideoImage() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

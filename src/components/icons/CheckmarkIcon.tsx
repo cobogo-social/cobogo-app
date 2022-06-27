@@ -2,7 +2,7 @@ interface CheckmarkIconProps {
   size: number;
 }
 
-export default function CheckmarkIcon(props: CheckmarkIconProps): JSX.Element {
+export default function CheckmarkIcon(props: CheckmarkIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

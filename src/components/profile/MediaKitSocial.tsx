@@ -47,13 +47,11 @@ interface MediaKitSocialProps {
   telegramHandle: string;
 }
 
-export default function MediaKitSocial(
-  props: MediaKitSocialProps,
-): JSX.Element {
-  const [singleOpen, setSingleOpen] = useState<boolean>(false);
-  const [step, setStep] = useState<number>(1);
+export default function MediaKitSocial(props: MediaKitSocialProps) {
+  const [singleOpen, setSingleOpen] = useState(false);
+  const [step, setStep] = useState(1);
   const [editMediaKitSocialModalIsOpen, setEditMediaKitSocialModalIsOpen] =
-    useState<boolean>(false);
+    useState(false);
 
   function openEditMediaKitSocialModal() {
     setEditMediaKitSocialModalIsOpen(true);
@@ -210,108 +208,94 @@ export default function MediaKitSocial(
         )}
 
         <div className="flex max-w-[1000px] w-full justify-center items-center">
-          <div className="flex flex-wrap items-center justify-between w-full gap-[90px]">
-            {props.youtubeSubscribers ? (
-              <Social
-                onClick={() => openStep(1)}
-                icon={<YouTubeIcon size={60} />}
-                number={props.youtubeSubscribers}
-                placeholder="subscribers"
-                link={
-                  props.youtubeId
-                    ? `https://youtube.com/channel/${props.youtubeId}`
-                    : null
-                }
-                linkPlaceholder="visit channel"
-              />
-            ) : null}
+          <div className="flex flex-row flex-wrap items-center justify-between w-full gap-10">
+            <Social
+              onClick={() => openStep(1)}
+              icon={<YouTubeIcon size={60} />}
+              number={props.youtubeSubscribers}
+              placeholder="subscribers"
+              link={
+                props.youtubeId
+                  ? `https://youtube.com/channel/${props.youtubeId}`
+                  : null
+              }
+              linkPlaceholder="visit channel"
+            />
 
-            {props.instagramFollowers ? (
-              <Social
-                onClick={() => openStep(2)}
-                icon={<InstagramIcon size={56} />}
-                number={props.instagramFollowers}
-                placeholder="followers"
-                link={
-                  props.instagramHandle
-                    ? `https://instagram.com/${props.instagramHandle}`
-                    : null
-                }
-                linkPlaceholder={`@${props.instagramHandle}`}
-              />
-            ) : null}
+            <Social
+              onClick={() => openStep(2)}
+              icon={<InstagramIcon size={56} />}
+              number={props.instagramFollowers}
+              placeholder="followers"
+              link={
+                props.instagramHandle
+                  ? `https://instagram.com/${props.instagramHandle}`
+                  : null
+              }
+              linkPlaceholder={`@${props.instagramHandle}`}
+            />
 
-            {props.twitchSubscribers ? (
-              <Social
-                onClick={() => openStep(3)}
-                icon={<TwitchIcon size={54} />}
-                number={props.twitchSubscribers}
-                placeholder="subscribers"
-                link={
-                  props.twitchHandle
-                    ? `https://twitch.tv/${props.twitchHandle}`
-                    : null
-                }
-                linkPlaceholder={`/${props.twitchHandle}`}
-              />
-            ) : null}
+            <Social
+              onClick={() => openStep(3)}
+              icon={<TwitchIcon size={54} />}
+              number={props.twitchSubscribers}
+              placeholder="subscribers"
+              link={
+                props.twitchHandle
+                  ? `https://twitch.tv/${props.twitchHandle}`
+                  : null
+              }
+              linkPlaceholder={`/${props.twitchHandle}`}
+            />
 
-            {props.tiktokFollowers ? (
-              <Social
-                onClick={() => openStep(4)}
-                icon={<TikTokIcon size={46} />}
-                number={props.tiktokFollowers}
-                placeholder="followers"
-                link={
-                  props.tiktokHandle
-                    ? `https://tiktok.com/@${props.tiktokHandle}`
-                    : null
-                }
-                linkPlaceholder={`@${props.tiktokHandle}`}
-              />
-            ) : null}
+            <Social
+              onClick={() => openStep(4)}
+              icon={<TikTokIcon size={46} />}
+              number={props.tiktokFollowers}
+              placeholder="followers"
+              link={
+                props.tiktokHandle
+                  ? `https://tiktok.com/@${props.tiktokHandle}`
+                  : null
+              }
+              linkPlaceholder={`@${props.tiktokHandle}`}
+            />
 
-            {props.twitterFollowers ? (
-              <Social
-                icon={<TwitterIcon size={60} />}
-                number={props.twitterFollowers}
-                placeholder="followers"
-                link={
-                  props.twitterHandle
-                    ? `https://twitter.com/${props.twitterHandle}`
-                    : null
-                }
-                linkPlaceholder={`@${props.twitterHandle}`}
-              />
-            ) : null}
+            <Social
+              icon={<TwitterIcon size={60} />}
+              number={props.twitterFollowers}
+              placeholder="followers"
+              link={
+                props.twitterHandle
+                  ? `https://twitter.com/${props.twitterHandle}`
+                  : null
+              }
+              linkPlaceholder={`@${props.twitterHandle}`}
+            />
 
-            {props.discordMembers ? (
-              <Social
-                icon={<DiscordIcon size={61} />}
-                number={props.discordMembers}
-                placeholder="members"
-                link={
-                  props.discordHandle
-                    ? `https://discord.gg/${props.discordHandle}`
-                    : null
-                }
-                linkPlaceholder="join my Discord"
-              />
-            ) : null}
+            <Social
+              icon={<DiscordIcon size={61} />}
+              number={props.discordMembers}
+              placeholder="members"
+              link={
+                props.discordHandle
+                  ? `https://discord.gg/${props.discordHandle}`
+                  : null
+              }
+              linkPlaceholder="join my Discord"
+            />
 
-            {props.telegramMembers ? (
-              <Social
-                icon={<TelegramIcon size={54} />}
-                number={props.telegramMembers}
-                placeholder="members"
-                link={
-                  props.telegramHandle
-                    ? `https://t.me/${props.telegramHandle}`
-                    : null
-                }
-                linkPlaceholder="join my Telegram"
-              />
-            ) : null}
+            <Social
+              icon={<TelegramIcon size={54} />}
+              number={props.telegramMembers}
+              placeholder="members"
+              link={
+                props.telegramHandle
+                  ? `https://t.me/${props.telegramHandle}`
+                  : null
+              }
+              linkPlaceholder="join my Telegram"
+            />
           </div>
         </div>
       </section>

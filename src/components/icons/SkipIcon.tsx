@@ -3,7 +3,7 @@ interface BackIconProps {
   disabled?: boolean;
 }
 
-export default function SkipIcon(props: BackIconProps): JSX.Element {
+export default function SkipIcon(props: BackIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

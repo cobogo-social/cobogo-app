@@ -4,7 +4,7 @@ interface TwitterIconProps {
   size: number;
 }
 
-export default function TwitterIcon(props: TwitterIconProps): JSX.Element {
+export default function TwitterIcon(props: TwitterIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

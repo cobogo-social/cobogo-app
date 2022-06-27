@@ -4,7 +4,7 @@ interface YouTubeIconProps {
   size: number;
 }
 
-export default function YouTubeIcon(props: YouTubeIconProps): JSX.Element {
+export default function YouTubeIcon(props: YouTubeIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

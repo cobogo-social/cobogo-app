@@ -25,10 +25,10 @@ interface SocialDetailsProps {
   title: string;
   linkPlaceholder: string;
   link: string;
-  icon: JSX.Element;
+  icon;
 }
 
-export default function SocialDetails(props: SocialDetailsProps): JSX.Element {
+export default function SocialDetails(props: SocialDetailsProps) {
   return (
     <motion.section
       initial={{ opacity: 0 }}

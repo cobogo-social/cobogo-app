@@ -13,7 +13,7 @@ export default function CategoriesSelect({
   return (
     <div className="flex">
       <select
-        className="w-full sm:w-[432px] h-12 bg-gray7 border-[1px] border-gray10 mb-10 px-4 outline-none hover:cursor-pointer"
+        className="w-full sm:w-[432px] h-12 bg-gray7 border border-gray10 mb-10 px-4 outline-none hover:cursor-pointer"
         onChange={changeCategory}
       >
         <option selected>select category</option>

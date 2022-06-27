@@ -74,7 +74,7 @@ export default function EditMediaKitSocialModal({
 
               <p className="text-white text-[22px] mr-[10px]">YouTube</p>
 
-              <div className="w-full border-[1px] border-gray10 mr-[10px]" />
+              <div className="w-full border border-gray10 mr-[10px]" />
 
               <div className="flex">
                 <Image
@@ -101,7 +101,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
 
@@ -117,7 +117,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -135,7 +135,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
 
@@ -151,7 +151,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -169,7 +169,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
 
@@ -185,7 +185,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -207,7 +207,7 @@ export default function EditMediaKitSocialModal({
 
               <p className="text-white text-[22px] mr-[10px]">Instagram</p>
 
-              <div className="w-full border-[1px] border-gray10 mr-[10px]" />
+              <div className="w-full border border-gray10 mr-[10px]" />
 
               <div className="flex">
                 <Image
@@ -226,7 +226,7 @@ export default function EditMediaKitSocialModal({
                 </label>
 
                 <div className="flex mb-4">
-                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1px] border-r-0 border-gray10">
+                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border border-r-0 border-gray10">
                     <p className="font-bold">instagram.com/</p>
                   </div>
 
@@ -235,7 +235,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-full h-12 bg-gray7 border-[1px] sm:border-l-0 border-gray10 p-2 outline-none"
+                      className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -253,7 +253,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
 
@@ -269,7 +269,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -287,7 +287,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
 
@@ -303,7 +303,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -321,7 +321,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -343,7 +343,7 @@ export default function EditMediaKitSocialModal({
 
               <p className="text-white text-[22px] mr-[10px]">Twitch</p>
 
-              <div className="w-full border-[1px] border-gray10 mr-[10px]" />
+              <div className="w-full border border-gray10 mr-[10px]" />
 
               <div className="flex">
                 <Image
@@ -362,7 +362,7 @@ export default function EditMediaKitSocialModal({
                 </label>
 
                 <div className="flex mb-4">
-                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1px] border-r-0 border-gray10">
+                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border border-r-0 border-gray10">
                     <p className="font-bold">twitch.tv/</p>
                   </div>
 
@@ -371,7 +371,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-full h-12 bg-gray7 border-[1px] sm:border-l-0 border-gray10 p-2 outline-none"
+                      className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -389,7 +389,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
 
@@ -405,7 +405,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -423,7 +423,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
 
@@ -439,7 +439,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -457,7 +457,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -479,7 +479,7 @@ export default function EditMediaKitSocialModal({
 
               <p className="text-white text-[22px] mr-[10px]">TikTok</p>
 
-              <div className="w-full border-[1px] border-gray10 mr-[10px]" />
+              <div className="w-full border border-gray10 mr-[10px]" />
 
               <div className="flex">
                 <Image
@@ -498,7 +498,7 @@ export default function EditMediaKitSocialModal({
                 </label>
 
                 <div className="flex mb-4">
-                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1px] border-r-0 border-gray10">
+                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border border-r-0 border-gray10">
                     <p className="font-bold">tiktok.com/</p>
                   </div>
 
@@ -507,7 +507,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-full h-12 bg-gray7 border-[1px] sm:border-l-0 border-gray10 p-2 outline-none"
+                      className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -525,7 +525,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
 
@@ -541,7 +541,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -559,7 +559,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
 
@@ -575,7 +575,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -593,7 +593,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -615,7 +615,7 @@ export default function EditMediaKitSocialModal({
 
               <p className="text-white text-[22px] mr-[10px]">Discord</p>
 
-              <div className="w-full border-[1px] border-gray10 mr-[10px]" />
+              <div className="w-full border border-gray10 mr-[10px]" />
 
               <div className="flex">
                 <Image
@@ -634,7 +634,7 @@ export default function EditMediaKitSocialModal({
                 </label>
 
                 <div className="flex mb-4">
-                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1px] border-r-0 border-gray10">
+                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border border-r-0 border-gray10">
                     <p className="font-bold">discord.gg/</p>
                   </div>
 
@@ -643,7 +643,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-full h-12 bg-gray7 border-[1px] sm:border-l-0 border-gray10 p-2 outline-none"
+                      className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -661,7 +661,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -683,7 +683,7 @@ export default function EditMediaKitSocialModal({
 
               <p className="text-white text-[22px] mr-[10px]">Telegram</p>
 
-              <div className="w-full border-[1px] border-gray10 mr-[10px]" />
+              <div className="w-full border border-gray10 mr-[10px]" />
 
               <div className="flex">
                 <Image
@@ -702,7 +702,7 @@ export default function EditMediaKitSocialModal({
                 </label>
 
                 <div className="flex mb-4">
-                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1px] border-r-0 border-gray10">
+                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border border-r-0 border-gray10">
                     <p className="font-bold">t.me/</p>
                   </div>
 
@@ -711,7 +711,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-full h-12 bg-gray7 border-[1px] sm:border-l-0 border-gray10 p-2 outline-none"
+                      className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -729,7 +729,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -753,7 +753,7 @@ export default function EditMediaKitSocialModal({
 
               <p className="text-white text-[22px] mr-[10px]">Twitter</p>
 
-              <div className="w-full border-[1px] border-gray10 mr-[10px]" />
+              <div className="w-full border border-gray10 mr-[10px]" />
 
               <div className="flex">
                 <Image
@@ -772,7 +772,7 @@ export default function EditMediaKitSocialModal({
                 </label>
 
                 <div className="flex mb-4">
-                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1px] border-r-0 border-gray10">
+                  <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border border-r-0 border-gray10">
                     <p className="font-bold">twitter.com/</p>
                   </div>
 
@@ -781,7 +781,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-full h-12 bg-gray7 border-[1px] sm:border-l-0 border-gray10 p-2 outline-none"
+                      className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
                     />
                   </div>
                 </div>
@@ -799,7 +799,7 @@ export default function EditMediaKitSocialModal({
                       id="handle"
                       name="handle"
                       type="text"
-                      className="w-[205px] h-12 bg-gray7 border-[1px] border-gray10 mb-4 p-2 outline-none"
+                      className="w-[205px] h-12 bg-gray7 border border-gray10 mb-4 p-2 outline-none"
                     />
                   </div>
                 </div>

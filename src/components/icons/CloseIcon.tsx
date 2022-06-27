@@ -2,7 +2,7 @@ interface CloseIconProps {
   size: number;
 }
 
-export default function CloseIcon(props: CloseIconProps): JSX.Element {
+export default function CloseIcon(props: CloseIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

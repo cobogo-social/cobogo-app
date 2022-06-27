@@ -18,7 +18,7 @@ export default function RangeSlider({
   description,
   descriptionColor,
   maxValue,
-}: RangeSliderProps): JSX.Element {
+}: RangeSliderProps) {
   return (
     <div className="mb-8 relative">
       <div

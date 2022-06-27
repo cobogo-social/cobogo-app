@@ -2,7 +2,7 @@ interface TikTokIconProps {
   size: number;
 }
 
-export default function TikTokIcon(props: TikTokIconProps): JSX.Element {
+export default function TikTokIcon(props: TikTokIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

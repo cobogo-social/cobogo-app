@@ -2,7 +2,7 @@ interface EditIconProps {
   size: number;
 }
 
-export default function EditIcon(props: EditIconProps): JSX.Element {
+export default function EditIcon(props: EditIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

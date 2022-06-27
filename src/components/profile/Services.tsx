@@ -24,9 +24,9 @@ export default function Services({ services, isOwner }: ServicesProps) {
 
       <div className="flex max-w-[1000px] w-full justify-between items-center">
         <div className="flex flex-col justify-between items-start w-full">
-          <p className="text-[22px] mb-[20px]">services offered</p>
+          <p className="text-[22px] mb-6">services offered</p>
 
-          <div className="flex w-full justify-start gap-[40px]">
+          <div className="flex w-full justify-start gap-10">
             {services.map((service) => (
               <Service
                 key={service.id}

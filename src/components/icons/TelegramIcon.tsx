@@ -2,7 +2,7 @@ interface TelegramIconProps {
   size: number;
 }
 
-export default function TelegramIcon(props: TelegramIconProps): JSX.Element {
+export default function TelegramIcon(props: TelegramIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -204,7 +204,7 @@ export default function EditAboutModal(props: EditAboutModalProps) {
               <textarea
                 id="description"
                 name="description"
-                className={`w-full h-32 bg-gray7 border-[1px] mb-8 p-2 outline-none text-white ${
+                className={`w-full h-32 bg-gray7 border mb-8 p-2 outline-none text-white ${
                   formik.touched.description && formik.errors.description
                     ? 'border-red'
                     : 'border-gray10'
@@ -228,7 +228,7 @@ export default function EditAboutModal(props: EditAboutModalProps) {
             </p>
 
             <div className="flex">
-              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border-[1px] border-r-0 border-gray10">
+              <div className="px-4 h-12 bg-secondary hidden sm:flex justify-center items-center border border-r-0 border-gray10">
                 <p className="font-bold text-white">app.cobogo.social/</p>
               </div>
 
@@ -242,7 +242,7 @@ export default function EditAboutModal(props: EditAboutModalProps) {
                   id="handle"
                   name="handle"
                   type="text"
-                  className={`w-full h-12 bg-gray7 border-[1px] sm:border-l-0  mb-8 p-2 outline-none text-white ${
+                  className={`w-full h-12 bg-gray7 border sm:border-l-0  mb-8 p-2 outline-none text-white ${
                     (formik.touched.handle && formik.errors.handle) ||
                     handleError
                       ? 'border-red'

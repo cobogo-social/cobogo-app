@@ -3,7 +3,7 @@ interface BackIconProps {
   disabled?: boolean;
 }
 
-export default function BackIcon(props: BackIconProps): JSX.Element {
+export default function BackIcon(props: BackIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

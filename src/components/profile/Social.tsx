@@ -3,7 +3,7 @@ import numeral from 'numeral';
 
 interface SocialProps {
   onClick?: () => void;
-  icon: JSX.Element;
+  icon;
   number: number;
   placeholder: string;
   link: string;
@@ -12,7 +12,7 @@ interface SocialProps {
 
 export default function Social(props: SocialProps) {
   return (
-    <div className="flex w-[266px]">
+    <div className="flex w-[306px]">
       <div
         onClick={props.onClick}
         className="mr-[27px] flex hover:cursor-pointer"

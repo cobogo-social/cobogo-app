@@ -1,6 +1,3 @@
-import AgeIcon from '@components/icons/AgeIcon';
-import GenderIcon from '@components/icons/GenderIcon';
-import LocationIcon from '@components/icons/Location';
 import Image from 'next/image';
 
 import Distribution from './Distribution';
@@ -8,6 +5,7 @@ import Distribution from './Distribution';
 interface MediaKitAnalyticsProps {
   audienceGenderDistributionMen: number;
   audienceGenderDistributionWomen: number;
+  audienceGenderDistributionOthers: number;
   audienceGenderDistribution18: number;
   audienceGenderDistribution2534: number;
   audienceGenderDistribution35: number;
@@ -17,20 +15,10 @@ interface MediaKitAnalyticsProps {
   isOwner: boolean;
 }
 
-export default function MediaKitAnalytics({
-  audienceGenderDistributionMen,
-  audienceGenderDistributionWomen,
-  audienceGenderDistribution18,
-  audienceGenderDistribution2534,
-  audienceGenderDistribution35,
-  audienceTopCountries1,
-  audienceTopCountries2,
-  audienceTopCountries3,
-  isOwner,
-}: MediaKitAnalyticsProps) {
+export default function MediaKitAnalytics(props: MediaKitAnalyticsProps) {
   return (
     <div className="w-full flex items-center relative justify-center py-[70px] px-[150px] bg-black">
-      {isOwner && (
+      {props.isOwner && (
         <div className="flex hover:cursor-pointer absolute top-[30px] left-[30px]">
           <Image
             src="/images/edit-icon.svg"
@@ -41,36 +29,62 @@ export default function MediaKitAnalytics({
         </div>
       )}
 
-      <div className="flex max-w-[1000px] w-full justify-between items-center">
+      <div className="flex max-w-[1000px] w-full gap-10 justify-start items-center">
         <Distribution
-          percent1={audienceGenderDistributionMen}
-          percent2={audienceGenderDistributionWomen}
+          percent1={props.audienceGenderDistributionMen}
+          percent2={props.audienceGenderDistributionWomen}
+          percent3={props.audienceGenderDistributionOthers}
           placeholder1="men"
           placeholder2="women"
+          placeholder3="others"
           title="gender distribution"
-          icon={<GenderIcon size={45} />}
+          icon={
+            <Image
+              src="/images/gender-icon.svg"
+              width={45}
+              height={45}
+              alt="gender icon"
+            />
+          }
+          iconPosition="left-[-25px]"
         />
 
         <Distribution
-          percent1={audienceGenderDistribution18}
-          percent2={audienceGenderDistribution2534}
-          percent3={audienceGenderDistribution35}
+          percent1={props.audienceGenderDistribution18}
+          percent2={props.audienceGenderDistribution2534}
+          percent3={props.audienceGenderDistribution35}
           placeholder1="-18"
           placeholder2="18-34"
           placeholder3="+35"
           title="age distribution"
-          icon={<AgeIcon />}
+          icon={
+            <Image
+              src="/images/bar-chart-icon.svg"
+              width={39}
+              height={39}
+              alt="bar chart icon"
+            />
+          }
+          iconPosition="left-[-20px]"
         />
 
         <Distribution
-          percent1={audienceTopCountries1}
-          percent2={audienceTopCountries2}
-          percent3={audienceTopCountries3}
-          placeholder1="US"
-          placeholder2="BR"
-          placeholder3="UK"
+          percent1={props.audienceTopCountries1}
+          percent2={props.audienceTopCountries2}
+          percent3={props.audienceTopCountries3}
+          placeholder1="-"
+          placeholder2="-"
+          placeholder3="-"
           title="top countries"
-          icon={<LocationIcon size={22} />}
+          icon={
+            <Image
+              src="/images/location-icon.svg"
+              width={22}
+              height={31}
+              alt="location icon"
+            />
+          }
+          iconPosition="left-[-10px]"
         />
       </div>
     </div>

@@ -3,8 +3,10 @@ import MediaKitAnalytics from '@components/profile/MediaKitAnalytics';
 import MediaKitSocial from '@components/profile/MediaKitSocial';
 import Services from '@components/profile/Services';
 import Stake from '@components/profile/Stake';
+import Videos from '@components/profile/Videos';
 import TopBar from '@components/TopBar';
 import { readCategories, readProfileByHandle } from '@services/cobogoApi';
+import { readVideosByChannelId } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 
@@ -55,6 +57,7 @@ interface ProfileProps {
   twitterHandle: string;
   audienceGenderDistributionMen: number;
   audienceGenderDistributionWomen: number;
+  audienceGenderDistributionOthers: number;
   audienceGenderDistribution18: number;
   audienceGenderDistribution2534: number;
   audienceGenderDistribution35: number;
@@ -127,12 +130,15 @@ export default function Index(props: ProfileProps) {
         audienceTopCountries3={props.audienceTopCountries3}
         audienceGenderDistributionMen={props.audienceGenderDistributionMen}
         audienceGenderDistributionWomen={props.audienceGenderDistributionWomen}
+        audienceGenderDistributionOthers={
+          props.audienceGenderDistributionOthers
+        }
         isOwner={props.isOwner}
       />
 
       <Services services={props.services} isOwner={props.isOwner} />
 
-      {/* <Videos title={props.title} videos={props.videos} /> */}
+      <Videos videos={props.videos} />
 
       <Stake />
     </div>
@@ -158,7 +164,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       };
     }
 
-    // const videos = await readVideosByChannelId(profile.attributes.youtube_id);
+    const videos = await readVideosByChannelId(profile.attributes.youtube_id);
 
     const categories = await readCategories();
 
@@ -171,7 +177,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         description: profile.attributes.description,
         tags: profile.attributes.categories.split(','),
         youtubeId: profile.attributes.youtube_id,
-        // videos,
+        videos,
         isOwner: session?.user
           ? session.user['id'] === profile.attributes.accounts.data[0].id
           : false,
@@ -213,6 +219,8 @@ export const getServerSideProps: GetServerSideProps = async ({
           profile.attributes.audience_gender_distribution_men,
         audienceGenderDistributionWomen:
           profile.attributes.audience_gender_distribution_women,
+        audienceGenderDistributionOthers:
+          profile.attributes.audience_gender_distribution_others,
         audienceGenderDistribution18:
           profile.attributes.audience_age_distribution_18,
         audienceGenderDistribution2534:

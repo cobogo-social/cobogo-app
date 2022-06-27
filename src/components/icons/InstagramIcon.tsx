@@ -2,7 +2,7 @@ interface InstagramIconProps {
   size: number;
 }
 
-export default function InstagramIcon(props: InstagramIconProps): JSX.Element {
+export default function InstagramIcon(props: InstagramIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

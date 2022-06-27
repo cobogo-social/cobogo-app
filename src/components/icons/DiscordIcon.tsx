@@ -2,7 +2,7 @@ interface DiscordIconProps {
   size: number;
 }
 
-export default function DiscordIcon(props: DiscordIconProps): JSX.Element {
+export default function DiscordIcon(props: DiscordIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

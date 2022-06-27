@@ -13,7 +13,7 @@ export default function TagsInput({ input, changeTags, tags }: TagsInputProps) {
 
   return (
     <div className="flex">
-      <div className="w-12 h-12 border-[1px] bg-gray7 border-r-0 border-gray10 flex justify-center items-center">
+      <div className="w-12 h-12 border bg-gray7 border-r-0 border-gray10 flex justify-center items-center">
         <Image
           src="/images/search-icon.svg"
           width={19}
@@ -23,7 +23,7 @@ export default function TagsInput({ input, changeTags, tags }: TagsInputProps) {
       </div>
 
       <input
-        className={`w-full sm:w-96 h-12 bg-gray7 border-[1px] border-l-0 border-gray10 ${
+        className={`w-full sm:w-96 h-12 bg-gray7 border border-l-0 border-gray10 ${
           tags.length ? 'mb-5' : 'mb-10'
         } p-2 outline-none hidden sm:block`}
         type="text"
@@ -35,7 +35,7 @@ export default function TagsInput({ input, changeTags, tags }: TagsInputProps) {
       />
 
       <input
-        className="w-full sm:w-96 h-12 bg-gray7 border-[1px] border-l-0 border-gray10 mb-4 p-2 outline-none block sm:hidden"
+        className="w-full sm:w-96 h-12 bg-gray7 border border-l-0 border-gray10 mb-4 p-2 outline-none block sm:hidden"
         type="text"
         placeholder="type a tag"
         value={input}

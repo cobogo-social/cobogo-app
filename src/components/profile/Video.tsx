@@ -12,8 +12,8 @@ export default function Video({
   thumbnail,
 }: ProfileVideoProps) {
   return (
-    <div className="flex flex-col mr-[40px]">
-      <div className="w-[220px] h-[123px] bg-blue mb-[15px]">
+    <div className="flex flex-col">
+      <div className="w-[220px] h-[123px] bg-blue mb-4">
         <Image
           src={thumbnail}
           width={220}
@@ -23,7 +23,7 @@ export default function Video({
         />
       </div>
 
-      <p className="font-bold w-[218px] mb-[15px]">{title}</p>
+      <p className="font-bold w-[218px] mb-4">{title}</p>
 
       <a
         href={`https://www.youtube.com/video/${videoId}`}

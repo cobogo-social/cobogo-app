@@ -7,21 +7,24 @@ interface DistributionProps {
   placeholder3?: string;
   icon: JSX.Element;
   title: string;
+  iconPosition: string;
 }
 
 export default function Distribution(props: DistributionProps) {
   return (
     <div className="relative">
-      <div className="h-full absolute flex justify-center items-center left-[-10px]">
+      <div
+        className={`h-full absolute flex justify-center items-center ${props.iconPosition}`}
+      >
         <div className="bg-black py-[10px]">{props.icon}</div>
       </div>
 
-      <div className="w-[296px] h-[207px] border-[1px] border-gray10 flex flex-col justify-center items-center px-[30px]">
+      <div className="w-[310px] h-[207px] border border-gray10 flex flex-col justify-center items-center px-8">
         <div>
           <p className="font-bold">{props.title}</p>
 
           <div className="flex items-center">
-            <div className="w-[138px] h-[7px] bg-gray10 mr-[15px]">
+            <div className="w-[138px] h-[7px] bg-gray10 mr-4">
               <div
                 style={{
                   width: `${props.percent1}%`,
@@ -30,11 +33,11 @@ export default function Distribution(props: DistributionProps) {
               />
             </div>
 
-            <p className="font-bold text-[23px]">{props.percent1}%</p>
+            <p className="font-bold text-2xl">{props.percent1}%</p>
           </div>
 
           <div className="flex items-center">
-            <div className="w-[138px] h-[7px] bg-gray10 mr-[15px]">
+            <div className="w-[138px] h-[7px] bg-gray10 mr-4">
               <div
                 style={{
                   width: `${props.percent2}%`,
@@ -43,44 +46,48 @@ export default function Distribution(props: DistributionProps) {
               />
             </div>
 
-            <p className="font-bold text-[23px]">{props.percent2}%</p>
+            <p className="font-bold text-2xl">{props.percent2}%</p>
           </div>
 
           <div className="flex items-center">
-            {props.percent3 ? (
+            <div className="w-[138px] h-[7px] bg-gray10 mr-4">
+              <div
+                style={{
+                  width: `${props.percent3}%`,
+                }}
+                className="w-[55%] h-full bg-violet"
+              />
+            </div>
+
+            <p className="font-bold text-2xl">{props.percent3}%</p>
+          </div>
+
+          <div className="flex items-center">
+            {props.placeholder1 && (
               <>
-                <div className="w-[138px] h-[7px] bg-gray10 mr-[15px]">
-                  <div
-                    style={{
-                      width: `${props.percent3}%`,
-                    }}
-                    className="w-[55%] h-full bg-violet"
-                  />
-                </div>
+                <div className="bg-purple2 w-[7px] h-[7px] mr-1" />
 
-                <p className="font-bold text-[23px]">{props.percent3}%</p>
+                <p className="text-gray6 font-bold mr-3">
+                  {props.placeholder1}
+                </p>
               </>
-            ) : null}
-          </div>
+            )}
 
-          <div className="flex items-center">
-            <div className="bg-purple2 w-[7px] h-[7px] mr-1" />
+            {props.placeholder2 && (
+              <>
+                <div className="bg-pink w-[7px] h-[7px] mr-1" />
 
-            <p className="text-gray6 font-bold mr-[12px]">
-              {props.placeholder1}
-            </p>
-
-            <div className="bg-pink w-[7px] h-[7px] mr-1" />
-
-            <p className="text-gray6 font-bold mr-[12px]">
-              {props.placeholder2}
-            </p>
+                <p className="text-gray6 font-bold mr-3">
+                  {props.placeholder2}
+                </p>
+              </>
+            )}
 
             {props.placeholder3 && (
               <>
                 <div className="bg-violet w-[7px] h-[7px] mr-1" />
 
-                <p className="text-gray6 font-bold mr-[12px]">
+                <p className="text-gray6 font-bold mr-3">
                   {props.placeholder3}
                 </p>
               </>

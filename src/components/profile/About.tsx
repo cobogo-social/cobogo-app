@@ -1,4 +1,4 @@
-import CopyIcon from '@components/icons/CopyIcon';
+import CopyToClipboard from '@components/CopyToClipboard';
 import EditIcon from '@components/icons/EditIcon';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -22,9 +22,8 @@ interface AboutProps {
   website: string;
 }
 
-export default function About(props: AboutProps): JSX.Element {
-  const [editAboutModalIsOpen, setEditAboutModalIsOpen] =
-    useState<boolean>(false);
+export default function About(props: AboutProps) {
+  const [editAboutModalIsOpen, setEditAboutModalIsOpen] = useState(false);
 
   function openEditAboutModal() {
     setEditAboutModalIsOpen(true);
@@ -76,7 +75,7 @@ export default function About(props: AboutProps): JSX.Element {
 
                 <p className="text-[20px] text-gray6 font-bold gap-[10px] flex items-center">
                   @{props.handle}{' '}
-                  <CopyIcon
+                  <CopyToClipboard
                     size={18}
                     textToCopy={`https://app.cobogo.social/${props.handle}`}
                   />
@@ -99,7 +98,7 @@ export default function About(props: AboutProps): JSX.Element {
                   <Button
                     text="website"
                     borderColor="border-gray4"
-                    borderSize="border-[1px]"
+                    borderSize="border"
                     textColor="text-blue"
                     icon="/images/link-icon.svg"
                   />

@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import Button from '../Button';
 
-export default function Stake(): JSX.Element {
+export default function Stake() {
   return (
     <section className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
       <div className="flex max-w-[1000px] w-full justify-between items-center">
@@ -158,7 +158,7 @@ export default function Stake(): JSX.Element {
             <Button
               text="withdraw"
               borderColor="border-violet"
-              borderSize="border-[1px]"
+              borderSize="border"
             />
 
             <Button text="stake" color="bg-blue" />

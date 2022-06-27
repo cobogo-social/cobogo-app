@@ -13,15 +13,15 @@ export default function EditMediaKitAnalyticsModal({
   isOpen,
   setIsOpen,
 }: EditMediaKitAnalyticsModalProps) {
-  const [sectionIsOpen, setSectionIsOpen] = useState<string>('');
-  const [menValue, setMenValue] = useState<number>(0);
-  const [womenValue, setWomenValue] = useState<number>(0);
-  const [age18Value, setAge18Value] = useState<number>(0);
-  const [age2534Value, setAge2534Value] = useState<number>(0);
-  const [age35Value, setAge35Value] = useState<number>(0);
-  const [country1Value, setCountry1Value] = useState<number>(0);
-  const [country2Value, setCountry2Value] = useState<number>(0);
-  const [country3Value, setCountry3Value] = useState<number>(0);
+  const [sectionIsOpen, setSectionIsOpen] = useState('');
+  const [menValue, setMenValue] = useState(0);
+  const [womenValue, setWomenValue] = useState(0);
+  const [age18Value, setAge18Value] = useState(0);
+  const [age2534Value, setAge2534Value] = useState(0);
+  const [age35Value, setAge35Value] = useState(0);
+  const [country1Value, setCountry1Value] = useState(0);
+  const [country2Value, setCountry2Value] = useState(0);
+  const [country3Value, setCountry3Value] = useState(0);
 
   function closeModal() {
     setIsOpen(false);
@@ -51,7 +51,7 @@ export default function EditMediaKitAnalyticsModal({
 
   return isOpen ? (
     <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
-      <div className="relative bg-primary w-full sm:w-[598px] h-full sm:h-auto flex flex-col border-[1px] border-gray10 p-[40px] sm:p-[70px] shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
+      <div className="relative bg-primary w-full sm:w-[598px] h-full sm:h-auto flex flex-col border border-gray10 p-[40px] sm:p-[70px] shadow-[0_0px_0px_10px_rgba(0,0,0,0.4)]">
         <div className="flex flex-col items-start justify-center">
           <div
             onClick={closeModal}
@@ -85,7 +85,7 @@ export default function EditMediaKitAnalyticsModal({
                 gender distribution
               </p>
 
-              <div className="w-full border-[1px] border-gray10 mr-[10px]" />
+              <div className="w-full border border-gray10 mr-[10px]" />
 
               <div className="flex">
                 <Image
@@ -135,7 +135,7 @@ export default function EditMediaKitAnalyticsModal({
                 age distribution
               </p>
 
-              <div className="w-full border-[1px] border-gray10 mr-[10px]" />
+              <div className="w-full border border-gray10 mr-[10px]" />
 
               <div className="flex">
                 <Image
@@ -195,7 +195,7 @@ export default function EditMediaKitAnalyticsModal({
                 top countries
               </p>
 
-              <div className="w-full border-[1px] border-gray10 mr-[10px]" />
+              <div className="w-full border border-gray10 mr-[10px]" />
 
               <div className="flex">
                 <Image

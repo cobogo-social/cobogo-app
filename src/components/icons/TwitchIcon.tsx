@@ -2,7 +2,7 @@ interface TwitchIconProps {
   size: number;
 }
 
-export default function TwitchIcon(props: TwitchIconProps): JSX.Element {
+export default function TwitchIcon(props: TwitchIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
