@@ -68,7 +68,7 @@ export default function Index({
                   description={
                     <p>
                       join whitelist and earn{' '}
-                      <strong className="text-pink3">100</strong> CBG tokens
+                      <strong className="text-pink">100</strong> CBG tokens
                     </p>
                   }
                   done
@@ -79,7 +79,7 @@ export default function Index({
                     image="/images/full-rewards.png"
                     description={
                       <p>
-                        earn <strong className="text-pink3">1,000</strong> more
+                        earn <strong className="text-pink">1,000</strong> more
                         CBG tokens recording a video{' '}
                       </p>
                     }
@@ -93,7 +93,7 @@ export default function Index({
                   image="/images/1-reward.png"
                   description={
                     <p>
-                      earn <strong className="text-pink3">10</strong> more CBG
+                      earn <strong className="text-pink">10</strong> more CBG
                       tokens by sharing on Twitter{' '}
                     </p>
                   }
@@ -105,7 +105,7 @@ export default function Index({
                   image="/images/infinite-rewards.png"
                   description={
                     <p>
-                      earn <strong className="text-pink3">50</strong> more CBG
+                      earn <strong className="text-pink">50</strong> more CBG
                       tokens for each Creator whitelisted using your referral
                       link
                     </p>
