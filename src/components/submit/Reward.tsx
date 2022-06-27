@@ -11,7 +11,9 @@ interface RewardProps {
 export default function Reward(props: RewardProps) {
   return (
     <div className="flex gap-5">
-      <Image src={props.image} width={88} height={77} alt="reward image" />
+      <div className="hidden sm:flex items-center justify-center">
+        <Image src={props.image} width={88} height={77} alt="reward image" />
+      </div>
 
       <div className="flex flex-col justify-center">
         <p
