@@ -40,8 +40,8 @@ export default function Index() {
             noTokens
           />
 
-          <div className="flex flex-col items-center justify-center mt-16 sm:mt-32 sm:mt-0 px-8 py-4">
-            <p className="text-3xl max-w-[668px] text-center mb-12">
+          <div className="flex flex-col items-center justify-center mt-16 sm:mt-0 px-8 py-4">
+            <p className="text-2xl sm:text-3xl max-w-[668px] text-center mb-12">
               revolutionize the way you{' '}
               <span className="font-bold">monetize</span> your{' '}
               <span className="font-bold">channel</span> using the tools made
