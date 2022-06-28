@@ -12,12 +12,12 @@ export default function JoinOurWaitlist() {
         />
       </div>
 
-      <div className="flex sm:hidden mr-2">
+      <div className="flex sm:hidden mb-2">
         <Image
-          src="/images/100-cbg-icon.svg"
+          src="/images/purple-cbg-icon.png"
           width={79}
           height={79}
-          alt="100 cbg icon"
+          alt="purple cbg icon"
         />
       </div>
 
