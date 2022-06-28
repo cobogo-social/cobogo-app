@@ -15,8 +15,8 @@ export default function JoinOurWaitlist() {
       <div className="flex sm:hidden mb-2">
         <Image
           src="/images/purple-cbg-icon.png"
-          width={79}
-          height={79}
+          width={77}
+          height={67}
           alt="purple cbg icon"
         />
       </div>
