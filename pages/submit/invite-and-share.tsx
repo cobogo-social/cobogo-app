@@ -117,8 +117,13 @@ export default function Index({
                 {!verifiedVideo && (
                   <Reward
                     image="/images/full-rewards.png"
-                    description="earn 1,000 more CBG tokens recording
-                  a video"
+                    description={
+                      <p>
+                        earn
+                        <strong className="text-pink3">1,000</strong> more CBG
+                        tokens recording a video
+                      </p>
+                    }
                     link="/submit/video"
                     linkText="view rules"
                     done={verifiedVideo}
