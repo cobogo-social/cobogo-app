@@ -1,6 +1,6 @@
 import { MesssageContext } from '@contexts/MessageContext';
 import Image from 'next/image';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 import ModalContainer from './ModalContainer';
 
@@ -13,14 +13,6 @@ export default function MessageModal() {
       type: 'none',
     });
   }
-
-  useEffect(() => {
-    if (message) {
-      document.body.classList.add('active-modal');
-    } else {
-      document.body.classList.remove('active-modal');
-    }
-  }, [message]);
 
   return message.type !== 'none' ? (
     <ModalContainer open={!!message.text}>
