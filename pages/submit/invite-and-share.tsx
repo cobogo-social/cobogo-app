@@ -119,9 +119,8 @@ export default function Index({
                     image="/images/full-rewards.png"
                     description={
                       <p>
-                        earn
-                        <strong className="text-pink3">1,000</strong> more CBG
-                        tokens recording a video
+                        earn <strong className="text-pink3">1,000</strong> more
+                        CBG tokens recording a video
                       </p>
                     }
                     link="/submit/video"

@@ -2,8 +2,10 @@ import Image from 'next/image';
 
 export default function WhitelistedNotification() {
   return (
-    <div className="flex h-[60px] justify-center items-center mb-10">
-      <div className="w-[60px] h-[60px] sm:border-l-4 border-gray5 flex justify-center items-center">
+    <div className="flex h-[60px] justify-center items-center mb-10 gap-5">
+      <div className="h-[60px] sm:border-l-4 border-gray5 hidden sm:flex" />
+
+      <div className="hidden sm:flex">
         <Image
           src="/images/notification-icon.svg"
           width={18}
@@ -12,7 +14,7 @@ export default function WhitelistedNotification() {
         />
       </div>
 
-      <p className="sm:w-[369px] font-bold text-xs sm:text-base">
+      <p className="max-w-[369px] font-bold">
         you will be notified via the email registered on your YouTube account.
       </p>
     </div>

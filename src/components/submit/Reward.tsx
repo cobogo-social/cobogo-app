@@ -17,7 +17,7 @@ export default function Reward(props: RewardProps) {
 
       <div className="flex flex-col justify-center">
         <p
-          className={`text-lg font-bold max-w-[347px] ${
+          className={`sm:text-lg font-bold max-w-[347px] ${
             props.linkText === 'coming soon...' ? 'text-gray9' : ''
           }`}
         >
