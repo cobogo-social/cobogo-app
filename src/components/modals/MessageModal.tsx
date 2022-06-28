@@ -23,7 +23,7 @@ export default function MessageModal() {
   }, [message]);
 
   return message.type !== 'none' ? (
-    <ModalContainer>
+    <ModalContainer open={!!message.text}>
       <div
         onClick={closeModal}
         className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
