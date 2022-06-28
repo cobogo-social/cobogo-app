@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import Button from '../Button';
-import EditAboutModal from './EditAboutModal';
+import EditAboutSidebar from './EditAboutSidebar';
 import ProfileImage from './ProfileImage';
 import VideoImage from './VideoImage';
 
@@ -23,21 +23,21 @@ interface AboutProps {
 }
 
 export default function About(props: AboutProps) {
-  const [editAboutModalIsOpen, setEditAboutModalIsOpen] = useState(false);
+  const [editAboutSidebarIsOpen, setEditAboutSidebarIsOpen] = useState(false);
 
-  function openEditAboutModal() {
-    setEditAboutModalIsOpen(true);
+  function openEditAboutSidebar() {
+    setEditAboutSidebarIsOpen(true);
   }
 
   return (
     <>
-      <EditAboutModal
-        open={editAboutModalIsOpen}
-        setOpen={setEditAboutModalIsOpen}
+      <EditAboutSidebar
         description={props.description}
-        tags={props.tags}
-        handle={props.handle}
         categories={props.categories}
+        open={editAboutSidebarIsOpen}
+        setOpen={setEditAboutSidebarIsOpen}
+        handle={props.handle}
+        tags={props.tags}
         categoryName={props.categoryName}
       />
 
@@ -56,7 +56,7 @@ export default function About(props: AboutProps) {
         <div className="flex w-full px-[150px] py-[70px] relative justify-center items-end bg-black">
           {props.isOwner && (
             <div
-              onClick={openEditAboutModal}
+              onClick={openEditAboutSidebar}
               className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
             >
               <EditIcon size={30} />
@@ -110,7 +110,7 @@ export default function About(props: AboutProps) {
               <VideoImage />
 
               <div className="flex justify-around items-center">
-                {props.tags.map((tag, index) => {
+                {props.tags?.map((tag, index) => {
                   if (index % 2 === 0) {
                     return (
                       <p key={tag} className="font-bold text-pink">

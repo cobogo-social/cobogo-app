@@ -18,7 +18,7 @@ export default function CategoriesSelect({
       >
         <option selected>select category</option>
 
-        {categories.map((category) => {
+        {categories?.map((category) => {
           if (categoryName === category.attributes.name) {
             return (
               <option selected key={category.id} value={category.id}>

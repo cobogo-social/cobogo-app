@@ -11,7 +11,7 @@ import {
 } from 'react';
 
 import { LoadingContext } from './LoadingContext';
-import { MesssageContext } from './MessageContext';
+import { MessageContext } from './MessageContext';
 
 interface IWalletContext {
   currentWallet: string;
@@ -29,7 +29,7 @@ export const WalletContext = createContext<IWalletContext>(
 
 export function WalletProvider({ children }) {
   const [currentWallet, setCurrentWallet] = useState('');
-  const { setMessage } = useContext(MesssageContext);
+  const { setMessage } = useContext(MessageContext);
   const { setLoading } = useContext(LoadingContext);
   const { push } = useRouter();
 

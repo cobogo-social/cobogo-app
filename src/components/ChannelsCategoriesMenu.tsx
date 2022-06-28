@@ -13,7 +13,7 @@ export default function ChannelsCategoriesMenu({
       <p className="text-[24px] mb-[31px]">categories</p>
 
       <div className="flex flex-col items-start text-gray3">
-        {categories.map((category) => (
+        {categories?.map((category) => (
           <button
             key={category.id}
             className="mb-[15px] hover:cursor-pointer"

@@ -14,7 +14,7 @@ export default function Videos(props: VideosProps) {
         </p>
 
         <div className="flex gap-10">
-          {props.videos.map((video) => (
+          {props.videos?.map((video) => (
             <Video
               key={video.id.videoId}
               title={video.snippet.title}

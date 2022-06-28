@@ -1,4 +1,4 @@
-import { MesssageContext } from '@contexts/MessageContext';
+import { MessageContext } from '@contexts/MessageContext';
 import { utils } from 'ethers';
 import Image from 'next/image';
 import { useCallback, useContext, useEffect } from 'react';
@@ -20,7 +20,7 @@ export default function StakeStepTwoModal({
   description,
   bannerImage,
 }: StakeStepTwoModalProps) {
-  const { setMessage } = useContext(MesssageContext);
+  const { setMessage } = useContext(MessageContext);
 
   function closeModal() {
     setIsOpen(false);

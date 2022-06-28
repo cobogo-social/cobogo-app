@@ -9,7 +9,7 @@ import SuccessBullet from '@components/SuccessBullet';
 import TopBar from '@components/TopBar';
 import WarningBullet from '@components/WarningBullet';
 import { LoadingContext } from '@contexts/LoadingContext';
-import { MesssageContext } from '@contexts/MessageContext';
+import { MessageContext } from '@contexts/MessageContext';
 import {
   fetchSessionData,
   readAccountsByReferralId,
@@ -40,7 +40,7 @@ export default function Index({
   referralCode,
 }: VideoProps) {
   const { setLoading } = useContext(LoadingContext);
-  const { setMessage } = useContext(MesssageContext);
+  const { setMessage } = useContext(MessageContext);
   const [videoStatus, setVideoStatus] = useState(1);
   const { push } = useRouter();
 

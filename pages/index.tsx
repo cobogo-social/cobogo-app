@@ -4,7 +4,7 @@ import ChannelsChannelBox from '@components/ChannelsChannelBox';
 import ChannelsFilterSelect from '@components/ChannelsFilterSelect';
 import ChannelsSearchInput from '@components/ChannelsSearchInput';
 import TopBar from '@components/TopBar';
-import { MesssageContext } from '@contexts/MessageContext';
+import { MessageContext } from '@contexts/MessageContext';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -37,7 +37,7 @@ export default function Index({
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [updatedChannels, setUpdatedChannels] = useState(channels);
-  const { setMessage } = useContext(MesssageContext);
+  const { setMessage } = useContext(MessageContext);
 
   const filteredChannels = useMemo(() => {
     const lowerSearch = search.toLowerCase();

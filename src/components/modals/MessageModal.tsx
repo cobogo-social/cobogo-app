@@ -1,11 +1,11 @@
-import { MesssageContext } from '@contexts/MessageContext';
+import { MessageContext } from '@contexts/MessageContext';
 import Image from 'next/image';
 import { useContext } from 'react';
 
 import ModalContainer from './ModalContainer';
 
 export default function MessageModal() {
-  const { message, setMessage } = useContext(MesssageContext);
+  const { message, setMessage } = useContext(MessageContext);
 
   function closeModal() {
     setMessage({
