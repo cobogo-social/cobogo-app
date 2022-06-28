@@ -19,7 +19,7 @@ export default function CopyToClipboard(props: CopyToClipboardProps) {
   return (
     <div className="relative">
       {copied && (
-        <div className="bg-blue p-2 py-1 absolute left-[20px] top-[20px]">
+        <div className="bg-blue p-2 py-1 absolute left-[20px] bottom-[20px]">
           <p className="font-bold text-xs text-white">copied</p>
         </div>
       )}
