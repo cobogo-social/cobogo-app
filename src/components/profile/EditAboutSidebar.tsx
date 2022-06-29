@@ -1,5 +1,5 @@
 import EditProfileForm from '@components/EditProfileForm';
-import SidebarContainer from '@components/sidebars/SidebarContainer';
+import SidebarContainer from '@components/containers/SidebarContainer';
 import Image from 'next/image';
 import { useEffect } from 'react';
 

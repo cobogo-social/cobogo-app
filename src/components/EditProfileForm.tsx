@@ -19,11 +19,11 @@ interface EditProfileFormProps {
   buttonText: string;
   route?: string;
   title: string;
-  handle: string;
-  tags: string[];
-  categoryName: string;
+  handle?: string;
+  tags?: string[];
+  categoryName?: string;
   edit?: boolean;
-  categoryId: number;
+  categoryId?: number;
   closeModal?: () => void;
   website?: string;
   presentationVideo?: string;
