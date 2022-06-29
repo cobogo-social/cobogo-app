@@ -14,7 +14,15 @@ export default async function handler(
 ) {
   const session = await getSession({ req });
 
-  const { description, handle, categories, queryRef, category } = req.body;
+  const {
+    description,
+    handle,
+    categories,
+    queryRef,
+    category,
+    website,
+    presentationVideo,
+  } = req.body;
 
   try {
     const { account } = await fetchSessionData(session);
@@ -39,6 +47,8 @@ export default async function handler(
       categories,
       profile.id,
       category,
+      website,
+      presentationVideo,
     );
 
     res.status(201).json({ status: 201, data: response });

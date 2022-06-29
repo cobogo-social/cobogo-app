@@ -340,6 +340,8 @@ export async function updateProfile(
   categories: string,
   profileId: number,
   category: number,
+  website: string,
+  presentationVideo: string,
 ) {
   try {
     await api.put(`/api/profiles/${profileId}`, {
@@ -349,6 +351,8 @@ export async function updateProfile(
         categories,
         category,
         waitlist: true,
+        website,
+        presentation_video: presentationVideo,
       },
     });
   } catch (error) {

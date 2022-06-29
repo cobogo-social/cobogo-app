@@ -17,19 +17,22 @@ interface EditProfileFormProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories: any[];
   buttonText: string;
-  route: string;
+  route?: string;
   title: string;
   handle: string;
   tags: string[];
   categoryName: string;
   edit?: boolean;
+  categoryId: number;
+  closeModal?: () => void;
+  website?: string;
+  presentationVideo?: string;
 }
 
 export default function EditProfileForm(props: EditProfileFormProps) {
   const [tagsList, setTagsList] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [categoryValue, setCategoryValue] = useState('');
-  const [createdProfile, setCreatedProfile] = useState(false);
   const [handleError, setHandleError] = useState('');
 
   const { push } = useRouter();
@@ -41,6 +44,8 @@ export default function EditProfileForm(props: EditProfileFormProps) {
     initialValues: {
       description: '',
       handle: '',
+      website: '',
+      presentationVideo: '',
     },
     validationSchema: yup.object().shape({
       description: props.edit
@@ -77,18 +82,30 @@ export default function EditProfileForm(props: EditProfileFormProps) {
               handle: values.handle || props.handle,
               categories: tagsList.toString(),
               queryRef: queryRef || null,
-              category: categoryValue || props.categoryName,
+              category: categoryValue || props.categoryId,
               waitlist: true,
+              website: values.website || props.website,
+              presentationVideo:
+                values.presentationVideo || props.presentationVideo,
             })
-            .then((response) => {
+            .then(async (response) => {
               if (response.data.error) {
                 setMessage({
                   text: response.data.error,
                   type: 'error',
                 });
+              } else {
+                await push(
+                  props.route
+                    ? props.route
+                    : `/${values.handle ? values.handle : props.handle}`,
+                );
               }
 
-              setCreatedProfile(true);
+              if (props.closeModal) {
+                props.closeModal();
+              }
+
               setLoading(false);
             });
         } else {
@@ -162,12 +179,6 @@ export default function EditProfileForm(props: EditProfileFormProps) {
       event.preventDefault();
     }
   }
-
-  useEffect(() => {
-    if (createdProfile) {
-      push(props.route);
-    }
-  }, [push, createdProfile, props.route]);
 
   useEffect(() => {
     if (props.edit) {
@@ -257,14 +268,69 @@ export default function EditProfileForm(props: EditProfileFormProps) {
         categoryName={props.categoryName}
       />
 
-      <div className="mb-12">
-        <Button
-          text={props.buttonText}
-          color="bg-blue"
-          onClick={request}
-          onKeyDown={request}
-        />
-      </div>
+      {props.edit && (
+        <>
+          <label className="mb-5 text-lg">website</label>
+
+          <input
+            id="website"
+            name="website"
+            type="text"
+            onChange={formik.handleChange}
+            onKeyPress={validateKeyPressedInHandle}
+            value={
+              !formik.values.website ? props.website : formik.values.website
+            }
+            className="w-full h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
+            placeholder="https://example.com/"
+          />
+        </>
+      )}
+
+      {props.edit && (
+        <>
+          <label className="text-lg">video</label>
+
+          <p className="mb-5 text-sm break-words text-gray3">
+            link one of your videos that best describes you or your work here
+          </p>
+
+          <input
+            id="presentationVideo"
+            name="presentationVideo"
+            type="text"
+            onChange={formik.handleChange}
+            onKeyPress={validateKeyPressedInHandle}
+            value={
+              !formik.values.presentationVideo
+                ? props.presentationVideo
+                : formik.values.presentationVideo
+            }
+            className="w-full h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
+            placeholder="https://www.youtube.com/watch?v=<video_id>"
+          />
+        </>
+      )}
+
+      {!props.edit ? (
+        <div className="mb-12">
+          <Button
+            text={props.buttonText}
+            color="bg-blue"
+            onClick={request}
+            onKeyDown={request}
+          />
+        </div>
+      ) : (
+        <div className="fixed bottom-0 right-0 w-[600px] h-72 bg-gradient-to-t from-black to-black[0] z-[1000] px-[70px] py-10 flex items-end">
+          <Button
+            text={props.buttonText}
+            color="bg-blue"
+            onClick={request}
+            onKeyDown={request}
+          />
+        </div>
+      )}
     </form>
   );
 }

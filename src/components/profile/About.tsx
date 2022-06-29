@@ -1,12 +1,19 @@
 import CopyToClipboard from '@components/CopyToClipboard';
 import EditIcon from '@components/icons/EditIcon';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useState } from 'react';
 
 import Button from '../Button';
 import EditAboutSidebar from './EditAboutSidebar';
 import ProfileImage from './ProfileImage';
-import VideoImage from './VideoImage';
+
+const PresentationVideo = dynamic(
+  () => import('@components/profile/PresentationVideo'),
+  {
+    ssr: false,
+  },
+);
 
 interface AboutProps {
   bannerImage: string;
@@ -20,6 +27,8 @@ interface AboutProps {
   categories: any[];
   categoryName: string;
   website: string;
+  categoryId: number;
+  presentationVideo: string;
 }
 
 export default function About(props: AboutProps) {
@@ -39,6 +48,9 @@ export default function About(props: AboutProps) {
         handle={props.handle}
         tags={props.tags}
         categoryName={props.categoryName}
+        categoryId={props.categoryId}
+        website={props.website}
+        presentationVideo={props.presentationVideo}
       />
 
       <section className="shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
@@ -107,7 +119,13 @@ export default function About(props: AboutProps) {
             </div>
 
             <div>
-              <VideoImage />
+              <div className="mb-11">
+                {props.presentationVideo && (
+                  <PresentationVideo
+                    videoId={props.presentationVideo?.split('=')[1]}
+                  />
+                )}
+              </div>
 
               <div className="flex justify-around items-center">
                 {props.tags?.map((tag, index) => {

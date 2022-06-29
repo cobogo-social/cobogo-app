@@ -25,6 +25,7 @@ interface ProfileProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories: any[];
   categoryName: string;
+  categoryId: number;
   youtubeVideos: number;
   youtubeViews: number;
   youtubeUniqueViewers: number;
@@ -66,6 +67,7 @@ interface ProfileProps {
   audienceTopCountries3: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   services: any[];
+  presentationVideo: string;
 }
 
 export default function Index(props: ProfileProps) {
@@ -84,6 +86,8 @@ export default function Index(props: ProfileProps) {
         categories={props.categories}
         categoryName={props.categoryName}
         website={props.website}
+        categoryId={props.categoryId}
+        presentationVideo={props.presentationVideo}
       />
 
       <MediaKitSocial
@@ -184,6 +188,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         handle: profile.attributes.handle,
         categories,
         categoryName: profile.attributes.category.data.attributes.name,
+        categoryId: profile.attributes.category.data.id,
         youtubeVideos: profile.attributes.youtube_videos,
         youtubeViews: profile.attributes.youtube_views,
         youtubeUniqueViewers: profile.attributes.youtube_unique_viewers,
@@ -231,6 +236,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         audienceTopCountries2: profile.attributes.audience_top_countries_2,
         audienceTopCountries3: profile.attributes.audience_top_countries_3,
         services: profile.attributes.services.data,
+        presentationVideo: profile.attributes.presentation_video,
       },
     };
   } catch (error) {

@@ -1,6 +1,7 @@
 import EditProfileForm from '@components/EditProfileForm';
 import SidebarContainer from '@components/sidebars/SidebarContainer';
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 interface EditAboutSidebarProps {
   description: string;
@@ -11,6 +12,9 @@ interface EditAboutSidebarProps {
   handle: string;
   tags: string[];
   categoryName: string;
+  categoryId: number;
+  website: string;
+  presentationVideo: string;
 }
 
 export default function EditAboutSidebar(props: EditAboutSidebarProps) {
@@ -18,8 +22,16 @@ export default function EditAboutSidebar(props: EditAboutSidebarProps) {
     props.setOpen(false);
   }
 
+  useEffect(() => {
+    if (props.open) {
+      document.body.classList.add('active-modal');
+    } else {
+      document.body.classList.remove('active-modal');
+    }
+  }, [props.open]);
+
   return props.open ? (
-    <SidebarContainer open={props.open}>
+    <SidebarContainer>
       <div
         onClick={closeModal}
         className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
@@ -31,12 +43,15 @@ export default function EditAboutSidebar(props: EditAboutSidebarProps) {
         description={props.description}
         categories={props.categories}
         buttonText="save"
-        route={`/${props.handle}`}
         title="basic info"
         handle={props.handle}
         tags={props.tags}
         categoryName={props.categoryName}
         edit
+        categoryId={props.categoryId}
+        closeModal={closeModal}
+        website={props.website}
+        presentationVideo={props.presentationVideo}
       />
     </SidebarContainer>
   ) : null;
