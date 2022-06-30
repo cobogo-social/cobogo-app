@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Button from '../Button';
-import ServiceModal from './ServiceModal';
+import ServiceSidebar from './ServiceSidebar';
 
 interface ServiceProps {
   name: string;
@@ -9,17 +9,17 @@ interface ServiceProps {
 }
 
 export default function Service({ name, description }: ServiceProps) {
-  const [serviceModalIsOpen, setServiceModalIsOpen] = useState(false);
+  const [serviceSidebarIsOpen, setServiceSidebarIsOpen] = useState(false);
 
   function openServiceModal() {
-    setServiceModalIsOpen(true);
+    setServiceSidebarIsOpen(true);
   }
 
   return (
     <>
-      <ServiceModal
-        isOpen={serviceModalIsOpen}
-        setIsOpen={setServiceModalIsOpen}
+      <ServiceSidebar
+        open={serviceSidebarIsOpen}
+        setOpen={setServiceSidebarIsOpen}
         name={name}
         description={description}
       />
