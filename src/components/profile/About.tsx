@@ -7,6 +7,7 @@ import { useState } from 'react';
 import Button from '../Button';
 import EditAboutSidebar from './EditAboutSidebar';
 import ProfileImage from './ProfileImage';
+import VideoImage from './VideoImage';
 
 const PresentationVideo = dynamic(
   () => import('@components/profile/PresentationVideo'),
@@ -82,7 +83,6 @@ export default function About(props: AboutProps) {
               <div className="flex flex-col">
                 <p className="text-[34px] flex items-center gap-[10px]">
                   {props.title}
-                  {/* <CheckmarkIcon size={22} /> */}
                 </p>
 
                 <p className="text-[20px] text-gray6 font-bold gap-[10px] flex items-center">
@@ -98,7 +98,9 @@ export default function About(props: AboutProps) {
             <div>
               <p className="text-[22px]">about</p>
 
-              <p className="w-[464px]">{props.description}</p>
+              <p className="w-[464px]">
+                {props.description.slice(0, 300)} (...)
+              </p>
 
               {props.website && (
                 <a
@@ -120,10 +122,12 @@ export default function About(props: AboutProps) {
 
             <div>
               <div className="mb-11">
-                {props.presentationVideo && (
+                {props.presentationVideo ? (
                   <PresentationVideo
                     videoId={props.presentationVideo?.split('=')[1]}
                   />
+                ) : (
+                  <VideoImage />
                 )}
               </div>
 
