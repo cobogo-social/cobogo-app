@@ -6,11 +6,11 @@ import { useRouter } from 'next/router';
 import { SetStateAction, useContext, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
-import Button from './Button';
-import CategoriesSelect from './CategoriesSelect';
-import ErrorLabel from './ErrorLabel';
-import Tags from './Tags';
-import TagsInput from './TagsInput';
+import Button from '../Button';
+import CategoriesSelect from '../CategoriesSelect';
+import ErrorLabel from '../ErrorLabel';
+import Tags from '../Tags';
+import TagsInput from '../TagsInput';
 
 interface EditProfileFormProps {
   description: string;
@@ -322,7 +322,7 @@ export default function EditProfileForm(props: EditProfileFormProps) {
           />
         </div>
       ) : (
-        <div className="fixed bottom-0 right-0 w-[600px] h-72 bg-gradient-to-t from-black to-black[0] z-[1000] px-[70px] py-10 flex items-end">
+        <div className="fixed bottom-0 right-0 w-[600px] h-16 bg-gradient-to-t from-black to-black[0] z-[1000] px-[70px] py-10 flex items-end">
           <Button
             text={props.buttonText}
             color="bg-blue"

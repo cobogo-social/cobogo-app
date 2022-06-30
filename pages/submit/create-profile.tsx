@@ -1,5 +1,5 @@
 import ChannelBox from '@components/ChannelBox';
-import EditProfileForm from '@components/EditProfileForm';
+import EditProfileForm from '@components/forms/EditProfileForm';
 import PageContainer from '@components/PageContainer';
 import StepContainer from '@components/StepContainer';
 import Steps from '@components/Steps';

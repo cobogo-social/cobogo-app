@@ -8,7 +8,7 @@ import TwitterIcon from '@components/icons/TwitterIcon';
 import YouTubeIcon from '@components/icons/YouTubeIcon';
 import { useState } from 'react';
 
-import EditMediaKitSocialModal from './EditMediaKitSocialModal';
+import EditMediaKitSocialSidebar from './EditMediaKitSocialSidebar';
 import Social from './Social';
 import SocialDetails from './SocialDetails';
 
@@ -45,6 +45,7 @@ interface MediaKitSocialProps {
   isOwner: boolean;
   telegramMembers: number;
   telegramHandle: string;
+  handle: string;
 }
 
 export default function MediaKitSocial(props: MediaKitSocialProps) {
@@ -192,9 +193,40 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
     </>
   ) : (
     <>
-      <EditMediaKitSocialModal
+      <EditMediaKitSocialSidebar
         open={editMediaKitSocialModalIsOpen}
         setOpen={setEditMediaKitSocialModalIsOpen}
+        youtubeSubscribers={props.youtubeSubscribers}
+        youtubeVideos={props.youtubeVideos}
+        youtubeViews={props.youtubeViews}
+        youtubeUniqueViewers={props.youtubeUniqueViewers}
+        youtubeWatchTimeHours={props.youtubeWatchTimeHours}
+        youtubeAvgViewDuration={props.youtubeAvgViewDuration}
+        instagramHandle={props.instagramHandle}
+        instagramFollowers={props.instagramFollowers}
+        instagramImpressions={props.instagramImpressions}
+        instagramStoriesAvgViews={props.instagramStoriesAvgViews}
+        instagramPostsAvgLikes={props.instagramPostsAvgLikes}
+        instagramReelsAvgViews={props.instagramReelsAvgViews}
+        twitchHandle={props.twitchHandle}
+        twitchSubscribers={props.twitchSubscribers}
+        twitchVideos={props.twitchVideos}
+        twitchAvgViewers={props.twitchAvgViewers}
+        twitchPeakViewers={props.twitchPeakViewers}
+        twitchWatchTimeHours={props.twitchWatchTimeHours}
+        tiktokHandle={props.tiktokHandle}
+        tiktokFollowers={props.tiktokFollowers}
+        tiktokViews={props.tiktokViews}
+        tiktokLikes={props.tiktokLikes}
+        tiktokComments={props.tiktokComments}
+        tiktokShares={props.tiktokShares}
+        discordHandle={props.discordHandle}
+        discordMembers={props.discordMembers}
+        telegramHandle={props.telegramHandle}
+        telegramMembers={props.telegramMembers}
+        twitterHandle={props.twitterHandle}
+        twitterFollowers={props.twitterFollowers}
+        handle={props.handle}
       />
 
       <section className="flex w-full px-[150px] py-[70px] relative justify-center items-center">

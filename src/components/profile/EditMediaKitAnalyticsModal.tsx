@@ -89,7 +89,7 @@ export default function EditMediaKitAnalyticsModal({
 
               <div className="flex">
                 <Image
-                  src="/images/open2-icon.svg"
+                  src="/images/open-icon.svg"
                   width={12}
                   height={7}
                   alt="open icon"
@@ -139,7 +139,7 @@ export default function EditMediaKitAnalyticsModal({
 
               <div className="flex">
                 <Image
-                  src="/images/open2-icon.svg"
+                  src="/images/open-icon.svg"
                   width={12}
                   height={7}
                   alt="open icon"
@@ -199,7 +199,7 @@ export default function EditMediaKitAnalyticsModal({
 
               <div className="flex">
                 <Image
-                  src="/images/open2-icon.svg"
+                  src="/images/open-icon.svg"
                   width={12}
                   height={7}
                   alt="open icon"

@@ -9,7 +9,7 @@ interface ServicesProps {
 }
 
 export default function Services({ services, isOwner }: ServicesProps) {
-  return services?.length ? (
+  return (
     <div className="w-full hidden sm:flex flex-col items-center justify-start relative bg-gray7 py-[70px] px-[150px]">
       {isOwner && (
         <div className="flex hover:cursor-pointer absolute top-[30px] left-[30px]">
@@ -27,7 +27,7 @@ export default function Services({ services, isOwner }: ServicesProps) {
           <p className="text-[22px] mb-6">services offered</p>
 
           <div className="flex w-full justify-start gap-10">
-            {services.map((service) => (
+            {services?.map((service) => (
               <Service
                 key={service.id}
                 name={service.attributes.name}
@@ -38,5 +38,5 @@ export default function Services({ services, isOwner }: ServicesProps) {
         </div>
       </div>
     </div>
-  ) : null;
+  );
 }

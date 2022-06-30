@@ -123,6 +123,7 @@ export default function Index(props: ProfileProps) {
         isOwner={props.isOwner}
         telegramMembers={props.telegramMembers}
         telegramHandle={props.telegramHandle}
+        handle={props.handle}
       />
 
       <MediaKitAnalytics
