@@ -487,3 +487,15 @@ export async function updateReferralAccount(account, referral) {
     }
   }
 }
+
+export async function deleteService(serviceId) {
+  try {
+    await api.delete(`/api/services/${serviceId}`);
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}

@@ -142,7 +142,11 @@ export default function Index(props: ProfileProps) {
         isOwner={props.isOwner}
       />
 
-      <Services services={props.services} isOwner={props.isOwner} />
+      <Services
+        services={props.services}
+        isOwner={props.isOwner}
+        handle={props.handle}
+      />
 
       <Videos videos={props.videos} />
 
