@@ -1,5 +1,6 @@
 import EditIcon from '@components/icons/EditIcon';
 import ServicesSidebar from '@components/sidebars/ServicesSidebar';
+import Image from 'next/image';
 import { useState } from 'react';
 
 import Service from './Service';
@@ -18,7 +19,7 @@ export default function Services(props: ServicesProps) {
     setServicesSidebarIsOpen(true);
   }
 
-  return (
+  return props.services.length ? (
     <>
       <ServicesSidebar
         open={servicesSidebarIsOpen}
@@ -52,6 +53,35 @@ export default function Services(props: ServicesProps) {
             </div>
           </div>
         </div>
+      </div>
+    </>
+  ) : (
+    <>
+      <ServicesSidebar
+        open={servicesSidebarIsOpen}
+        setOpen={setServicesSidebarIsOpen}
+        services={props.services}
+        handle={props.handle}
+      />
+
+      <div className="w-full hidden sm:flex flex-col gap-3 items-center justify-center relative bg-gray7 py-[70px] px-[150px]">
+        {props.isOwner && (
+          <div
+            onClick={openServicesSidebar}
+            className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
+          >
+            <EditIcon size={30} />
+          </div>
+        )}
+
+        <Image
+          src="/images/blankslate-icon.png"
+          width={60}
+          height={60}
+          alt="blankslate icon"
+        />
+
+        <p className="text-[22px]">no service has been added</p>
       </div>
     </>
   );

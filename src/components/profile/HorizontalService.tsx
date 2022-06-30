@@ -66,7 +66,7 @@ export default function HorizontalService(props: HorizontalServiceProps) {
   return (
     <div className="flex gap-5">
       <div className="flex flex-col gap-5">
-        <p className="text-xl">{props.name}</p>
+        <p className="text-[22px]">{props.name}</p>
 
         <p className="max-w-[270px]">{props.description.slice(0, 115)} (...)</p>
       </div>
