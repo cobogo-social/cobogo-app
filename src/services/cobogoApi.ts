@@ -371,6 +371,15 @@ export async function updateProfile(
   telegramMembers: number,
   twitterHandle: string,
   twitterFollowers: number,
+  audienceGenderDistributionMen: number,
+  audienceGenderDistributionWomen: number,
+  audienceGenderDistributionOthers: number,
+  audienceAgeDistribution18: number,
+  audienceAgeDistribution2534: number,
+  audienceAgeDistribution35: number,
+  audienceTopCountries1: number,
+  audienceTopCountries2: number,
+  audienceTopCountries3: number,
 ) {
   try {
     await api.put(`/api/profiles/${profileId}`, {
@@ -411,6 +420,15 @@ export async function updateProfile(
         telegram_members: telegramMembers,
         twitter_handle: twitterHandle,
         twitter_followers: twitterFollowers,
+        audience_gender_distribution_men: audienceGenderDistributionMen,
+        audience_gender_distribution_women: audienceGenderDistributionWomen,
+        audience_gender_distribution_others: audienceGenderDistributionOthers,
+        audience_age_distribution_18: audienceAgeDistribution18,
+        audience_age_distribution_2534: audienceAgeDistribution2534,
+        audience_age_distribution_35: audienceAgeDistribution35,
+        audience_top_countries_1: audienceTopCountries1,
+        audience_top_countries_2: audienceTopCountries2,
+        audience_top_countries_3: audienceTopCountries3,
       },
     });
   } catch (error) {

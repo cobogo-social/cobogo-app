@@ -59,9 +59,9 @@ interface ProfileProps {
   audienceGenderDistributionMen: number;
   audienceGenderDistributionWomen: number;
   audienceGenderDistributionOthers: number;
-  audienceGenderDistribution18: number;
-  audienceGenderDistribution2534: number;
-  audienceGenderDistribution35: number;
+  audienceAgeDistribution18: number;
+  audienceAgeDistribution2534: number;
+  audienceAgeDistribution35: number;
   audienceTopCountries1: number;
   audienceTopCountries2: number;
   audienceTopCountries3: number;
@@ -127,9 +127,9 @@ export default function Index(props: ProfileProps) {
       />
 
       <MediaKitAnalytics
-        audienceGenderDistribution18={props.audienceGenderDistribution18}
-        audienceGenderDistribution2534={props.audienceGenderDistribution2534}
-        audienceGenderDistribution35={props.audienceGenderDistribution35}
+        audienceAgeDistribution18={props.audienceAgeDistribution18}
+        audienceAgeDistribution2534={props.audienceAgeDistribution2534}
+        audienceAgeDistribution35={props.audienceAgeDistribution35}
         audienceTopCountries1={props.audienceTopCountries1}
         audienceTopCountries2={props.audienceTopCountries2}
         audienceTopCountries3={props.audienceTopCountries3}
@@ -138,6 +138,7 @@ export default function Index(props: ProfileProps) {
         audienceGenderDistributionOthers={
           props.audienceGenderDistributionOthers
         }
+        handle={props.handle}
         isOwner={props.isOwner}
       />
 
@@ -227,11 +228,11 @@ export const getServerSideProps: GetServerSideProps = async ({
           profile.attributes.audience_gender_distribution_women,
         audienceGenderDistributionOthers:
           profile.attributes.audience_gender_distribution_others,
-        audienceGenderDistribution18:
+        audienceAgeDistribution18:
           profile.attributes.audience_age_distribution_18,
-        audienceGenderDistribution2534:
+        audienceAgeDistribution2534:
           profile.attributes.audience_age_distribution_25_34,
-        audienceGenderDistribution35:
+        audienceAgeDistribution35:
           profile.attributes.audience_age_distribution_35,
         audienceTopCountries1: profile.attributes.audience_top_countries_1,
         audienceTopCountries2: profile.attributes.audience_top_countries_2,

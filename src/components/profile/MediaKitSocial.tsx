@@ -51,11 +51,11 @@ interface MediaKitSocialProps {
 export default function MediaKitSocial(props: MediaKitSocialProps) {
   const [singleOpen, setSingleOpen] = useState(false);
   const [step, setStep] = useState(1);
-  const [editMediaKitSocialModalIsOpen, setEditMediaKitSocialModalIsOpen] =
+  const [editMediaKitSocialSidebarIsOpen, setEditMediaKitSocialSidebarIsOpen] =
     useState(false);
 
-  function openEditMediaKitSocialModal() {
-    setEditMediaKitSocialModalIsOpen(true);
+  function openEditMediaKitSocialSidebar() {
+    setEditMediaKitSocialSidebarIsOpen(true);
   }
 
   function openStep(stepNumber: number) {
@@ -194,8 +194,8 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
   ) : (
     <>
       <EditMediaKitSocialSidebar
-        open={editMediaKitSocialModalIsOpen}
-        setOpen={setEditMediaKitSocialModalIsOpen}
+        open={editMediaKitSocialSidebarIsOpen}
+        setOpen={setEditMediaKitSocialSidebarIsOpen}
         youtubeSubscribers={props.youtubeSubscribers}
         youtubeVideos={props.youtubeVideos}
         youtubeViews={props.youtubeViews}
@@ -232,7 +232,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
       <section className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
         {props.isOwner && (
           <div
-            onClick={openEditMediaKitSocialModal}
+            onClick={openEditMediaKitSocialSidebar}
             className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
           >
             <EditIcon size={30} />

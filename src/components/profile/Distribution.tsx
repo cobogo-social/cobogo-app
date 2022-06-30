@@ -20,7 +20,7 @@ export default function Distribution(props: DistributionProps) {
       </div>
 
       <div className="w-[310px] h-[207px] border border-gray10 flex flex-col justify-center items-center px-8">
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-start">
           <p className="font-bold text-left w-full">{props.title}</p>
 
           <div className="flex items-center">
