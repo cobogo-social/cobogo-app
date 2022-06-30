@@ -56,36 +56,36 @@ export default function EditMediaKitSocialForm(
 
   const formik = useFormik({
     initialValues: {
-      youtubeSubscribers: 0,
-      youtubeVideos: 0,
-      youtubeViews: 0,
-      youtubeUniqueViewers: 0,
-      youtubeWatchTimeHours: 0,
-      youtubeAvgViewDuration: 0,
-      instagramHandle: '',
-      instagramFollowers: 0,
-      instagramImpressions: 0,
-      instagramStoriesAvgViews: 0,
-      instagramPostsAvgLikes: 0,
-      instagramReelsAvgViews: 0,
-      twitchHandle: '',
-      twitchSubscribers: 0,
-      twitchVideos: 0,
-      twitchAvgViewers: 0,
-      twitchPeakViewers: 0,
-      twitchWatchTimeHours: 0,
-      tiktokHandle: '',
-      tiktokFollowers: 0,
-      tiktokViews: 0,
-      tiktokLikes: 0,
-      tiktokComments: 0,
-      tiktokShares: 0,
-      discordHandle: '',
-      discordMembers: 0,
-      telegramHandle: '',
-      telegramMembers: 0,
-      twitterHandle: '',
-      twitterFollowers: 0,
+      youtubeSubscribers: props.youtubeSubscribers,
+      youtubeVideos: props.youtubeVideos,
+      youtubeViews: props.youtubeViews,
+      youtubeUniqueViewers: props.youtubeUniqueViewers,
+      youtubeWatchTimeHours: props.youtubeWatchTimeHours,
+      youtubeAvgViewDuration: props.youtubeAvgViewDuration,
+      instagramHandle: props.instagramHandle,
+      instagramFollowers: props.instagramFollowers,
+      instagramImpressions: props.instagramImpressions,
+      instagramStoriesAvgViews: props.instagramStoriesAvgViews,
+      instagramPostsAvgLikes: props.instagramPostsAvgLikes,
+      instagramReelsAvgViews: props.instagramReelsAvgViews,
+      twitchHandle: props.twitchHandle,
+      twitchSubscribers: props.twitchSubscribers,
+      twitchVideos: props.twitchVideos,
+      twitchAvgViewers: props.twitchAvgViewers,
+      twitchPeakViewers: props.twitchPeakViewers,
+      twitchWatchTimeHours: props.twitchWatchTimeHours,
+      tiktokHandle: props.tiktokHandle,
+      tiktokFollowers: props.tiktokFollowers,
+      tiktokViews: props.tiktokViews,
+      tiktokLikes: props.tiktokLikes,
+      tiktokComments: props.tiktokComments,
+      tiktokShares: props.tiktokShares,
+      discordHandle: props.discordHandle,
+      discordMembers: props.discordMembers,
+      telegramHandle: props.telegramHandle,
+      telegramMembers: props.telegramMembers,
+      twitterHandle: props.twitterHandle,
+      twitterFollowers: props.twitterFollowers,
     },
 
     onSubmit: async (values) => {
@@ -220,11 +220,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.youtubeSubscribers
-                    ? props.youtubeSubscribers
-                    : formik.values.youtubeSubscribers
-                }
+                value={formik.values.youtubeSubscribers}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -240,11 +236,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.youtubeVideos
-                    ? props.youtubeVideos
-                    : formik.values.youtubeVideos
-                }
+                value={formik.values.youtubeVideos}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -262,11 +254,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.youtubeViews
-                    ? props.youtubeViews
-                    : formik.values.youtubeViews
-                }
+                value={formik.values.youtubeViews}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -282,11 +270,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.youtubeUniqueViewers
-                    ? props.youtubeUniqueViewers
-                    : formik.values.youtubeUniqueViewers
-                }
+                value={formik.values.youtubeUniqueViewers}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -304,11 +288,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.youtubeWatchTimeHours
-                    ? props.youtubeWatchTimeHours
-                    : formik.values.youtubeWatchTimeHours
-                }
+                value={formik.values.youtubeWatchTimeHours}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -324,11 +304,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.youtubeAvgViewDuration
-                    ? props.youtubeAvgViewDuration
-                    : formik.values.youtubeAvgViewDuration
-                }
+                value={formik.values.youtubeAvgViewDuration}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -381,11 +357,7 @@ export default function EditMediaKitSocialForm(
                 type="text"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.instagramHandle
-                    ? props.instagramHandle
-                    : formik.values.instagramHandle
-                }
+                value={formik.values.instagramHandle}
                 className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
               />
             </div>
@@ -403,11 +375,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.instagramFollowers
-                    ? props.instagramFollowers
-                    : formik.values.instagramFollowers
-                }
+                value={formik.values.instagramFollowers}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -423,11 +391,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.instagramImpressions
-                    ? props.instagramImpressions
-                    : formik.values.instagramImpressions
-                }
+                value={formik.values.instagramImpressions}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -445,11 +409,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.instagramStoriesAvgViews
-                    ? props.instagramStoriesAvgViews
-                    : formik.values.instagramStoriesAvgViews
-                }
+                value={formik.values.instagramStoriesAvgViews}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -465,11 +425,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.instagramPostsAvgLikes
-                    ? props.instagramPostsAvgLikes
-                    : formik.values.instagramPostsAvgLikes
-                }
+                value={formik.values.instagramPostsAvgLikes}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -487,11 +443,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.instagramReelsAvgViews
-                    ? props.instagramReelsAvgViews
-                    : formik.values.instagramReelsAvgViews
-                }
+                value={formik.values.instagramReelsAvgViews}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -544,11 +496,7 @@ export default function EditMediaKitSocialForm(
                 type="text"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.twitchHandle
-                    ? props.twitchHandle
-                    : formik.values.twitchHandle
-                }
+                value={formik.values.twitchHandle}
                 className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
               />
             </div>
@@ -566,11 +514,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.twitchSubscribers
-                    ? props.twitchSubscribers
-                    : formik.values.twitchSubscribers
-                }
+                value={formik.values.twitchSubscribers}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -586,11 +530,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.twitchVideos
-                    ? props.twitchVideos
-                    : formik.values.twitchVideos
-                }
+                value={formik.values.twitchVideos}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -608,11 +548,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.twitchAvgViewers
-                    ? props.twitchAvgViewers
-                    : formik.values.twitchAvgViewers
-                }
+                value={formik.values.twitchAvgViewers}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -628,11 +564,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.twitchPeakViewers
-                    ? props.twitchPeakViewers
-                    : formik.values.twitchPeakViewers
-                }
+                value={formik.values.twitchPeakViewers}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -650,11 +582,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.twitchWatchTimeHours
-                    ? props.twitchWatchTimeHours
-                    : formik.values.twitchWatchTimeHours
-                }
+                value={formik.values.twitchWatchTimeHours}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -707,11 +635,7 @@ export default function EditMediaKitSocialForm(
                 type="text"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.tiktokHandle
-                    ? props.tiktokHandle
-                    : formik.values.tiktokHandle
-                }
+                value={formik.values.tiktokHandle}
                 className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
               />
             </div>
@@ -729,11 +653,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.tiktokFollowers
-                    ? props.tiktokFollowers
-                    : formik.values.tiktokFollowers
-                }
+                value={formik.values.tiktokFollowers}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -749,11 +669,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.tiktokViews
-                    ? props.tiktokViews
-                    : formik.values.tiktokViews
-                }
+                value={formik.values.tiktokViews}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -771,11 +687,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.tiktokLikes
-                    ? props.tiktokLikes
-                    : formik.values.tiktokLikes
-                }
+                value={formik.values.tiktokLikes}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -791,11 +703,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.tiktokComments
-                    ? props.tiktokComments
-                    : formik.values.tiktokComments
-                }
+                value={formik.values.tiktokComments}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -813,11 +721,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.tiktokShares
-                    ? props.tiktokShares
-                    : formik.values.tiktokShares
-                }
+                value={formik.values.tiktokShares}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -870,11 +774,7 @@ export default function EditMediaKitSocialForm(
                 type="text"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.discordHandle
-                    ? props.discordHandle
-                    : formik.values.discordHandle
-                }
+                value={formik.values.discordHandle}
                 className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
               />
             </div>
@@ -892,11 +792,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.discordMembers
-                    ? props.discordMembers
-                    : formik.values.discordMembers
-                }
+                value={formik.values.discordMembers}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -949,11 +845,7 @@ export default function EditMediaKitSocialForm(
                 type="text"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.telegramHandle
-                    ? props.telegramHandle
-                    : formik.values.telegramHandle
-                }
+                value={formik.values.telegramHandle}
                 className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
               />
             </div>
@@ -971,11 +863,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.telegramMembers
-                    ? props.telegramMembers
-                    : formik.values.telegramMembers
-                }
+                value={formik.values.telegramMembers}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -1028,11 +916,7 @@ export default function EditMediaKitSocialForm(
                 type="text"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.twitterHandle
-                    ? props.twitterHandle
-                    : formik.values.twitterHandle
-                }
+                value={formik.values.twitterHandle}
                 className="w-full h-12 bg-gray7 border sm:border-l-0 border-gray10 p-2 outline-none"
               />
             </div>
@@ -1050,11 +934,7 @@ export default function EditMediaKitSocialForm(
                 type="number"
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
-                value={
-                  !formik.values.twitterFollowers
-                    ? props.twitterFollowers
-                    : formik.values.twitterFollowers
-                }
+                value={formik.values.twitterFollowers}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 p-2 outline-none"
               />
             </div>

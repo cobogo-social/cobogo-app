@@ -42,16 +42,14 @@ export default function EditProfileForm(props: EditProfileFormProps) {
 
   const formik = useFormik({
     initialValues: {
-      description: '',
-      handle: '',
-      website: '',
-      presentationVideo: '',
+      description: props.description,
+      handle: props.handle,
+      website: props.website,
+      presentationVideo: props.presentationVideo,
     },
     validationSchema: yup.object().shape({
-      description: props.edit
-        ? null
-        : yup.string().required('description required'),
-      handle: props.edit ? null : yup.string().required('handle required'),
+      description: yup.string().required('description required'),
+      handle: yup.string().required('handle required'),
     }),
     onSubmit: async (values) => {
       try {
@@ -160,7 +158,7 @@ export default function EditProfileForm(props: EditProfileFormProps) {
     }
   }
 
-  function validateKeyPressedInDescription(event) {
+  function validateKeyPressed(event) {
     const keyPressed = event.key;
 
     if (keyPressed === 'Enter') {
@@ -211,12 +209,8 @@ export default function EditProfileForm(props: EditProfileFormProps) {
               : 'border-gray10'
           } mb-10 p-2 outline-none`}
           onChange={formik.handleChange}
-          onKeyPress={validateKeyPressedInDescription}
-          value={
-            !formik.values.description
-              ? props.description
-              : formik.values.description
-          }
+          onKeyPress={validateKeyPressed}
+          value={formik.values.description}
         />
       </div>
 
@@ -244,7 +238,7 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             type="text"
             onChange={formik.handleChange}
             onKeyPress={validateKeyPressedInHandle}
-            value={!formik.values.handle ? props.handle : formik.values.handle}
+            value={formik.values.handle}
             className={`w-full h-12 bg-gray7 border sm:border-l-0 ${
               (formik.touched.handle && formik.errors.handle) || handleError
                 ? 'border-red'
@@ -277,10 +271,8 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             name="website"
             type="text"
             onChange={formik.handleChange}
-            onKeyPress={validateKeyPressedInHandle}
-            value={
-              !formik.values.website ? props.website : formik.values.website
-            }
+            onKeyPress={validateKeyPressed}
+            value={formik.values.website}
             className="w-full h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
             placeholder="https://example.com/"
           />
@@ -300,12 +292,8 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             name="presentationVideo"
             type="text"
             onChange={formik.handleChange}
-            onKeyPress={validateKeyPressedInHandle}
-            value={
-              !formik.values.presentationVideo
-                ? props.presentationVideo
-                : formik.values.presentationVideo
-            }
+            onKeyPress={validateKeyPressed}
+            value={formik.values.presentationVideo}
             className="w-full h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
             placeholder="https://www.youtube.com/watch?v=<video_id>"
           />
