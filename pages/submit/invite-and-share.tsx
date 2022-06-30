@@ -5,7 +5,7 @@ import ShareLinks from '@components/ShareLinks';
 import StepContainer from '@components/StepContainer';
 import Steps from '@components/Steps';
 import StepSubContainer from '@components/StepSubContainer';
-import Reward from '@components/submit/Reward';
+import Reward from '@components/Reward';
 import TopBar from '@components/TopBar';
 import { LoadingContext } from '@contexts/LoadingContext';
 import {
