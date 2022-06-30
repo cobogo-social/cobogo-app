@@ -8,7 +8,7 @@ import TwitterIcon from '@components/icons/TwitterIcon';
 import YouTubeIcon from '@components/icons/YouTubeIcon';
 import { useState } from 'react';
 
-import EditMediaKitSocialSidebar from './EditMediaKitSocialSidebar';
+import EditMediaKitSocialSidebar from '../sidebars/EditMediaKitSocialSidebar';
 import Social from './Social';
 import SocialDetails from './SocialDetails';
 

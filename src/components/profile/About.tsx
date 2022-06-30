@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import Button from '../Button';
-import EditAboutSidebar from './EditAboutSidebar';
+import EditAboutSidebar from '../sidebars/EditAboutSidebar';
 import ProfileImage from './ProfileImage';
 import VideoImage from './VideoImage';
 

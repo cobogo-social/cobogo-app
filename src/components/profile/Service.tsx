@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Button from '../Button';
-import ServiceSidebar from './ServiceSidebar';
+import ServiceSidebar from '../sidebars/ServiceSidebar';
 
 interface ServiceProps {
   name: string;
