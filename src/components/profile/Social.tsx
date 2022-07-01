@@ -13,13 +13,11 @@ interface SocialProps {
 
 export default function Social(props: SocialProps) {
   return props.handle ? (
-    <div className="flex w-[306px]">
-      <div
-        onClick={props.onClick}
-        className="mr-[27px] flex hover:cursor-pointer"
-      >
-        {props.icon}
-      </div>
+    <div
+      onClick={props.onClick}
+      className="flex w-[306px] hover:cursor-pointer"
+    >
+      <div className="mr-[27px] flex">{props.icon}</div>
 
       <div className="flex flex-col">
         <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
