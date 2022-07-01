@@ -252,6 +252,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
                   : null
               }
               linkPlaceholder="visit channel"
+              handle={props.youtubeId}
             />
 
             <Social
@@ -265,6 +266,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
                   : null
               }
               linkPlaceholder={`@${props.instagramHandle}`}
+              handle={props.instagramHandle}
             />
 
             <Social
@@ -278,6 +280,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
                   : null
               }
               linkPlaceholder={`/${props.twitchHandle}`}
+              handle={props.twitchHandle}
             />
 
             <Social
@@ -291,6 +294,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
                   : null
               }
               linkPlaceholder={`@${props.tiktokHandle}`}
+              handle={props.tiktokHandle}
             />
 
             <Social
@@ -303,6 +307,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
                   : null
               }
               linkPlaceholder={`@${props.twitterHandle}`}
+              handle={props.twitterHandle}
             />
 
             <Social
@@ -315,6 +320,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
                   : null
               }
               linkPlaceholder="join my Discord"
+              handle={props.discordHandle}
             />
 
             <Social
@@ -327,6 +333,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
                   : null
               }
               linkPlaceholder="join my Telegram"
+              handle={props.telegramHandle}
             />
           </div>
         </div>

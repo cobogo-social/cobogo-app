@@ -8,10 +8,11 @@ interface SocialProps {
   placeholder: string;
   link: string;
   linkPlaceholder: string;
+  handle: string;
 }
 
 export default function Social(props: SocialProps) {
-  return (
+  return props.handle ? (
     <div className="flex w-[306px]">
       <div
         onClick={props.onClick}
@@ -40,5 +41,5 @@ export default function Social(props: SocialProps) {
         )}
       </div>
     </div>
-  );
+  ) : null;
 }
