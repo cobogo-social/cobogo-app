@@ -10,7 +10,7 @@ export default function Videos(props: VideosProps) {
     <div className="hidden sm:flex w-full px-[150px] py-[70px] bg-black justify-center items-center">
       <div className="flex-col w-full max-w-[1000px]">
         <p className="text-[22px] mb-6 w-full justify-start items-start">
-          latest videos
+          latest YouTube videos
         </p>
 
         <div className="flex gap-10">
