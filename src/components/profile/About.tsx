@@ -95,12 +95,14 @@ export default function About(props: AboutProps) {
               </div>
             </div>
 
-            <div>
-              <p className="text-[22px]">about</p>
+            <div className="h-64 flex flex-col justify-between">
+              <div className="flex flex-col">
+                <p className="text-[22px]">about</p>
 
-              <p className="w-[464px]">
-                {props.description.slice(0, 300)} (...)
-              </p>
+                <p className="w-[464px]">
+                  {props.description.slice(0, 300)} (...)
+                </p>
+              </div>
 
               {props.website && (
                 <a
