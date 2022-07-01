@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import CopiedBallon from './CopiedBallon';
 
 interface CopyToClipboardProps {
   size: number;
@@ -13,16 +14,12 @@ export default function CopyToClipboard(props: CopyToClipboardProps) {
 
     navigator.clipboard.writeText(props.textToCopy);
 
-    setTimeout(() => setCopied(false), 1000 * 2);
+    setTimeout(() => setCopied(false), 1000 * 4);
   }
 
   return (
     <div className="relative">
-      {copied && (
-        <div className="bg-blue p-2 py-1 absolute left-[20px] bottom-[20px]">
-          <p className="font-bold text-xs text-white">copied</p>
-        </div>
-      )}
+      {copied && <CopiedBallon />}
 
       <svg
         onClick={copy}
