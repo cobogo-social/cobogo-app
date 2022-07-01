@@ -106,7 +106,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               ? `https://youtube.com/channel/${props.youtubeId}`
               : null
           }
-          icon={<YouTubeIcon size={60} />}
+          icon={<YouTubeIcon size={60} color="#FF0000" />}
         />
       )}
 
@@ -133,7 +133,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               ? `https://instagram/${props.instagramHandle}`
               : null
           }
-          icon={<InstagramIcon size={56} />}
+          icon={<InstagramIcon size={56} color="#E1306C" />}
         />
       )}
 
@@ -160,7 +160,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               ? `https://twitch.tv/${props.twitchHandle}`
               : null
           }
-          icon={<TwitchIcon size={54} />}
+          icon={<TwitchIcon size={54} color="#6441A5" />}
         />
       )}
 
@@ -187,7 +187,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               ? `https://tiktok.com/@${props.tiktokHandle}`
               : null
           }
-          icon={<TikTokIcon size={46} />}
+          icon={<TikTokIcon size={46} color="#FF0050" />}
         />
       )}
     </>
