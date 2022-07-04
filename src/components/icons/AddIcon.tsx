@@ -9,6 +9,7 @@ export default function AddIcon(props: AddIconProps) {
       width={props.size}
       fill="none"
       viewBox="0 0 24 24"
+      className="hover:cursor-pointer"
     >
       <path
         fill="#00B9E9"

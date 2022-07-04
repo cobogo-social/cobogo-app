@@ -515,3 +515,21 @@ export async function deleteService(serviceId) {
     }
   }
 }
+
+export async function createService(name, description, profileId) {
+  try {
+    await api.post('/api/services', {
+      data: {
+        name,
+        description,
+        profile: profileId,
+      },
+    });
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
