@@ -25,7 +25,7 @@ interface SocialDetailsProps {
   title: string;
   linkPlaceholder: string;
   link: string;
-  icon;
+  icon: JSX.Element;
 }
 
 export default function SocialDetails(props: SocialDetailsProps) {
@@ -36,7 +36,7 @@ export default function SocialDetails(props: SocialDetailsProps) {
       transition={{ duration: 0.5 }}
       className="flex w-full px-[150px] py-[70px] relative justify-center items-center"
     >
-      <div className="flex absolute top-[74px] right-[152px]">
+      <div className="flex absolute top-[74px] right-[152px] gap-5">
         <div
           onClick={props.step !== 1 ? props.backStep : null}
           className="flex w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5 hover:cursor-pointer"
@@ -46,14 +46,14 @@ export default function SocialDetails(props: SocialDetailsProps) {
 
         <div
           onClick={props.skipStep}
-          className="flex ml-[40px] hover:cursor-pointer w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5"
+          className="flex hover:cursor-pointer w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5"
         >
           <SkipIcon size={10} disabled={props.step === 4} />
         </div>
 
         <div
           onClick={props.closeStep}
-          className="flex ml-[65px] hover:cursor-pointer w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5"
+          className="flex hover:cursor-pointer w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5"
         >
           <CloseIcon size={16} />
         </div>
