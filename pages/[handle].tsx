@@ -5,7 +5,11 @@ import Services from '@components/profile/Services';
 import Stake from '@components/profile/Stake';
 import Videos from '@components/profile/Videos';
 import TopBar from '@components/TopBar';
-import { readCategories, readProfileByHandle } from '@services/cobogoApi';
+import {
+  readCategories,
+  readLanguages,
+  readProfileByHandle,
+} from '@services/cobogoApi';
 import { readVideosByChannelId } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -68,6 +72,9 @@ interface ProfileProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   services: any[];
   presentationVideo: string;
+  languages: string[];
+  languageName: string;
+  languageId: number;
 }
 
 export default function Index(props: ProfileProps) {
@@ -88,6 +95,9 @@ export default function Index(props: ProfileProps) {
         website={props.website}
         categoryId={props.categoryId}
         presentationVideo={props.presentationVideo}
+        languages={props.languages}
+        languageName={props.languageName}
+        languageId={props.languageId}
       />
 
       <MediaKitSocial
@@ -178,6 +188,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     const categories = await readCategories();
 
+    const languages = await readLanguages();
+
     return {
       props: {
         bannerImage: profile.attributes.banner_image,
@@ -243,6 +255,13 @@ export const getServerSideProps: GetServerSideProps = async ({
         audienceTopCountries3: profile.attributes.audience_top_countries_3,
         services: profile.attributes.services.data,
         presentationVideo: profile.attributes.presentation_video,
+        languages,
+        languageName: profile.attributes.language.data
+          ? profile.attributes.language.data.attributes.name
+          : null,
+        languageId: profile.attributes.language.data
+          ? profile.attributes.language.data.id
+          : null,
       },
     };
   } catch (error) {

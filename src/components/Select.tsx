@@ -1,25 +1,22 @@
-interface CategoriesSelectProps {
+interface SelectProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  categories: any[];
-  changeCategory: (event: unknown) => void;
-  categoryName?: string;
+  values: any[];
+  changeValue: (event: unknown) => void;
+  valueName?: string;
+  placeholder: string;
 }
 
-export default function CategoriesSelect({
-  categories,
-  changeCategory,
-  categoryName,
-}: CategoriesSelectProps) {
+export default function Select(props: SelectProps) {
   return (
     <div className="flex">
       <select
         className="w-full sm:w-[432px] h-12 bg-gray7 border border-gray10 mb-10 px-4 outline-none hover:cursor-pointer"
-        onChange={changeCategory}
+        onChange={props.changeValue}
       >
-        <option selected>select category</option>
+        <option selected>{props.placeholder}</option>
 
-        {categories?.map((category) => {
-          if (categoryName === category.attributes.name) {
+        {props.values?.map((category) => {
+          if (props.valueName === category.attributes.name) {
             return (
               <option selected key={category.id} value={category.id}>
                 {category.attributes.name}

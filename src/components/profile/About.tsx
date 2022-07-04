@@ -30,6 +30,9 @@ interface AboutProps {
   website: string;
   categoryId: number;
   presentationVideo: string;
+  languages: string[];
+  languageName: string;
+  languageId: number;
 }
 
 export default function About(props: AboutProps) {
@@ -52,6 +55,9 @@ export default function About(props: AboutProps) {
         categoryId={props.categoryId}
         website={props.website}
         presentationVideo={props.presentationVideo}
+        languages={props.languages}
+        languageName={props.languageName}
+        languageId={props.languageId}
       />
 
       <section className="shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">

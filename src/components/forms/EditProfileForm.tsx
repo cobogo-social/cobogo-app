@@ -1,3 +1,4 @@
+import Select from '@components/Select';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { MessageContext } from '@contexts/MessageContext';
 import axios from 'axios';
@@ -7,7 +8,6 @@ import { SetStateAction, useContext, useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 import Button from '../Button';
-import CategoriesSelect from '../CategoriesSelect';
 import ErrorLabel from '../ErrorLabel';
 import Tags from '../Tags';
 import TagsInput from '../TagsInput';
@@ -27,12 +27,16 @@ interface EditProfileFormProps {
   closeModal?: () => void;
   website?: string;
   presentationVideo?: string;
+  languages: string[];
+  languageName: string;
+  languageId: number;
 }
 
 export default function EditProfileForm(props: EditProfileFormProps) {
   const [tagsList, setTagsList] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [categoryValue, setCategoryValue] = useState('');
+  const [languageValue, setLanguageValue] = useState('');
   const [handleError, setHandleError] = useState('');
 
   const { push } = useRouter();
@@ -85,6 +89,7 @@ export default function EditProfileForm(props: EditProfileFormProps) {
               website: values.website || props.website,
               presentationVideo:
                 values.presentationVideo || props.presentationVideo,
+              language: languageValue || props.languageId,
             })
             .then(async (response) => {
               if (response.data.error) {
@@ -146,6 +151,13 @@ export default function EditProfileForm(props: EditProfileFormProps) {
     key: string;
   }) {
     setCategoryValue(event.target.value);
+  }
+
+  function changeLanguage(event: {
+    target: { value: SetStateAction<string> };
+    key: string;
+  }) {
+    setLanguageValue(event.target.value);
   }
 
   function removeTag(tag: string) {
@@ -256,10 +268,11 @@ export default function EditProfileForm(props: EditProfileFormProps) {
 
       <p className="mb-5 text-lg">choose a category</p>
 
-      <CategoriesSelect
-        categories={props.categories}
-        changeCategory={changeCategory}
-        categoryName={props.categoryName}
+      <Select
+        values={props.categories}
+        changeValue={changeCategory}
+        valueName={props.categoryName}
+        placeholder="select a category"
       />
 
       {props.edit && (
@@ -296,6 +309,15 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             value={formik.values.presentationVideo}
             className="w-full h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
             placeholder="https://www.youtube.com/watch?v=<video_id>"
+          />
+
+          <p className="mb-5 text-lg">choose a language</p>
+
+          <Select
+            values={props.languages}
+            changeValue={changeLanguage}
+            valueName={props.languageName}
+            placeholder="select a language"
           />
         </>
       )}

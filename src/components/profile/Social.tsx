@@ -3,7 +3,7 @@ import numeral from 'numeral';
 
 interface SocialProps {
   onClick?: () => void;
-  icon;
+  icon: JSX.Element;
   number: number;
   placeholder: string;
   link: string;

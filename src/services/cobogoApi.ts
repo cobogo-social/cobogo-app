@@ -253,6 +253,20 @@ export async function readCategories() {
   }
 }
 
+export async function readLanguages() {
+  try {
+    const response = await api.get(`/api/languages`);
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
 export async function readWalletByAddress(address) {
   try {
     const response = await api.get(
@@ -380,6 +394,7 @@ export async function updateProfile(
   audienceTopCountries1: number,
   audienceTopCountries2: number,
   audienceTopCountries3: number,
+  languageId: number,
 ) {
   try {
     await api.put(`/api/profiles/${profileId}`, {
@@ -429,6 +444,7 @@ export async function updateProfile(
         audience_top_countries_1: audienceTopCountries1,
         audience_top_countries_2: audienceTopCountries2,
         audience_top_countries_3: audienceTopCountries3,
+        language: languageId,
       },
     });
   } catch (error) {

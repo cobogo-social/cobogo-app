@@ -15,6 +15,9 @@ interface EditAboutSidebarProps {
   categoryId: number;
   website: string;
   presentationVideo: string;
+  languages: string[];
+  languageName: string;
+  languageId: number;
 }
 
 export default function EditAboutSidebar(props: EditAboutSidebarProps) {
@@ -52,6 +55,9 @@ export default function EditAboutSidebar(props: EditAboutSidebarProps) {
         closeModal={closeModal}
         website={props.website}
         presentationVideo={props.presentationVideo}
+        languages={props.languages}
+        languageName={props.languageName}
+        languageId={props.languageId}
       />
     </SidebarContainer>
   ) : null;
