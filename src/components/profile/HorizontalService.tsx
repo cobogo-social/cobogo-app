@@ -12,7 +12,12 @@ interface HorizontalServiceProps {
   description: string;
   route?: string;
   handle: string;
-  closeModal: () => void;
+  closeServicesSidebar: () => void;
+  openEditServiceSidebar: (
+    id: number,
+    title: string,
+    description: string,
+  ) => void;
 }
 
 export default function HorizontalService(props: HorizontalServiceProps) {
@@ -47,8 +52,8 @@ export default function HorizontalService(props: HorizontalServiceProps) {
             await push(props.route ? props.route : `/${props.handle}`);
           }
 
-          if (props.closeModal) {
-            props.closeModal();
+          if (props.closeServicesSidebar) {
+            props.closeServicesSidebar();
           }
 
           setLoading(false);
@@ -86,7 +91,16 @@ export default function HorizontalService(props: HorizontalServiceProps) {
             </div>
           ) : (
             <>
-              <div className="flex hover:cursor-pointer">
+              <div
+                onClick={() =>
+                  props.openEditServiceSidebar(
+                    props.serviceId,
+                    props.name,
+                    props.description,
+                  )
+                }
+                className="flex hover:cursor-pointer"
+              >
                 <EditIcon size={20} />
               </div>
 

@@ -1,5 +1,6 @@
 import SidebarContainer from '@components/containers/SidebarContainer';
 import AddServiceForm from '@components/forms/AddServiceForm';
+import EditServiceForm from '@components/forms/EditServiceForm';
 import AddIcon from '@components/icons/AddIcon';
 import HorizontalService from '@components/profile/HorizontalService';
 import Image from 'next/image';
@@ -13,16 +14,30 @@ interface ServicesSidebarProps {
   handle: string;
 }
 
+interface IService {
+  id: number;
+  title: string;
+  description: string;
+}
+
 export default function ServicesSidebar(props: ServicesSidebarProps) {
   const [addServiceSidebarIsOpen, setAddServiceSidebarIsOpen] = useState(false);
+  const [editServiceSidebarIsOpen, setEditServiceSidebarIsOpen] =
+    useState(false);
 
-  function closeModal() {
+  const [service, setService] = useState<IService>({
+    id: null,
+    title: '',
+    description: '',
+  });
+
+  function closeServicesSidebar() {
     props.setOpen(false);
   }
 
   function openAddServiceSidebar() {
     setAddServiceSidebarIsOpen(true);
-    closeModal();
+    closeServicesSidebar();
   }
 
   function closeAddServiceSidebar() {
@@ -32,6 +47,24 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
   function returnToServicesSidebar() {
     setAddServiceSidebarIsOpen(false);
     props.setOpen(true);
+  }
+
+  function openEditServiceSidebar(
+    id: number,
+    title: string,
+    description: string,
+  ) {
+    setService({
+      id,
+      title,
+      description,
+    });
+    setEditServiceSidebarIsOpen(true);
+    closeServicesSidebar();
+  }
+
+  function closeEditServiceSidebar() {
+    setEditServiceSidebarIsOpen(false);
   }
 
   useEffect(() => {
@@ -44,6 +77,31 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
 
   return (
     <>
+      {editServiceSidebarIsOpen ? (
+        <SidebarContainer>
+          <div
+            onClick={closeEditServiceSidebar}
+            className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
+          >
+            <Image
+              src="/images/x2-icon.svg"
+              width={13}
+              height={13}
+              alt="x2 icon"
+            />
+          </div>
+
+          <EditServiceForm
+            title="edit a service"
+            buttonText="edit"
+            closeSidebar={closeEditServiceSidebar}
+            handle={props.handle}
+            returnToServicesSidebar={returnToServicesSidebar}
+            service={service}
+          />
+        </SidebarContainer>
+      ) : null}
+
       {addServiceSidebarIsOpen ? (
         <SidebarContainer>
           <div
@@ -61,7 +119,7 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
           <AddServiceForm
             title="add a service"
             buttonText="add"
-            closeModal={closeAddServiceSidebar}
+            closeSidebar={closeAddServiceSidebar}
             handle={props.handle}
             returnToServicesSidebar={returnToServicesSidebar}
           />
@@ -71,7 +129,7 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
       {props.open ? (
         <SidebarContainer>
           <div
-            onClick={closeModal}
+            onClick={closeServicesSidebar}
             className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
           >
             <Image
@@ -90,14 +148,15 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
           </p>
 
           <div className="flex flex-col gap-10">
-            {props.services?.map((service) => (
+            {props.services?.map((horizontalService) => (
               <HorizontalService
                 key={service.id}
-                serviceId={service.id}
-                name={service.attributes.name}
-                description={service.attributes.description}
+                serviceId={horizontalService.id}
+                name={horizontalService.attributes.name}
+                description={horizontalService.attributes.description}
                 handle={props.handle}
-                closeModal={closeModal}
+                closeServicesSidebar={closeServicesSidebar}
+                openEditServiceSidebar={openEditServiceSidebar}
               />
             ))}
           </div>

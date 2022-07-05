@@ -533,3 +533,20 @@ export async function createService(name, description, profileId) {
     }
   }
 }
+
+export async function updateService(name, description, serviceId) {
+  try {
+    await api.put(`/api/services/${serviceId}`, {
+      data: {
+        name,
+        description,
+      },
+    });
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}

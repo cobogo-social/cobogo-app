@@ -10,16 +10,23 @@ import * as yup from 'yup';
 
 import ErrorLabel from '../ErrorLabel';
 
-interface AddServiceFormProps {
+interface IService {
+  id: number;
+  title: string;
+  description: string;
+}
+
+interface EditServiceFormProps {
   title: string;
   buttonText: string;
   route?: string;
   handle: string;
   closeSidebar: () => void;
   returnToServicesSidebar: () => void;
+  service: IService;
 }
 
-export default function AddServiceForm(props: AddServiceFormProps) {
+export default function EditServiceForm(props: EditServiceFormProps) {
   const { push } = useRouter();
 
   const { setMessage } = useContext(MessageContext);
@@ -27,8 +34,8 @@ export default function AddServiceForm(props: AddServiceFormProps) {
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      description: '',
+      title: props.service.title,
+      description: props.service.description,
     },
     validationSchema: yup.object().shape({
       title: yup.string().required('title required'),
@@ -39,9 +46,10 @@ export default function AddServiceForm(props: AddServiceFormProps) {
         setLoading(true);
 
         await axios
-          .post('/api/cobogo/createService', {
+          .put('/api/cobogo/updateService', {
             name: values.title,
             description: values.description,
+            serviceId: props.service.id,
           })
           .then(async (response) => {
             if (response.data.error) {
