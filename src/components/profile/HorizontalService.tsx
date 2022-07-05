@@ -64,7 +64,7 @@ export default function HorizontalService(props: HorizontalServiceProps) {
   }
 
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-5 w-full justify-between">
       <div className="flex flex-col gap-5">
         <p className="text-[22px]">{props.name}</p>
 
