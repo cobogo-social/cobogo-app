@@ -267,6 +267,20 @@ export async function readLanguages() {
   }
 }
 
+export async function readCountries() {
+  try {
+    const response = await api.get(`/api/contries`);
+
+    return response.data.data;
+  } catch (error) {
+    if (error.response) {
+      console.error(error.response.data);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
 export async function readWalletByAddress(address) {
   try {
     const response = await api.get(
@@ -395,6 +409,9 @@ export async function updateProfile(
   audienceTopCountries2: number,
   audienceTopCountries3: number,
   languageId: number,
+  audienceTopCountry1: number,
+  audienceTopCountry2: number,
+  audienceTopCountry3: number,
 ) {
   try {
     await api.put(`/api/profiles/${profileId}`, {
@@ -439,12 +456,15 @@ export async function updateProfile(
         audience_gender_distribution_women: audienceGenderDistributionWomen,
         audience_gender_distribution_others: audienceGenderDistributionOthers,
         audience_age_distribution_18: audienceAgeDistribution18,
-        audience_age_distribution_2534: audienceAgeDistribution2534,
+        audience_age_distribution_25_34: audienceAgeDistribution2534,
         audience_age_distribution_35: audienceAgeDistribution35,
         audience_top_countries_1: audienceTopCountries1,
         audience_top_countries_2: audienceTopCountries2,
         audience_top_countries_3: audienceTopCountries3,
         language: languageId,
+        audience_top_country_1: audienceTopCountry1,
+        audience_top_country_2: audienceTopCountry2,
+        audience_top_country_3: audienceTopCountry3,
       },
     });
   } catch (error) {

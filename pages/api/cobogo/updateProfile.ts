@@ -80,6 +80,9 @@ export default async function handler(
       req.body.audienceTopCountries2,
       req.body.audienceTopCountries3,
       req.body.language,
+      req.body.audienceTopCountry1,
+      req.body.audienceTopCountry2,
+      req.body.audienceTopCountry3,
     );
 
     res.status(201).json({ status: 201, data: response });

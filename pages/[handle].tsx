@@ -7,6 +7,7 @@ import Videos from '@components/profile/Videos';
 import TopBar from '@components/TopBar';
 import {
   readCategories,
+  readCountries,
   readLanguages,
   readProfileByHandle,
 } from '@services/cobogoApi';
@@ -69,12 +70,18 @@ interface ProfileProps {
   audienceTopCountries1: number;
   audienceTopCountries2: number;
   audienceTopCountries3: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  services: any[];
+  services: unknown[];
   presentationVideo: string;
   languages: string[];
   languageName: string;
   languageId: number;
+  countries: string[];
+  country1Name: string;
+  country2Name: string;
+  country3Name: string;
+  country1Id: number;
+  country2Id: number;
+  country3Id: number;
 }
 
 export default function Index(props: ProfileProps) {
@@ -150,6 +157,13 @@ export default function Index(props: ProfileProps) {
         }
         handle={props.handle}
         isOwner={props.isOwner}
+        countries={props.countries}
+        country1Name={props.country1Name}
+        country2Name={props.country2Name}
+        country3Name={props.country3Name}
+        country1Id={props.country1Id}
+        country2Id={props.country2Id}
+        country3Id={props.country3Id}
       />
 
       <Services
@@ -189,6 +203,8 @@ export const getServerSideProps: GetServerSideProps = async ({
     const categories = await readCategories();
 
     const languages = await readLanguages();
+
+    const countries = await readCountries();
 
     return {
       props: {
@@ -261,6 +277,25 @@ export const getServerSideProps: GetServerSideProps = async ({
           : null,
         languageId: profile.attributes.language.data
           ? profile.attributes.language.data.id
+          : null,
+        countries,
+        country1Name: profile.attributes.audience_top_country_1.data
+          ? profile.attributes.audience_top_country_1.data.attributes.name
+          : null,
+        country2Name: profile.attributes.audience_top_country_2.data
+          ? profile.attributes.audience_top_country_2.data.attributes.name
+          : null,
+        country3Name: profile.attributes.audience_top_country_3.data
+          ? profile.attributes.audience_top_country_3.data.attributes.name
+          : null,
+        country1Id: profile.attributes.audience_top_country_1.data
+          ? profile.attributes.audience_top_country_1.data.id
+          : null,
+        country2Id: profile.attributes.audience_top_country_2.data
+          ? profile.attributes.audience_top_country_2.data.id
+          : null,
+        country3Id: profile.attributes.audience_top_country_3.data
+          ? profile.attributes.audience_top_country_3.data.id
           : null,
       },
     };

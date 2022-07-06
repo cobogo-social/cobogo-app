@@ -1,26 +1,31 @@
 import Button from '@components/Button';
 import RangeSlider from '@components/RangeSlider';
+import Select from '@components/Select';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { MessageContext } from '@contexts/MessageContext';
 import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { SetStateAction, useContext, useState } from 'react';
 
 interface EditMediaKitAnalyticsFormProps {
   buttonText: string;
   audienceGenderDistributionMen: number;
   audienceGenderDistributionWomen: number;
-  audienceGenderDistributionOthers: number;
   audienceAgeDistribution18: number;
   audienceAgeDistribution2534: number;
-  audienceAgeDistribution35: number;
   audienceTopCountries1: number;
   audienceTopCountries2: number;
-  audienceTopCountries3: number;
   route?: string;
   handle: string;
   closeModal: () => void;
+  countries: string[];
+  country1Name: string;
+  country2Name: string;
+  country3Name: string;
+  country1Id: number;
+  country2Id: number;
+  country3Id: number;
 }
 
 export default function EditMediaKitAnalyticsForm(
@@ -37,23 +42,20 @@ export default function EditMediaKitAnalyticsForm(
   const [womenValue, setWomenValue] = useState(
     props.audienceGenderDistributionWomen,
   );
-  const [othersValue, setOthersValue] = useState(
-    props.audienceGenderDistributionOthers,
-  );
   const [age18Value, setAge18Value] = useState(props.audienceAgeDistribution18);
   const [age2534Value, setAge2534Value] = useState(
     props.audienceAgeDistribution2534,
   );
-  const [age35Value, setAge35Value] = useState(props.audienceAgeDistribution35);
   const [country1Value, setCountry1Value] = useState(
     props.audienceTopCountries1,
   );
   const [country2Value, setCountry2Value] = useState(
     props.audienceTopCountries2,
   );
-  const [country3Value, setCountry3Value] = useState(
-    props.audienceTopCountries3,
-  );
+
+  const [country1, setCountry1] = useState('');
+  const [country2, setCountry2] = useState('');
+  const [country3, setCountry3] = useState('');
 
   async function submit(event) {
     event.preventDefault();
@@ -65,13 +67,16 @@ export default function EditMediaKitAnalyticsForm(
         .post('/api/cobogo/updateProfile', {
           audienceGenderDistributionMen: menValue,
           audienceGenderDistributionWomen: womenValue,
-          audienceGenderDistributionOthers: othersValue,
+          audienceGenderDistributionOthers: 100 - menValue - womenValue,
           audienceAgeDistribution18: age18Value,
           audienceAgeDistribution2534: age2534Value,
-          audienceAgeDistribution35: age35Value,
+          audienceAgeDistribution35: 100 - age18Value - age2534Value,
           audienceTopCountries1: country1Value,
           audienceTopCountries2: country2Value,
-          audienceTopCountries3: country3Value,
+          audienceTopCountries3: 100 - country1Value - country2Value,
+          audienceTopCountry1: country1 || props.country1Id,
+          audienceTopCountry2: country2 || props.country2Id,
+          audienceTopCountry3: country3 || props.country3Id,
         })
         .then(async (response) => {
           if (response.data.error) {
@@ -112,6 +117,27 @@ export default function EditMediaKitAnalyticsForm(
     }
   }
 
+  function changeCountry1(event: {
+    target: { value: SetStateAction<string> };
+    key: string;
+  }) {
+    setCountry1(event.target.value);
+  }
+
+  function changeCountry2(event: {
+    target: { value: SetStateAction<string> };
+    key: string;
+  }) {
+    setCountry2(event.target.value);
+  }
+
+  function changeCountry3(event: {
+    target: { value: SetStateAction<string> };
+    key: string;
+  }) {
+    setCountry3(event.target.value);
+  }
+
   return (
     <form className="flex flex-col w-full" onSubmit={submit}>
       <p className="text-white text-[40px] mb-5">media kit - analytics</p>
@@ -129,9 +155,7 @@ export default function EditMediaKitAnalyticsForm(
           />
         </div>
 
-        <p className="text-white text-[22px] mr-[10px] w-[380px]">
-          gender distribution
-        </p>
+        <p className="text-white text-[22px] mr-[10px]">gender</p>
 
         <div className="w-full border border-gray10 mr-[10px]" />
 
@@ -146,33 +170,32 @@ export default function EditMediaKitAnalyticsForm(
       </div>
 
       {sectionIsOpen === 'gender' && (
-        <div className="flex flex-col">
-          <div className="mb-5">
+        <div className="flex flex-col gap-5">
+          <div className="flex gap-5">
             <RangeSlider
               color="#6808CF"
               value={menValue}
               setValue={setMenValue}
-              description="men"
             />
+
+            <p className="font-bold min-w-[68px]">men</p>
           </div>
 
-          <div className="mb-5">
+          <div className="flex gap-5">
             <RangeSlider
               color="#D7ABFF"
               value={womenValue}
               setValue={setWomenValue}
-              description="women"
               maxValue={100 - menValue}
             />
+
+            <p className="font-bold min-w-[68px]">women</p>
           </div>
 
-          <div className="mb-10">
-            <RangeSlider
-              color="#B266FA"
-              value={100 - menValue - womenValue}
-              setValue={setOthersValue}
-              description="others"
-            />
+          <div className="flex gap-5 mb-10">
+            <RangeSlider color="#B266FA" value={100 - menValue - womenValue} />
+
+            <p className="font-bold min-w-[68px]">others</p>
           </div>
         </div>
       )}
@@ -190,9 +213,7 @@ export default function EditMediaKitAnalyticsForm(
           />
         </div>
 
-        <p className="text-white text-[22px] mr-[10px] w-[280px]">
-          age distribution
-        </p>
+        <p className="text-white text-[22px] mr-[10px]">age</p>
 
         <div className="w-full border border-gray10 mr-[10px]" />
 
@@ -207,33 +228,35 @@ export default function EditMediaKitAnalyticsForm(
       </div>
 
       {sectionIsOpen === 'age' && (
-        <div className="flex flex-col">
-          <div className="mb-5">
+        <div className="flex flex-col gap-5">
+          <div className="flex gap-5">
             <RangeSlider
               color="#6808CF"
               value={age18Value}
               setValue={setAge18Value}
-              description="-18"
             />
+
+            <p className="font-bold min-w-[68px]">-18</p>
           </div>
 
-          <div className="mb-5">
+          <div className="flex gap-5">
             <RangeSlider
               color="#D7ABFF"
               value={age2534Value}
               setValue={setAge2534Value}
-              description="25-34"
               maxValue={100 - age18Value}
             />
+
+            <p className="font-bold min-w-[68px]">25-34</p>
           </div>
 
-          <div className="mb-10">
+          <div className="flex gap-5 mb-10">
             <RangeSlider
               color="#B266FA"
               value={100 - age18Value - age2534Value}
-              setValue={setAge35Value}
-              description="+35"
             />
+
+            <p className="font-bold min-w-[68px]">+35</p>
           </div>
         </div>
       )}
@@ -253,9 +276,7 @@ export default function EditMediaKitAnalyticsForm(
           />
         </div>
 
-        <p className="text-white text-[22px] mr-[10px]  w-[210px]">
-          top countries
-        </p>
+        <p className="text-white text-[22px] mr-[10px]">countries</p>
 
         <div className="w-full border border-gray10 mr-[10px]" />
 
@@ -270,32 +291,58 @@ export default function EditMediaKitAnalyticsForm(
       </div>
 
       {sectionIsOpen === 'country' && (
-        <div className="mb-10 flex flex-col">
-          <div className="mb-5">
+        <div className="flex flex-col gap-5">
+          <div className="flex gap-5">
             <RangeSlider
               color="#6808CF"
               value={country1Value}
               setValue={setCountry1Value}
-              description="-"
+            />
+
+            <Select
+              values={props.countries}
+              changeValue={changeCountry1}
+              valueName={props.country1Name}
+              placeholder="-"
+              width="w-20"
+              height="h-8"
+              noMarginBottom
             />
           </div>
 
-          <div className="mb-5">
+          <div className="flex gap-5">
             <RangeSlider
               color="#D7ABFF"
               value={country2Value}
               setValue={setCountry2Value}
-              description="-"
               maxValue={100 - country1Value}
+            />
+
+            <Select
+              values={props.countries}
+              changeValue={changeCountry2}
+              valueName={props.country2Name}
+              placeholder="-"
+              width="w-20"
+              height="h-8"
+              noMarginBottom
             />
           </div>
 
-          <div className="mb-10">
+          <div className="flex gap-5 mb-10">
             <RangeSlider
               color="#B266FA"
               value={100 - country1Value - country2Value}
-              setValue={setCountry3Value}
-              description="-"
+            />
+
+            <Select
+              values={props.countries}
+              changeValue={changeCountry3}
+              valueName={props.country3Name}
+              placeholder="-"
+              width="w-20"
+              height="h-8"
+              noMarginBottom
             />
           </div>
         </div>

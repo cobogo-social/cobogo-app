@@ -3,14 +3,13 @@ import { Dispatch, SetStateAction } from 'react';
 interface RangeSliderProps {
   color: string;
   value: number;
-  setValue: Dispatch<SetStateAction<unknown>>;
-  description: string;
+  setValue?: Dispatch<SetStateAction<unknown>>;
   maxValue?: number;
 }
 
 export default function RangeSlider(props: RangeSliderProps) {
   return (
-    <div className="relative flex justify-center items-center gap-5">
+    <div className="relative flex-1">
       <div
         style={{
           left: `${
@@ -21,7 +20,7 @@ export default function RangeSlider(props: RangeSliderProps) {
               : props.value
           }%`,
         }}
-        className="absolute flex items-center bottom-[-15px]"
+        className="absolute bottom-[-20px]"
       >
         <p className="font-bold">
           {props.value > props.maxValue
@@ -47,11 +46,11 @@ export default function RangeSlider(props: RangeSliderProps) {
         min="1"
         max="100"
         value={props.value > props.maxValue ? props.maxValue : props.value}
-        onChange={(event) => props.setValue(event.target.value)}
-        className="w-full h-[6px] appearance-none thumb-slider"
+        onChange={(event) =>
+          props.setValue ? props.setValue(event.target.value) : null
+        }
+        className="w-full h-[6px] appearance-none thumb-slider hover:cursor-pointer"
       />
-
-      <p className="font-bold min-w-[68px]">{props.description}</p>
     </div>
   );
 }

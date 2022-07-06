@@ -17,6 +17,13 @@ interface MediaKitAnalyticsProps {
   audienceTopCountries3: number;
   handle: string;
   isOwner: boolean;
+  countries: string[];
+  country1Name: string;
+  country2Name: string;
+  country3Name: string;
+  country1Id: number;
+  country2Id: number;
+  country3Id: number;
 }
 
 export default function MediaKitAnalytics(props: MediaKitAnalyticsProps) {
@@ -36,16 +43,18 @@ export default function MediaKitAnalytics(props: MediaKitAnalyticsProps) {
         setOpen={setEditMediaKitAnalyticsSidebarIsOpen}
         audienceAgeDistribution18={props.audienceAgeDistribution18}
         audienceAgeDistribution2534={props.audienceAgeDistribution2534}
-        audienceAgeDistribution35={props.audienceAgeDistribution35}
         audienceTopCountries1={props.audienceTopCountries1}
         audienceTopCountries2={props.audienceTopCountries2}
-        audienceTopCountries3={props.audienceTopCountries3}
         audienceGenderDistributionMen={props.audienceGenderDistributionMen}
         audienceGenderDistributionWomen={props.audienceGenderDistributionWomen}
-        audienceGenderDistributionOthers={
-          props.audienceGenderDistributionOthers
-        }
         handle={props.handle}
+        countries={props.countries}
+        country1Name={props.country1Name}
+        country2Name={props.country2Name}
+        country3Name={props.country3Name}
+        country1Id={props.country1Id}
+        country2Id={props.country2Id}
+        country3Id={props.country3Id}
       />
 
       <div className="w-full flex items-center relative justify-center py-[70px] px-[150px] bg-black">
@@ -101,9 +110,9 @@ export default function MediaKitAnalytics(props: MediaKitAnalyticsProps) {
             percent1={props.audienceTopCountries1}
             percent2={props.audienceTopCountries2}
             percent3={props.audienceTopCountries3}
-            placeholder1="-"
-            placeholder2="-"
-            placeholder3="-"
+            placeholder1={props.country1Name}
+            placeholder2={props.country2Name}
+            placeholder3={props.country3Name}
             title="top countries"
             icon={
               <Image
