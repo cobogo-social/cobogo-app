@@ -12,9 +12,10 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const { walletAddress } = req.body;
-  const session = await getSession({ req });
 
   try {
+    const session = await getSession({ req });
+
     const wallet = await readWalletByAddress(walletAddress);
 
     if (!wallet) {
