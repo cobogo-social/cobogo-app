@@ -44,6 +44,8 @@ export default function EditProfileForm(props: EditProfileFormProps) {
   const { setMessage } = useContext(MessageContext);
   const { setLoading } = useContext(LoadingContext);
 
+  const [image, setImage] = useState<File>();
+
   const formik = useFormik({
     initialValues: {
       description: props.description,
@@ -57,6 +59,27 @@ export default function EditProfileForm(props: EditProfileFormProps) {
     }),
     onSubmit: async (values) => {
       try {
+        if (image) {
+          const file = image;
+          const filename = encodeURIComponent(file.name);
+          const fileType = encodeURIComponent(file.type);
+
+          const res = await fetch(
+            `/api/aws/uploadUrl?file=${filename}&fileType=${fileType}`,
+          );
+          const { url, fields } = await res.json();
+          const formData = new FormData();
+
+          Object.entries({ ...fields, file }).forEach(([key, value]) => {
+            formData.append(key, value as string);
+          });
+
+          await fetch(url, {
+            method: 'POST',
+            body: formData,
+          });
+        }
+
         const readProfileByHandle = await axios.get(
           '/api/cobogo/readProfileByHandle',
           {
@@ -289,11 +312,7 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             className="w-full h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
             placeholder="https://example.com/"
           />
-        </>
-      )}
 
-      {props.edit && (
-        <>
           <label className="text-lg">video</label>
 
           <p className="mb-5 text-sm break-words text-gray3">
@@ -318,6 +337,14 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             changeValue={changeLanguage}
             valueName={props.languageName}
             placeholder="select a language"
+          />
+
+          <input
+            type="file"
+            name="file"
+            id="file"
+            accept="image/png, image/jpeg"
+            onChange={(event) => setImage(event.target.files[0])}
           />
         </>
       )}

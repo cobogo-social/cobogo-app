@@ -15,6 +15,7 @@
     "@uniswap/widgets": "^1.0.10",
     "@vime/core": "5.0.33",
     "@vime/react": "5.0.33",
+    "aws-sdk": "^2.1169.0",
     "axios": "^0.25.0",
     "ethers": "^5.6.5",
     "formik": "^2.2.9",
