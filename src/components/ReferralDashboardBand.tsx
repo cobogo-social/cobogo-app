@@ -1,6 +1,7 @@
 import ReferralDashboardChannelBox from '@components/ReferralDashboardChannelBox';
 import TokenInfo from '@components/TokenInfo';
 import { WalletContext } from '@contexts/WalletContext';
+import { useSession } from 'next-auth/react';
 import { useContext } from 'react';
 
 interface ReferralDashboardBandProps {
@@ -22,12 +23,13 @@ export default function ReferralDashboardBand({
 }: ReferralDashboardBandProps) {
   const { currentWallet } = useContext(WalletContext);
 
-  if (!currentWallet) {
-    return (
-      <div className="w-full min-h-[455px] bg-secondary flex flex-col justify-start items-start px-[30px] sm:px-[204px] pt-[85px]" />
-    );
-  }
-  return (
+  const { data: session } = useSession();
+
+  return !currentWallet && !session?.user ? (
+    <div className="w-full min-h-[455px] bg-secondary flex flex-col justify-start items-start px-[30px] sm:px-[204px] pt-[85px]">
+      <p className="text-[26px] sm:text-[40px] flex">no information</p>
+    </div>
+  ) : (
     <div className="w-full min-h-[455px] bg-secondary flex flex-col justify-start items-start px-[30px] sm:px-[204px] pt-[85px]">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full mb-[31px]">
         <p className="text-[26px] sm:text-[40px] flex">

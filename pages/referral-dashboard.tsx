@@ -6,25 +6,78 @@ import { LoadingContext } from '@contexts/LoadingContext';
 import { MesssageContext } from '@contexts/MessageContext';
 import { WalletContext } from '@contexts/WalletContext';
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useCallback, useContext, useEffect, useState } from 'react';
 
 export default function Index() {
-  const { currentWallet } = useContext(WalletContext);
-  const { setMessage } = useContext(MesssageContext);
   const [onboardedFriends, setOnboardedFriends] = useState(0);
   const [pendingFriends, setPendingFriends] = useState(0);
+
   const [referralCode, setReferralCode] = useState('');
+
   const [tokens, setTokens] = useState(0);
+
   const [onboardedFriendsChannels, setOnboardedFriendsChannels] = useState([]);
   const [pendingFriendsChannels, setPendingFriendsChannels] = useState([]);
+
+  const { currentWallet } = useContext(WalletContext);
+  const { setMessage } = useContext(MesssageContext);
   const { setLoading } = useContext(LoadingContext);
+
+  const { data: session } = useSession();
 
   const getInfo = useCallback(async () => {
     try {
-      setLoading(true);
+      if (session?.user) {
+        setLoading(true);
 
-      if (currentWallet) {
+        await axios.get('/api/cobogo/readAccount').then(async (response) => {
+          const account = response.data.data;
+
+          const accountsByReferralId = await axios.get(
+            '/api/cobogo/readAccountsByReferralId',
+            {
+              params: {
+                referralId: account.id,
+              },
+            },
+          );
+
+          accountsByReferralId.data.data.forEach((accountByReferralId) => {
+            if (
+              accountByReferralId.attributes.profiles.data[0].attributes
+                .waitlist
+            ) {
+              setOnboardedFriendsChannels((c) => [
+                ...c,
+                accountByReferralId.attributes,
+              ]);
+            } else {
+              setPendingFriendsChannels((c) => [
+                ...c,
+                accountByReferralId.attributes,
+              ]);
+            }
+
+            const waitlisted =
+              accountByReferralId.attributes.profiles.data[0].attributes
+                .waitlist;
+
+            if (waitlisted) {
+              setOnboardedFriends((c) => c + 1);
+            } else {
+              setPendingFriends((c) => c + 1);
+            }
+          });
+          setReferralCode(response.data.data.attributes.referral_code);
+          setTokens(response.data.data.attributes.tokens);
+
+          setLoading(false);
+        });
+      } else if (!session?.user && currentWallet) {
+        setLoading(true);
+
         await axios
           .get('/api/cobogo/readAccountByWallet', {
             params: {
@@ -32,54 +85,54 @@ export default function Index() {
             },
           })
           .then(async (response) => {
-            if (response.data.data) {
-              const account = response.data.data;
+            const account = response.data.data;
 
-              const accountsByReferralId = await axios.get(
-                '/api/cobogo/readAccountsByReferralId',
-                {
-                  params: {
-                    referralId: account.id,
-                  },
-                },
-              );
-
-              accountsByReferralId.data.data.forEach((accountByReferralId) => {
-                if (
-                  accountByReferralId.attributes.profiles.data[0].attributes
-                    .waitlist
-                ) {
-                  setOnboardedFriendsChannels((c) => [
-                    ...c,
-                    accountByReferralId.attributes,
-                  ]);
-                } else {
-                  setPendingFriendsChannels((c) => [
-                    ...c,
-                    accountByReferralId.attributes,
-                  ]);
-                }
-
-                const waitlisted =
-                  accountByReferralId.attributes.profiles.data[0].attributes
-                    .waitlist;
-
-                if (waitlisted) {
-                  setOnboardedFriends((c) => c + 1);
-                } else {
-                  setPendingFriends((c) => c + 1);
-                }
+            if (!account) {
+              await axios.post('/api/cobogo/createWallet', {
+                walletAddress: currentWallet,
               });
-              setReferralCode(response.data.data.attributes.referral_code);
-              setTokens(response.data.data.attributes.tokens);
-
-              setLoading(false);
-            } else {
-              setLoading(false);
             }
+
+            const accountsByReferralId = await axios.get(
+              '/api/cobogo/readAccountsByReferralId',
+              {
+                params: {
+                  referralId: account.id,
+                },
+              },
+            );
+
+            accountsByReferralId.data.data.forEach((accountByReferralId) => {
+              if (
+                accountByReferralId.attributes.profiles.data[0].attributes
+                  .waitlist
+              ) {
+                setOnboardedFriendsChannels((c) => [
+                  ...c,
+                  accountByReferralId.attributes,
+                ]);
+              } else {
+                setPendingFriendsChannels((c) => [
+                  ...c,
+                  accountByReferralId.attributes,
+                ]);
+              }
+
+              const waitlisted =
+                accountByReferralId.attributes.profiles.data[0].attributes
+                  .waitlist;
+
+              if (waitlisted) {
+                setOnboardedFriends((c) => c + 1);
+              } else {
+                setPendingFriends((c) => c + 1);
+              }
+            });
+            setReferralCode(response.data.data.attributes.referral_code);
+            setTokens(response.data.data.attributes.tokens);
+
+            setLoading(false);
           });
-      } else {
-        setLoading(false);
       }
     } catch (error) {
       setLoading(false);
@@ -88,7 +141,7 @@ export default function Index() {
         type: 'error',
       });
     }
-  }, [currentWallet, setMessage, setLoading]);
+  }, [setLoading, session?.user, currentWallet, setMessage]);
 
   useEffect(() => {
     getInfo();
