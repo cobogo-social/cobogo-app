@@ -147,7 +147,7 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
             </div>
           </p>
 
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-10 w-full">
             {props.services?.map((horizontalService) => (
               <HorizontalService
                 key={service.id}
@@ -157,6 +157,7 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
                 handle={props.handle}
                 closeServicesSidebar={closeServicesSidebar}
                 openEditServiceSidebar={openEditServiceSidebar}
+                bannerImage={horizontalService.attributes.banner_image}
               />
             ))}
           </div>

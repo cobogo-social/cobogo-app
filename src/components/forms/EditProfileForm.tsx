@@ -347,7 +347,13 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             placeholder="select a language"
           />
 
-          <FileInput label="avatar" changeFile={setImage} />
+          <div className="mb-10">
+            <FileInput
+              label="avatar"
+              description="select an image from disc."
+              changeFile={setImage}
+            />
+          </div>
         </>
       )}
 

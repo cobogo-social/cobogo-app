@@ -48,6 +48,7 @@ export default function Services(props: ServicesProps) {
                   key={service.id}
                   name={service.attributes.name}
                   description={service.attributes.description}
+                  bannerImage={service.attributes.banner_image}
                 />
               ))}
             </div>

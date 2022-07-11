@@ -538,13 +538,19 @@ export async function deleteService(serviceId) {
   }
 }
 
-export async function createService(name, description, profileId) {
+export async function createService(
+  name: string,
+  description: string,
+  profileId: number,
+  bannerImage: string,
+) {
   try {
     await api.post('/api/services', {
       data: {
         name,
         description,
         profile: profileId,
+        banner_image: bannerImage,
       },
     });
   } catch (error) {
@@ -556,12 +562,18 @@ export async function createService(name, description, profileId) {
   }
 }
 
-export async function updateService(name, description, serviceId) {
+export async function updateService(
+  name: string,
+  description: string,
+  serviceId: number,
+  bannerImage: string,
+) {
   try {
     await api.put(`/api/services/${serviceId}`, {
       data: {
         name,
         description,
+        banner_image: bannerImage,
       },
     });
   } catch (error) {

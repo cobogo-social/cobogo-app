@@ -7,6 +7,7 @@ interface ServiceSidebarProps {
   setOpen: (value: boolean) => void;
   name: string;
   description: string;
+  bannerImage: string;
 }
 
 export default function ServiceSidebar(props: ServiceSidebarProps) {
@@ -33,7 +34,16 @@ export default function ServiceSidebar(props: ServiceSidebarProps) {
 
       <p className="text-white text-[40px] mb-5">{props.name}</p>
 
-      <div className="bg-blue w-full min-h-[272px] mb-5" />
+      <div className="bg-blue w-full min-h-[272px] mb-5 relative">
+        {props.bannerImage && (
+          <Image
+            src={props.bannerImage}
+            objectFit="cover"
+            layout="fill"
+            alt="banner image"
+          />
+        )}
+      </div>
 
       <p>{props.description}</p>
 

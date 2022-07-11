@@ -1,11 +1,13 @@
 import Button from '@components/Button';
 import ReturnIcon from '@components/icons/ReturnIcon';
+import FileInput from '@components/inputs/FileInput';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { MessageContext } from '@contexts/MessageContext';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import referralCodeGenerator from 'referral-code-generator';
 import * as yup from 'yup';
 
 import ErrorLabel from '../ErrorLabel';
@@ -25,6 +27,8 @@ export default function AddServiceForm(props: AddServiceFormProps) {
   const { setMessage } = useContext(MessageContext);
   const { setLoading } = useContext(LoadingContext);
 
+  const [image, setImage] = useState<File>();
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -38,10 +42,37 @@ export default function AddServiceForm(props: AddServiceFormProps) {
       try {
         setLoading(true);
 
+        const referralCode = await referralCodeGenerator.alphaNumeric(
+          'lowercase',
+          2,
+          2,
+        );
+
+        const file = image;
+        const filename = `${referralCode}-${encodeURIComponent(file.name)}`;
+        const fileType = encodeURIComponent(file.type);
+
+        if (image) {
+          const uploadUrl = await axios.get(
+            `/api/aws/uploadUrl?file=${filename}&fileType=${fileType}`,
+          );
+          const { url, fields } = await uploadUrl.data.data;
+          const formData = new FormData();
+
+          Object.entries({ ...fields, file }).forEach(([key, value]) => {
+            formData.append(key, value as string);
+          });
+
+          await axios.post(url, formData);
+        }
+
         await axios
           .post('/api/cobogo/createService', {
             name: values.title,
             description: values.description,
+            bannerImage: image
+              ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/${filename}`
+              : null,
           })
           .then(async (response) => {
             if (response.data.error) {
@@ -140,6 +171,14 @@ export default function AddServiceForm(props: AddServiceFormProps) {
           onChange={formik.handleChange}
           onKeyPress={validateKeyPressed}
           value={formik.values.description}
+        />
+      </div>
+
+      <div className="mb-10">
+        <FileInput
+          label="cover"
+          description="select an image representing the service."
+          changeFile={setImage}
         />
       </div>
 

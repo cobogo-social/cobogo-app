@@ -5,10 +5,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { name, description, serviceId } = req.body;
+  const { name, description, serviceId, bannerImage } = req.body;
 
   try {
-    await updateService(name, description, serviceId);
+    await updateService(name, description, serviceId, bannerImage);
 
     res.status(201).json({ status: 201 });
   } catch (error) {

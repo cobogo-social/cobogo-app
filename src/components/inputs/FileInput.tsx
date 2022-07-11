@@ -2,16 +2,17 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface FileInputProps {
   label: string;
+  description: string;
   changeFile: Dispatch<SetStateAction<File>>;
 }
 
 export default function FileInput(props: FileInputProps) {
   return (
-    <div className="mb-10 flex flex-col">
+    <div className="flex flex-col">
       <label className="text-lg">{props.label}</label>
 
       <p className="font-bold text-sm break-words text-gray3">
-        select an image from disc.
+        {props.description}
       </p>
 
       <p className="mb-5 text-sm break-words text-gray3">

@@ -3,6 +3,7 @@ import EditIcon from '@components/icons/EditIcon';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { MessageContext } from '@contexts/MessageContext';
 import axios from 'axios';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 
@@ -18,6 +19,7 @@ interface HorizontalServiceProps {
     title: string,
     description: string,
   ) => void;
+  bannerImage: string;
 }
 
 export default function HorizontalService(props: HorizontalServiceProps) {
@@ -77,7 +79,16 @@ export default function HorizontalService(props: HorizontalServiceProps) {
       </div>
 
       <div className="flex flex-col items-center gap-5">
-        <div className="bg-blue w-36 h-24" />
+        <div className="bg-blue w-36 h-24 relative">
+          {props.bannerImage && (
+            <Image
+              src={props.bannerImage}
+              objectFit="cover"
+              layout="fill"
+              alt="banner image"
+            />
+          )}
+        </div>
 
         <div className="flex gap-5">
           {deleteConfirmation ? (
