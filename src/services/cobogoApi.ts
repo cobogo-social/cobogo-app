@@ -412,6 +412,7 @@ export async function updateProfile(
   audienceTopCountry1: number,
   audienceTopCountry2: number,
   audienceTopCountry3: number,
+  profileImage: string,
 ) {
   try {
     await api.put(`/api/profiles/${profileId}`, {
@@ -465,6 +466,7 @@ export async function updateProfile(
         audience_top_country_1: audienceTopCountry1,
         audience_top_country_2: audienceTopCountry2,
         audience_top_country_3: audienceTopCountry3,
+        profile_image: profileImage,
       },
     });
   } catch (error) {

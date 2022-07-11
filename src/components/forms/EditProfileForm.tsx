@@ -1,3 +1,4 @@
+import FileInput from '@components/inputs/FileInput';
 import Select from '@components/Select';
 import { LoadingContext } from '@contexts/LoadingContext';
 import { MessageContext } from '@contexts/MessageContext';
@@ -5,6 +6,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { SetStateAction, useContext, useEffect, useState } from 'react';
+import referralCodeGenerator from 'referral-code-generator';
 import * as yup from 'yup';
 
 import Button from '../Button';
@@ -59,25 +61,28 @@ export default function EditProfileForm(props: EditProfileFormProps) {
     }),
     onSubmit: async (values) => {
       try {
-        if (image) {
-          const file = image;
-          const filename = encodeURIComponent(file.name);
-          const fileType = encodeURIComponent(file.type);
+        const referralCode = await referralCodeGenerator.alphaNumeric(
+          'lowercase',
+          2,
+          2,
+        );
 
-          const res = await fetch(
+        const file = image;
+        const filename = `${referralCode}-${encodeURIComponent(file.name)}`;
+        const fileType = encodeURIComponent(file.type);
+
+        if (image) {
+          const uploadUrl = await axios.get(
             `/api/aws/uploadUrl?file=${filename}&fileType=${fileType}`,
           );
-          const { url, fields } = await res.json();
+          const { url, fields } = await uploadUrl.data.data;
           const formData = new FormData();
 
           Object.entries({ ...fields, file }).forEach(([key, value]) => {
             formData.append(key, value as string);
           });
 
-          await fetch(url, {
-            method: 'POST',
-            body: formData,
-          });
+          await axios.post(url, formData);
         }
 
         const readProfileByHandle = await axios.get(
@@ -113,6 +118,9 @@ export default function EditProfileForm(props: EditProfileFormProps) {
               presentationVideo:
                 values.presentationVideo || props.presentationVideo,
               language: languageValue || props.languageId,
+              profileImage: image
+                ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/${filename}`
+                : null,
             })
             .then(async (response) => {
               if (response.data.error) {
@@ -339,13 +347,7 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             placeholder="select a language"
           />
 
-          <input
-            type="file"
-            name="file"
-            id="file"
-            accept="image/png, image/jpeg"
-            onChange={(event) => setImage(event.target.files[0])}
-          />
+          <FileInput label="avatar" changeFile={setImage} />
         </>
       )}
 

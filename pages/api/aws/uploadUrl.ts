@@ -6,12 +6,12 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const s3 = new S3({
-    apiVersion: '2006-03-01',
+    apiVersion: '2012-10-17',
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   });
 
-  const post = await s3.createPresignedPost({
+  const post = s3.createPresignedPost({
     Bucket: process.env.AWS_BUCKET,
     Fields: {
       key: req.query.file,
@@ -19,9 +19,9 @@ export default async function handler(
     },
     Expires: 60, // seconds
     Conditions: [
-      ['content-length-range', 0, 1048576], // up to 1 MB
+      ['content-length-range', 0, 10485760], // up to 10 MB
     ],
   });
 
-  res.status(200).json(post);
+  res.status(201).json({ status: 201, data: post });
 }
