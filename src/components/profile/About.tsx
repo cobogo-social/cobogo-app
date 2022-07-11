@@ -7,7 +7,6 @@ import { useState } from 'react';
 import Button from '../Button';
 import EditAboutSidebar from '../sidebars/EditAboutSidebar';
 import ProfileImage from './ProfileImage';
-import VideoImage from './VideoImage';
 
 const PresentationVideo = dynamic(
   () => import('@components/profile/PresentationVideo'),
@@ -72,7 +71,7 @@ export default function About(props: AboutProps) {
           )}
         </div>
 
-        <div className="flex w-full px-[150px] py-[70px] relative justify-center items-end bg-black">
+        <div className="flex w-full px-[150px] py-[70px] relative justify-center items-end bg-black min-h-[476px]">
           {props.isOwner && (
             <div
               onClick={openEditAboutSidebar}
@@ -128,16 +127,12 @@ export default function About(props: AboutProps) {
               )}
             </div>
 
-            <div>
-              <div className="mb-11">
-                {props.presentationVideo ? (
-                  <PresentationVideo
-                    videoId={props.presentationVideo?.split('=')[1]}
-                  />
-                ) : (
-                  <VideoImage />
-                )}
-              </div>
+            <div className="flex flex-col gap-10">
+              {props.presentationVideo ? (
+                <PresentationVideo
+                  videoId={props.presentationVideo?.split('=')[1]}
+                />
+              ) : null}
 
               <div className="flex justify-around items-center">
                 {props.tags?.map((tag, index) => {

@@ -68,8 +68,10 @@ export default function EditProfileForm(props: EditProfileFormProps) {
         );
 
         const file = image;
-        const filename = `${referralCode}-${encodeURIComponent(file.name)}`;
-        const fileType = encodeURIComponent(file.type);
+        const filename = file
+          ? `${referralCode}-${encodeURIComponent(file.name)}`
+          : null;
+        const fileType = file ? encodeURIComponent(file.type) : null;
 
         if (image) {
           const uploadUrl = await axios.get(
