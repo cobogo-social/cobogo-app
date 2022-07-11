@@ -24,6 +24,7 @@ export default function FileInput(props: FileInputProps) {
         name="file"
         id="file"
         accept="image/png, image/jpeg"
+        className="file:mr-5 file:py-2 file:px-5 file:border file:font-bold file:text-white file:bg-primary hover:file:cursor-pointer"
         onChange={(event) => props.changeFile(event.target.files[0])}
       />
     </div>
