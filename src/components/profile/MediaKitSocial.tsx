@@ -255,6 +255,8 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               handle={props.youtubeId}
               iconPosition="left-[-17px]"
               name="YouTube"
+              isOwner={props.isOwner}
+              openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
             />
 
             <Social
@@ -271,6 +273,8 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               handle={props.instagramHandle}
               iconPosition="left-[-15px]"
               name="Instagram"
+              isOwner={props.isOwner}
+              openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
             />
 
             <Social
@@ -287,6 +291,8 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               handle={props.twitchHandle}
               iconPosition="left-[-15px]"
               name="Twitch"
+              isOwner={props.isOwner}
+              openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
             />
 
             <Social
@@ -303,6 +309,8 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               handle={props.tiktokHandle}
               iconPosition="left-[-15px]"
               name="TikTok"
+              isOwner={props.isOwner}
+              openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
             />
 
             <Social
@@ -318,6 +326,8 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               handle={props.twitterHandle}
               iconPosition="left-[-15px]"
               name="Twitter"
+              isOwner={props.isOwner}
+              openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
             />
 
             <Social
@@ -333,6 +343,8 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               handle={props.discordHandle}
               iconPosition="left-[-19px]"
               name="Discord"
+              isOwner={props.isOwner}
+              openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
             />
 
             <Social
@@ -348,6 +360,8 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               handle={props.telegramHandle}
               iconPosition="left-[-17px]"
               name="Telegram"
+              isOwner={props.isOwner}
+              openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
             />
           </div>
         </div>

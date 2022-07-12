@@ -10,6 +10,8 @@ interface SocialProps {
   handle: string;
   iconPosition: string;
   name: string;
+  isOwner: boolean;
+  openEditMediaKitSocialSidebar: () => void;
 }
 
 export default function Social(props: SocialProps) {
@@ -33,12 +35,33 @@ export default function Social(props: SocialProps) {
             <a
               target="_blank"
               href={props.link}
-              className="font-bold text-blue flex gap-[5px] items-center"
+              className="font-bold text-blue flex gap-1 items-center"
               rel="noreferrer"
             >
               {props.linkPlaceholder} <LinkIcon size={15} />
             </a>
           )}
+        </div>
+      </div>
+    </div>
+  ) : !props.handle && props.isOwner ? (
+    <div className="relative">
+      <div
+        className={`h-full absolute flex justify-center items-center ${props.iconPosition}`}
+      >
+        <div className="bg-primary py-[10px]">{props.icon}</div>
+      </div>
+
+      <div className="w-[310px] h-[207px] border border-gray10 flex flex-col justify-center items-start px-10">
+        <div className="flex flex-col justify-center items-start">
+          <p className="font-bold text-2xl">{props.name}</p>
+
+          <button
+            className="font-bold text-blue flex gap-1 items-center"
+            onClick={props.openEditMediaKitSocialSidebar}
+          >
+            add +
+          </button>
         </div>
       </div>
     </div>
