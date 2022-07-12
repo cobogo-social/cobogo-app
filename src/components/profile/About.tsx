@@ -81,7 +81,7 @@ export default function About(props: AboutProps) {
             </div>
           )}
 
-          <div className="flex max-w-[1000px] w-full justify-between items-end">
+          <div className="flex max-w-[1010px] w-full justify-between items-end">
             <div className="flex justify-center items-center absolute top-[-30px]">
               <ProfileImage src={props.profileImage} />
 

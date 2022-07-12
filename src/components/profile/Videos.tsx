@@ -8,7 +8,7 @@ interface VideosProps {
 export default function Videos(props: VideosProps) {
   return (
     <div className="hidden sm:flex w-full px-[150px] py-[70px] bg-black justify-center items-center">
-      <div className="flex-col w-full max-w-[1000px]">
+      <div className="flex-col w-full max-w-[1010px]">
         <p className="text-[22px] mb-6 w-full justify-start items-start">
           latest YouTube videos
         </p>

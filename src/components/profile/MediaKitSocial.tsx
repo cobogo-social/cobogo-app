@@ -239,11 +239,11 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
           </div>
         )}
 
-        <div className="flex max-w-[1000px] w-full justify-center items-center">
-          <div className="flex flex-row flex-wrap items-center justify-between w-full gap-x-10 gap-y-24">
+        <div className="flex max-w-[1010px] w-full justify-center items-center">
+          <div className="flex flex-wrap items-center justify-start w-full gap-10">
             <Social
               onClick={() => openStep(1)}
-              icon={<YouTubeIcon size={60} />}
+              icon={<YouTubeIcon size={36} />}
               number={props.youtubeSubscribers}
               placeholder="subscribers"
               link={
@@ -253,11 +253,13 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               }
               linkPlaceholder="visit channel"
               handle={props.youtubeId}
+              iconPosition="left-[-17px]"
+              name="YouTube"
             />
 
             <Social
               onClick={() => openStep(2)}
-              icon={<InstagramIcon size={56} />}
+              icon={<InstagramIcon size={31} />}
               number={props.instagramFollowers}
               placeholder="followers"
               link={
@@ -267,11 +269,13 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               }
               linkPlaceholder={`@${props.instagramHandle}`}
               handle={props.instagramHandle}
+              iconPosition="left-[-15px]"
+              name="Instagram"
             />
 
             <Social
               onClick={() => openStep(3)}
-              icon={<TwitchIcon size={54} />}
+              icon={<TwitchIcon size={32} />}
               number={props.twitchSubscribers}
               placeholder="subscribers"
               link={
@@ -281,11 +285,13 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               }
               linkPlaceholder={`/${props.twitchHandle}`}
               handle={props.twitchHandle}
+              iconPosition="left-[-15px]"
+              name="Twitch"
             />
 
             <Social
               onClick={() => openStep(4)}
-              icon={<TikTokIcon size={46} />}
+              icon={<TikTokIcon size={28} />}
               number={props.tiktokFollowers}
               placeholder="followers"
               link={
@@ -295,10 +301,12 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               }
               linkPlaceholder={`@${props.tiktokHandle}`}
               handle={props.tiktokHandle}
+              iconPosition="left-[-15px]"
+              name="TikTok"
             />
 
             <Social
-              icon={<TwitterIcon size={60} />}
+              icon={<TwitterIcon size={36} />}
               number={props.twitterFollowers}
               placeholder="followers"
               link={
@@ -308,10 +316,12 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               }
               linkPlaceholder={`@${props.twitterHandle}`}
               handle={props.twitterHandle}
+              iconPosition="left-[-15px]"
+              name="Twitter"
             />
 
             <Social
-              icon={<DiscordIcon size={61} />}
+              icon={<DiscordIcon size={38} />}
               number={props.discordMembers}
               placeholder="members"
               link={
@@ -321,10 +331,12 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               }
               linkPlaceholder="join my Discord"
               handle={props.discordHandle}
+              iconPosition="left-[-19px]"
+              name="Discord"
             />
 
             <Social
-              icon={<TelegramIcon size={54} />}
+              icon={<TelegramIcon size={31} />}
               number={props.telegramMembers}
               placeholder="members"
               link={
@@ -334,6 +346,8 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               }
               linkPlaceholder="join my Telegram"
               handle={props.telegramHandle}
+              iconPosition="left-[-17px]"
+              name="Telegram"
             />
           </div>
         </div>

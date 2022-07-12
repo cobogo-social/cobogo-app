@@ -59,7 +59,7 @@ export default function SocialDetails(props: SocialDetailsProps) {
         </div>
       </div>
 
-      <div className="flex max-w-[1000px] w-full justify-between items-center">
+      <div className="flex max-w-[1010px] w-full justify-between items-center">
         <div className="flex flex-col w-full">
           <div className="flex w-full">
             <div className="mr-[20px] flex">{props.icon}</div>

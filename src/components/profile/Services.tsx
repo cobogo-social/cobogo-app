@@ -38,7 +38,7 @@ export default function Services(props: ServicesProps) {
           </div>
         )}
 
-        <div className="flex max-w-[1000px] w-full justify-between items-center">
+        <div className="flex max-w-[1010px] w-full justify-between items-center">
           <div className="flex flex-col justify-between items-start w-full">
             <p className="text-[22px] mb-6">services offered</p>
 

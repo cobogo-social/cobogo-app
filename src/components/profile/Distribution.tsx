@@ -19,12 +19,12 @@ export default function Distribution(props: DistributionProps) {
         <div className="bg-black py-[10px]">{props.icon}</div>
       </div>
 
-      <div className="w-[310px] h-[207px] border border-gray10 flex flex-col justify-center items-center px-8">
+      <div className="w-[310px] h-[207px] border border-gray10 flex flex-col justify-center items-start px-10">
         <div className="flex flex-col justify-center items-start">
           <p className="font-bold text-left w-full">{props.title}</p>
 
           <div className="flex items-center">
-            <div className="w-[150px] h-[7px] bg-gray10 mr-4">
+            <div className="w-[150px] h-[7px] bg-gray10 mr-10">
               <div
                 style={{
                   width: `${props.percent1}%`,
@@ -37,7 +37,7 @@ export default function Distribution(props: DistributionProps) {
           </div>
 
           <div className="flex items-center">
-            <div className="w-[150px] h-[7px] bg-gray10 mr-4">
+            <div className="w-[150px] h-[7px] bg-gray10 mr-10">
               <div
                 style={{
                   width: `${props.percent2}%`,
@@ -50,7 +50,7 @@ export default function Distribution(props: DistributionProps) {
           </div>
 
           <div className="flex items-center">
-            <div className="w-[150px] h-[7px] bg-gray10 mr-4">
+            <div className="w-[150px] h-[7px] bg-gray10 mr-10">
               <div
                 style={{
                   width: `${props.percent3}%`,

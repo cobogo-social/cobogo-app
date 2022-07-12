@@ -67,7 +67,7 @@ export default function MediaKitAnalytics(props: MediaKitAnalyticsProps) {
           </div>
         )}
 
-        <div className="flex max-w-[1000px] w-full gap-10 justify-start items-center">
+        <div className="flex max-w-[1010px] w-full gap-10 justify-start items-center">
           <Distribution
             percent1={props.audienceGenderDistributionMen}
             percent2={props.audienceGenderDistributionWomen}

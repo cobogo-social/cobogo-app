@@ -1,5 +1,4 @@
 import LinkIcon from '@components/icons/LinkIcon';
-import numeral from 'numeral';
 
 interface SocialProps {
   onClick?: () => void;
@@ -9,34 +8,38 @@ interface SocialProps {
   link: string;
   linkPlaceholder: string;
   handle: string;
+  iconPosition: string;
+  name: string;
 }
 
 export default function Social(props: SocialProps) {
   return props.handle ? (
-    <div
-      onClick={props.onClick}
-      className="flex w-[306px] hover:cursor-pointer"
-    >
-      <div className="mr-[27px] flex">{props.icon}</div>
+    <div className="relative hover:cursor-pointer" onClick={props.onClick}>
+      <div
+        className={`h-full absolute flex justify-center items-center ${props.iconPosition}`}
+      >
+        <div className="bg-primary py-[10px]">{props.icon}</div>
+      </div>
 
-      <div className="flex flex-col">
-        <p className="font-bold text-[45px] leading-[25px] mb-[10px]">
-          {String(props.number).length > 3
-            ? numeral(Number(props.number)).format('0.0a').toUpperCase()
-            : props.number}
-        </p>
-        <p className="font-bold text-gray6 mb-[20px]">{props.placeholder}</p>
+      <div className="w-[310px] h-[207px] border border-gray10 flex flex-col justify-center items-start px-10">
+        <div className="flex flex-col justify-center items-start">
+          <p className="font-bold mb-[20px] text-2xl">{props.name}</p>
 
-        {props.link && (
-          <a
-            target="_blank"
-            href={props.link}
-            className="font-bold text-blue flex gap-[5px] items-center"
-            rel="noreferrer"
-          >
-            {props.linkPlaceholder} <LinkIcon size={15} />
-          </a>
-        )}
+          <strong className="text-5xl">{props.number}</strong>
+
+          <p className="font-bold text-gray6 mb-[20px]">{props.placeholder}</p>
+
+          {props.link && (
+            <a
+              target="_blank"
+              href={props.link}
+              className="font-bold text-blue flex gap-[5px] items-center"
+              rel="noreferrer"
+            >
+              {props.linkPlaceholder} <LinkIcon size={15} />
+            </a>
+          )}
+        </div>
       </div>
     </div>
   ) : null;

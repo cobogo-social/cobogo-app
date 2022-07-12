@@ -5,7 +5,7 @@ import Button from '../Button';
 export default function Stake() {
   return (
     <section className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
-      <div className="flex max-w-[1000px] w-full justify-between items-center">
+      <div className="flex max-w-[1010px] w-full justify-between items-center">
         <Image
           src="/images/profile-bg.svg"
           objectFit="cover"
