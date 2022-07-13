@@ -135,12 +135,14 @@ export default function About(props: AboutProps) {
                 />
               ) : (
                 <div className="relative">
-                  <button
-                    onClick={openEditAboutSidebar}
-                    className="z-20 absolute flex gap-2 bottom-10 left-10 items-center text-blue text-xl"
-                  >
-                    <AddIcon size={18} /> <strong>presentation video</strong>
-                  </button>
+                  {!props.presentationVideo && props.isOwner && (
+                    <button
+                      onClick={openEditAboutSidebar}
+                      className="z-20 absolute flex gap-2 bottom-10 left-10 items-center text-blue text-xl"
+                    >
+                      <AddIcon size={18} /> <strong>presentation video</strong>
+                    </button>
+                  )}
 
                   <div className="bg-gradient-to-t from-black to-black/[0] z-10 w-full h-full absolute" />
 

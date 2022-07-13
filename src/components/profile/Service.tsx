@@ -49,9 +49,16 @@ export default function Service(props: ServiceProps) {
 
       <div className="w-[310px] border border-gray10">
         <div className="bg-blue w-full h-[204px] relative">
-          {props.bannerImage && (
+          {props.bannerImage ? (
             <Image
               src={props.bannerImage}
+              objectFit="cover"
+              layout="fill"
+              alt="banner image"
+            />
+          ) : (
+            <Image
+              src="/images/service-1.png"
               objectFit="cover"
               layout="fill"
               alt="banner image"

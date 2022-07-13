@@ -6,7 +6,7 @@ interface VideosProps {
 }
 
 export default function Videos(props: VideosProps) {
-  return (
+  return props.videos ? (
     <div className="hidden sm:flex w-full px-[150px] py-[70px] bg-black justify-center items-center">
       <div className="flex-col w-full max-w-[1010px]">
         <p className="text-[22px] mb-6 w-full justify-start items-start">
@@ -14,7 +14,7 @@ export default function Videos(props: VideosProps) {
         </p>
 
         <div className="flex gap-10">
-          {props.videos?.map((video) => (
+          {props.videos.map((video) => (
             <Video
               key={video.id.videoId}
               title={video.snippet.title}
@@ -25,5 +25,5 @@ export default function Videos(props: VideosProps) {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }

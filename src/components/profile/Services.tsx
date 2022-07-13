@@ -18,7 +18,7 @@ export default function Services(props: ServicesProps) {
     setServicesSidebarIsOpen(true);
   }
 
-  return (
+  return props.services.length ? (
     <>
       <ServicesSidebar
         open={servicesSidebarIsOpen}
@@ -95,11 +95,13 @@ export default function Services(props: ServicesProps) {
                     />
                   </div>
                 </>
-              ) : null}
+              ) : (
+                !props.services.length && null
+              )}
             </div>
           </div>
         </div>
       </div>
     </>
-  );
+  ) : null;
 }
