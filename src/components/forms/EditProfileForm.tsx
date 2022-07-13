@@ -29,9 +29,10 @@ interface EditProfileFormProps {
   closeModal?: () => void;
   website?: string;
   presentationVideo?: string;
-  languages: string[];
-  languageName: string;
-  languageId: number;
+  languages?: string[];
+  languageName?: string;
+  languageId?: number;
+  profileImage: string;
 }
 
 export default function EditProfileForm(props: EditProfileFormProps) {
@@ -122,7 +123,7 @@ export default function EditProfileForm(props: EditProfileFormProps) {
               language: languageValue || props.languageId,
               profileImage: image
                 ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/${filename}`
-                : null,
+                : props.profileImage,
             })
             .then(async (response) => {
               if (response.data.error) {

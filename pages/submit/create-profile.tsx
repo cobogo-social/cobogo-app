@@ -17,6 +17,7 @@ interface CreateProfileProps {
   youtubeDescription: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories: any[];
+  profileImage: string;
 }
 
 export default function Index(props: CreateProfileProps) {
@@ -41,6 +42,7 @@ export default function Index(props: CreateProfileProps) {
               buttonText="next"
               route="/submit/connect-wallet"
               title="create profile"
+              profileImage={props.profileImage}
             />
 
             <ChannelBox
@@ -86,6 +88,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         title: profile.attributes.title,
         youtubeDescription: profile.attributes.youtube_description,
         categories,
+        profileImage: profile.attributes.profile_image,
       },
     };
   } catch (error) {

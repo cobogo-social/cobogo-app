@@ -58,6 +58,7 @@ export default function About(props: AboutProps) {
         languages={props.languages}
         languageName={props.languageName}
         languageId={props.languageId}
+        profileImage={props.profileImage}
       />
 
       <section className="shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">

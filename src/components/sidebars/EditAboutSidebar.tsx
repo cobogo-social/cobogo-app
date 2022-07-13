@@ -18,6 +18,7 @@ interface EditAboutSidebarProps {
   languages: string[];
   languageName: string;
   languageId: number;
+  profileImage: string;
 }
 
 export default function EditAboutSidebar(props: EditAboutSidebarProps) {
@@ -58,6 +59,7 @@ export default function EditAboutSidebar(props: EditAboutSidebarProps) {
         languages={props.languages}
         languageName={props.languageName}
         languageId={props.languageId}
+        profileImage={props.profileImage}
       />
     </SidebarContainer>
   ) : null;

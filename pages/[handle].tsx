@@ -206,6 +206,28 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     const countries = await readCountries();
 
+    const isOwner = session?.user
+      ? session.user['id'] === profile.attributes.accounts.data[0].id
+      : false;
+
+    if (profile.attributes.status === 'draft' && !isOwner) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
+    }
+
+    if (profile.attributes.status === 'blocked') {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
+    }
+
     return {
       props: {
         bannerImage: profile.attributes.banner_image,
@@ -216,9 +238,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         tags: profile.attributes.categories.split(','),
         youtubeId: profile.attributes.youtube_id,
         videos,
-        isOwner: session?.user
-          ? session.user['id'] === profile.attributes.accounts.data[0].id
-          : false,
+        isOwner,
         handle: profile.attributes.handle,
         categories,
         categoryName: profile.attributes.category.data.attributes.name,
