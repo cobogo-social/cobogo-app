@@ -323,7 +323,7 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             placeholder="https://example.com/"
           />
 
-          <label className="text-lg">video</label>
+          <label className="text-lg">presentation video</label>
 
           <p className="mb-5 text-sm break-words text-gray3">
             link one of your videos that best describes you or your work here

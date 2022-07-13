@@ -1,4 +1,5 @@
 import CopyToClipboard from '@components/CopyToClipboard';
+import AddIcon from '@components/icons/AddIcon';
 import EditIcon from '@components/icons/EditIcon';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
@@ -71,7 +72,7 @@ export default function About(props: AboutProps) {
           )}
         </div>
 
-        <div className="flex w-full px-[150px] py-[70px] relative justify-center items-end bg-black min-h-[476px]">
+        <div className="flex w-full px-[150px] py-[70px] relative justify-center items-end bg-black">
           {props.isOwner && (
             <div
               onClick={openEditAboutSidebar}
@@ -132,7 +133,25 @@ export default function About(props: AboutProps) {
                 <PresentationVideo
                   videoId={props.presentationVideo?.split('=')[1]}
                 />
-              ) : null}
+              ) : (
+                <div className="relative">
+                  <button
+                    onClick={openEditAboutSidebar}
+                    className="z-20 absolute flex gap-2 bottom-10 left-10 items-center text-blue text-xl"
+                  >
+                    <AddIcon size={18} /> <strong>presentation video</strong>
+                  </button>
+
+                  <div className="bg-gradient-to-t from-black to-black/[0] z-10 w-full h-full absolute" />
+
+                  <Image
+                    src="/images/presentation-video.png"
+                    width={481}
+                    height={268}
+                    alt="presentation video"
+                  />
+                </div>
+              )}
 
               <div className="flex justify-around items-center">
                 {props.tags?.map((tag, index) => {
