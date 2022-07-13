@@ -1,6 +1,5 @@
 import EditIcon from '@components/icons/EditIcon';
 import ServicesSidebar from '@components/sidebars/ServicesSidebar';
-import Image from 'next/image';
 import { useState } from 'react';
 
 import Service from './Service';
@@ -19,7 +18,7 @@ export default function Services(props: ServicesProps) {
     setServicesSidebarIsOpen(true);
   }
 
-  return props.services.length ? (
+  return (
     <>
       <ServicesSidebar
         open={servicesSidebarIsOpen}
@@ -43,46 +42,63 @@ export default function Services(props: ServicesProps) {
             <p className="text-[22px] mb-6">services offered</p>
 
             <div className="flex w-full justify-start gap-10">
-              {props.services?.map((service) => (
-                <Service
-                  key={service.id}
-                  name={service.attributes.name}
-                  description={service.attributes.description}
-                  bannerImage={service.attributes.banner_image}
-                />
-              ))}
+              {props.services.length ? (
+                props.services.map((service) => (
+                  <Service
+                    key={service.id}
+                    name={service.attributes.name}
+                    description={service.attributes.description}
+                    bannerImage={service.attributes.banner_image}
+                  />
+                ))
+              ) : !props.services.length && props.isOwner ? (
+                <>
+                  <div className="relative">
+                    <div className="px-3 py-1 absolute z-10 bg-violet left-[-3px] top-3">
+                      <strong>no service has been added</strong>
+                    </div>
+
+                    <Service
+                      name="add service"
+                      description="write a quick description of a service you can offer to clients"
+                      noMoreInfoButton
+                      bannerImage="/images/service-1.png"
+                      handle={props.handle}
+                    />
+                  </div>
+
+                  <div className="relative">
+                    <div className="px-3 py-1 absolute z-10 bg-violet left-[-3px] top-3">
+                      <strong>no service has been added</strong>
+                    </div>
+
+                    <Service
+                      name="add service"
+                      description="write a quick description of a service you can offer to clients"
+                      noMoreInfoButton
+                      bannerImage="/images/service-2.png"
+                      handle={props.handle}
+                    />
+                  </div>
+
+                  <div className="relative">
+                    <div className="px-3 py-1 absolute z-10 bg-violet left-[-3px] top-3">
+                      <strong>no service has been added</strong>
+                    </div>
+
+                    <Service
+                      name="add service"
+                      description="write a quick description of a service you can offer to clients"
+                      noMoreInfoButton
+                      bannerImage="/images/service-3.png"
+                      handle={props.handle}
+                    />
+                  </div>
+                </>
+              ) : null}
             </div>
           </div>
         </div>
-      </div>
-    </>
-  ) : (
-    <>
-      <ServicesSidebar
-        open={servicesSidebarIsOpen}
-        setOpen={setServicesSidebarIsOpen}
-        services={props.services}
-        handle={props.handle}
-      />
-
-      <div className="w-full hidden sm:flex flex-col gap-3 items-center justify-center relative bg-gray7 py-[70px] px-[150px]">
-        {props.isOwner && (
-          <div
-            onClick={openServicesSidebar}
-            className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
-          >
-            <EditIcon size={30} />
-          </div>
-        )}
-
-        <Image
-          src="/images/blankslate-icon.png"
-          width={60}
-          height={60}
-          alt="blankslate icon"
-        />
-
-        <p className="text-[22px]">no service has been added</p>
       </div>
     </>
   );

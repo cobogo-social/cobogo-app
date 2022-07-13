@@ -1,10 +1,11 @@
 import SidebarContainer from '@components/containers/SidebarContainer';
-import AddServiceForm from '@components/forms/AddServiceForm';
-import EditServiceForm from '@components/forms/EditServiceForm';
 import AddIcon from '@components/icons/AddIcon';
 import HorizontalService from '@components/profile/HorizontalService';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+
+import AddServiceSidebar from './AddServiceSidebar';
+import EditServiceSidebar from './EditServiceSidebar';
 
 interface ServicesSidebarProps {
   open: boolean;
@@ -78,52 +79,20 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
   return (
     <>
       {editServiceSidebarIsOpen ? (
-        <SidebarContainer>
-          <div
-            onClick={closeEditServiceSidebar}
-            className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
-          >
-            <Image
-              src="/images/x2-icon.svg"
-              width={13}
-              height={13}
-              alt="x2 icon"
-            />
-          </div>
-
-          <EditServiceForm
-            title="edit a service"
-            buttonText="edit"
-            closeSidebar={closeEditServiceSidebar}
-            handle={props.handle}
-            returnToServicesSidebar={returnToServicesSidebar}
-            service={service}
-          />
-        </SidebarContainer>
+        <EditServiceSidebar
+          closeEditServiceSidebar={closeEditServiceSidebar}
+          handle={props.handle}
+          returnToServicesSidebar={returnToServicesSidebar}
+          service={service}
+        />
       ) : null}
 
       {addServiceSidebarIsOpen ? (
-        <SidebarContainer>
-          <div
-            onClick={closeAddServiceSidebar}
-            className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
-          >
-            <Image
-              src="/images/x2-icon.svg"
-              width={13}
-              height={13}
-              alt="x2 icon"
-            />
-          </div>
-
-          <AddServiceForm
-            title="add a service"
-            buttonText="add"
-            closeSidebar={closeAddServiceSidebar}
-            handle={props.handle}
-            returnToServicesSidebar={returnToServicesSidebar}
-          />
-        </SidebarContainer>
+        <AddServiceSidebar
+          closeAddServiceSidebar={closeAddServiceSidebar}
+          handle={props.handle}
+          returnToServicesSidebar={returnToServicesSidebar}
+        />
       ) : null}
 
       {props.open ? (

@@ -1,3 +1,5 @@
+import AddIcon from '@components/icons/AddIcon';
+import AddServiceSidebar from '@components/sidebars/AddServiceSidebar';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -7,18 +9,36 @@ import ServiceSidebar from '../sidebars/ServiceSidebar';
 interface ServiceProps {
   name: string;
   description: string;
-  bannerImage: string;
+  bannerImage?: string;
+  noMoreInfoButton?: boolean;
+  handle?: string;
 }
 
 export default function Service(props: ServiceProps) {
   const [serviceSidebarIsOpen, setServiceSidebarIsOpen] = useState(false);
+  const [addServiceSidebarIsOpen, setAddServiceSidebarIsOpen] = useState(false);
 
   function openServiceModal() {
     setServiceSidebarIsOpen(true);
   }
 
+  function openAddServiceSidebar() {
+    setAddServiceSidebarIsOpen(true);
+  }
+
+  function closeAddServiceSidebar() {
+    setAddServiceSidebarIsOpen(false);
+  }
+
   return (
     <>
+      {addServiceSidebarIsOpen ? (
+        <AddServiceSidebar
+          closeAddServiceSidebar={closeAddServiceSidebar}
+          handle={props.handle}
+        />
+      ) : null}
+
       <ServiceSidebar
         open={serviceSidebarIsOpen}
         setOpen={setServiceSidebarIsOpen}
@@ -27,8 +47,8 @@ export default function Service(props: ServiceProps) {
         bannerImage={props.bannerImage}
       />
 
-      <div className="w-[310px] h-[464px] border border-gray10">
-        <div className="bg-blue w-[310px] h-[204px] relative">
+      <div className="w-[310px] border border-gray10">
+        <div className="bg-blue w-full h-[204px] relative">
           {props.bannerImage && (
             <Image
               src={props.bannerImage}
@@ -39,23 +59,44 @@ export default function Service(props: ServiceProps) {
           )}
         </div>
 
-        <div className="px-8 py-10 flex flex-col h-[260px] justify-between">
-          <p className="text-[22px]">{props.name}</p>
+        <div
+          className={`px-8 py-10 flex flex-col ${
+            !props.noMoreInfoButton && 'h-[260px]'
+          } justify-between`}
+        >
+          {!props.noMoreInfoButton ? (
+            <p className="text-[22px] flex gap-2 hover:cursor-pointer">
+              {props.name}
+            </p>
+          ) : (
+            <button
+              onClick={openAddServiceSidebar}
+              className="text-[22px] flex gap-2 items-center hover:cursor-pointer"
+            >
+              {props.name} {props.noMoreInfoButton && <AddIcon size={24} />}
+            </button>
+          )}
 
-          <p className="mb-8 break-words">
+          <p
+            className={`${
+              !props.noMoreInfoButton ? 'mb-8' : 'mb-0'
+            } break-words`}
+          >
             {props.description.slice(0, 111)} (...)
           </p>
 
-          <div>
-            <Button
-              color="bg-gray7"
-              text="more info"
-              borderColor="border-gray2"
-              borderSize="border"
-              textColor="text-blue"
-              onClick={openServiceModal}
-            />
-          </div>
+          {!props.noMoreInfoButton && (
+            <div>
+              <Button
+                color="bg-gray7"
+                text="more info"
+                borderColor="border-gray2"
+                borderSize="border"
+                textColor="text-blue"
+                onClick={openServiceModal}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>
