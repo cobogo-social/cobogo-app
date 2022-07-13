@@ -1,6 +1,8 @@
 import CopyToClipboard from '@components/CopyToClipboard';
 import AddIcon from '@components/icons/AddIcon';
+import CheckmarkIcon from '@components/icons/CheckmarkIcon';
 import EditIcon from '@components/icons/EditIcon';
+import InfoIcon from '@mui/icons-material/Info';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -33,6 +35,7 @@ interface AboutProps {
   languages: string[];
   languageName: string;
   languageId: number;
+  status: string;
 }
 
 export default function About(props: AboutProps) {
@@ -89,7 +92,14 @@ export default function About(props: AboutProps) {
 
               <div className="flex flex-col">
                 <p className="text-[34px] flex items-center gap-[10px]">
-                  {props.title}
+                  {props.title}{' '}
+                  {props.status === 'draft' && props.isOwner && (
+                    <div className="flex gap-1 items-center hover:cursor-pointer">
+                      <p className="text-sm text-blue">draft</p>{' '}
+                      <InfoIcon sx={{ color: '#4FB9E3' }} />
+                    </div>
+                  )}
+                  {props.status === 'verified' && <CheckmarkIcon size={22} />}
                 </p>
 
                 <p className="text-[20px] text-gray6 font-bold gap-[10px] flex items-center">

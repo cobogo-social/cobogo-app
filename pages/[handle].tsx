@@ -82,6 +82,7 @@ interface ProfileProps {
   country1Id: number;
   country2Id: number;
   country3Id: number;
+  status: string;
 }
 
 export default function Index(props: ProfileProps) {
@@ -105,6 +106,7 @@ export default function Index(props: ProfileProps) {
         languages={props.languages}
         languageName={props.languageName}
         languageId={props.languageId}
+        status={props.status}
       />
 
       <MediaKitSocial
@@ -317,6 +319,7 @@ export const getServerSideProps: GetServerSideProps = async ({
         country3Id: profile.attributes.audience_top_country_3.data
           ? profile.attributes.audience_top_country_3.data.id
           : null,
+        status: profile.attributes.status,
       },
     };
   } catch (error) {
