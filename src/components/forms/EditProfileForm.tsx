@@ -259,6 +259,27 @@ export default function EditProfileForm(props: EditProfileFormProps) {
         />
       </div>
 
+      {props.edit && (
+        <>
+          <label className="text-lg">presentation video</label>
+
+          <p className="mb-5 text-sm break-words text-gray3">
+            link one of your videos that best describes you or your work here
+          </p>
+
+          <input
+            id="presentationVideo"
+            name="presentationVideo"
+            type="text"
+            onChange={formik.handleChange}
+            onKeyPress={validateKeyPressed}
+            value={formik.values.presentationVideo}
+            className="w-full h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
+            placeholder="https://www.youtube.com/watch?v=<video_id>"
+          />
+        </>
+      )}
+
       <label htmlFor="handle" className="text-lg sm:mb-5">
         choose a handle
       </label>
@@ -293,12 +314,6 @@ export default function EditProfileForm(props: EditProfileFormProps) {
         </div>
       </div>
 
-      <p className="mb-5 text-lg">choose up to 5 tags</p>
-
-      <TagsInput input={tagInput} changeTags={changeTags} tags={tagsList} />
-
-      <Tags tags={tagsList} removeTag={removeTag} />
-
       <p className="mb-5 text-lg">choose a category</p>
 
       <Select
@@ -308,9 +323,15 @@ export default function EditProfileForm(props: EditProfileFormProps) {
         placeholder="select a category"
       />
 
+      <p className="mb-5 text-lg">choose up to 5 tags</p>
+
+      <TagsInput input={tagInput} changeTags={changeTags} tags={tagsList} />
+
+      <Tags tags={tagsList} removeTag={removeTag} />
+
       {props.edit && (
         <>
-          <label className="mb-5 text-lg">website</label>
+          <label className="mb-5 text-lg">website url</label>
 
           <input
             id="website"
@@ -321,23 +342,6 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             value={formik.values.website}
             className="w-full h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
             placeholder="https://example.com/"
-          />
-
-          <label className="text-lg">presentation video</label>
-
-          <p className="mb-5 text-sm break-words text-gray3">
-            link one of your videos that best describes you or your work here
-          </p>
-
-          <input
-            id="presentationVideo"
-            name="presentationVideo"
-            type="text"
-            onChange={formik.handleChange}
-            onKeyPress={validateKeyPressed}
-            value={formik.values.presentationVideo}
-            className="w-full h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
-            placeholder="https://www.youtube.com/watch?v=<video_id>"
           />
 
           <p className="mb-5 text-lg">choose a language</p>

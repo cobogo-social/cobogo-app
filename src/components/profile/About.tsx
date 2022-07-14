@@ -182,7 +182,8 @@ export default function About(props: AboutProps) {
                       onClick={openEditAboutSidebar}
                       className="z-20 absolute flex gap-2 bottom-10 left-10 items-center text-blue text-xl"
                     >
-                      <AddIcon size={18} /> <strong>presentation video</strong>
+                      <AddIcon size={18} />{' '}
+                      <strong>show case your best work</strong>
                     </button>
                   )}
 
