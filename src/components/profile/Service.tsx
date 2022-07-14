@@ -78,7 +78,7 @@ export default function Service(props: ServiceProps) {
           ) : (
             <button
               onClick={openAddServiceSidebar}
-              className="text-[22px] flex gap-2 items-center hover:cursor-pointer"
+              className="text-[22px] flex gap-2 items-center hover:cursor-pointer text-blue font-bold"
             >
               {props.name} {props.noMoreInfoButton && <AddIcon size={18} />}
             </button>
