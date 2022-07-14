@@ -1,6 +1,5 @@
 interface SelectProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  values: any[];
+  values: unknown[];
   changeValue: (event: unknown) => void;
   valueName?: string;
   placeholder: string;

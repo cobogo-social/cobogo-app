@@ -10,7 +10,6 @@ import EditServiceSidebar from './EditServiceSidebar';
 interface ServicesSidebarProps {
   open: boolean;
   setOpen: (value: boolean) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   services: any[];
   handle: string;
 }

@@ -7,9 +7,7 @@ import { useContext } from 'react';
 interface ReferralDashboardBandProps {
   onboardedFriends: number;
   pendingFriends: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onboardedFriendsChannels: any[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pendingFriendsChannels: any[];
   tokens: number;
 }

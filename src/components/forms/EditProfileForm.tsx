@@ -16,8 +16,7 @@ import TagsInput from '../TagsInput';
 
 interface EditProfileFormProps {
   description: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  categories: any[];
+  categories: unknown[];
   buttonText: string;
   route?: string;
   title: string;

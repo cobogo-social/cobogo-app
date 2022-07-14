@@ -5,7 +5,6 @@ import { useState } from 'react';
 import Service from './Service';
 
 interface ServicesProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   services: any[];
   isOwner: boolean;
   handle: string;
@@ -18,7 +17,7 @@ export default function Services(props: ServicesProps) {
     setServicesSidebarIsOpen(true);
   }
 
-  return props.services.length ? (
+  return (
     <>
       <ServicesSidebar
         open={servicesSidebarIsOpen}
@@ -103,5 +102,5 @@ export default function Services(props: ServicesProps) {
         </div>
       </div>
     </>
-  ) : null;
+  );
 }

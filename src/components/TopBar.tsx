@@ -13,7 +13,6 @@ import StepItem from './StepItem';
 import TokenInfo from './TokenInfo';
 
 interface TopBarProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories?: any[];
   searchByCategory?: (categoryId: number) => void;
   noLogo?: boolean;

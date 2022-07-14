@@ -15,8 +15,7 @@ interface CreateProfileProps {
   bannerImage: string;
   title: string;
   youtubeDescription: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  categories: any[];
+  categories: unknown[];
   profileImage: string;
 }
 

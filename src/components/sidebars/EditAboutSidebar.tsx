@@ -5,8 +5,7 @@ import { useEffect } from 'react';
 
 interface EditAboutSidebarProps {
   description: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  categories: any[];
+  categories: unknown[];
   open: boolean;
   setOpen: (value: boolean) => void;
   handle: string;

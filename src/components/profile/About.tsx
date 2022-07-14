@@ -2,7 +2,7 @@ import CopyToClipboard from '@components/CopyToClipboard';
 import AddIcon from '@components/icons/AddIcon';
 import CheckmarkIcon from '@components/icons/CheckmarkIcon';
 import EditIcon from '@components/icons/EditIcon';
-import InfoIcon from '@mui/icons-material/Info';
+import VerifyProfileModal from '@components/modals/VerifyProfileModal';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -26,8 +26,7 @@ interface AboutProps {
   description: string;
   tags: string[];
   isOwner: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  categories: any[];
+  categories: unknown[];
   categoryName: string;
   website: string;
   categoryId: number;
@@ -36,17 +35,45 @@ interface AboutProps {
   languageName: string;
   languageId: number;
   status: string;
+  services: unknown[];
+  instagramHandle: string;
+  twitchHandle: string;
+  tiktokHandle: string;
+  discordHandle: string;
+  telegramHandle: string;
+  twitterHandle: string;
 }
 
 export default function About(props: AboutProps) {
   const [editAboutSidebarIsOpen, setEditAboutSidebarIsOpen] = useState(false);
+  const [verifyProfileModalIsOpen, setVerifyProfileModalIsOpen] =
+    useState(false);
 
   function openEditAboutSidebar() {
     setEditAboutSidebarIsOpen(true);
   }
 
+  function openVerifyProfileModal() {
+    setVerifyProfileModalIsOpen(true);
+  }
+
   return (
     <>
+      <VerifyProfileModal
+        open={verifyProfileModalIsOpen}
+        setOpen={setVerifyProfileModalIsOpen}
+        description={props.description}
+        tags={props.tags}
+        services={props.services}
+        tiktokHandle={props.tiktokHandle}
+        instagramHandle={props.instagramHandle}
+        twitterHandle={props.twitterHandle}
+        twitchHandle={props.twitchHandle}
+        discordHandle={props.discordHandle}
+        telegramHandle={props.telegramHandle}
+        handle={props.handle}
+      />
+
       <EditAboutSidebar
         description={props.description}
         categories={props.categories}
@@ -94,9 +121,13 @@ export default function About(props: AboutProps) {
                 <p className="text-[34px] flex items-center gap-[10px]">
                   {props.title}{' '}
                   {props.status === 'draft' && props.isOwner && (
-                    <div className="flex gap-1 items-center hover:cursor-pointer">
-                      <p className="text-sm text-blue">draft</p>{' '}
-                      <InfoIcon sx={{ color: '#4FB9E3' }} />
+                    <div
+                      onClick={openVerifyProfileModal}
+                      className="flex gap-1 items-center hover:cursor-pointer"
+                    >
+                      <button className="text-xs bg-white font-bold text-black px-2 py-1">
+                        publish draft
+                      </button>
                     </div>
                   )}
                   {props.status === 'verified' && <CheckmarkIcon size={22} />}

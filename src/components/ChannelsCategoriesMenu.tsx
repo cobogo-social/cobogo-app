@@ -1,6 +1,5 @@
 interface ChannelsCategoriesMenuProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  categories: any[];
+  categories: unknown[];
   searchByCategory: (categoryId: number) => void;
 }
 

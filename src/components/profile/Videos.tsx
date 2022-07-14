@@ -1,7 +1,6 @@
 import Video from './Video';
 
 interface VideosProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   videos: any[];
 }
 

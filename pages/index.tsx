@@ -18,9 +18,7 @@ interface ChannelsProps {
   description: string;
   youtubeChannelId: string;
   handle: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   channels: any[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories: any[];
 }
 

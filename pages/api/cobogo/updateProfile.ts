@@ -84,6 +84,7 @@ export default async function handler(
       req.body.audienceTopCountry2,
       req.body.audienceTopCountry3,
       req.body.profileImage,
+      req.body.status,
     );
 
     res.status(201).json({ status: 201, data: response });

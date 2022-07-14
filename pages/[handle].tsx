@@ -23,12 +23,10 @@ interface ProfileProps {
   description: string;
   tags: string[];
   youtubeId: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  videos: any[];
+  videos: unknown[];
   isOwner: boolean;
   handle: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  categories: any[];
+  categories: unknown[];
   categoryName: string;
   categoryId: number;
   youtubeVideos: number;
@@ -107,6 +105,13 @@ export default function Index(props: ProfileProps) {
         languageName={props.languageName}
         languageId={props.languageId}
         status={props.status}
+        services={props.services}
+        tiktokHandle={props.tiktokHandle}
+        instagramHandle={props.instagramHandle}
+        twitterHandle={props.twitterHandle}
+        twitchHandle={props.twitchHandle}
+        discordHandle={props.discordHandle}
+        telegramHandle={props.telegramHandle}
       />
 
       <MediaKitSocial

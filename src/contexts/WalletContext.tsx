@@ -16,10 +16,13 @@ import { MessageContext } from './MessageContext';
 interface IWalletContext {
   currentWallet: string;
   setCurrentWallet: Dispatch<SetStateAction<string>>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  checkEthereum: (showError?: any) => any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  checkWallets: (ethereumWallets?: any, method?: any) => Promise<boolean>;
+
+  checkEthereum: (showError?: unknown) => any;
+
+  checkWallets: (
+    ethereumWallets?: unknown,
+    method?: unknown,
+  ) => Promise<boolean>;
   connectMetaMaskWallet: (route?: string) => Promise<void>;
 }
 
@@ -35,7 +38,6 @@ export function WalletProvider({ children }) {
 
   const checkEthereum = useCallback(
     (showError = false) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       if (!ethereum) {

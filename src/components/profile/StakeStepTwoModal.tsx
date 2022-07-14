@@ -29,7 +29,6 @@ export default function StakeStepTwoModal({
 
   async function addOrChangePolygonToMetaMaskWallet() {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       await ethereum.request({
@@ -60,7 +59,6 @@ export default function StakeStepTwoModal({
 
   const checkIfNetworkIsPolygon = useCallback(() => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       if (ethereum.networkVersion === '137') {

@@ -21,7 +21,6 @@ export default function UniSwapWidget() {
 
   const checkIfWalletIsConnected = useCallback(async () => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       await ethereum.request({ method: 'eth_accounts' });
@@ -34,7 +33,6 @@ export default function UniSwapWidget() {
   }, [setMessage]);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { ethereum } = window as any;
     setProvider(ethereum);
   }, [checkIfWalletIsConnected]);
