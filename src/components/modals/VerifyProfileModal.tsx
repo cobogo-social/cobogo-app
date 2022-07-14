@@ -8,7 +8,7 @@ import { MessageContext } from '@contexts/MessageContext';
 import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 interface VerifyProfileModalProps {
   open: boolean;
@@ -89,8 +89,16 @@ export default function VerifyProfileModal(props: VerifyProfileModalProps) {
     props.setOpen(false);
   }
 
+  useEffect(() => {
+    if (props.open) {
+      document.body.classList.add('active-modal');
+    } else {
+      document.body.classList.remove('active-modal');
+    }
+  }, [props.open]);
+
   return props.open ? (
-    <ModalContainer open={props.open}>
+    <ModalContainer>
       <div
         onClick={closeModal}
         className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"

@@ -1,6 +1,6 @@
 import { MessageContext } from '@contexts/MessageContext';
 import Image from 'next/image';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import ModalContainer from '../containers/ModalContainer';
 
@@ -14,8 +14,16 @@ export default function MessageModal() {
     });
   }
 
+  useEffect(() => {
+    if (message.type !== 'none') {
+      document.body.classList.add('active-modal');
+    } else {
+      document.body.classList.remove('active-modal');
+    }
+  }, [message.type]);
+
   return message.type !== 'none' ? (
-    <ModalContainer open={!!message.text}>
+    <ModalContainer>
       <div
         onClick={closeModal}
         className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
