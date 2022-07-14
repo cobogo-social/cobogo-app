@@ -1,5 +1,5 @@
 interface SelectProps {
-  values: unknown[];
+  values: any[];
   changeValue: (event: unknown) => void;
   valueName?: string;
   placeholder: string;

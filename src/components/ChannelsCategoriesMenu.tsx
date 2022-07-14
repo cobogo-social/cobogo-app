@@ -1,5 +1,5 @@
 interface ChannelsCategoriesMenuProps {
-  categories: unknown[];
+  categories: any[];
   searchByCategory: (categoryId: number) => void;
 }
 
