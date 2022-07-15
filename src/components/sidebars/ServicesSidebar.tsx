@@ -125,7 +125,11 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
                 handle={props.handle}
                 closeServicesSidebar={closeServicesSidebar}
                 openEditServiceSidebar={openEditServiceSidebar}
-                bannerImage={horizontalService.attributes.banner_image}
+                bannerImage={
+                  horizontalService.attributes.banner_image
+                    ? horizontalService.attributes.banner_image
+                    : '/images/service-1.png'
+                }
               />
             ))}
           </div>

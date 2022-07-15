@@ -35,9 +35,16 @@ export default function ServiceSidebar(props: ServiceSidebarProps) {
       <p className="text-white text-[40px] mb-5">{props.name}</p>
 
       <div className="bg-blue w-full min-h-[272px] mb-5 relative">
-        {props.bannerImage && (
+        {props.bannerImage ? (
           <Image
             src={props.bannerImage}
+            objectFit="cover"
+            layout="fill"
+            alt="banner image"
+          />
+        ) : (
+          <Image
+            src="/images/service-1.png"
             objectFit="cover"
             layout="fill"
             alt="banner image"
