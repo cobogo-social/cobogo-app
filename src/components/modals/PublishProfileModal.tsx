@@ -37,6 +37,10 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
   const { setMessage } = useContext(MessageContext);
   const { setLoading } = useContext(LoadingContext);
 
+  function closeModal() {
+    props.setOpen(false);
+  }
+
   async function publishProfile() {
     if (
       descriptionLengthStatus === 2 &&
@@ -62,9 +66,11 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
               await push(props.route ? props.route : `/${props.handle}`);
             }
 
+            closeModal();
             setLoading(false);
           });
       } catch (error) {
+        closeModal();
         setLoading(false);
         setMessage({
           text: error.message,
@@ -72,10 +78,6 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
         });
       }
     }
-  }
-
-  function closeModal() {
-    props.setOpen(false);
   }
 
   useEffect(() => {
@@ -165,21 +167,21 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
         </div>
 
         <div className="mb-10">
-          {servicesLengthStatus === 1 && (
+          {hasTwoHandleStatus === 1 && (
             <WarningBullet text="add at least 1 more Social Media metrics" />
           )}
 
-          {servicesLengthStatus === 2 && (
+          {hasTwoHandleStatus === 2 && (
             <SuccessBullet text="add at least 1 more Social Media metrics" />
           )}
         </div>
 
         <div className="mb-10">
-          {hasTwoHandleStatus === 1 && (
+          {servicesLengthStatus === 1 && (
             <WarningBullet text="describe at least 1 service you could offer to brands" />
           )}
 
-          {hasTwoHandleStatus === 2 && (
+          {servicesLengthStatus === 2 && (
             <SuccessBullet text="describe at least 1 service you could offer to brands" />
           )}
         </div>
