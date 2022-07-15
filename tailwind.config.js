@@ -27,6 +27,7 @@ module.exports = {
       bluetwitter: '#1D9BF0',
       red: '#FF3815',
       red2: '#FADFDF',
+      red3: '#BF6B6D',
       redyoutube: '#FF0000',
       yellow: '#FF9900',
       orange: '#F6851B',

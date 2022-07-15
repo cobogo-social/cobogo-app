@@ -873,7 +873,7 @@ export default function EditMediaKitSocialForm(
 
       <div
         onClick={() => openSection('twitter')}
-        className="flex items-center hover:cursor-pointer"
+        className="flex items-center mb-5 hover:cursor-pointer"
       >
         <div className="flex mr-[10px]">
           <Image

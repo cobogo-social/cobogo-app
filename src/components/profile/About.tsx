@@ -1,4 +1,5 @@
 import CopyToClipboard from '@components/CopyToClipboard';
+import EditToPublishAlert from '@components/EditToPublishAlert';
 import AddIcon from '@components/icons/AddIcon';
 import CheckmarkIcon from '@components/icons/CheckmarkIcon';
 import EditIcon from '@components/icons/EditIcon';
@@ -93,6 +94,12 @@ export default function About(props: AboutProps) {
 
       <section className="shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
         <div className="w-full h-[308px] bg-gradient-to-t from-blue to-blue/[0.0] relative">
+          {props.status === 'draft' && props.isOwner && (
+            <EditToPublishAlert
+              openPublishProfileModal={openPublishProfileModal}
+            />
+          )}
+
           {props.bannerImage && (
             <Image
               src={props.bannerImage}
@@ -118,18 +125,8 @@ export default function About(props: AboutProps) {
               <ProfileImage src={props.profileImage} />
 
               <div className="flex flex-col">
-                <p className="text-[34px] flex items-center gap-[10px]">
+                <p className="text-[34px] flex items-center gap-[10px] mt-10 leading-none">
                   {props.title}{' '}
-                  {props.status === 'draft' && props.isOwner && (
-                    <div
-                      onClick={openPublishProfileModal}
-                      className="flex gap-1 items-center hover:cursor-pointer"
-                    >
-                      <button className="text-xs bg-white font-bold text-black px-2 py-1">
-                        publish profile
-                      </button>
-                    </div>
-                  )}
                   {props.status === 'verified' && <CheckmarkIcon size={22} />}
                 </p>
 
