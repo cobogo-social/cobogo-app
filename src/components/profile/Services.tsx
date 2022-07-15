@@ -73,7 +73,7 @@ export default function Services(props: ServicesProps) {
 
                     <Service
                       name="add service"
-                      description="write a quick description of a service you can offer to clients"
+                      description="write a quick description of another service you can offer to clients"
                       noMoreInfoButton
                       bannerImage="/images/service-2.png"
                       handle={props.handle}
@@ -87,7 +87,7 @@ export default function Services(props: ServicesProps) {
 
                     <Service
                       name="add service"
-                      description="write a quick description of a service you can offer to clients"
+                      description="write a quick description of another service you can offer to clients"
                       noMoreInfoButton
                       bannerImage="/images/service-3.png"
                       handle={props.handle}
