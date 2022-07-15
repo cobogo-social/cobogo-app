@@ -110,9 +110,9 @@ export default function MediaKitAnalytics(props: MediaKitAnalyticsProps) {
             percent1={props.audienceTopCountries1}
             percent2={props.audienceTopCountries2}
             percent3={props.audienceTopCountries3}
-            placeholder1={props.country1Name}
-            placeholder2={props.country2Name}
-            placeholder3={props.country3Name}
+            placeholder1={props.country1Name ? props.country1Name : '-'}
+            placeholder2={props.country2Name ? props.country2Name : '-'}
+            placeholder3={props.country3Name ? props.country3Name : '-'}
             title="top countries"
             icon={
               <Image

@@ -67,13 +67,22 @@ export default function EditMediaKitAnalyticsForm(
         .post('/api/cobogo/updateProfile', {
           audienceGenderDistributionMen: menValue,
           audienceGenderDistributionWomen: womenValue,
-          audienceGenderDistributionOthers: 100 - menValue - womenValue,
+          audienceGenderDistributionOthers:
+            100 - menValue - womenValue === 100
+              ? 0
+              : 100 - menValue - womenValue,
           audienceAgeDistribution18: age18Value,
           audienceAgeDistribution2534: age2534Value,
-          audienceAgeDistribution35: 100 - age18Value - age2534Value,
+          audienceAgeDistribution35:
+            100 - age18Value - age2534Value === 100
+              ? 0
+              : 100 - age18Value - age2534Value,
           audienceTopCountries1: country1Value,
           audienceTopCountries2: country2Value,
-          audienceTopCountries3: 100 - country1Value - country2Value,
+          audienceTopCountries3:
+            100 - country1Value - country2Value === 100
+              ? 0
+              : 100 - country1Value - country2Value,
           audienceTopCountry1: country1 || props.country1Id,
           audienceTopCountry2: country2 || props.country2Id,
           audienceTopCountry3: country3 || props.country3Id,
