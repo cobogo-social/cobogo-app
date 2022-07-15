@@ -2,7 +2,7 @@ import CopyToClipboard from '@components/CopyToClipboard';
 import AddIcon from '@components/icons/AddIcon';
 import CheckmarkIcon from '@components/icons/CheckmarkIcon';
 import EditIcon from '@components/icons/EditIcon';
-import VerifyProfileModal from '@components/modals/VerifyProfileModal';
+import PublishProfileModal from '@components/modals/PublishProfileModal';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -46,22 +46,22 @@ interface AboutProps {
 
 export default function About(props: AboutProps) {
   const [editAboutSidebarIsOpen, setEditAboutSidebarIsOpen] = useState(false);
-  const [verifyProfileModalIsOpen, setVerifyProfileModalIsOpen] =
+  const [publishProfileModalIsOpen, setPublishProfileModalIsOpen] =
     useState(false);
 
   function openEditAboutSidebar() {
     setEditAboutSidebarIsOpen(true);
   }
 
-  function openVerifyProfileModal() {
-    setVerifyProfileModalIsOpen(true);
+  function openPublishProfileModal() {
+    setPublishProfileModalIsOpen(true);
   }
 
   return (
     <>
-      <VerifyProfileModal
-        open={verifyProfileModalIsOpen}
-        setOpen={setVerifyProfileModalIsOpen}
+      <PublishProfileModal
+        open={publishProfileModalIsOpen}
+        setOpen={setPublishProfileModalIsOpen}
         description={props.description}
         tags={props.tags}
         services={props.services}
@@ -122,24 +122,24 @@ export default function About(props: AboutProps) {
                   {props.title}{' '}
                   {props.status === 'draft' && props.isOwner && (
                     <div
-                      onClick={openVerifyProfileModal}
+                      onClick={openPublishProfileModal}
                       className="flex gap-1 items-center hover:cursor-pointer"
                     >
                       <button className="text-xs bg-white font-bold text-black px-2 py-1">
-                        publish draft
+                        publish profile
                       </button>
                     </div>
                   )}
                   {props.status === 'verified' && <CheckmarkIcon size={22} />}
                 </p>
 
-                <p className="text-[20px] text-gray6 font-bold gap-[10px] flex items-center">
+                <strong className="text-[20px] text-gray6 gap-[10px] flex items-center">
                   @{props.handle}{' '}
                   <CopyToClipboard
                     size={18}
                     textToCopy={`https://app.cobogo.social/${props.handle}`}
                   />
-                </p>
+                </strong>
               </div>
             </div>
 

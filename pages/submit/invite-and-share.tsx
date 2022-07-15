@@ -25,7 +25,7 @@ interface InviteProps {
   tokens: number;
   onboardedFriends: number;
   handle: string;
-  verifiedProfile: boolean;
+  publishedProfile: boolean;
 }
 
 export default function Index(props: InviteProps) {
@@ -83,7 +83,7 @@ export default function Index(props: InviteProps) {
                   />
                 )}
 
-                {props.verifiedProfile && (
+                {props.publishedProfile && (
                   <Reward
                     image="/images/2-rewards.png"
                     description={
@@ -94,7 +94,7 @@ export default function Index(props: InviteProps) {
                     }
                     link={`/${props.handle}`}
                     linkText="view profile"
-                    done={props.verifiedProfile}
+                    done={props.publishedProfile}
                   />
                 )}
 
@@ -110,7 +110,7 @@ export default function Index(props: InviteProps) {
                   linkText="share on Twitter"
                 />
 
-                {!props.verifiedProfile && (
+                {!props.publishedProfile && (
                   <Reward
                     image="/images/2-rewards.png"
                     description={
@@ -121,7 +121,7 @@ export default function Index(props: InviteProps) {
                     }
                     link={`/${props.handle}`}
                     linkText="view profile"
-                    done={props.verifiedProfile}
+                    done={props.publishedProfile}
                   />
                 )}
 
@@ -226,7 +226,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         tokens: account.attributes.tokens,
         verifiedVideo: profile.attributes.video.data,
         handle: profile.attributes.handle,
-        verifiedProfile: profile.attributes.status === 'verified',
+        publishedProfile: profile.attributes.status === 'published',
       },
     };
   } catch (error) {

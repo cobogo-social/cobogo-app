@@ -12,33 +12,25 @@ interface ButtonProps {
   borderSize?: string;
   textColor?: string;
   icon?: string;
+  disabled?: boolean;
 }
 
-export default function Button({
-  text,
-  color,
-  width,
-  height,
-  fontSize,
-  onClick,
-  onKeyDown,
-  borderColor,
-  borderSize,
-  textColor,
-  icon,
-}: ButtonProps) {
+export default function Button(props: ButtonProps) {
   return (
     <button
-      className={`${width} ${
-        height || 'h-[38px]'
-      } ${color} font-bold ${fontSize} ${textColor} ${borderColor} ${borderSize} flex justify-center items-center px-[20px] hover:brightness-90`}
-      onClick={onClick}
-      onKeyDown={onKeyDown}
+      disabled={props.disabled}
+      className={`${props.width} ${props.height || 'h-[38px]'} ${
+        props.color
+      } font-bold ${props.fontSize} ${props.textColor} ${props.borderColor} ${
+        props.borderSize
+      } flex justify-center items-center px-[20px] hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-50`}
+      onClick={props.onClick}
+      onKeyDown={props.onKeyDown}
     >
-      {text}{' '}
-      {icon && (
+      {props.text}{' '}
+      {props.icon && (
         <div className="flex ml-1">
-          <Image src={icon} width={15} height={15} alt="button icon" />
+          <Image src={props.icon} width={15} height={15} alt="button icon" />
         </div>
       )}
     </button>

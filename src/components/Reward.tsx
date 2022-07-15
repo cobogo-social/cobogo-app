@@ -25,7 +25,7 @@ export default function Reward(props: RewardProps) {
         </p>
 
         {props.done ? (
-          <p className="font-bold text-green">done</p>
+          <strong className="text-green">done</strong>
         ) : (
           <a
             target="_blank"
