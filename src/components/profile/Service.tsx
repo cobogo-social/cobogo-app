@@ -71,26 +71,28 @@ export default function Service(props: ServiceProps) {
             !props.noMoreInfoButton && 'h-[260px]'
           } justify-between`}
         >
-          {!props.noMoreInfoButton ? (
-            <p className="text-[22px] flex gap-2 hover:cursor-pointer">
-              {props.name}
-            </p>
-          ) : (
-            <button
-              onClick={openAddServiceSidebar}
-              className="text-[22px] flex gap-2 items-center hover:cursor-pointer text-blue font-bold"
-            >
-              {props.name} {props.noMoreInfoButton && <AddIcon size={18} />}
-            </button>
-          )}
+          <div>
+            {!props.noMoreInfoButton ? (
+              <p className="text-[22px] flex gap-2 hover:cursor-pointer">
+                {props.name}
+              </p>
+            ) : (
+              <button
+                onClick={openAddServiceSidebar}
+                className="text-[22px] flex gap-2 items-center hover:cursor-pointer text-blue font-bold"
+              >
+                {props.name} {props.noMoreInfoButton && <AddIcon size={18} />}
+              </button>
+            )}
 
-          <p
-            className={`${
-              !props.noMoreInfoButton ? 'mb-8' : 'mb-0'
-            } break-words`}
-          >
-            {props.description.slice(0, 111)} (...)
-          </p>
+            <p
+              className={`${
+                !props.noMoreInfoButton ? 'mb-8' : 'mb-0'
+              } break-words`}
+            >
+              {props.description.slice(0, 111)} (...)
+            </p>
+          </div>
 
           {!props.noMoreInfoButton && (
             <div>
