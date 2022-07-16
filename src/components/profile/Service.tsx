@@ -9,6 +9,7 @@ import ServiceSidebar from '../sidebars/ServiceSidebar';
 interface ServiceProps {
   name: string;
   description: string;
+  baseImageUrl?: string;
   bannerImage?: string;
   noMoreInfoButton?: boolean;
   handle?: string;
@@ -51,7 +52,7 @@ export default function Service(props: ServiceProps) {
         <div className="bg-blue w-full h-[204px] relative">
           {props.bannerImage ? (
             <Image
-              src={props.bannerImage}
+              src={`${props.baseImageUrl}/${props.bannerImage}`}
               objectFit="cover"
               layout="fill"
               alt="banner image"
