@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 
 interface ServiceSidebarProps {
-  open: boolean;
+  opened: boolean;
   setOpen: (value: boolean) => void;
   name: string;
   description: string;
@@ -16,14 +16,14 @@ export default function ServiceSidebar(props: ServiceSidebarProps) {
   }
 
   useEffect(() => {
-    if (props.open) {
+    if (props.opened) {
       document.body.classList.add('active-modal');
     } else {
       document.body.classList.remove('active-modal');
     }
-  }, [props.open]);
+  }, [props.opened]);
 
-  return props.open ? (
+  return props.opened ? (
     <SidebarContainer>
       <div
         onClick={closeModal}

@@ -13,6 +13,7 @@ import Social from './Social';
 import SocialDetails from './SocialDetails';
 
 interface MediaKitSocialProps {
+  setSidebarOpened: (value: boolean) => void;
   youtubeSubscribers: number;
   youtubeId: string;
   tiktokFollowers: number;
@@ -55,7 +56,13 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
     useState(false);
 
   function openEditMediaKitSocialSidebar() {
+    props.setSidebarOpened(true);
     setEditMediaKitSocialSidebarIsOpen(true);
+  }
+
+  function closeEditMediaKitSocialSidebar() {
+    props.setSidebarOpened(false);
+    setEditMediaKitSocialSidebarIsOpen(false);
   }
 
   function openStep(stepNumber: number) {
@@ -194,8 +201,8 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
   ) : (
     <>
       <EditMediaKitSocialSidebar
-        open={editMediaKitSocialSidebarIsOpen}
-        setOpen={setEditMediaKitSocialSidebarIsOpen}
+        opened={editMediaKitSocialSidebarIsOpen}
+        close={closeEditMediaKitSocialSidebar}
         youtubeSubscribers={props.youtubeSubscribers}
         youtubeVideos={props.youtubeVideos}
         youtubeViews={props.youtubeViews}

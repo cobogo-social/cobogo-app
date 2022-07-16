@@ -6,7 +6,6 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { SetStateAction, useContext, useEffect, useState } from 'react';
-import referralCodeGenerator from 'referral-code-generator';
 import * as yup from 'yup';
 
 import Button from '../Button';
@@ -32,6 +31,8 @@ interface EditProfileFormProps {
   languageName?: string;
   languageId?: number;
   profileImage: string;
+  bannerImage: string;
+  baseImageUrl: string;
 }
 
 export default function EditProfileForm(props: EditProfileFormProps) {
@@ -46,7 +47,8 @@ export default function EditProfileForm(props: EditProfileFormProps) {
   const { setMessage } = useContext(MessageContext);
   const { setLoading } = useContext(LoadingContext);
 
-  const [image, setImage] = useState<File>();
+  const [profileImage, setProfileImage] = useState<File>();
+  const [bannerImage, setBannerImage] = useState<File>();
 
   const formik = useFormik({
     initialValues: {
@@ -61,23 +63,39 @@ export default function EditProfileForm(props: EditProfileFormProps) {
     }),
     onSubmit: async (values) => {
       try {
-        const referralCode = await referralCodeGenerator.alphaNumeric(
-          'lowercase',
-          2,
-          2,
-        );
+        setLoading(true);
 
-        const file = image;
-        const filename = file
-          ? `${referralCode}-${encodeURIComponent(file.name)}`
-          : null;
-        const fileType = file ? encodeURIComponent(file.type) : null;
-
-        if (image) {
+        let profileImageUrl;
+        if (profileImage) {
+          const file = profileImage;
           const uploadUrl = await axios.get(
-            `/api/aws/uploadUrl?file=${filename}&fileType=${fileType}`,
+            `/api/aws/uploadUrl?prefix=profiles&fileName=${encodeURIComponent(
+              file.name,
+            )}&fileType=${encodeURIComponent(file.type)}`,
           );
           const { url, fields } = await uploadUrl.data.data;
+          profileImageUrl = `${props.baseImageUrl}/${fields.key}`;
+
+          const formData = new FormData();
+
+          Object.entries({ ...fields, file }).forEach(([key, value]) => {
+            formData.append(key, value as string);
+          });
+
+          await axios.post(url, formData);
+        }
+
+        let bannerImageUrl;
+        if (bannerImage) {
+          const file = bannerImage;
+          const uploadUrl = await axios.get(
+            `/api/aws/uploadUrl?prefix=banners&fileName=${encodeURIComponent(
+              file.name,
+            )}&fileType=${encodeURIComponent(file.type)}`,
+          );
+          const { url, fields } = await uploadUrl.data.data;
+          bannerImageUrl = `${props.baseImageUrl}/${fields.key}`;
+
           const formData = new FormData();
 
           Object.entries({ ...fields, file }).forEach(([key, value]) => {
@@ -97,6 +115,7 @@ export default function EditProfileForm(props: EditProfileFormProps) {
         );
 
         if (readProfileByHandle.data.error) {
+          setLoading(false);
           setMessage({
             text: readProfileByHandle.data.error,
             type: 'error',
@@ -104,8 +123,6 @@ export default function EditProfileForm(props: EditProfileFormProps) {
         }
 
         if (!readProfileByHandle.data.data || props.handle === values.handle) {
-          setLoading(true);
-
           const queryRef = sessionStorage.getItem('queryRef');
 
           await axios
@@ -120,9 +137,8 @@ export default function EditProfileForm(props: EditProfileFormProps) {
               presentationVideo:
                 values.presentationVideo || props.presentationVideo,
               language: languageValue || props.languageId,
-              profileImage: image
-                ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/${filename}`
-                : props.profileImage,
+              profileImage: profileImageUrl || props.profileImage,
+              bannerImage: bannerImageUrl || props.bannerImage
             })
             .then(async (response) => {
               if (response.data.error) {
@@ -355,9 +371,17 @@ export default function EditProfileForm(props: EditProfileFormProps) {
 
           <div className="mb-10">
             <FileInput
-              label="avatar"
-              description="select an image from disc."
-              changeFile={setImage}
+              label="profile picture"
+              description="select an image for your profile picture."
+              changeFile={setProfileImage}
+            />
+          </div>
+
+          <div className="mb-10">
+            <FileInput
+              label="banner"
+              description="select an image for your profile banner."
+              changeFile={setBannerImage}
             />
           </div>
         </>

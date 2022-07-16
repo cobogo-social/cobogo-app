@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import About from '@components/profile/About';
 import MediaKitAnalytics from '@components/profile/MediaKitAnalytics';
 import MediaKitSocial from '@components/profile/MediaKitSocial';
@@ -18,6 +19,7 @@ import { getSession } from 'next-auth/react';
 interface ProfileProps {
   bannerImage: string;
   profileImage: string;
+  baseImageUrl: string;
   title: string;
   youtubeSubscribers: number;
   description: string;
@@ -84,12 +86,22 @@ interface ProfileProps {
 }
 
 export default function Index(props: ProfileProps) {
+  const [sidebarOpened, setSidebarOpened] = useState(false);
+
   return (
     <div>
-      <TopBar noOnboardedFriends noTokens transparent />
+      <TopBar
+        noOnboardedFriends
+        noTokens
+        transparent
+        noSubmit={props.isOwner}
+      />
 
       <About
+        sidebarOpened={sidebarOpened}
+        setSidebarOpened={setSidebarOpened}
         bannerImage={props.bannerImage}
+        baseImageUrl={props.baseImageUrl}
         profileImage={props.profileImage}
         title={props.title}
         handle={props.handle}
@@ -115,6 +127,7 @@ export default function Index(props: ProfileProps) {
       />
 
       <MediaKitSocial
+        setSidebarOpened={setSidebarOpened}
         youtubeSubscribers={props.youtubeSubscribers}
         youtubeId={props.youtubeId}
         tiktokFollowers={props.tiktokFollowers}
@@ -174,6 +187,7 @@ export default function Index(props: ProfileProps) {
       />
 
       <Services
+        baseImageUrl={props.baseImageUrl}
         services={props.services}
         isOwner={props.isOwner}
         handle={props.handle}
@@ -241,6 +255,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     return {
       props: {
+        baseImageUrl: `https://${process.env.COBOGO_AWS_BUCKET_PUBLIC_HOST}`,
         bannerImage: profile.attributes.banner_image,
         profileImage: profile.attributes.profile_image,
         title: profile.attributes.title,

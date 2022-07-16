@@ -10,6 +10,7 @@ import EditServiceSidebar from './EditServiceSidebar';
 interface ServicesSidebarProps {
   open: boolean;
   setOpen: (value: boolean) => void;
+  baseImageUrl: string;
   services: any[];
   handle: string;
 }
@@ -127,7 +128,7 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
                 openEditServiceSidebar={openEditServiceSidebar}
                 bannerImage={
                   horizontalService.attributes.banner_image
-                    ? horizontalService.attributes.banner_image
+                    ? `${props.baseImageUrl}/${horizontalService.attributes.banner_image}`
                     : '/images/service-1.png'
                 }
               />

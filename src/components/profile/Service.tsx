@@ -40,7 +40,7 @@ export default function Service(props: ServiceProps) {
       ) : null}
 
       <ServiceSidebar
-        open={serviceSidebarIsOpen}
+        opened={serviceSidebarIsOpen}
         setOpen={setServiceSidebarIsOpen}
         name={props.name}
         description={props.description}

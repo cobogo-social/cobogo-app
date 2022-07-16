@@ -6,8 +6,8 @@ import { useEffect } from 'react';
 interface EditAboutSidebarProps {
   description: string;
   categories: unknown[];
-  open: boolean;
-  setOpen: (value: boolean) => void;
+  opened: boolean;
+  close: () => void;
   handle: string;
   tags: string[];
   categoryName: string;
@@ -18,22 +18,24 @@ interface EditAboutSidebarProps {
   languageName: string;
   languageId: number;
   profileImage: string;
+  bannerImage: string;
+  baseImageUrl: string;
 }
 
 export default function EditAboutSidebar(props: EditAboutSidebarProps) {
   function closeModal() {
-    props.setOpen(false);
+    props.close();
   }
 
   useEffect(() => {
-    if (props.open) {
+    if (props.opened) {
       document.body.classList.add('active-modal');
     } else {
       document.body.classList.remove('active-modal');
     }
-  }, [props.open]);
+  }, [props.opened]);
 
-  return props.open ? (
+  return props.opened ? (
     <SidebarContainer>
       <div
         onClick={closeModal}
@@ -59,6 +61,8 @@ export default function EditAboutSidebar(props: EditAboutSidebarProps) {
         languageName={props.languageName}
         languageId={props.languageId}
         profileImage={props.profileImage}
+        bannerImage={props.bannerImage}
+        baseImageUrl={props.baseImageUrl}
       />
     </SidebarContainer>
   ) : null;

@@ -6,6 +6,7 @@ module.exports = {
       'i.ytimg.com',
       'lh3.googleusercontent.com',
       'cobogo-app.s3.sa-east-1.amazonaws.com',
+      `${process.env.COBOGO_AWS_BUCKET_PUBLIC_HOST}`,
     ],
   },
 };

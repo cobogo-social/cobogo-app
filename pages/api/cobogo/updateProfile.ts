@@ -85,6 +85,7 @@ export default async function handler(
       req.body.audienceTopCountry2,
       req.body.audienceTopCountry3,
       req.body.profileImage,
+      req.body.bannerImage,
       req.body.status,
     );
 

@@ -49,23 +49,16 @@ export default function EditServiceForm(props: EditServiceFormProps) {
       try {
         setLoading(true);
 
-        const referralCode = await referralCodeGenerator.alphaNumeric(
-          'lowercase',
-          2,
-          2,
-        );
-
-        const file = image;
-        const filename = file
-          ? `${referralCode}-${encodeURIComponent(file.name)}`
-          : null;
-        const fileType = file ? encodeURIComponent(file.type) : null;
+        let bannerImage;
 
         if (image) {
+          const file = image;
           const uploadUrl = await axios.get(
-            `/api/aws/uploadUrl?file=${filename}&fileType=${fileType}`,
+            `/api/aws/uploadUrl?prefix=services&fileName=${encodeURIComponent(file.name)}&fileType=${encodeURIComponent(file.type)}`,
           );
           const { url, fields } = await uploadUrl.data.data;
+          bannerImage = fields.key;
+
           const formData = new FormData();
 
           Object.entries({ ...fields, file }).forEach(([key, value]) => {
@@ -80,9 +73,7 @@ export default function EditServiceForm(props: EditServiceFormProps) {
             name: values.title,
             description: values.description,
             serviceId: props.service.id,
-            bannerImage: image
-              ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/${filename}`
-              : null,
+            bannerImage: bannerImage ? bannerImage : props.bannerImage,
           })
           .then(async (response) => {
             if (response.data.error) {

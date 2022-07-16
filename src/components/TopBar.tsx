@@ -23,6 +23,7 @@ interface TopBarProps {
   noLogout?: boolean;
   noConnectWallet?: boolean;
   noTokens?: boolean;
+  noSubmit?: boolean;
   onboardedFriends?: number;
   tokens?: number;
   referralCode?: string;
@@ -40,6 +41,7 @@ export default function TopBar({
   noLogout,
   noConnectWallet,
   noTokens,
+  noSubmit,
   onboardedFriends,
   tokens,
   referralCode,
@@ -97,7 +99,7 @@ export default function TopBar({
         )}
 
         <div className="flex items-center justify-center">
-          {!asPath.includes('submit') && (
+          {!noSubmit && !asPath.includes('submit') && (
             <div className="ml-[40px]">
               <Link href="/submit">
                 <Button

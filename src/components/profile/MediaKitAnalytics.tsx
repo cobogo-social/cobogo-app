@@ -39,7 +39,7 @@ export default function MediaKitAnalytics(props: MediaKitAnalyticsProps) {
   return (
     <>
       <EditMediaKitAnalyticsSidebar
-        open={editMediaKitAnalyticsSidebarIsOpen}
+        opened={editMediaKitAnalyticsSidebarIsOpen}
         setOpen={setEditMediaKitAnalyticsSidebarIsOpen}
         audienceAgeDistribution18={props.audienceAgeDistribution18}
         audienceAgeDistribution2534={props.audienceAgeDistribution2534}

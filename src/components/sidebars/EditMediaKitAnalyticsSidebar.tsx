@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 
 interface EditMediaKitAnalyticsSidebarProps {
-  open: boolean;
+  opened: boolean;
   setOpen: (value: boolean) => void;
   audienceGenderDistributionMen: number;
   audienceGenderDistributionWomen: number;
@@ -30,14 +30,14 @@ export default function EditMediaKitAnalyticsSidebar(
   }
 
   useEffect(() => {
-    if (props.open) {
+    if (props.opened) {
       document.body.classList.add('active-modal');
     } else {
       document.body.classList.remove('active-modal');
     }
-  }, [props.open]);
+  }, [props.opened]);
 
-  return props.open ? (
+  return props.opened ? (
     <SidebarContainer>
       <div
         onClick={closeModal}

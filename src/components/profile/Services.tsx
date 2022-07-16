@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Service from './Service';
 
 interface ServicesProps {
+  baseImageUrl: string;
   services: any[];
   isOwner: boolean;
   handle: string;
@@ -22,6 +23,7 @@ export default function Services(props: ServicesProps) {
       <ServicesSidebar
         open={servicesSidebarIsOpen}
         setOpen={setServicesSidebarIsOpen}
+        baseImageUrl={props.baseImageUrl}
         services={props.services}
         handle={props.handle}
       />
@@ -47,7 +49,7 @@ export default function Services(props: ServicesProps) {
                     key={service.id}
                     name={service.attributes.name}
                     description={service.attributes.description}
-                    bannerImage={service.attributes.banner_image}
+                    bannerImage={`${props.baseImageUrl}/${service.attributes.banner_image}`}
                   />
                 ))
               ) : !props.services?.length && props.isOwner ? (

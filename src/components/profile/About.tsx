@@ -6,7 +6,7 @@ import EditIcon from '@components/icons/EditIcon';
 import PublishProfileModal from '@components/modals/PublishProfileModal';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from '../Button';
 import EditAboutSidebar from '../sidebars/EditAboutSidebar';
@@ -20,6 +20,9 @@ const PresentationVideo = dynamic(
 );
 
 interface AboutProps {
+  sidebarOpened: boolean;
+  setSidebarOpened: (value: boolean) => void;
+  baseImageUrl: string;
   bannerImage: string;
   profileImage: string;
   title: string;
@@ -51,7 +54,13 @@ export default function About(props: AboutProps) {
     useState(false);
 
   function openEditAboutSidebar() {
+    props.setSidebarOpened(true);
     setEditAboutSidebarIsOpen(true);
+  }
+
+  function closeEditAboutSidebar() {
+    props.setSidebarOpened(false);
+    setEditAboutSidebarIsOpen(false);
   }
 
   function openPublishProfileModal() {
@@ -78,8 +87,8 @@ export default function About(props: AboutProps) {
       <EditAboutSidebar
         description={props.description}
         categories={props.categories}
-        open={editAboutSidebarIsOpen}
-        setOpen={setEditAboutSidebarIsOpen}
+        opened={editAboutSidebarIsOpen}
+        close={closeEditAboutSidebar}
         handle={props.handle}
         tags={props.tags}
         categoryName={props.categoryName}
@@ -90,6 +99,8 @@ export default function About(props: AboutProps) {
         languageName={props.languageName}
         languageId={props.languageId}
         profileImage={props.profileImage}
+        bannerImage={props.bannerImage}
+        baseImageUrl={props.baseImageUrl}
       />
 
       <section className="shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
@@ -172,7 +183,7 @@ export default function About(props: AboutProps) {
             </div>
 
             <div className="flex flex-col gap-10">
-              {props.presentationVideo ? (
+              {props.presentationVideo && !props.sidebarOpened ? (
                 <PresentationVideo
                   videoId={props.presentationVideo?.split('=')[1]}
                 />

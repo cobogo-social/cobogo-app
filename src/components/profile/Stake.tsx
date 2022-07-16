@@ -50,6 +50,15 @@ export default function Stake() {
         </div>
 
         <div className="w-[345px] h-[481px] z-10">
+          <Image
+            src="/images/stake-sample.png"
+            width={348}
+            height={481}
+            alt="stake sample"
+          />
+        </div>
+
+        {/* <div className="w-[345px] h-[481px] z-10">
           <div className="flex w-full justify-between items-center bg-white/[0.05] p-[30px] mb-[1px]">
             <div>
               <p className="font-bold">your stake</p>
@@ -163,7 +172,7 @@ export default function Stake() {
 
             <Button text="stake" color="bg-blue" />
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

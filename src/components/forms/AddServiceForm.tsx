@@ -42,23 +42,18 @@ export default function AddServiceForm(props: AddServiceFormProps) {
       try {
         setLoading(true);
 
-        const referralCode = await referralCodeGenerator.alphaNumeric(
-          'lowercase',
-          2,
-          2,
-        );
-
-        const file = image;
-        const filename = file
-          ? `${referralCode}-${encodeURIComponent(file.name)}`
-          : null;
-        const fileType = file ? encodeURIComponent(file.type) : null;
+        let bannerImage;
 
         if (image) {
+          const file = image;
           const uploadUrl = await axios.get(
-            `/api/aws/uploadUrl?file=${filename}&fileType=${fileType}`,
+            `/api/aws/uploadUrl?prefix=services&filename=${encodeURIComponent(
+              file.name,
+            )}&fileType=${file.type}`,
           );
           const { url, fields } = await uploadUrl.data.data;
+          bannerImage = fields.key;
+
           const formData = new FormData();
 
           Object.entries({ ...fields, file }).forEach(([key, value]) => {
@@ -72,9 +67,7 @@ export default function AddServiceForm(props: AddServiceFormProps) {
           .post('/api/cobogo/createService', {
             name: values.title,
             description: values.description,
-            bannerImage: image
-              ? `${process.env.NEXT_PUBLIC_AWS_BUCKET_URL}/${filename}`
-              : null,
+            bannerImage,
           })
           .then(async (response) => {
             if (response.data.error) {

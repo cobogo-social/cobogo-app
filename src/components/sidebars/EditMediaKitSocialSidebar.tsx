@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 
 interface EditMediaKitSocialSidebarProps {
-  open: boolean;
-  setOpen: (value: boolean) => void;
+  opened: boolean;
+  close: () => void;
   youtubeSubscribers: number;
   youtubeVideos: number;
   youtubeViews: number;
@@ -43,18 +43,18 @@ export default function EditMediaKitSocialSidebar(
   props: EditMediaKitSocialSidebarProps,
 ) {
   function closeModal() {
-    props.setOpen(false);
+    props.close();
   }
 
   useEffect(() => {
-    if (props.open) {
+    if (props.opened) {
       document.body.classList.add('active-modal');
     } else {
       document.body.classList.remove('active-modal');
     }
-  }, [props.open]);
+  }, [props.opened]);
 
-  return props.open ? (
+  return props.opened ? (
     <SidebarContainer>
       <div
         onClick={closeModal}

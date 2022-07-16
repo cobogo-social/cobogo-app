@@ -414,6 +414,7 @@ export async function updateProfile(
   audienceTopCountry2: number,
   audienceTopCountry3: number,
   profileImage: string,
+  bannerImage: string,
   status: string,
 ) {
   try {
@@ -470,6 +471,7 @@ export async function updateProfile(
         audience_top_country_2: audienceTopCountry2,
         audience_top_country_3: audienceTopCountry3,
         profile_image: profileImage,
+        banner_image: bannerImage,
         status,
       },
     });
