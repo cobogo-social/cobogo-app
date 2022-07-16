@@ -9,6 +9,13 @@ interface SelectProps {
 }
 
 export default function Select(props: SelectProps) {
+  let selectedValue;
+  props.values?.map((category) => {
+    if (props.valueName === category.attributes.name) {
+      selectedValue = category.id;
+    }
+  });
+
   return (
     <div className="flex">
       <select
@@ -18,24 +25,15 @@ export default function Select(props: SelectProps) {
           props.height
         }`}
         onChange={props.changeValue}
+        defaultValue={selectedValue}
       >
-        <option selected>{props.placeholder}</option>
+        <option>{props.placeholder}</option>
 
-        {props.values?.map((category) => {
-          if (props.valueName === category.attributes.name) {
-            return (
-              <option selected key={category.id} value={category.id}>
-                {category.attributes.name}
-              </option>
-            );
-          }
-
-          return (
-            <option key={category.id} value={category.id}>
-              {category.attributes.name}
-            </option>
-          );
-        })}
+        {props.values?.map((category) => (
+          <option key={category.id} value={category.id}>
+            {category.attributes.name}
+          </option>
+        ))}
       </select>
     </div>
   );
