@@ -91,5 +91,6 @@ export async function readVideosByChannelId(youtubeChannelId) {
     } else {
       console.error(error);
     }
+    return [];
   }
 }

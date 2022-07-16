@@ -1,10 +1,10 @@
-import { MesssageContext } from '@contexts/MessageContext';
+import { MessageContext } from '@contexts/MessageContext';
 import { SwapWidget, Theme } from '@uniswap/widgets';
 import { useCallback, useContext, useEffect, useState } from 'react';
 
 export default function UniSwapWidget() {
   const [provider, setProvider] = useState(null);
-  const { setMessage } = useContext(MesssageContext);
+  const { setMessage } = useContext(MessageContext);
 
   const theme: Theme = {
     primary: '#FFFFFF',
@@ -21,7 +21,6 @@ export default function UniSwapWidget() {
 
   const checkIfWalletIsConnected = useCallback(async () => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       await ethereum.request({ method: 'eth_accounts' });
@@ -34,7 +33,6 @@ export default function UniSwapWidget() {
   }, [setMessage]);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { ethereum } = window as any;
     setProvider(ethereum);
   }, [checkIfWalletIsConnected]);

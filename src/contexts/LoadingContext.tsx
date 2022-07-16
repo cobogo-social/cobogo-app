@@ -10,7 +10,6 @@ export const LoadingContext = createContext<ILoadingContext>(
 );
 
 export function LoadingProvider({ children }) {
-  // TODO: upgrade setLoading
   const [loading, setLoading] = useState(false);
 
   return (

@@ -11,15 +11,18 @@ import {
 } from 'react';
 
 import { LoadingContext } from './LoadingContext';
-import { MesssageContext } from './MessageContext';
+import { MessageContext } from './MessageContext';
 
 interface IWalletContext {
   currentWallet: string;
   setCurrentWallet: Dispatch<SetStateAction<string>>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  checkEthereum: (showError?: any) => any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  checkWallets: (ethereumWallets?: any, method?: any) => Promise<boolean>;
+
+  checkEthereum: (showError?: unknown) => any;
+
+  checkWallets: (
+    ethereumWallets?: unknown,
+    method?: unknown,
+  ) => Promise<boolean>;
   connectMetaMaskWallet: (route?: string) => Promise<void>;
 }
 
@@ -29,13 +32,12 @@ export const WalletContext = createContext<IWalletContext>(
 
 export function WalletProvider({ children }) {
   const [currentWallet, setCurrentWallet] = useState('');
-  const { setMessage } = useContext(MesssageContext);
+  const { setMessage } = useContext(MessageContext);
   const { setLoading } = useContext(LoadingContext);
   const { push } = useRouter();
 
   const checkEthereum = useCallback(
     (showError = false) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { ethereum } = window as any;
 
       if (!ethereum) {

@@ -5,13 +5,13 @@ interface IMessage {
   type: 'none' | 'error' | 'warning';
 }
 
-interface IMesssageContext {
+interface IMessageContext {
   message: IMessage;
   setMessage: Dispatch<SetStateAction<IMessage>>;
 }
 
-export const MesssageContext = createContext<IMesssageContext>(
-  {} as IMesssageContext,
+export const MessageContext = createContext<IMessageContext>(
+  {} as IMessageContext,
 );
 
 export function MessageProvider({ children }) {
@@ -21,13 +21,13 @@ export function MessageProvider({ children }) {
   } as IMessage);
 
   return (
-    <MesssageContext.Provider
+    <MessageContext.Provider
       value={{
         message,
         setMessage,
       }}
     >
       {children}
-    </MesssageContext.Provider>
+    </MessageContext.Provider>
   );
 }

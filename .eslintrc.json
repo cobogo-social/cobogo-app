@@ -25,6 +25,7 @@
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
     "react/destructuring-assignment": "off",
+    "no-nested-ternary": "off",
     "react/jsx-no-constructed-context-values": "off",
     "consistent-return": "off",
     "react/button-has-type": "off",

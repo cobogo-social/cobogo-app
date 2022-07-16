@@ -13,7 +13,6 @@ import StepItem from './StepItem';
 import TokenInfo from './TokenInfo';
 
 interface TopBarProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories?: any[];
   searchByCategory?: (categoryId: number) => void;
   noLogo?: boolean;
@@ -24,9 +23,11 @@ interface TopBarProps {
   noLogout?: boolean;
   noConnectWallet?: boolean;
   noTokens?: boolean;
+  noSubmit?: boolean;
   onboardedFriends?: number;
   tokens?: number;
   referralCode?: string;
+  transparent?: boolean;
 }
 
 export default function TopBar({
@@ -40,9 +41,11 @@ export default function TopBar({
   noLogout,
   noConnectWallet,
   noTokens,
+  noSubmit,
   onboardedFriends,
   tokens,
   referralCode,
+  transparent,
 }: TopBarProps) {
   const { asPath } = useRouter();
   const [openReferralMenu, setOpenReferralMenu] = useState(false);
@@ -78,9 +81,9 @@ export default function TopBar({
   return (
     <>
       <div
-        className={`h-[100px] w-full hidden sm:flex items-center ${
+        className={`h-[100px] w-full hidden sm:flex items-center z-10 ${
           noLogo ? 'justify-end' : 'justify-between'
-        } px-[39px]`}
+        } px-[39px] ${transparent && 'absolute'}`}
       >
         {!noLogo && (
           <div className="flex">
@@ -96,7 +99,7 @@ export default function TopBar({
         )}
 
         <div className="flex items-center justify-center">
-          {!asPath.includes('submit') && (
+          {!noSubmit && !asPath.includes('submit') && (
             <div className="ml-[40px]">
               <Link href="/submit">
                 <Button
@@ -222,7 +225,7 @@ export default function TopBar({
                   <p className="mb-[7px] font-bold">your referral link</p>
 
                   <div className="flex">
-                    <div className="px-4 w-full h-[36px] bg-black flex justify-start items-center border-[1px] border-r-0 border-gray10">
+                    <div className="px-4 w-full h-[36px] bg-black flex justify-start items-center border border-r-0 border-gray10">
                       <p className="text-xs font-bold text-blue sm:text-sm">
                         app.cobogo.social/submit?ref={referralCode}
                       </p>
@@ -230,7 +233,7 @@ export default function TopBar({
 
                     <div
                       onClick={copyToClipboard}
-                      className="pr-4 h-[36px] bg-black border-[1px] border-l-0 border-gray10 outline-none flex justify-center items-center"
+                      className="pr-4 h-[36px] bg-black border border-l-0 border-gray10 outline-none flex justify-center items-center"
                     >
                       <CopyToClipboard
                         text={`https://app.cobogo.social/submit?ref=${referralCode}`}

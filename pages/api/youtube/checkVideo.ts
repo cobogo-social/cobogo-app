@@ -16,10 +16,7 @@ export default async function handler(
 
   try {
     const { account, profile } = await fetchSessionData(session);
-    const videos = await readVideos(
-      session,
-      profile.attributes.youtube_channel_id,
-    );
+    const videos = await readVideos(session, profile.attributes.youtube_id);
 
     let validVideo = null;
 

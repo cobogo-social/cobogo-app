@@ -1,11 +1,11 @@
 import ChannelBox from '@components/ChannelBox';
 import Link from '@components/Link';
 import PageContainer from '@components/PageContainer';
+import Reward from '@components/Reward';
 import ShareLinks from '@components/ShareLinks';
 import StepContainer from '@components/StepContainer';
 import Steps from '@components/Steps';
 import StepSubContainer from '@components/StepSubContainer';
-import Reward from '@components/submit/Reward';
 import TopBar from '@components/TopBar';
 import { LoadingContext } from '@contexts/LoadingContext';
 import {
@@ -24,17 +24,11 @@ interface InviteProps {
   verifiedVideo: boolean;
   tokens: number;
   onboardedFriends: number;
+  handle: string;
+  publishedProfile: boolean;
 }
 
-export default function Index({
-  bannerImage,
-  title,
-  youtubeDescription,
-  referralCode,
-  verifiedVideo,
-  tokens,
-  onboardedFriends,
-}: InviteProps) {
+export default function Index(props: InviteProps) {
   const { setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
@@ -49,9 +43,9 @@ export default function Index({
         <StepContainer>
           <TopBar
             noLogo
-            onboardedFriends={onboardedFriends}
-            tokens={tokens}
-            referralCode={referralCode}
+            onboardedFriends={props.onboardedFriends}
+            tokens={props.tokens}
+            referralCode={props.referralCode}
           />
 
           <StepSubContainer>
@@ -68,24 +62,39 @@ export default function Index({
                   description={
                     <p>
                       join whitelist and earn{' '}
-                      <strong className="text-pink3">100</strong> CBG tokens
+                      <strong className="text-pink">100</strong> CBG tokens
                     </p>
                   }
                   done
                 />
 
-                {verifiedVideo && (
+                {props.verifiedVideo && (
                   <Reward
                     image="/images/full-rewards.png"
                     description={
                       <p>
-                        earn <strong className="text-pink3">1,000</strong> more
+                        earn <strong className="text-pink">1,000</strong> more
                         CBG tokens recording a video{' '}
                       </p>
                     }
                     link="/submit/video"
                     linkText="view rules"
-                    done={verifiedVideo}
+                    done={props.verifiedVideo}
+                  />
+                )}
+
+                {props.publishedProfile && (
+                  <Reward
+                    image="/images/2-rewards.png"
+                    description={
+                      <p>
+                        earn <strong className="text-pink">50</strong> more CBG
+                        tokens completing your profile
+                      </p>
+                    }
+                    link={`/${props.handle}`}
+                    linkText="view profile"
+                    done={props.publishedProfile}
                   />
                 )}
 
@@ -93,19 +102,34 @@ export default function Index({
                   image="/images/1-reward.png"
                   description={
                     <p>
-                      earn <strong className="text-pink3">10</strong> more CBG
+                      earn <strong className="text-pink">10</strong> more CBG
                       tokens by sharing on Twitter{' '}
                     </p>
                   }
-                  link={`https://twitter.com/intent/tweet?text=Check%20this%20out!%20%0A%0A@cobogosocial%20is%20a%20dapp%20that%20helps%20YouTubers%20monetize%20themselves%20sustainably%20through%20their%20communities%20using%20blockchain.%20%0A%0AUse%20my%20referral%20link%20when%20you%20sign%20up%20for%20free%20for%20the%20whitelist,%20and%20we%20both%20get%20rewards!%0Aapp.cobogo.social/submit?ref=${referralCode}`}
+                  link={`https://twitter.com/intent/tweet?text=Check%20this%20out!%20%0A%0A@cobogosocial%20is%20a%20dapp%20that%20helps%20YouTubers%20monetize%20themselves%20sustainably%20through%20their%20communities%20using%20blockchain.%20%0A%0AUse%20my%20referral%20link%20when%20you%20sign%20up%20for%20free%20for%20the%20whitelist,%20and%20we%20both%20get%20rewards!%0Aapp.cobogo.social/submit?ref=${props.referralCode}`}
                   linkText="share on Twitter"
                 />
+
+                {!props.publishedProfile && (
+                  <Reward
+                    image="/images/2-rewards.png"
+                    description={
+                      <p>
+                        earn <strong className="text-pink">50</strong> more CBG
+                        tokens completing your profile
+                      </p>
+                    }
+                    link={`/${props.handle}`}
+                    linkText="view profile"
+                    done={props.publishedProfile}
+                  />
+                )}
 
                 <Reward
                   image="/images/infinite-rewards.png"
                   description={
                     <p>
-                      earn <strong className="text-pink3">50</strong> more CBG
+                      earn <strong className="text-pink">50</strong> more CBG
                       tokens for each Creator whitelisted using your referral
                       link
                     </p>
@@ -114,31 +138,24 @@ export default function Index({
                   linkText="view referral link"
                 />
 
-                {!verifiedVideo && (
+                {!props.verifiedVideo && (
                   <Reward
                     image="/images/full-rewards.png"
                     description={
                       <p>
-                        earn <strong className="text-pink3">1,000</strong> more
+                        earn <strong className="text-pink">1,000</strong> more
                         CBG tokens recording a video
                       </p>
                     }
                     link="/submit/video"
                     linkText="view rules"
-                    done={verifiedVideo}
+                    done={props.verifiedVideo}
                   />
                 )}
-
-                <Reward
-                  image="/images/2-rewards.png"
-                  description="earn 50 more CBG tokens completing
-                your profile"
-                  linkText="coming soon..."
-                />
               </div>
 
               <div className="mb-10">
-                <ShareLinks referralCode={referralCode} />
+                <ShareLinks referralCode={props.referralCode} />
               </div>
 
               <Link href="/submit/success">
@@ -152,9 +169,9 @@ export default function Index({
             </div>
 
             <ChannelBox
-              banner={bannerImage}
-              title={title}
-              description={youtubeDescription}
+              banner={props.bannerImage}
+              title={props.title}
+              description={props.youtubeDescription}
             />
           </StepSubContainer>
         </StepContainer>
@@ -208,6 +225,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         onboardedFriends,
         tokens: account.attributes.tokens,
         verifiedVideo: profile.attributes.video.data,
+        handle: profile.attributes.handle,
+        publishedProfile: profile.attributes.status === 'published',
       },
     };
   } catch (error) {

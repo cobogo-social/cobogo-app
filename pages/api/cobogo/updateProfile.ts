@@ -14,13 +14,13 @@ export default async function handler(
 ) {
   const session = await getSession({ req });
 
-  const { description, handle, categories, queryRef, category } = req.body;
-
   try {
     const { account } = await fetchSessionData(session);
 
-    if (queryRef) {
-      const referralAccount = await readAccountByReferralCode(queryRef);
+    if (req.body.queryRef) {
+      const referralAccount = await readAccountByReferralCode(
+        req.body.queryRef,
+      );
 
       await updateReferralAccount(account, referralAccount);
 
@@ -34,11 +34,59 @@ export default async function handler(
     }
 
     const response = await updateProfile(
-      description,
-      handle,
-      categories,
+      req.body.description,
+      req.body.handle,
+      req.body.categories,
       profile.id,
-      category,
+      req.body.category,
+      req.body.website,
+      req.body.presentationVideo,
+      req.body.youtubeSubscribers,
+      req.body.youtubeVideos,
+      req.body.youtubeViews,
+      req.body.youtubeUniqueViewers,
+      req.body.youtubeWatchTimeHours,
+      req.body.youtubeAvgViewDuration,
+      req.body.instagramHandle,
+      req.body.instagramFollowers,
+      req.body.instagramImpressions,
+      req.body.instagramStoriesAvgViews,
+      req.body.instagramPostsAvgLikes,
+      req.body.instagramReelsAvgViews,
+      req.body.twitchHandle,
+      req.body.twitchSubscribers,
+      req.body.twitchVideos,
+      req.body.twitchAvgViewers,
+      req.body.twitchPeakViewers,
+      req.body.twitchWatchTimeHours,
+      req.body.tiktokHandle,
+      req.body.tiktokFollowers,
+      req.body.tiktokViews,
+      req.body.tiktokLikes,
+      req.body.tiktokComments,
+      req.body.tiktokShares,
+      req.body.discordHandle,
+      req.body.discordMembers,
+      req.body.telegramHandle,
+      req.body.telegramMembers,
+      req.body.twitterHandle,
+      req.body.twitterFollowers,
+      req.body.audienceGenderDistributionMen,
+      req.body.audienceGenderDistributionWomen,
+      req.body.audienceGenderDistributionOthers,
+      req.body.audienceAgeDistribution18,
+      req.body.audienceAgeDistribution2534,
+      req.body.audienceAgeDistribution35,
+      req.body.audienceTopCountries1,
+      req.body.audienceTopCountries2,
+      req.body.audienceTopCountries3,
+      req.body.language,
+      req.body.audienceTopCountry1,
+      req.body.audienceTopCountry2,
+      req.body.audienceTopCountry3,
+      req.body.profileImage,
+      req.body.bannerImage,
+      req.body.status,
     );
 
     res.status(201).json({ status: 201, data: response });

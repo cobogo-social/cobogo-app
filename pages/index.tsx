@@ -4,7 +4,7 @@ import ChannelsChannelBox from '@components/ChannelsChannelBox';
 import ChannelsFilterSelect from '@components/ChannelsFilterSelect';
 import ChannelsSearchInput from '@components/ChannelsSearchInput';
 import TopBar from '@components/TopBar';
-import { MesssageContext } from '@contexts/MessageContext';
+import { MessageContext } from '@contexts/MessageContext';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -18,9 +18,7 @@ interface ChannelsProps {
   description: string;
   youtubeChannelId: string;
   handle: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   channels: any[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   categories: any[];
 }
 
@@ -37,7 +35,7 @@ export default function Index({
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [updatedChannels, setUpdatedChannels] = useState(channels);
-  const { setMessage } = useContext(MesssageContext);
+  const { setMessage } = useContext(MessageContext);
 
   const filteredChannels = useMemo(() => {
     const lowerSearch = search.toLowerCase();
@@ -200,7 +198,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   //         ? profiles[0].attributes.youtube_description
   //         : '',
   //       youtubeChannelId: profiles[0]
-  //         ? profiles[0].attributes.youtube_channel_id
+  //         ? profiles[0].attributes.youtube_id
   //         : null,
   //       handle: profiles[0] ? profiles[0].attributes.handle : null,
   //       channels: profiles,

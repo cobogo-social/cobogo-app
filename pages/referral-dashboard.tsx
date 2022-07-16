@@ -3,7 +3,7 @@ import ReferralDashboardContainer from '@components/ReferralDashboardContainer';
 import ReferralDashboardReferralLink from '@components/ReferralDashboardReferralLink';
 import TopBar from '@components/TopBar';
 import { LoadingContext } from '@contexts/LoadingContext';
-import { MesssageContext } from '@contexts/MessageContext';
+import { MessageContext } from '@contexts/MessageContext';
 import { WalletContext } from '@contexts/WalletContext';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
@@ -22,7 +22,7 @@ export default function Index() {
   const [pendingFriendsChannels, setPendingFriendsChannels] = useState([]);
 
   const { currentWallet } = useContext(WalletContext);
-  const { setMessage } = useContext(MesssageContext);
+  const { setMessage } = useContext(MessageContext);
   const { setLoading } = useContext(LoadingContext);
 
   const { data: session } = useSession();

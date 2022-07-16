@@ -25,7 +25,7 @@ export default function ChannelBox({
   }
 
   return (
-    <div className="w-[275px] max-h-[400px] bg-black border-[1px] border-gray10 pb-6 hidden sm:block shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
+    <div className="w-[275px] max-h-[400px] bg-black border border-gray10 pb-6 hidden sm:block shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
       {banner ? (
         <Image
           src={banner}

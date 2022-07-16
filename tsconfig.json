@@ -23,6 +23,6 @@
       "@contexts/*": ["src/contexts/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/cobogo/upload.js"],
   "exclude": ["node_modules"]
 }
