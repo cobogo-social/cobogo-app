@@ -3,6 +3,7 @@ import AddServiceForm from '@components/forms/AddServiceForm';
 import Image from 'next/image';
 
 interface AddServiceSidebarProps {
+  baseImageUrl: string;
   closeAddServiceSidebar: () => void;
   handle: string;
   returnToServicesSidebar?: () => void;
@@ -19,6 +20,7 @@ export default function AddServiceSidebar(props: AddServiceSidebarProps) {
       </div>
 
       <AddServiceForm
+        baseImageUrl={props.baseImageUrl}
         title="add a service"
         buttonText="add"
         closeSidebar={props.closeAddServiceSidebar}

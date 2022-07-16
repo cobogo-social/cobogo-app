@@ -12,6 +12,7 @@ import * as yup from 'yup';
 import ErrorLabel from '../ErrorLabel';
 
 interface AddServiceFormProps {
+  baseImageUrl: string;
   title: string;
   buttonText: string;
   route?: string;
@@ -51,7 +52,7 @@ export default function AddServiceForm(props: AddServiceFormProps) {
             )}&fileType=${file.type}`,
           );
           const { url, fields } = await uploadUrl.data.data;
-          bannerImage = fields.key;
+          bannerImage = `${props.baseImageUrl}/${fields.key}`;
 
           const formData = new FormData();
 

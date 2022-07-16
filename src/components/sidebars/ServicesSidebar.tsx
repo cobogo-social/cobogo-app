@@ -80,6 +80,7 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
     <>
       {editServiceSidebarIsOpen ? (
         <EditServiceSidebar
+          baseImageUrl={props.baseImageUrl}
           closeEditServiceSidebar={closeEditServiceSidebar}
           handle={props.handle}
           returnToServicesSidebar={returnToServicesSidebar}
@@ -89,6 +90,7 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
 
       {addServiceSidebarIsOpen ? (
         <AddServiceSidebar
+          baseImageUrl={props.baseImageUrl}
           closeAddServiceSidebar={closeAddServiceSidebar}
           handle={props.handle}
           returnToServicesSidebar={returnToServicesSidebar}
@@ -128,7 +130,7 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
                 openEditServiceSidebar={openEditServiceSidebar}
                 bannerImage={
                   horizontalService.attributes.banner_image
-                    ? `${props.baseImageUrl}/${horizontalService.attributes.banner_image}`
+                    ? horizontalService.attributes.banner_image
                     : '/images/service-1.png'
                 }
               />

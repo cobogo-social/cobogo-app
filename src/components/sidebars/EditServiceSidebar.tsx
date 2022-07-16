@@ -9,6 +9,7 @@ interface IService {
 }
 
 interface EditServiceSidebarProps {
+  baseImageUrl: string;
   closeEditServiceSidebar: () => void;
   handle: string;
   returnToServicesSidebar?: () => void;
@@ -26,6 +27,7 @@ export default function EditServiceSidebar(props: EditServiceSidebarProps) {
       </div>
 
       <EditServiceForm
+        baseImageUrl={props.baseImageUrl}
         title="edit a service"
         buttonText="edit"
         closeSidebar={props.closeEditServiceSidebar}

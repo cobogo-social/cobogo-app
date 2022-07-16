@@ -18,6 +18,7 @@ interface IService {
 }
 
 interface EditServiceFormProps {
+  baseImageUrl: string;
   title: string;
   buttonText: string;
   route?: string;
@@ -58,7 +59,7 @@ export default function EditServiceForm(props: EditServiceFormProps) {
             )}&fileType=${encodeURIComponent(file.type)}`,
           );
           const { url, fields } = await uploadUrl.data.data;
-          bannerImage = fields.key;
+          bannerImage = `${props.baseImageUrl}/${fields.key}`;
 
           const formData = new FormData();
 

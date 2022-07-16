@@ -50,7 +50,7 @@ export default function Services(props: ServicesProps) {
                     name={service.attributes.name}
                     description={service.attributes.description}
                     baseImageUrl={props.baseImageUrl}
-                    bannerImage={props.bannerImage}
+                    bannerImage={service.attributes.banner_image}
                   />
                 ))
               ) : !props.services?.length && props.isOwner ? (

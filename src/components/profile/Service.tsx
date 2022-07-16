@@ -35,6 +35,7 @@ export default function Service(props: ServiceProps) {
     <>
       {addServiceSidebarIsOpen ? (
         <AddServiceSidebar
+          baseImageUrl={props.baseImageUrl}
           closeAddServiceSidebar={closeAddServiceSidebar}
           handle={props.handle}
         />
@@ -52,7 +53,7 @@ export default function Service(props: ServiceProps) {
         <div className="bg-blue w-full h-[204px] relative">
           {props.bannerImage ? (
             <Image
-              src={`${props.baseImageUrl}/${props.bannerImage}`}
+              src={props.bannerImage}
               objectFit="cover"
               layout="fill"
               alt="banner image"
