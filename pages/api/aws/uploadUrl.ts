@@ -20,7 +20,7 @@ export default async function handler(
       2,
     );
 
-    const { fileName } = req.query;
+    const fileName = req.query.fileName[0];
     const fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
     const post = await s3.createPresignedPost({
       Bucket: process.env.COBOGO_AWS_BUCKET,

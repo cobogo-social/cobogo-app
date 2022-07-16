@@ -31,8 +31,8 @@ interface EditProfileFormProps {
   languageName?: string;
   languageId?: number;
   profileImage: string;
-  bannerImage: string;
-  baseImageUrl: string;
+  bannerImage?: string;
+  baseImageUrl?: string;
 }
 
 export default function EditProfileForm(props: EditProfileFormProps) {
@@ -138,7 +138,7 @@ export default function EditProfileForm(props: EditProfileFormProps) {
                 values.presentationVideo || props.presentationVideo,
               language: languageValue || props.languageId,
               profileImage: profileImageUrl || props.profileImage,
-              bannerImage: bannerImageUrl || props.bannerImage
+              bannerImage: bannerImageUrl || props.bannerImage,
             })
             .then(async (response) => {
               if (response.data.error) {

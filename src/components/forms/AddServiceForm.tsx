@@ -7,7 +7,6 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
-import referralCodeGenerator from 'referral-code-generator';
 import * as yup from 'yup';
 
 import ErrorLabel from '../ErrorLabel';

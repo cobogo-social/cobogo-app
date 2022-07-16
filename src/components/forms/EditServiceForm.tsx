@@ -7,7 +7,6 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
-import referralCodeGenerator from 'referral-code-generator';
 import * as yup from 'yup';
 
 import ErrorLabel from '../ErrorLabel';
@@ -54,7 +53,9 @@ export default function EditServiceForm(props: EditServiceFormProps) {
         if (image) {
           const file = image;
           const uploadUrl = await axios.get(
-            `/api/aws/uploadUrl?prefix=services&fileName=${encodeURIComponent(file.name)}&fileType=${encodeURIComponent(file.type)}`,
+            `/api/aws/uploadUrl?prefix=services&fileName=${encodeURIComponent(
+              file.name,
+            )}&fileType=${encodeURIComponent(file.type)}`,
           );
           const { url, fields } = await uploadUrl.data.data;
           bannerImage = fields.key;
@@ -73,7 +74,7 @@ export default function EditServiceForm(props: EditServiceFormProps) {
             name: values.title,
             description: values.description,
             serviceId: props.service.id,
-            bannerImage: bannerImage ? bannerImage : props.bannerImage,
+            bannerImage,
           })
           .then(async (response) => {
             if (response.data.error) {

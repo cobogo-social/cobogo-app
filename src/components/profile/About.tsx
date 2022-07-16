@@ -6,7 +6,7 @@ import EditIcon from '@components/icons/EditIcon';
 import PublishProfileModal from '@components/modals/PublishProfileModal';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '../Button';
 import EditAboutSidebar from '../sidebars/EditAboutSidebar';
