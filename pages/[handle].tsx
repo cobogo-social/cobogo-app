@@ -205,13 +205,14 @@ export const getServerSideProps: GetServerSideProps = async ({
       };
     }
 
-    const videos = await readVideosByChannelId(profile.attributes.youtube_id);
-
-    const categories = await readCategories();
-
-    const languages = await readLanguages();
-
-    const countries = await readCountries();
+    if (profile.attributes.status === 'blocked') {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        },
+      };
+    }
 
     const isOwner = session?.user
       ? session.user['id'] === profile.attributes.accounts.data[0].id
@@ -226,13 +227,16 @@ export const getServerSideProps: GetServerSideProps = async ({
       };
     }
 
-    if (profile.attributes.status === 'blocked') {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false,
-        },
-      };
+    const videos = await readVideosByChannelId(profile.attributes.youtube_id);
+
+    let categories = [];
+    let languages = [];
+    let countries = [];
+
+    if (isOwner) {
+      categories = await readCategories();
+      languages = await readLanguages();
+      countries = await readCountries();
     }
 
     return {
@@ -248,8 +252,14 @@ export const getServerSideProps: GetServerSideProps = async ({
         isOwner,
         handle: profile.attributes.handle,
         categories,
-        categoryName: profile.attributes.category.data.attributes.name,
-        categoryId: profile.attributes.category.data.id,
+        // categoryName: profile.attributes.category.data.attributes.name,
+        // categoryId: profile.attributes.category.data.id,
+        categoryName: profile.attributes.category.data
+          ? profile.attributes.category.data.attributes.name
+          : null,
+        categoryId: profile.attributes.category.data
+          ? profile.attributes.category.data.id
+          : null,
         youtubeVideos: profile.attributes.youtube_videos,
         youtubeViews: profile.attributes.youtube_views,
         youtubeUniqueViewers: profile.attributes.youtube_unique_viewers,

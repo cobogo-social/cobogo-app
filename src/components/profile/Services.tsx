@@ -41,7 +41,7 @@ export default function Services(props: ServicesProps) {
             <p className="text-[22px] mb-6">services offered</p>
 
             <div className="flex w-full justify-start gap-10">
-              {props.services.length ? (
+              {props.services?.length ? (
                 props.services.map((service) => (
                   <Service
                     key={service.id}
@@ -50,7 +50,7 @@ export default function Services(props: ServicesProps) {
                     bannerImage={service.attributes.banner_image}
                   />
                 ))
-              ) : !props.services.length && props.isOwner ? (
+              ) : !props.services?.length && props.isOwner ? (
                 <>
                   <div className="relative">
                     <div className="px-3 py-1 absolute z-10 bg-violet left-[-3px] top-3">
@@ -95,7 +95,7 @@ export default function Services(props: ServicesProps) {
                   </div>
                 </>
               ) : (
-                !props.services.length && null
+                !props.services?.length && null
               )}
             </div>
           </div>

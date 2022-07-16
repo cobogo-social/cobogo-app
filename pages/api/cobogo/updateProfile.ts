@@ -41,6 +41,7 @@ export default async function handler(
       req.body.category,
       req.body.website,
       req.body.presentationVideo,
+      req.body.youtubeSubscribers,
       req.body.youtubeVideos,
       req.body.youtubeViews,
       req.body.youtubeUniqueViewers,

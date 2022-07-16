@@ -81,9 +81,9 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
   }
 
   useEffect(() => {
-    const descriptionLength = props.description.split('').length;
-    const tagsLength = props.tags.length;
-    const servicesLength = props.services.length;
+    const descriptionLength = props.description?.split('').length;
+    const tagsLength = props.tags?.length;
+    const servicesLength = props.services?.length;
     const hasTwoHandles =
       props.instagramHandle ||
       props.twitchHandle ||
@@ -111,8 +111,8 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
     props.description,
     props.discordHandle,
     props.instagramHandle,
-    props.services.length,
-    props.tags.length,
+    props.services?.length,
+    props.tags?.length,
     props.telegramHandle,
     props.tiktokHandle,
     props.twitchHandle,

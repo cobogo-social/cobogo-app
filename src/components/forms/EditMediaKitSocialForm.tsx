@@ -214,7 +214,6 @@ export default function EditMediaKitSocialForm(
               </label>
 
               <input
-                disabled
                 id="youtubeSubscribers"
                 name="youtubeSubscribers"
                 type="number"

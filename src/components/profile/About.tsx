@@ -145,7 +145,11 @@ export default function About(props: AboutProps) {
                 <p className="text-[22px]">about</p>
 
                 <p className="w-[464px]">
-                  {props.description.slice(0, 300)} (...)
+                  {props.description?.length > 300 ? (
+                    <>{props.description.slice(0, 300)} (...)</>
+                  ) : (
+                    props.description
+                  )}
                 </p>
               </div>
 
