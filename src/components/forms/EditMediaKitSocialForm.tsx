@@ -220,6 +220,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.youtubeSubscribers}
+                disabled
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
