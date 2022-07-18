@@ -1,4 +1,5 @@
 import LinkIcon from '@components/icons/LinkIcon';
+import numeral from 'numeral';
 
 interface SocialProps {
   onClick?: () => void;
@@ -27,7 +28,11 @@ export default function Social(props: SocialProps) {
         <div className="flex flex-col justify-center items-start">
           <p className="font-bold mb-[20px] text-2xl">{props.name}</p>
 
-          <strong className="text-5xl">{props.number}</strong>
+          <strong className="text-5xl">
+            {String(props.number).length > 3
+              ? numeral(Number(props.number)).format('0.00a').toUpperCase()
+              : props.number}
+          </strong>
 
           <p className="font-bold text-gray6 mb-[20px]">{props.placeholder}</p>
 
