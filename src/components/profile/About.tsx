@@ -155,7 +155,7 @@ export default function About(props: AboutProps) {
               <div className="flex flex-col">
                 <p className="text-[22px]">about</p>
 
-                <p className="w-[464px]">
+                <p className="w-[464px] break-words">
                   {props.description?.length > 300 ? (
                     <>{props.description.slice(0, 300)} (...)</>
                   ) : (
