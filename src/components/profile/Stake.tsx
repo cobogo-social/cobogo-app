@@ -1,8 +1,10 @@
 import Image from 'next/image';
 
-// import Button from '../Button';
+interface StakeProps {
+  isOwner: boolean;
+}
 
-export default function Stake() {
+export default function Stake(props: StakeProps) {
   return (
     <section className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
       <div className="flex max-w-[1010px] w-full justify-between items-center">
@@ -14,10 +16,15 @@ export default function Stake() {
         />
 
         <div className="z-10">
-          <p className="text-[40px] w-[370px] mb-[30px]">
-            take control over your{' '}
-            <span className="font-bold">monetization</span>
-          </p>
+          {props.isOwner ? (
+            <p className="text-[40px] w-[370px] mb-[30px]">
+              take control over your <strong>monetization</strong>
+            </p>
+          ) : (
+            <p className="text-[40px] w-[370px] mb-[30px]">
+              earn money by supporting your <strong>favorite Creators</strong>
+            </p>
+          )}
 
           <p className="text-[22px] w-[455px] mb-[45px]">
             cobogo has designed a unique{' '}

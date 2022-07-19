@@ -196,7 +196,7 @@ export default function Index(props: ProfileProps) {
 
       <Videos videos={props.videos} />
 
-      <Stake />
+      <Stake isOwner={props.isOwner} />
     </div>
   );
 }
