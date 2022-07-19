@@ -1,20 +1,14 @@
-import { useState } from 'react';
-
 interface DiscordIconProps {
   size: number;
 }
 
 export default function DiscordIcon(props: DiscordIconProps) {
-  const [hover, setHover] = useState(false);
-
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={props.size}
-      fill={hover ? '#7289DA' : '#FFF'}
+      fill="#FFF"
       viewBox="0 0 30 30"
-      onMouseOut={() => setHover(false)}
-      onMouseOver={() => setHover(true)}
     >
       <path
         className="transition-colors"

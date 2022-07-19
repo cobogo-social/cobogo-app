@@ -264,6 +264,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               name="YouTube"
               isOwner={props.isOwner}
               openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
+              hoverBorderColor="hover:border-redyoutube"
             />
 
             <Social
@@ -282,6 +283,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               name="Instagram"
               isOwner={props.isOwner}
               openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
+              hoverBorderColor="hover:border-pinkinstagram"
             />
 
             <Social
@@ -300,6 +302,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               name="Twitch"
               isOwner={props.isOwner}
               openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
+              hoverBorderColor="hover:border-violettwitch"
             />
 
             <Social
@@ -318,6 +321,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               name="TikTok"
               isOwner={props.isOwner}
               openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
+              hoverBorderColor="hover:border-pinktiktok"
             />
 
             <Social
@@ -335,6 +339,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               name="Twitter"
               isOwner={props.isOwner}
               openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
+              hoverBorderColor="hover:border-bluetwitter"
             />
 
             <Social
@@ -352,6 +357,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               name="Discord"
               isOwner={props.isOwner}
               openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
+              hoverBorderColor="hover:border-violetdiscord"
             />
 
             <Social
@@ -369,6 +375,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               name="Telegram"
               isOwner={props.isOwner}
               openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
+              hoverBorderColor="hover:border-bluetelegram"
             />
           </div>
         </div>

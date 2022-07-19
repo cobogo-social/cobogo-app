@@ -13,6 +13,7 @@ interface SocialProps {
   name: string;
   isOwner: boolean;
   openEditMediaKitSocialSidebar: () => void;
+  hoverBorderColor: string;
 }
 
 export default function Social(props: SocialProps) {
@@ -24,7 +25,9 @@ export default function Social(props: SocialProps) {
         <div className="bg-primary py-[10px]">{props.icon}</div>
       </div>
 
-      <div className="w-[310px] h-[207px] border border-gray10 flex flex-col justify-center items-start px-10">
+      <div
+        className={`w-[310px] h-[207px] border border-gray10 ${props.hoverBorderColor} flex flex-col justify-center items-start px-10 transition-colors`}
+      >
         <div className="flex flex-col justify-center items-start">
           <p className="font-bold mb-[20px] text-2xl">{props.name}</p>
 
