@@ -1,4 +1,4 @@
-import TokenInfoModal from '@components/TokenInfoModal';
+import TokenInfoModal from '@components/modals/TokenInfoModal';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -6,7 +6,7 @@ interface TokenInfoProps {
   tokens: number;
 }
 
-export default function TokenInfo({ tokens }: TokenInfoProps) {
+export default function TokenInfo(props: TokenInfoProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -27,7 +27,7 @@ export default function TokenInfo({ tokens }: TokenInfoProps) {
           />
         </div>
 
-        <p className="flex font-bold">{tokens} CBG</p>
+        <p className="flex font-bold">{props.tokens} CBG</p>
       </div>
     </>
   );

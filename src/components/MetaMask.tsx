@@ -2,22 +2,21 @@ import { WalletContext } from '@contexts/WalletContext';
 import Image from 'next/image';
 import { useContext, useState } from 'react';
 
-import DisconnectWalletModal from './DisconnectWalletModal';
+import DisconnectWalletModal from './modals/DisconnectWalletModal';
 
 interface MetaMaskProps {
   setOnboardedFriendsChannels?: (value: []) => void;
   setPendingFriendsChannels?: (value: []) => void;
+  setSidebarOpened?: (value: boolean) => void;
 }
 
-export default function MetaMask({
-  setOnboardedFriendsChannels,
-  setPendingFriendsChannels,
-}: MetaMaskProps) {
+export default function MetaMask(props: MetaMaskProps) {
   const [disconnectWalletModalIsOpen, setDisconnectWalletModalIsOpen] =
     useState(false);
   const { currentWallet, connectMetaMaskWallet } = useContext(WalletContext);
 
   function openDisconnectWalletModal() {
+    props.setSidebarOpened(true);
     setDisconnectWalletModalIsOpen(true);
   }
 
@@ -26,8 +25,8 @@ export default function MetaMask({
       <DisconnectWalletModal
         isOpen={disconnectWalletModalIsOpen}
         setIsOpen={setDisconnectWalletModalIsOpen}
-        setOnboardedFriendsChannels={setOnboardedFriendsChannels}
-        setPendingFriendsChannels={setPendingFriendsChannels}
+        setOnboardedFriendsChannels={props.setOnboardedFriendsChannels}
+        setPendingFriendsChannels={props.setPendingFriendsChannels}
       />
 
       {currentWallet ? (

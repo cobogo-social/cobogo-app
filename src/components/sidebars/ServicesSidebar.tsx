@@ -137,7 +137,7 @@ export default function ServicesSidebar(props: ServicesSidebarProps) {
             ))}
           </div>
 
-          <div className="fixed bottom-0 right-0 w-[600px] h-16 bg-gradient-to-t from-black to-black[0] z-40 px-[70px] py-10 flex items-end" />
+          <div className="fixed bottom-0 right-0 w-[600px] h-16 bg-gradient-to-t from-black to-black[0] z-30 px-[70px] py-10 flex items-end" />
         </SidebarContainer>
       ) : null}
     </>

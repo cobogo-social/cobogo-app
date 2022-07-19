@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import About from '@components/profile/About';
 import MediaKitAnalytics from '@components/profile/MediaKitAnalytics';
 import MediaKitSocial from '@components/profile/MediaKitSocial';
@@ -15,6 +14,7 @@ import {
 import { readVideosByChannelId } from '@services/youtubeApi';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
+import { useState } from 'react';
 
 interface ProfileProps {
   bannerImage: string;
@@ -95,6 +95,7 @@ export default function Index(props: ProfileProps) {
         noTokens
         transparent
         noSubmit={props.isOwner}
+        setSidebarOpened={setSidebarOpened}
       />
 
       <About

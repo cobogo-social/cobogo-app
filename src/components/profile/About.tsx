@@ -194,12 +194,18 @@ export default function About(props: AboutProps) {
                       onClick={openEditAboutSidebar}
                       className="z-20 absolute flex gap-2 bottom-10 left-10 items-center text-blue text-xl"
                     >
-                      <AddIcon size={18} />{' '}
-                      <strong>showcase your best work</strong>
+                      {!props.sidebarOpened && (
+                        <>
+                          <AddIcon size={18} />{' '}
+                          <strong>showcase your best work</strong>
+                        </>
+                      )}
                     </button>
                   )}
 
-                  <div className="bg-gradient-to-t from-black to-black/[0] z-10 w-full h-full absolute" />
+                  {!props.sidebarOpened && (
+                    <div className="bg-gradient-to-t from-black to-black/[0] z-10 w-full h-full absolute" />
+                  )}
 
                   <Image
                     src="/images/presentation-video.png"

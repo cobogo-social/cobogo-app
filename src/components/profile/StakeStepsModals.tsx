@@ -32,7 +32,7 @@ export default function StakeStepsModals({
   }, [isOpen]);
 
   return isOpen ? (
-    <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.5]">
+    <div className="w-screen h-screen fixed top-0 right-0 z-10 flex justify-center items-center bg-black/[0.8]">
       {step === 1 && (
         <StakeStepOneModal
           setIsOpen={setIsOpen}

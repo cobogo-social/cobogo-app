@@ -28,33 +28,21 @@ interface TopBarProps {
   tokens?: number;
   referralCode?: string;
   transparent?: boolean;
+  setSidebarOpened?: (value: boolean) => void;
 }
 
-export default function TopBar({
-  categories,
-  searchByCategory,
-  noLogo,
-  noOnboardedFriends,
-  setOnboardedFriendsChannels,
-  setPendingFriendsChannels,
-  noSteps,
-  noLogout,
-  noConnectWallet,
-  noTokens,
-  noSubmit,
-  onboardedFriends,
-  tokens,
-  referralCode,
-  transparent,
-}: TopBarProps) {
-  const { asPath } = useRouter();
+export default function TopBar(props: TopBarProps) {
+  const { asPath, push } = useRouter();
+
   const [openReferralMenu, setOpenReferralMenu] = useState(false);
   const [copied, setCopied] = useState(false);
+
   const [openCategoriesMenu, setOpenCategoriesMenu] = useState(false);
+
   const { currentWallet, connectMetaMaskWallet } = useContext(WalletContext);
+
   const [back, setBack] = useState(false);
   const [open, setOpen] = useState(false);
-  const { push } = useRouter();
 
   function changeBackAndChangeOpen() {
     setBack(!back);
@@ -82,10 +70,10 @@ export default function TopBar({
     <>
       <div
         className={`h-[100px] w-full hidden sm:flex items-center z-10 ${
-          noLogo ? 'justify-end' : 'justify-between'
-        } px-[39px] ${transparent && 'absolute'}`}
+          props.noLogo ? 'justify-end' : 'justify-between'
+        } px-[39px] ${props.transparent && 'absolute'}`}
       >
-        {!noLogo && (
+        {!props.noLogo && (
           <div className="flex">
             <Link href="/" className="flex">
               <Image
@@ -99,7 +87,7 @@ export default function TopBar({
         )}
 
         <div className="flex items-center justify-center">
-          {!noSubmit && !asPath.includes('submit') && (
+          {!props.noSubmit && !asPath.includes('submit') && (
             <div className="ml-[40px]">
               <Link href="/submit">
                 <Button
@@ -112,24 +100,27 @@ export default function TopBar({
             </div>
           )}
 
-          {!noOnboardedFriends && (
+          {!props.noOnboardedFriends && (
             <p className="ml-[40px]">
               onboarded friends:{' '}
-              <span className="font-bold text-green">{onboardedFriends}</span>
+              <span className="font-bold text-green">
+                {props.onboardedFriends}
+              </span>
             </p>
           )}
 
-          {!noTokens && tokens ? (
+          {!props.noTokens && props.tokens ? (
             <div className="ml-[40px]">
-              <TokenInfo tokens={tokens} />
+              <TokenInfo tokens={props.tokens} />
             </div>
           ) : null}
 
-          {!noConnectWallet && (
+          {!props.noConnectWallet && (
             <div className="flex items-center justify-center hover:cursor-pointer ml-[40px]">
               <MetaMask
-                setOnboardedFriendsChannels={setOnboardedFriendsChannels}
-                setPendingFriendsChannels={setPendingFriendsChannels}
+                setOnboardedFriendsChannels={props.setOnboardedFriendsChannels}
+                setPendingFriendsChannels={props.setPendingFriendsChannels}
+                setSidebarOpened={props.setSidebarOpened}
               />
             </div>
           )}
@@ -140,7 +131,7 @@ export default function TopBar({
         <div className="fixed z-20 flex flex-col items-center justify-between w-screen">
           <div className="bg-secondary p-4 w-full h-[52px] flex justify-between items-center sm:hidden shadow-[0_0px_10px_15px_rgba(0,0,0,0.3)]">
             <div className="flex">
-              {categories && (
+              {props.categories && (
                 <div className="flex mr-4" onClick={openOrCloseCategoriesMenu}>
                   <Image
                     src="/images/menu-icon.svg"
@@ -215,10 +206,11 @@ export default function TopBar({
                 <div className="flex items-center justify-between mb-[22px]">
                   <p>
                     onboarded friends: (
-                    <span className="text-green">{onboardedFriends}</span>)
+                    <span className="text-green">{props.onboardedFriends}</span>
+                    )
                   </p>
 
-                  <TokenInfo tokens={tokens} />
+                  <TokenInfo tokens={props.tokens} />
                 </div>
 
                 <div className="flex flex-col justify-center sm:hidden">
@@ -227,7 +219,7 @@ export default function TopBar({
                   <div className="flex">
                     <div className="px-4 w-full h-[36px] bg-black flex justify-start items-center border border-r-0 border-gray10">
                       <p className="text-xs font-bold text-blue sm:text-sm">
-                        app.cobogo.social/submit?ref={referralCode}
+                        app.cobogo.social/submit?ref={props.referralCode}
                       </p>
                     </div>
 
@@ -236,7 +228,7 @@ export default function TopBar({
                       className="pr-4 h-[36px] bg-black border border-l-0 border-gray10 outline-none flex justify-center items-center"
                     >
                       <CopyToClipboard
-                        text={`https://app.cobogo.social/submit?ref=${referralCode}`}
+                        text={`https://app.cobogo.social/submit?ref=${props.referralCode}`}
                       >
                         {copied ? (
                           <Image
@@ -263,7 +255,7 @@ export default function TopBar({
         <>
           <div className="bg-secondary z-20 p-4 w-screen h-[52px] flex justify-between items-center fixed sm:hidden shadow-[0_0px_10px_15px_rgba(0,0,0,0.3)]">
             <div className="flex">
-              {!noSteps && (
+              {!props.noSteps && (
                 <div className="flex mr-4" onClick={changeBackAndChangeOpen}>
                   <Image
                     src={
@@ -289,7 +281,7 @@ export default function TopBar({
             </div>
 
             <div className="flex items-center justify-center">
-              {!noLogout && (
+              {!props.noLogout && (
                 <button
                   onClick={logout}
                   className="font-bold text-blue hover:cursor-pointer"
@@ -300,7 +292,7 @@ export default function TopBar({
             </div>
           </div>
 
-          {!noSteps && (
+          {!props.noSteps && (
             <div
               className={`bg-secondary z-10 px-[10px] pb-8 pt-[72px] h-screen fixed sm:hidden ${
                 open ? 'w-[193px]' : 'w-[52px]'
@@ -350,12 +342,12 @@ export default function TopBar({
           <p className="text-[22px] mb-[31px]">categories</p>
 
           <div className="flex flex-col items-start text-gray3">
-            {categories &&
-              categories.map((category) => (
+            {props.categories &&
+              props.categories.map((category) => (
                 <button
                   key={category.id}
                   className="mb-[15px] hover:cursor-pointer"
-                  onClick={() => searchByCategory(category.id)}
+                  onClick={() => props.searchByCategory(category.id)}
                 >
                   {category.attributes.name}
                 </button>
