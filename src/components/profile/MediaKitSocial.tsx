@@ -6,7 +6,7 @@ import TikTokIcon from '@components/icons/TikTokIcon';
 import TwitchIcon from '@components/icons/TwitchIcon';
 import TwitterIcon from '@components/icons/TwitterIcon';
 import YouTubeIcon from '@components/icons/YouTubeIcon';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import EditMediaKitSocialSidebar from '../sidebars/EditMediaKitSocialSidebar';
 import Social from './Social';
@@ -51,7 +51,11 @@ interface MediaKitSocialProps {
 
 export default function MediaKitSocial(props: MediaKitSocialProps) {
   const [singleOpen, setSingleOpen] = useState(false);
-  const [step, setStep] = useState(1);
+
+  const [step, setStep] = useState('');
+  const [stepNumber, setStepNumber] = useState(0);
+  const [availableSteps, setAvailableSteps] = useState(['youtube']);
+
   const [editMediaKitSocialSidebarIsOpen, setEditMediaKitSocialSidebarIsOpen] =
     useState(false);
 
@@ -65,30 +69,63 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
     setEditMediaKitSocialSidebarIsOpen(false);
   }
 
-  function openStep(stepNumber: number) {
+  function openStep(stepName: string) {
     setSingleOpen(true);
-    setStep(stepNumber);
+    setStepNumber(() => {
+      const indexOfStepName = availableSteps.indexOf(stepName);
+
+      return indexOfStepName;
+    });
+    setStep(stepName);
   }
 
   function closeStep() {
     setSingleOpen(false);
+    setStepNumber(0);
+    setStep('');
   }
 
   function skipStep() {
-    if (step < 4) {
-      setStep((c) => c + 1);
+    if (stepNumber < availableSteps.length - 1) {
+      setStepNumber((c) => {
+        setStep(availableSteps[c + 1]);
+
+        return c + 1;
+      });
     }
   }
 
   function backStep() {
-    if (step > 1) {
-      setStep((c) => c - 1);
+    if (stepNumber > 0) {
+      setStepNumber((c) => {
+        setStep(availableSteps[c - 1]);
+
+        return c - 1;
+      });
     }
   }
 
+  useEffect(() => {
+    if (props.instagramHandle) {
+      setAvailableSteps((c) => [...c, 'instagram']);
+    }
+  }, [props.instagramHandle]);
+
+  useEffect(() => {
+    if (props.twitchHandle) {
+      setAvailableSteps((c) => [...c, 'twitch']);
+    }
+  }, [props.twitchHandle]);
+
+  useEffect(() => {
+    if (props.tiktokHandle) {
+      setAvailableSteps((c) => [...c, 'tiktok']);
+    }
+  }, [props.tiktokHandle]);
+
   return singleOpen ? (
     <>
-      {step === 1 && (
+      {step === 'youtube' && (
         <SocialDetails
           backStep={backStep}
           skipStep={skipStep}
@@ -105,7 +142,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
           placeholder4="unique viewers"
           placeholder5="watch time hours"
           placeholder6="average view duration"
-          step={step}
+          stepNumber={stepNumber}
           title="YouTube"
           linkPlaceholder="visit channel"
           link={
@@ -114,10 +151,11 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               : null
           }
           icon={<YouTubeIcon size={60} color="#FF0000" />}
+          availableStepsLength={availableSteps.length}
         />
       )}
 
-      {step === 2 && (
+      {step === 'instagram' && (
         <SocialDetails
           backStep={backStep}
           skipStep={skipStep}
@@ -132,7 +170,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
           placeholder3="stories average views"
           placeholder4="posts average views"
           placeholder5="reels average views"
-          step={step}
+          stepNumber={stepNumber}
           title="Instagram"
           linkPlaceholder={`@${props.instagramHandle}`}
           link={
@@ -141,10 +179,11 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               : null
           }
           icon={<InstagramIcon size={56} color="#E1306C" />}
+          availableStepsLength={availableSteps.length}
         />
       )}
 
-      {step === 3 && (
+      {step === 'twitch' && (
         <SocialDetails
           backStep={backStep}
           skipStep={skipStep}
@@ -159,7 +198,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
           placeholder3="average viewers"
           placeholder4="peak viewers"
           placeholder5="watch time hours"
-          step={step}
+          stepNumber={stepNumber}
           title="Twitch"
           linkPlaceholder={`@${props.twitchHandle}`}
           link={
@@ -168,10 +207,11 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               : null
           }
           icon={<TwitchIcon size={54} color="#6441A5" />}
+          availableStepsLength={availableSteps.length}
         />
       )}
 
-      {step === 4 && (
+      {step === 'tiktok' && (
         <SocialDetails
           backStep={backStep}
           skipStep={skipStep}
@@ -186,7 +226,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
           placeholder3="likes"
           placeholder4="comments"
           placeholder5="shares"
-          step={step}
+          stepNumber={stepNumber}
           title="TikTok"
           linkPlaceholder={`@${props.tiktokHandle}`}
           link={
@@ -195,6 +235,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               : null
           }
           icon={<TikTokIcon size={46} color="#FF0050" />}
+          availableStepsLength={availableSteps.length}
         />
       )}
     </>
@@ -249,7 +290,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
         <div className="flex max-w-[1010px] w-full justify-center items-center">
           <div className="flex flex-wrap items-center justify-start w-full gap-10">
             <Social
-              onClick={() => openStep(1)}
+              onClick={() => openStep('youtube')}
               icon={<YouTubeIcon size={36} />}
               number={props.youtubeSubscribers}
               placeholder="subscribers"
@@ -268,7 +309,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
             />
 
             <Social
-              onClick={() => openStep(2)}
+              onClick={() => openStep('instagram')}
               icon={<InstagramIcon size={31} />}
               number={props.instagramFollowers}
               placeholder="followers"
@@ -287,7 +328,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
             />
 
             <Social
-              onClick={() => openStep(3)}
+              onClick={() => openStep('twitch')}
               icon={<TwitchIcon size={32} />}
               number={props.twitchSubscribers}
               placeholder="subscribers"
@@ -306,7 +347,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
             />
 
             <Social
-              onClick={() => openStep(4)}
+              onClick={() => openStep('tiktok')}
               icon={<TikTokIcon size={28} />}
               number={props.tiktokFollowers}
               placeholder="followers"

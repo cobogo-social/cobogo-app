@@ -21,11 +21,12 @@ interface SocialDetailsProps {
   number4: number;
   number5: number;
   number6?: number;
-  step: number;
+  stepNumber: number;
   title: string;
   linkPlaceholder: string;
   link: string;
   icon: JSX.Element;
+  availableStepsLength: number;
 }
 
 export default function SocialDetails(props: SocialDetailsProps) {
@@ -38,17 +39,20 @@ export default function SocialDetails(props: SocialDetailsProps) {
     >
       <div className="flex absolute top-[74px] right-[152px] gap-5">
         <div
-          onClick={props.step !== 1 ? props.backStep : null}
+          onClick={props.stepNumber !== 0 ? props.backStep : null}
           className="flex w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5 hover:cursor-pointer"
         >
-          <BackIcon size={10} disabled={props.step === 1} />
+          <BackIcon size={10} disabled={props.stepNumber === 0} />
         </div>
 
         <div
           onClick={props.skipStep}
           className="flex hover:cursor-pointer w-[39px] h-[35px] justify-center items-center border-[2px] border-gray5"
         >
-          <SkipIcon size={10} disabled={props.step === 4} />
+          <SkipIcon
+            size={10}
+            disabled={props.stepNumber === props.availableStepsLength - 1}
+          />
         </div>
 
         <div
