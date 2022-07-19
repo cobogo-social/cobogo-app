@@ -75,7 +75,7 @@ export default function Service(props: ServiceProps) {
         >
           <div>
             {!props.noMoreInfoButton ? (
-              <p className="text-[22px] flex gap-2 hover:cursor-pointer">
+              <p className="text-[22px] flex hover:cursor-pointer">
                 {props.name}
               </p>
             ) : (

@@ -1,3 +1,4 @@
+import CheckmarkIcon from '@components/icons/CheckmarkIcon';
 import LinkIcon from '@components/icons/LinkIcon';
 import numeral from 'numeral';
 
@@ -14,6 +15,7 @@ interface SocialProps {
   isOwner: boolean;
   openEditMediaKitSocialSidebar: () => void;
   hoverBorderColor: string;
+  verified?: boolean;
 }
 
 export default function Social(props: SocialProps) {
@@ -29,7 +31,9 @@ export default function Social(props: SocialProps) {
         className={`w-[310px] h-[207px] border border-gray10 ${props.hoverBorderColor} flex flex-col justify-center items-start px-10 transition-colors`}
       >
         <div className="flex flex-col justify-center items-start">
-          <p className="font-bold mb-[20px] text-2xl">{props.name}</p>
+          <p className="font-bold mb-[20px] text-2xl gap-2 flex items-center">
+            {props.name} {props.verified && <CheckmarkIcon size={18} />}
+          </p>
 
           <strong className="text-5xl">
             {String(props.number).length > 3

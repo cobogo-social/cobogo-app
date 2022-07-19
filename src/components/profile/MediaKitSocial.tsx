@@ -152,6 +152,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
           }
           icon={<YouTubeIcon size={60} color="#FF0000" />}
           availableStepsLength={availableSteps.length}
+          verified={!!props.youtubeId}
         />
       )}
 
@@ -306,6 +307,7 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
               isOwner={props.isOwner}
               openEditMediaKitSocialSidebar={openEditMediaKitSocialSidebar}
               hoverBorderColor="hover:border-redyoutube"
+              verified={!!props.youtubeId}
             />
 
             <Social

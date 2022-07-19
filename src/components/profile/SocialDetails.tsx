@@ -1,4 +1,5 @@
 import BackIcon from '@components/icons/BackIcon';
+import CheckmarkIcon from '@components/icons/CheckmarkIcon';
 import CloseIcon from '@components/icons/CloseIcon';
 import LinkIcon from '@components/icons/LinkIcon';
 import SkipIcon from '@components/icons/SkipIcon';
@@ -27,6 +28,7 @@ interface SocialDetailsProps {
   link: string;
   icon: JSX.Element;
   availableStepsLength: number;
+  verified?: boolean;
 }
 
 export default function SocialDetails(props: SocialDetailsProps) {
@@ -69,7 +71,9 @@ export default function SocialDetails(props: SocialDetailsProps) {
             <div className="mr-[20px] flex">{props.icon}</div>
 
             <div className="flex flex-col">
-              <p className="font-bold text-[22px]">{props.title}</p>
+              <p className="font-bold text-[22px] flex gap-2 items-center">
+                {props.title} {props.verified && <CheckmarkIcon size={18} />}
+              </p>
 
               {props.link && (
                 <a
