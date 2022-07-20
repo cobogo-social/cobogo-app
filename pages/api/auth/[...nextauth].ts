@@ -1,6 +1,6 @@
+import { readOrCreateAccountByOauth } from '@services/cobogoApi';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { readOrCreateAccountByOauth } from '@services/cobogoApi';
 
 async function refreshAccessToken(token) {
   try {
@@ -83,31 +83,39 @@ export default NextAuth({
     //   id_token: ''
     // }
     async jwt({ token, user, account }) {
-      if (account && user) {
-        const strapiAccount = await readOrCreateAccountByOauth(user, account);
+      try {
+        if (account && user) {
+          const strapiAccount = await readOrCreateAccountByOauth(user, account);
 
-        return {
-          provider: account.provider, // 'google'
-          accessToken: account.access_token,
-          accessTokenExpires: Date.now() + Number(account.expires_in) * 1000,
-          refreshToken: account.refresh_token,
-          user: { id: strapiAccount.id },
-        };
+          return {
+            provider: account.provider, // 'google'
+            accessToken: account.access_token,
+            accessTokenExpires: Date.now() + Number(account.expires_in) * 1000,
+            refreshToken: account.refresh_token,
+            user: { id: strapiAccount.id },
+          };
+        }
+
+        if (Date.now() < token.accessTokenExpires) {
+          return token;
+        }
+
+        return refreshAccessToken(token);
+      } catch (error) {
+        console.error(error.message);
       }
-
-      if (Date.now() < token.accessTokenExpires) {
-        return token;
-      }
-
-      return refreshAccessToken(token);
     },
     async session({ session, token }) {
-      // Send properties to the client, like an access_token from a provider.
-      session.user = token.user;
-      session.accessToken = token.accessToken;
-      session.error = token.error;
+      try {
+        // Send properties to the client, like an access_token from a provider.
+        session.user = token.user;
+        session.accessToken = token.accessToken;
+        session.error = token.error;
 
-      return session;
+        return session;
+      } catch (error) {
+        console.error(error.message);
+      }
     },
   },
 });
