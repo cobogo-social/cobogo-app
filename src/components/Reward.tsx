@@ -24,8 +24,19 @@ export default function Reward(props: RewardProps) {
           {props.description}
         </p>
 
-        {props.done ? (
+        {props.done && !props.linkText ? (
           <strong className="text-green">done</strong>
+        ) : props.done && props.linkText ? (
+          <a
+            target="_blank"
+            href={props.link}
+            className={`font-bold text-green ${
+              props.linkText === 'coming soon...' ? 'text-gray9' : ''
+            }`}
+            rel="noreferrer"
+          >
+            {props.linkText}
+          </a>
         ) : (
           <a
             target="_blank"

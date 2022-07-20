@@ -78,7 +78,6 @@ export default function Index(props: InviteProps) {
                       </p>
                     }
                     link="/submit/video"
-                    linkText="view rules"
                     done={props.verifiedVideo}
                   />
                 )}
@@ -241,6 +240,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         onboardedFriends: 0,
         tokens: 0,
         verifiedVideo: false,
+        handle: '',
+        publishedProfile: false,
       },
     };
   }
