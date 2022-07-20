@@ -6,7 +6,7 @@ import EditIcon from '@components/icons/EditIcon';
 import PublishProfileModal from '@components/modals/PublishProfileModal';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from '../Button';
 import EditAboutSidebar from '../sidebars/EditAboutSidebar';
@@ -53,10 +53,8 @@ export default function About(props: AboutProps) {
   const [publishProfileModalIsOpen, setPublishProfileModalIsOpen] =
     useState(false);
 
-  function openEditAboutSidebar() {
-    props.setSidebarOpened(true);
-    setEditAboutSidebarIsOpen(true);
-  }
+  const [editingPresentationVideo, setEditingPresentationVideo] =
+    useState(false);
 
   function closeEditAboutSidebar() {
     props.setSidebarOpened(false);
@@ -66,6 +64,23 @@ export default function About(props: AboutProps) {
   function openPublishProfileModal() {
     setPublishProfileModalIsOpen(true);
   }
+
+  function openEditAboutSidebar(editPresentationVideo?: boolean) {
+    props.setSidebarOpened(true);
+    setEditAboutSidebarIsOpen(true);
+
+    if (editPresentationVideo) {
+      setEditingPresentationVideo(true);
+    }
+  }
+
+  useEffect(() => {
+    if (editingPresentationVideo) {
+      setTimeout(() => {
+        setEditingPresentationVideo(false);
+      }, 1000 * 2);
+    }
+  }, [editingPresentationVideo]);
 
   return (
     <>
@@ -101,6 +116,7 @@ export default function About(props: AboutProps) {
         profileImage={props.profileImage}
         bannerImage={props.bannerImage}
         baseImageUrl={props.baseImageUrl}
+        editingPresentationVideo={editingPresentationVideo}
       />
 
       <section className="shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">
@@ -124,7 +140,7 @@ export default function About(props: AboutProps) {
         <div className="flex w-full px-[150px] py-[70px] relative justify-center items-end bg-black">
           {props.isOwner && (
             <div
-              onClick={openEditAboutSidebar}
+              onClick={() => openEditAboutSidebar(null)}
               className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
             >
               <EditIcon size={30} />
@@ -191,7 +207,7 @@ export default function About(props: AboutProps) {
                 <div className="relative">
                   {!props.presentationVideo && props.isOwner && (
                     <button
-                      onClick={openEditAboutSidebar}
+                      onClick={() => openEditAboutSidebar(true)}
                       className="z-20 absolute flex gap-2 bottom-10 left-10 items-center text-blue text-xl"
                     >
                       {!props.sidebarOpened && (

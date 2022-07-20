@@ -33,6 +33,7 @@ interface EditProfileFormProps {
   profileImage: string;
   bannerImage?: string;
   baseImageUrl?: string;
+  editingPresentationVideo: boolean;
 }
 
 export default function EditProfileForm(props: EditProfileFormProps) {
@@ -290,7 +291,9 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             onChange={formik.handleChange}
             onKeyPress={validateKeyPressed}
             value={formik.values.presentationVideo}
-            className="w-full h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
+            className={`w-full h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none ${
+              props.editingPresentationVideo && 'border-blue'
+            }`}
             placeholder="https://www.youtube.com/watch?v=<video_id>"
           />
         </>

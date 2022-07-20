@@ -37,7 +37,7 @@ interface EditMediaKitSocialSidebarProps {
   twitterHandle: string;
   twitterFollowers: number;
   handle: string;
-  socialName?: string;
+  socialName: string;
 }
 
 export default function EditMediaKitSocialSidebar(

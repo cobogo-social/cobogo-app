@@ -42,7 +42,7 @@ interface EditMediaKitSocialFormProps {
   route?: string;
   handle: string;
   closeModal: () => void;
-  socialName?: string;
+  socialName: string;
 }
 
 export default function EditMediaKitSocialForm(
