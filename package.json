@@ -10,8 +10,6 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
-    "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.8.7",
     "@uniswap/widgets": "^1.0.10",
     "@vime/core": "5.0.33",
     "@vime/react": "5.0.33",
