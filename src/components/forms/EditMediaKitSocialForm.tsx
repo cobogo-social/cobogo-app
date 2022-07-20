@@ -376,6 +376,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.instagramFollowers}
+                disabled={!formik.values.instagramHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -392,6 +393,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.instagramImpressions}
+                disabled={!formik.values.instagramHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -410,6 +412,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.instagramStoriesAvgViews}
+                disabled={!formik.values.instagramHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -426,6 +429,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.instagramPostsAvgLikes}
+                disabled={!formik.values.instagramHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -444,6 +448,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.instagramReelsAvgViews}
+                disabled={!formik.values.instagramHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -515,6 +520,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitchSubscribers}
+                disabled={!formik.values.twitchHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -531,6 +537,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitchVideos}
+                disabled={!formik.values.twitchHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -549,6 +556,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitchAvgViewers}
+                disabled={!formik.values.twitchHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -565,6 +573,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitchPeakViewers}
+                disabled={!formik.values.twitchHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -583,6 +592,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitchWatchTimeHours}
+                disabled={!formik.values.twitchHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -654,6 +664,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.tiktokFollowers}
+                disabled={!formik.values.tiktokHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -670,6 +681,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.tiktokViews}
+                disabled={!formik.values.tiktokHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -688,6 +700,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.tiktokLikes}
+                disabled={!formik.values.tiktokHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -704,6 +717,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.tiktokComments}
+                disabled={!formik.values.tiktokHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
@@ -722,6 +736,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.tiktokShares}
+                disabled={!formik.values.tiktokHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -793,6 +808,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.discordMembers}
+                disabled={!formik.values.discordHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -864,6 +880,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.telegramMembers}
+                disabled={!formik.values.telegramHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
@@ -935,6 +952,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitterFollowers}
+                disabled={!formik.values.twitterHandle}
                 className="w-[205px] h-12 bg-gray7 border border-gray10 p-2 outline-none"
               />
             </div>
