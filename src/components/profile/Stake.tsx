@@ -1,3 +1,4 @@
+import Button from '@components/Button';
 import Image from 'next/image';
 
 interface StakeProps {
@@ -56,28 +57,25 @@ export default function Stake(props: StakeProps) {
           </div>
         </div>
 
-        <div className="w-[345px] h-[481px] z-10">
-          <Image
-            src="/images/stake-sample.png"
-            width={348}
-            height={481}
-            alt="stake sample"
-          />
-        </div>
+        <div className="w-[345px] z-10">
+          <div className="bg-red/[0.5] w-full flex justify-center p-1">
+            <p className="text-sm">
+              this is a sample. This feature is yet to be implemented.
+            </p>
+          </div>
 
-        {/* <div className="w-[345px] h-[481px] z-10">
-          <div className="flex w-full justify-between items-center bg-white/[0.05] p-[30px] mb-[1px]">
+          <div className="flex w-full justify-between items-center bg-white/[0.05] p-8 mb-[1px]">
             <div>
               <p className="font-bold">your stake</p>
 
               <p className="text-blue font-bold mb-[17px]">
-                - <span className="text-gray6">CBG</span>
+                2,300 <span className="text-gray6">CBG</span>
               </p>
 
               <p className="font-bold">total staked</p>
 
               <p className="text-green font-bold">
-                - <span className="text-gray6">CBG</span>
+                35,000 <span className="text-gray6">CBG</span>
               </p>
             </div>
 
@@ -85,20 +83,20 @@ export default function Stake(props: StakeProps) {
               <p className="font-bold">your rewards</p>
 
               <p className="text-blue font-bold mb-[17px]">
-                - <span className="text-gray6">CBG</span>
+                18 <span className="text-gray6">CBG</span>
               </p>
 
               <p className="font-bold">youtuber rewards</p>
 
               <p className="text-green font-bold">
-                - <span className="text-gray6">CBG</span>
+                2,400 <span className="text-gray6">CBG</span>
               </p>
             </div>
           </div>
 
           <div className="flex flex-col w-full justify-start items-start bg-white/[0.08] p-[30px] mb-[1px]">
             <p className="font-bold mb-[10px]">
-              top stakers <span className="text-gray6">(-)</span>{' '}
+              top stakers <span className="text-gray6">(76)</span>{' '}
             </p>
 
             <div className="flex w-full mb-[10px] justify-between">
@@ -110,11 +108,11 @@ export default function Stake(props: StakeProps) {
                   alt="wallet icon"
                 />
 
-                <p className="ml-[10px] font-bold">wallet address</p>
+                <p className="ml-[10px] font-bold">0x7ca...d5p26</p>
               </div>
 
               <p className="text-green font-bold ml-[10px]">
-                - <span className="text-gray6">CBG</span>
+                2,000 <span className="text-gray6">CBG</span>
               </p>
             </div>
 
@@ -127,11 +125,11 @@ export default function Stake(props: StakeProps) {
                   alt="wallet icon"
                 />
 
-                <p className="ml-[10px] font-bold">wallet address</p>
+                <p className="ml-[10px] font-bold">0x2ca...d5p22</p>
               </div>
 
               <p className="text-green font-bold ml-[10px]">
-                - <span className="text-gray6">CBG</span>
+                1,300 <span className="text-gray6">CBG</span>
               </p>
             </div>
 
@@ -144,11 +142,11 @@ export default function Stake(props: StakeProps) {
                   alt="wallet icon"
                 />
 
-                <p className="ml-[10px] font-bold">wallet address</p>
+                <p className="ml-[10px] font-bold">0x9ca...y5b29</p>
               </div>
 
               <p className="text-green font-bold ml-[10px]">
-                - <span className="text-gray6">CBG</span>
+                800 <span className="text-gray6">CBG</span>
               </p>
             </div>
 
@@ -161,11 +159,11 @@ export default function Stake(props: StakeProps) {
                   alt="wallet icon"
                 />
 
-                <p className="ml-[10px] font-bold">wallet address</p>
+                <p className="ml-[10px] font-bold">0x1ca...h5b32</p>
               </div>
 
               <p className="text-green font-bold ml-[10px]">
-                - <span className="text-gray6">CBG</span>
+                300 <span className="text-gray6">CBG</span>
               </p>
             </div>
           </div>
@@ -175,11 +173,18 @@ export default function Stake(props: StakeProps) {
               text="withdraw"
               borderColor="border-violet"
               borderSize="border"
+              width="w-[130px]"
             />
 
-            <Button text="stake" color="bg-blue" />
+            <Button text="stake" color="bg-blue" width="w-[130px]" />
           </div>
-        </div> */}
+
+          <div className="bg-red/[0.5] w-full flex justify-center p-1">
+            <p className="text-sm">
+              learn more about cobogo's staking mechanism.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
