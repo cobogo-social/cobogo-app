@@ -33,7 +33,7 @@ interface EditProfileFormProps {
   profileImage: string;
   bannerImage?: string;
   baseImageUrl?: string;
-  editingPresentationVideo: boolean;
+  editingPresentationVideo?: boolean;
 }
 
 export default function EditProfileForm(props: EditProfileFormProps) {
