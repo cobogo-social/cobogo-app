@@ -42,7 +42,7 @@ export default function Services(props: ServicesProps) {
           <div className="flex flex-col justify-between items-start w-full">
             <p className="text-[22px] mb-6">services offered</p>
 
-            <div className="flex w-full justify-start gap-10">
+            <div className="flex w-full justify-start gap-10 flex-wrap items-center">
               {props.services?.length ? (
                 props.services.map((service) => (
                   <Service
