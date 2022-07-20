@@ -59,9 +59,15 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
   const [editMediaKitSocialSidebarIsOpen, setEditMediaKitSocialSidebarIsOpen] =
     useState(false);
 
-  function openEditMediaKitSocialSidebar() {
+  const [socialSectionName, setSocialSectionName] = useState('');
+
+  function openEditMediaKitSocialSidebar(socialName?: string) {
     props.setSidebarOpened(true);
     setEditMediaKitSocialSidebarIsOpen(true);
+
+    if (socialName) {
+      setSocialSectionName(socialName);
+    }
   }
 
   function closeEditMediaKitSocialSidebar() {
@@ -276,12 +282,13 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
         twitterHandle={props.twitterHandle}
         twitterFollowers={props.twitterFollowers}
         handle={props.handle}
+        socialName={socialSectionName}
       />
 
       <section className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
         {props.isOwner && (
           <div
-            onClick={openEditMediaKitSocialSidebar}
+            onClick={() => openEditMediaKitSocialSidebar(null)}
             className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
           >
             <EditIcon size={30} />

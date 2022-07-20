@@ -24,6 +24,7 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
+    "react-hooks/exhaustive-deps": "off",
     "react/destructuring-assignment": "off",
     "no-nested-ternary": "off",
     "react/jsx-no-constructed-context-values": "off",

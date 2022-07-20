@@ -13,7 +13,7 @@ interface SocialProps {
   iconPosition: string;
   name: string;
   isOwner: boolean;
-  openEditMediaKitSocialSidebar: () => void;
+  openEditMediaKitSocialSidebar: (socialName?: string) => void;
   hoverBorderColor: string;
   verified?: boolean;
 }
@@ -70,7 +70,9 @@ export default function Social(props: SocialProps) {
 
           <button
             className="font-bold text-blue flex gap-1 items-center"
-            onClick={props.openEditMediaKitSocialSidebar}
+            onClick={() =>
+              props.openEditMediaKitSocialSidebar(props.name.toLowerCase())
+            }
           >
             add +
           </button>

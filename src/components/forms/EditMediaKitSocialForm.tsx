@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 interface EditMediaKitSocialFormProps {
   buttonText: string;
@@ -42,6 +42,7 @@ interface EditMediaKitSocialFormProps {
   route?: string;
   handle: string;
   closeModal: () => void;
+  socialName?: string;
 }
 
 export default function EditMediaKitSocialForm(
@@ -173,6 +174,12 @@ export default function EditMediaKitSocialForm(
       return;
     }
   }
+
+  useEffect(() => {
+    if (props.socialName) {
+      openSection(props.socialName);
+    }
+  }, []);
 
   return (
     <form className="flex flex-col w-full" onSubmit={formik.handleSubmit}>

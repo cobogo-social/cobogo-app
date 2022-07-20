@@ -37,6 +37,7 @@ interface EditMediaKitSocialSidebarProps {
   twitterHandle: string;
   twitterFollowers: number;
   handle: string;
+  socialName?: string;
 }
 
 export default function EditMediaKitSocialSidebar(
@@ -97,6 +98,7 @@ export default function EditMediaKitSocialSidebar(
         twitterFollowers={props.twitterFollowers}
         handle={props.handle}
         closeModal={closeModal}
+        socialName={props.socialName}
       />
     </SidebarContainer>
   ) : null;
