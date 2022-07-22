@@ -49,7 +49,7 @@ export default function Service(props: ServiceProps) {
         bannerImage={props.bannerImage}
       />
 
-      <div className="w-[310px] border border-gray10">
+      <div className="min-w-[310px] sm:w-[310px] border border-gray10">
         <div className="bg-blue w-full h-[204px] relative">
           {props.bannerImage ? (
             <Image

@@ -285,18 +285,18 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
         socialName={socialSectionName}
       />
 
-      <section className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
+      <section className="flex w-full px-5 sm:px-[150px] py-10 sm:py-[70px] relative justify-center items-center">
         {props.isOwner && (
           <div
             onClick={() => openEditMediaKitSocialSidebar(null)}
-            className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
+            className="hidden sm:flex hover:cursor-pointer absolute top-[30px] left-[30px]"
           >
             <EditIcon size={30} />
           </div>
         )}
 
         <div className="flex max-w-[1010px] w-full justify-center items-center">
-          <div className="flex flex-wrap items-center justify-start w-full gap-10">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-start w-full gap-10">
             <Social
               onClick={() => openStep('youtube')}
               icon={<YouTubeIcon size={36} />}

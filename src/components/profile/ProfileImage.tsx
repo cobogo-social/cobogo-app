@@ -6,7 +6,7 @@ interface ProfileImageProps {
 
 export default function ProfileImage(props: ProfileImageProps) {
   return (
-    <div className="w-[140px] h-[140px] bg-blue mr-[30px] shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)] relative">
+    <div className="w-24 h-24 sm:w-[140px] sm:h-[140px] bg-blue mr-[30px] shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)] relative">
       {props.src && (
         <Image
           src={props.src}

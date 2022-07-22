@@ -57,17 +57,17 @@ export default function MediaKitAnalytics(props: MediaKitAnalyticsProps) {
         country3Id={props.country3Id}
       />
 
-      <div className="w-full flex items-center relative justify-center py-[70px] px-[150px] bg-black">
+      <div className="w-full flex items-center relative justify-center px-5 sm:py-[70px] py-10 sm:px-[150px] bg-black">
         {props.isOwner && (
           <div
             onClick={openEditMediaKitAnalyticsSidebar}
-            className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
+            className="hidden sm:flex hover:cursor-pointer absolute top-[30px] left-[30px]"
           >
             <EditIcon size={30} />
           </div>
         )}
 
-        <div className="flex max-w-[1010px] w-full gap-10 justify-start items-center">
+        <div className="flex flex-col sm:flex-row max-w-[1010px] w-full gap-10 justify-start items-center">
           <Distribution
             percent1={props.audienceGenderDistributionMen}
             percent2={props.audienceGenderDistributionWomen}

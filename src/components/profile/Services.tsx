@@ -28,11 +28,11 @@ export default function Services(props: ServicesProps) {
         handle={props.handle}
       />
 
-      <div className="w-full hidden sm:flex flex-col items-center justify-start relative bg-gray7 py-[70px] px-[150px]">
+      <div className="w-full flex flex-col items-center justify-start relative bg-gray7 py-10 sm:py-[70px] px-5 sm:px-[150px]">
         {props.isOwner && (
           <div
             onClick={openServicesSidebar}
-            className="flex hover:cursor-pointer absolute top-[30px] left-[30px]"
+            className="hidden sm:flex hover:cursor-pointer absolute top-[30px] left-[30px]"
           >
             <EditIcon size={30} />
           </div>
@@ -42,7 +42,7 @@ export default function Services(props: ServicesProps) {
           <div className="flex flex-col justify-between items-start w-full">
             <p className="text-[22px] mb-6">services offered</p>
 
-            <div className="flex w-full justify-start gap-10 flex-wrap items-center">
+            <div className="flex w-full justify-start gap-5 sm:gap-10 sm:flex-wrap items-center overflow-auto">
               {props.services?.length ? (
                 props.services.map((service) => (
                   <Service

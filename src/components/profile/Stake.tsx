@@ -7,8 +7,8 @@ interface StakeProps {
 
 export default function Stake(props: StakeProps) {
   return (
-    <section className="flex w-full px-[150px] py-[70px] relative justify-center items-center">
-      <div className="flex max-w-[1010px] w-full justify-between items-center">
+    <section className="flex w-full px-5 sm:px-[150px] py-10 sm:py-[70px] relative justify-center items-center">
+      <div className="flex flex-col sm:flex-row max-w-[1010px] w-full justify-between items-center">
         <Image
           src="/images/profile-bg.svg"
           objectFit="cover"
@@ -18,16 +18,16 @@ export default function Stake(props: StakeProps) {
 
         <div className="z-10">
           {props.isOwner ? (
-            <p className="text-[40px] w-[370px] mb-[30px]">
+            <p className="text-3xl sm:text-[40px] max-w-[370px] mb-[30px] text-center sm:text-left">
               take control over your <strong>monetization</strong>
             </p>
           ) : (
-            <p className="text-[40px] w-[370px] mb-[30px]">
+            <p className="text-3xl sm:text-[40px] max-w-[370px] mb-[30px] text-center sm:text-left">
               earn money by supporting your <strong>favorite Creators</strong>
             </p>
           )}
 
-          <p className="text-[22px] w-[455px] mb-[45px]">
+          <p className="text-[20px] sm:text-[22px] max-w-[455px] mb-[45px] text-center sm:text-left">
             cobogo has designed a unique{' '}
             <span className="font-bold">Staking</span>{' '}
             <span className="font-bold">Mechanism</span> that allows{' '}
@@ -36,7 +36,7 @@ export default function Stake(props: StakeProps) {
             the form of a split yield.
           </p>
 
-          <div className="flex">
+          <div className="flex w-full justify-center sm:justify-start mb-20 sm:mb-0">
             <div className="flex mr-[10px]">
               <Image
                 src="/images/gitbook-icon.svg"
