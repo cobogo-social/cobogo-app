@@ -21,6 +21,8 @@ interface EditAboutSidebarProps {
   bannerImage: string;
   baseImageUrl: string;
   editingPresentationVideo?: boolean;
+  editingDescription?: boolean;
+  editingTags?: boolean;
 }
 
 export default function EditAboutSidebar(props: EditAboutSidebarProps) {
@@ -65,6 +67,8 @@ export default function EditAboutSidebar(props: EditAboutSidebarProps) {
         bannerImage={props.bannerImage}
         baseImageUrl={props.baseImageUrl}
         editingPresentationVideo={props.editingPresentationVideo}
+        editingDescription={props.editingDescription}
+        editingTags={props.editingTags}
       />
     </SidebarContainer>
   ) : null;

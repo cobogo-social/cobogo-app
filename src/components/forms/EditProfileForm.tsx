@@ -5,7 +5,7 @@ import { MessageContext } from '@contexts/MessageContext';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import { SetStateAction, useContext, useEffect, useState } from 'react';
+import { SetStateAction, useContext, useEffect, useRef, useState } from 'react';
 import * as yup from 'yup';
 
 import Button from '../Button';
@@ -34,6 +34,8 @@ interface EditProfileFormProps {
   bannerImage?: string;
   baseImageUrl?: string;
   editingPresentationVideo?: boolean;
+  editingDescription?: boolean;
+  editingTags?: boolean;
 }
 
 export default function EditProfileForm(props: EditProfileFormProps) {
@@ -50,6 +52,9 @@ export default function EditProfileForm(props: EditProfileFormProps) {
 
   const [profileImage, setProfileImage] = useState<File>();
   const [bannerImage, setBannerImage] = useState<File>();
+
+  const TagsInputRef = useRef(null);
+  const formRef = useRef(null);
 
   const formik = useFormik({
     initialValues: {
@@ -246,10 +251,18 @@ export default function EditProfileForm(props: EditProfileFormProps) {
     }
   }, [props.edit, props.tags]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 100,
+      behavior: 'smooth',
+    });
+  }, []);
+
   return (
     <form
       className="flex flex-col max-w-[432px]"
       onSubmit={formik.handleSubmit}
+      ref={formRef}
     >
       <p className="mb-6 text-[40px]">{props.title}</p>
 
@@ -269,7 +282,9 @@ export default function EditProfileForm(props: EditProfileFormProps) {
             formik.touched.description && formik.errors.description
               ? 'border-red'
               : 'border-gray10'
-          } mb-10 p-2 outline-none`}
+          } mb-10 p-2 outline-none ${
+            props.editingDescription && 'border-blue'
+          }`}
           onChange={formik.handleChange}
           onKeyPress={validateKeyPressed}
           value={formik.values.description}
@@ -333,6 +348,19 @@ export default function EditProfileForm(props: EditProfileFormProps) {
         </div>
       </div>
 
+      <p className="mb-5 text-lg" ref={TagsInputRef}>
+        choose up to 5 tags
+      </p>
+
+      <TagsInput
+        input={tagInput}
+        changeTags={changeTags}
+        tags={tagsList}
+        editingTags={props.editingTags}
+      />
+
+      <Tags tags={tagsList} removeTag={removeTag} />
+
       <p className="mb-5 text-lg">choose a category</p>
 
       <Select
@@ -341,12 +369,6 @@ export default function EditProfileForm(props: EditProfileFormProps) {
         valueName={props.categoryName}
         placeholder="select a category"
       />
-
-      <p className="mb-5 text-lg">choose up to 5 tags</p>
-
-      <TagsInput input={tagInput} changeTags={changeTags} tags={tagsList} />
-
-      <Tags tags={tagsList} removeTag={removeTag} />
 
       {props.edit && (
         <>

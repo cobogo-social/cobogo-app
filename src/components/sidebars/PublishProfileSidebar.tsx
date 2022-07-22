@@ -1,5 +1,5 @@
 import Button from '@components/Button';
-import ModalContainer from '@components/containers/ModalContainer';
+import SidebarContainer from '@components/containers/SidebarContainer';
 import SuccessBullet from '@components/SuccessBullet';
 import WarningBullet from '@components/WarningBullet';
 import { LoadingContext } from '@contexts/LoadingContext';
@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 
-interface PublishProfileModalProps {
+interface PublishProfileSidebarProps {
   open: boolean;
   setOpen: (value: boolean) => void;
   description: string;
@@ -23,9 +23,16 @@ interface PublishProfileModalProps {
   twitterHandle: string;
   handle: string;
   route?: string;
+  openEditAboutSidebar: (
+    editPresentationVideo?: boolean,
+    editDescription?: boolean,
+    editTags?: boolean,
+  ) => void;
 }
 
-export default function PublishProfileModal(props: PublishProfileModalProps) {
+export default function PublishProfileSidebar(
+  props: PublishProfileSidebarProps,
+) {
   const [profileCompleted, setProfileCompleted] = useState(false);
   const [descriptionLengthStatus, setDescriptionLengthStatus] = useState(1);
   const [tagsLengthStatus, setTagsLengthStatus] = useState(1);
@@ -130,7 +137,7 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
   }, [props.open]);
 
   return props.open ? (
-    <ModalContainer>
+    <SidebarContainer>
       <div
         onClick={closeModal}
         className="absolute top-0 right-0 mt-[20px] mr-[20px] hover:cursor-pointer"
@@ -148,7 +155,11 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
 
         <div className="mb-10">
           {descriptionLengthStatus === 1 && (
-            <WarningBullet text="write at least 140 characters in the description" />
+            <WarningBullet
+              text="write at least 140 characters in the description"
+              buttonText="add description"
+              onClick={() => props.openEditAboutSidebar(false, true, false)}
+            />
           )}
 
           {descriptionLengthStatus === 2 && (
@@ -158,7 +169,11 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
 
         <div className="mb-10">
           {tagsLengthStatus === 1 && (
-            <WarningBullet text="add 3 tags related to your content" />
+            <WarningBullet
+              text="add 3 tags related to your content"
+              buttonText="add tags"
+              onClick={() => props.openEditAboutSidebar(false, false, true)}
+            />
           )}
 
           {tagsLengthStatus === 2 && (
@@ -168,7 +183,10 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
 
         <div className="mb-10">
           {hasTwoHandleStatus === 1 && (
-            <WarningBullet text="add at least 1 more Social Media metrics" />
+            <WarningBullet
+              text="add at least 1 more Social Media metrics"
+              buttonText="add metrics"
+            />
           )}
 
           {hasTwoHandleStatus === 2 && (
@@ -178,7 +196,10 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
 
         <div className="mb-10">
           {servicesLengthStatus === 1 && (
-            <WarningBullet text="describe at least 1 service you could offer to brands" />
+            <WarningBullet
+              text="describe at least 1 service you could offer to brands"
+              buttonText="add services"
+            />
           )}
 
           {servicesLengthStatus === 2 && (
@@ -193,6 +214,6 @@ export default function PublishProfileModal(props: PublishProfileModalProps) {
           onClick={publishProfile}
         />
       </div>
-    </ModalContainer>
+    </SidebarContainer>
   ) : null;
 }

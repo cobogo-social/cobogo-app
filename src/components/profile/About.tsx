@@ -3,7 +3,7 @@ import EditToPublishAlert from '@components/EditToPublishAlert';
 import AddIcon from '@components/icons/AddIcon';
 import CheckmarkIcon from '@components/icons/CheckmarkIcon';
 import EditIcon from '@components/icons/EditIcon';
-import PublishProfileModal from '@components/modals/PublishProfileModal';
+import PublishProfileSidebar from '@components/sidebars/PublishProfileSidebar';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -55,6 +55,8 @@ export default function About(props: AboutProps) {
 
   const [editingPresentationVideo, setEditingPresentationVideo] =
     useState(false);
+  const [editingDescription, setEditingDescription] = useState(false);
+  const [editingTags, setEditingTags] = useState(false);
 
   function closeEditAboutSidebar() {
     props.setSidebarOpened(false);
@@ -65,12 +67,24 @@ export default function About(props: AboutProps) {
     setPublishProfileModalIsOpen(true);
   }
 
-  function openEditAboutSidebar(editPresentationVideo?: boolean) {
+  function openEditAboutSidebar(
+    editPresentationVideo?: boolean,
+    editDescription?: boolean,
+    editTags?: boolean,
+  ) {
     props.setSidebarOpened(true);
     setEditAboutSidebarIsOpen(true);
 
     if (editPresentationVideo) {
       setEditingPresentationVideo(true);
+    }
+
+    if (editDescription) {
+      setEditingDescription(true);
+    }
+
+    if (editTags) {
+      setEditingTags(true);
     }
   }
 
@@ -82,9 +96,25 @@ export default function About(props: AboutProps) {
     }
   }, [editingPresentationVideo]);
 
+  useEffect(() => {
+    if (editingDescription) {
+      setTimeout(() => {
+        setEditingDescription(false);
+      }, 1000 * 2);
+    }
+  }, [editingDescription]);
+
+  useEffect(() => {
+    if (editingTags) {
+      setTimeout(() => {
+        setEditingTags(false);
+      }, 1000 * 2);
+    }
+  }, [editingTags]);
+
   return (
     <>
-      <PublishProfileModal
+      <PublishProfileSidebar
         open={publishProfileModalIsOpen}
         setOpen={setPublishProfileModalIsOpen}
         description={props.description}
@@ -97,6 +127,7 @@ export default function About(props: AboutProps) {
         discordHandle={props.discordHandle}
         telegramHandle={props.telegramHandle}
         handle={props.handle}
+        openEditAboutSidebar={openEditAboutSidebar}
       />
 
       <EditAboutSidebar
@@ -117,6 +148,8 @@ export default function About(props: AboutProps) {
         bannerImage={props.bannerImage}
         baseImageUrl={props.baseImageUrl}
         editingPresentationVideo={editingPresentationVideo}
+        editingDescription={editingDescription}
+        editingTags={editingTags}
       />
 
       <section className="shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)]">

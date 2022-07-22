@@ -268,8 +268,6 @@ export const getServerSideProps: GetServerSideProps = async ({
         isOwner,
         handle: profile.attributes.handle,
         categories,
-        // categoryName: profile.attributes.category.data.attributes.name,
-        // categoryId: profile.attributes.category.data.id,
         categoryName: profile.attributes.category.data
           ? profile.attributes.category.data.attributes.name
           : null,
