@@ -295,6 +295,15 @@ export default function MediaKitSocial(props: MediaKitSocialProps) {
           </div>
         )}
 
+        {props.isOwner && (
+          <div
+            onClick={() => openEditMediaKitSocialSidebar(null)}
+            className="flex sm:hidden hover:cursor-pointer absolute top-[15px] left-[15px]"
+          >
+            <EditIcon size={20} />
+          </div>
+        )}
+
         <div className="flex max-w-[1010px] w-full justify-center items-center">
           <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-start w-full gap-10">
             <Social

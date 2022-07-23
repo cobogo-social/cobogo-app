@@ -155,9 +155,11 @@ export default function About(props: AboutProps) {
       <section className="shadow-[0_0px_4px_4px_rgba(0,0,0,0.25)] flex flex-col bg-black">
         <div className="w-full h-36 sm:h-[308px] bg-gradient-to-t from-blue to-blue/[0.0] relative">
           {props.status === 'draft' && props.isOwner && (
-            <EditToPublishAlert
-              openPublishProfileModal={openPublishProfileModal}
-            />
+            <div className="hidden sm:flex">
+              <EditToPublishAlert
+                openPublishProfileModal={openPublishProfileModal}
+              />
+            </div>
           )}
 
           {props.bannerImage && (
@@ -171,7 +173,7 @@ export default function About(props: AboutProps) {
         </div>
 
         <div className="pb-10 sm:pb-[70px]">
-          <div className="flex w-full px-5 sm:px-[150px] py-10 sm:py-[70px] relative justify-center items-end mb-10 sm:mb-0">
+          <div className="flex w-full px-5 sm:px-[150px] py-10 sm:py-[70px] relative justify-center items-end">
             {props.isOwner && (
               <div
                 onClick={() => openEditAboutSidebar(null)}
@@ -181,12 +183,21 @@ export default function About(props: AboutProps) {
               </div>
             )}
 
-            <div className="flex flex-col sm:flex-row max-w-[1010px] w-full justify-between items-start sm:items-end">
-              <div className="flex justify-center items-center absolute top-[-30px]">
+            {props.isOwner && (
+              <div
+                onClick={() => openEditAboutSidebar(null)}
+                className="flex sm:hidden hover:cursor-pointer absolute top-[15px] left-[15px]"
+              >
+                <EditIcon size={20} />
+              </div>
+            )}
+
+            <div className="flex flex-col sm:flex-row max-w-[1010px] w-full justify-between items-center sm:items-end">
+              <div className="flex flex-col sm:flex-row justify-center items-center absolute top-[-30px] gap-3 sm:gap-8">
                 <ProfileImage src={props.profileImage} />
 
-                <div className="flex flex-col">
-                  <p className="text-2xl sm:text-[34px] flex items-center gap-[10px] mt-10 leading-none">
+                <div className="flex flex-col items-center">
+                  <p className="text-2xl sm:text-[34px] flex items-center gap-[10px] sm:mt-10 leading-none">
                     {props.title}{' '}
                     {props.status === 'verified' && <CheckmarkIcon size={22} />}
                   </p>
@@ -201,20 +212,8 @@ export default function About(props: AboutProps) {
                 </div>
               </div>
 
-              <div className="h-64 flex flex-col justify-between mt-12 sm:mt-0">
+              <div className="h-64 flex flex-col justify-between mt-28 sm:mt-0 w-full sm:w-auto">
                 <div className="flex flex-col">
-                  <p className="text-[22px] flex gap-2 items-center">
-                    about{' '}
-                    {props.isOwner && (
-                      <div
-                        onClick={() => openEditAboutSidebar(null)}
-                        className="flex sm:hidden hover:cursor-pointer"
-                      >
-                        <EditIcon size={20} />
-                      </div>
-                    )}
-                  </p>
-
                   <p className="max-w-[327px] sm:max-w-[464px] break-words">
                     {props.description?.length > 300 ? (
                       <>{props.description.slice(0, 300)} (...)</>
@@ -228,7 +227,7 @@ export default function About(props: AboutProps) {
                   <a
                     target="_blank"
                     href={props.website}
-                    className="flex mt-[30px]"
+                    className="flex mt-8 mb-8 sm:mb-0"
                     rel="noreferrer"
                   >
                     <Button
@@ -295,6 +294,14 @@ export default function About(props: AboutProps) {
                   })}
                 </div>
               </div>
+
+              {props.status === 'draft' && props.isOwner && (
+                <div className="flex sm:hidden">
+                  <EditToPublishAlert
+                    openPublishProfileModal={openPublishProfileModal}
+                  />
+                </div>
+              )}
             </div>
           </div>
 

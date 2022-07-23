@@ -216,7 +216,10 @@ export default function EditMediaKitSocialForm(
         <div>
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 subscribers
               </label>
 
@@ -228,12 +231,15 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.youtubeSubscribers}
                 disabled
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 videos
               </label>
 
@@ -244,14 +250,17 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.youtubeVideos}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
           </div>
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 views
               </label>
 
@@ -262,12 +271,15 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.youtubeViews}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 unique viewers
               </label>
 
@@ -278,14 +290,17 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.youtubeUniqueViewers}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
           </div>
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 watch time hours
               </label>
 
@@ -296,12 +311,15 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.youtubeWatchTimeHours}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 average view duration
               </label>
 
@@ -312,7 +330,7 @@ export default function EditMediaKitSocialForm(
                 onChange={formik.handleChange}
                 onKeyPress={validateKeyPressed}
                 value={formik.values.youtubeAvgViewDuration}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
           </div>
@@ -348,7 +366,10 @@ export default function EditMediaKitSocialForm(
 
       {sectionIsOpen === 'instagram' && (
         <div className="flex flex-col">
-          <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+          <label
+            htmlFor="handle"
+            className="text-sm sm:text-lg sm:mb-2 font-bold"
+          >
             handle
           </label>
 
@@ -372,7 +393,10 @@ export default function EditMediaKitSocialForm(
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 followers
               </label>
 
@@ -384,12 +408,15 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.instagramFollowers}
                 disabled={!formik.values.instagramHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 impressions
               </label>
 
@@ -401,14 +428,17 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.instagramImpressions}
                 disabled={!formik.values.instagramHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
           </div>
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 stories average views
               </label>
 
@@ -420,12 +450,15 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.instagramStoriesAvgViews}
                 disabled={!formik.values.instagramHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 posts average likes
               </label>
 
@@ -437,14 +470,17 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.instagramPostsAvgLikes}
                 disabled={!formik.values.instagramHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
           </div>
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 reels average views
               </label>
 
@@ -456,7 +492,7 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.instagramReelsAvgViews}
                 disabled={!formik.values.instagramHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
           </div>
@@ -492,7 +528,10 @@ export default function EditMediaKitSocialForm(
 
       {sectionIsOpen === 'twitch' && (
         <div className="flex flex-col">
-          <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+          <label
+            htmlFor="handle"
+            className="text-sm sm:text-lg sm:mb-2 font-bold"
+          >
             handle
           </label>
 
@@ -516,7 +555,10 @@ export default function EditMediaKitSocialForm(
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 subscribers
               </label>
 
@@ -528,12 +570,15 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitchSubscribers}
                 disabled={!formik.values.twitchHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 videos
               </label>
 
@@ -545,14 +590,17 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitchVideos}
                 disabled={!formik.values.twitchHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
           </div>
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 average viewers
               </label>
 
@@ -564,12 +612,15 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitchAvgViewers}
                 disabled={!formik.values.twitchHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 peak viewers
               </label>
 
@@ -581,14 +632,17 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitchPeakViewers}
                 disabled={!formik.values.twitchHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
           </div>
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 watch time hours
               </label>
 
@@ -600,7 +654,7 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitchWatchTimeHours}
                 disabled={!formik.values.twitchHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
           </div>
@@ -636,7 +690,10 @@ export default function EditMediaKitSocialForm(
 
       {sectionIsOpen === 'tiktok' && (
         <div className="flex flex-col">
-          <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+          <label
+            htmlFor="handle"
+            className="text-sm sm:text-lg sm:mb-2 font-bold"
+          >
             handle
           </label>
 
@@ -660,7 +717,10 @@ export default function EditMediaKitSocialForm(
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 followers
               </label>
 
@@ -672,12 +732,15 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.tiktokFollowers}
                 disabled={!formik.values.tiktokHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 profile views
               </label>
 
@@ -689,14 +752,17 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.tiktokViews}
                 disabled={!formik.values.tiktokHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
           </div>
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 likes
               </label>
 
@@ -708,12 +774,15 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.tiktokLikes}
                 disabled={!formik.values.tiktokHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 comments
               </label>
 
@@ -725,14 +794,17 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.tiktokComments}
                 disabled={!formik.values.tiktokHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-5 p-2 outline-none"
               />
             </div>
           </div>
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 shares
               </label>
 
@@ -744,7 +816,7 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.tiktokShares}
                 disabled={!formik.values.tiktokHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
           </div>
@@ -780,7 +852,10 @@ export default function EditMediaKitSocialForm(
 
       {sectionIsOpen === 'discord' && (
         <div className="flex flex-col">
-          <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+          <label
+            htmlFor="handle"
+            className="text-sm sm:text-lg sm:mb-2 font-bold"
+          >
             handle
           </label>
 
@@ -804,7 +879,10 @@ export default function EditMediaKitSocialForm(
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 members
               </label>
 
@@ -816,7 +894,7 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.discordMembers}
                 disabled={!formik.values.discordHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
           </div>
@@ -852,7 +930,10 @@ export default function EditMediaKitSocialForm(
 
       {sectionIsOpen === 'telegram' && (
         <div className="flex flex-col">
-          <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+          <label
+            htmlFor="handle"
+            className="text-sm sm:text-lg sm:mb-2 font-bold"
+          >
             handle
           </label>
 
@@ -876,7 +957,10 @@ export default function EditMediaKitSocialForm(
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 members
               </label>
 
@@ -888,7 +972,7 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.telegramMembers}
                 disabled={!formik.values.telegramHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 mb-10 p-2 outline-none"
               />
             </div>
           </div>
@@ -924,7 +1008,10 @@ export default function EditMediaKitSocialForm(
 
       {sectionIsOpen === 'twitter' && (
         <div className="mb-8 flex flex-col">
-          <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+          <label
+            htmlFor="handle"
+            className="text-sm sm:text-lg sm:mb-2 font-bold"
+          >
             handle
           </label>
 
@@ -948,7 +1035,10 @@ export default function EditMediaKitSocialForm(
 
           <div className="flex justify-between">
             <div className="flex flex-col">
-              <label htmlFor="handle" className="text-lg sm:mb-2 font-bold">
+              <label
+                htmlFor="handle"
+                className="text-sm sm:text-lg sm:mb-2 font-bold"
+              >
                 followers
               </label>
 
@@ -960,14 +1050,14 @@ export default function EditMediaKitSocialForm(
                 onKeyPress={validateKeyPressed}
                 value={formik.values.twitterFollowers}
                 disabled={!formik.values.twitterHandle}
-                className="w-[205px] h-12 bg-gray7 border border-gray10 p-2 outline-none"
+                className="w-[150px] sm:w-[205px] h-12 bg-gray7 border border-gray10 p-2 outline-none"
               />
             </div>
           </div>
         </div>
       )}
 
-      <div className="fixed bottom-0 right-0 w-[600px] h-16 bg-gradient-to-t from-black to-black[0] z-30 px-[70px] py-10 flex items-end">
+      <div className="fixed bottom-0 right-0 w-screen sm:w-[600px] h-16 bg-gradient-to-t from-black to-black[0] z-30 px-5 sm:px-[70px] py-10 flex items-end">
         <Button
           text={props.buttonText}
           color="bg-blue"

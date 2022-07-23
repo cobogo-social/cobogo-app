@@ -67,6 +67,15 @@ export default function MediaKitAnalytics(props: MediaKitAnalyticsProps) {
           </div>
         )}
 
+        {props.isOwner && (
+          <div
+            onClick={openEditMediaKitAnalyticsSidebar}
+            className="flex sm:hidden hover:cursor-pointer absolute top-[15px] left-[15px]"
+          >
+            <EditIcon size={20} />
+          </div>
+        )}
+
         <div className="flex flex-col sm:flex-row max-w-[1010px] w-full gap-10 justify-start items-center">
           <Distribution
             percent1={props.audienceGenderDistributionMen}

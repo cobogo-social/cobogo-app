@@ -23,15 +23,13 @@ export default function Button(props: ButtonProps) {
         props.color
       } font-bold ${props.fontSize} ${props.textColor} ${props.borderColor} ${
         props.borderSize
-      } flex justify-center items-center px-[20px] hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-50`}
+      } flex justify-center items-center px-[20px] hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-50 gap-2`}
       onClick={props.onClick}
       onKeyDown={props.onKeyDown}
     >
       {props.text}{' '}
       {props.icon && (
-        <div className="flex ml-1">
-          <Image src={props.icon} width={15} height={15} alt="button icon" />
-        </div>
+        <Image src={props.icon} width={15} height={15} alt="button icon" />
       )}
     </button>
   );
