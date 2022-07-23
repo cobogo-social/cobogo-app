@@ -40,7 +40,17 @@ export default function Services(props: ServicesProps) {
 
         <div className="flex max-w-[1010px] w-full justify-between items-center">
           <div className="flex flex-col justify-between items-start w-full">
-            <p className="text-[22px] mb-6">services offered</p>
+            <p className="text-[22px] mb-6 flex gap-2 items-center">
+              services offered{' '}
+              {props.isOwner && (
+                <div
+                  onClick={openServicesSidebar}
+                  className="flex sm:hidden hover:cursor-pointer"
+                >
+                  <EditIcon size={20} />
+                </div>
+              )}
+            </p>
 
             <div className="flex w-full justify-start gap-5 sm:gap-10 sm:flex-wrap items-center overflow-auto">
               {props.services?.length ? (
